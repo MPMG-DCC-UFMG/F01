@@ -77,7 +77,7 @@ def download_of_each_category(category_name, number_of_pages):
             
             if(page_number > number_of_pages): break
             
-            print('Going to page: ', page_number)
+            #print('Going to page: ', page_number)
             get_new_list(nav, page_number)         
         
         except (NoSuchElementException, StaleElementReferenceException) :
@@ -90,20 +90,20 @@ def main ():
     accept_cookies()
 
     list_of_categories = driver.find_element_by_id('categorias').find_element_by_tag_name('ul')
-    list_of_categories = list_of_categories.find_elements_by_tag_name('a')
+    list_of_categories = list_of_categories.find_elements_by_class_name('nav-header')
     list_of_categories.pop(0)
 
     try: 
         for category in list_of_categories:
             category_name = unidecode(category.text).replace(' ', '')
-            print("oi: ", category.text)
+            print('Processing: ', category.text)
             
             try:
                 category.send_keys(Keys.RETURN) 
                 sleep(1)
-                WebDriverWait(driver, 5).until(EC.text_to_be_present_in_element((By.XPATH, "//div[@id = 'listagem']//h3[1]"), category.text))
+                WebDriverWait(driver, 10).until(EC.text_to_be_present_in_element((By.XPATH, "//div[@id = 'listagem']//h3[1]"), category.text))
                 number_of_pages = math.ceil(int(driver.find_element_by_id('lbl_TotalRegistros').text)/10)
-                print('Number of pages: ', number_of_pages)
+                #print('Number of pages: ', number_of_pages)
                 download_of_each_category(category_name, number_of_pages)
 
             
