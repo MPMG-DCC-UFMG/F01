@@ -54,28 +54,52 @@ class check_page(object):
         if btn.text == str(self.page_number):
             return btn
         else: return False
-         
+
+#Goes to next page
+def get_new_list(page_number):
+    WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "listagem")))
+    sleep(2)
+    nav = driver.find_element_by_id('paginacao')
+    if (page_number - 1) % 10 != 0: 
+        next_page_btn = nav.find_element_by_link_text(str(page_number))
+        print('went to next page')
+    else:
+        next_page_btn = nav.find_element_by_link_text('»')
+
+    next_page_btn.send_keys(Keys.RETURN) 
+
+#Clicks in each element downloading its content
+def process_page():
+    list_of_btns = driver.find_element_by_id('listagem').find_elements_by_tag_name('a')
+    for i in range(len(list_of_btns)):
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "listagem")))
+        list_of_btns = driver.find_element_by_id('listagem').find_elements_by_tag_name('a')
+        driver.execute_script("window.open('" + list_of_btns[i].get_attribute('href') + "');")
+        driver.switch_to.window(driver.window_handles[1])
+
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "lbl_rotuloLocal")))
+        download_file()
+        driver.close()
+        driver.switch_to.window(driver.window_handles[0])
 
 def main ():    
     driver.get(url)
     accept_cookies()
+    number_of_pages = math.ceil(int(driver.find_element_by_id('lbl_TotalRegistros').text)/10)    
+    page_number = 1
+    
     try: 
-        list_of_btns = driver.find_element_by_id('listagem').find_elements_by_tag_name('a')
-        for i in range(len(list_of_btns)):
-            sleep(2)
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.ID, "listagem")))
-            list_of_btns = driver.find_element_by_id('listagem').find_elements_by_tag_name('a')
-
-            list_of_btns[i].send_keys(Keys.RETURN) 
+        while(True):
+            process_page()
+            page_number += 1
+            if(page_number > number_of_pages): break
+            get_new_list(page_number)  
             
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.ID, "lbl_rotuloLocal")))
-            print('Download element', i)
-            download_file()
-            driver.back()
-    except ElementNotInteractableException:
+    except (NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException):
         print('Couldnt open page')
     finally: 
         driver.quit()
+
 main()
+
