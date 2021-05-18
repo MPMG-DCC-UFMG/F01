@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score
@@ -9,14 +11,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.neighbors import KNeighborsClassifier
 
 
 # print(df.describe())
 
 df = pd.read_csv("links.tsv", sep='\t')
-df = df.drop(columns=['Site Prefeitura', 'Site Camara', 'Desenvolvedores', 'Portal da Transparência', 'Url do Link Correto'])
 df['Link Correto'] = df['Link Correto'].replace(['x'], 1)
 df['Link Correto'].fillna(0, inplace=True)
 
@@ -35,11 +36,14 @@ df.loc[:, "dispensa"] = 0
 df.loc[:, "concurso"] = 0
 df.loc[:, "contas públicas"] = 0
 df.loc[:, "obras públicas"] = 0
-df.loc[:, "portal no link"] = 0
+df.loc[:, "portal da transparência"] = 0
+df.loc[:, "transparência"] = 0
+# df.loc[:, "link transparência"] = 0 ######
 
+# df.loc[:, "portal no link"] = 0
 
-targets_for_text = ['plurianual', 'despesas', 'receitas', 'servidores', 'orçamentária', 'licitações', 'contratos', 'inexigibilidade', 'dispensa', 'concurso', 'contas públicas', 'obras públicas']
-not_include = ['403 Forbidden']
+targets_for_text = ['plurianual', 'despesas', 'receitas', 'servidores', 'orçamentária', 'licitações', 'contratos', 'inexigibilidade',
+                    'dispensa', 'concurso', 'contas públicas', 'obras públicas', 'portal da transparência', 'transparência']
 targets = '|'.join(targets_for_text)
 
 def pontuar_texto(text):
@@ -59,98 +63,76 @@ def pontuar_os_municipios():
                     df.loc[count, "consegui_html"] = 0
                 else: 
                     df.loc[count, "consegui_html"] = 1
+
+                portal_estadual = re.findall('portaltransparencia.gov.br', df.loc[count, 'Portal da Transparência'])
+                if portal_estadual:
+                    df.loc[count, "consegui_html"] = None
+
+                # link_transp = re.findall('transparencia|tp|portal-da-transparencia|portal', df.loc[count, 'Portal da Transparência']) 
+                # for palavra in link_transp:
+                #     df.loc[count, "link transparência"] = +1
+                
                 # print(text)
-                palavras = pontuar_texto(text)
-                find_targets =  set(palavras)
+                find_targets = pontuar_texto(text)
                 for palavra in find_targets:
-                    df.loc[count, palavra] = 1
+                    df.loc[count, palavra] += 1
             count += 1
         except:
             count += 1
             continue
 
 
-def Naive_Bayes(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
-    classifier = GaussianNB()
-    classifier.fit(X_train, y_train.ravel())
-    y_pred = classifier.predict(X_test)
-    ac = accuracy_score(y_test, y_pred)
-    print('Naice_Bayes: ', ac)
-
-    # z_pred = classifier.predict(df.iloc[ :, 1:].values)
-    # print (z_pred.tolist().count(0))
-
 def Random_Florest(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
-    classifier = RandomForestClassifier(n_estimators = 10, criterion = 'entropy', random_state = 0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8, random_state = 0)
+    classifier = RandomForestClassifier(n_estimators = 10, criterion = 'gini', random_state = 0)
     classifier.fit(X_train, y_train.ravel())
     y_pred = classifier.predict(X_test)
     ac = accuracy_score(y_test, y_pred)
     print('Random_Florest: ', ac)
+    # cm = confusion_matrix(y_test, y_pred)
+    # print(cm)
 
     # z_pred = classifier.predict(df.iloc[ :, 1:].values)
     # print (z_pred.tolist().count(0))
 
 def Kernel_SVM(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8, random_state = 0)
+
     classifier = SVC(kernel = 'rbf', random_state = 0)
     classifier.fit(X_train, y_train.ravel())
     y_pred = classifier.predict(X_test)
     ac = accuracy_score(y_test, y_pred)
     print('Kernel_SVM: ', ac)
 
-    data = df.dropna(subset=['consegui_html'])
-    z_pred = classifier.predict(data.iloc[ :, 2:].values)
-    print (z_pred.tolist().count(1))
+    # data = df.dropna(subset=['consegui_html'])
+    # z_pred = classifier.predict(data.iloc[ :, 2:].values)
+    # print (z_pred.tolist().count(1))
 
-def SVM(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
-    classifier = SVC(kernel = 'linear', random_state = 0)
-    classifier.fit(X_train, y_train.ravel())
-    y_pred = classifier.predict(X_test)
-    ac = accuracy_score(y_test, y_pred)
-    print('Support Vector Machine(SVM): ', ac)
-
-    # z_pred = classifier.predict(df.iloc[ :, 1:].values)
-    # print (z_pred.tolist().count(0))
-
-
-def Logistic_Regression(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
-    classifier = LogisticRegression(random_state = 0)
-    classifier.fit(X_train, y_train.ravel())
-    y_pred = classifier.predict(X_test)
-    ac = accuracy_score(y_test, y_pred)
-    print('Logistic Regression: ', ac)
-
-    # z_pred = classifier.predict(df.iloc[ :, 1:].values)
-    # print (z_pred.tolist().count(0))
 
 def Decision_Tree_Classification(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
-    classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8, random_state = 0)
+    classifier = DecisionTreeClassifier(criterion = 'gini', random_state = 0)
     classifier.fit(X_train, y_train.ravel())
     y_pred = classifier.predict(X_test)
+    cm = confusion_matrix(y_test, y_pred)
+    print(cm)
+
     ac = accuracy_score(y_test, y_pred)
+
     print('Dec. Tree Class.: ', ac)
 
-    # z_pred = classifier.predict(df.iloc[ :, 1:].values)
-    # print (z_pred.tolist().count(0))
-
-def K_NN(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7, random_state = 0)
-    classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
-    classifier.fit(X_train, y_train.ravel())
-    y_pred = classifier.predict(X_test)
-    ac = accuracy_score(y_test, y_pred)
-    print('K-Nearest Neighbors (K-NN): ', ac)
-
-    # z_pred = classifier.predict(df.iloc[ :, 2:].values)
-    # print (z_pred.tolist().count(0))
-
-
-
+    fn=['consegui_html','plurianual','despesas','receitas','servidores','orçamentária','licitações','contratos',
+        'inexigibilidade','dispensa','concurso','contas públicas','obras públicas','portal da transparência','transparência']
+    fig, axes = plt.subplots(nrows = 1,ncols = 1,figsize = (4,4), dpi=500)
+    plot_tree(classifier,
+            filled = True,
+            feature_names=fn);
+    fig.savefig('imagename.png')
+    data = df
+    data = data.drop(columns=['Site Prefeitura', 'Site Camara', 'Desenvolvedores', 'Portal da Transparência', 'Url do Link Correto'])
+    data = data.dropna(subset=['consegui_html'])
+    z_pred = classifier.predict(data.iloc[ :, 2:].values)
+    print (z_pred.tolist().count(1))
 
 
 def classificar(dataset):
@@ -159,33 +141,18 @@ def classificar(dataset):
     y = dataset.iloc[:, 1:2].values
     dataset.to_csv("data.csv", index = False)
 
-    # Feature Scaling    
-    # sc = StandardScaler() 
-    # X_train = sc.fit_transform(X_train)
-    # X_test = sc.transform(X_test)
-
-    # Random_Florest(X,y)
-    # Naive_Bayes(X,y)
+    Random_Florest(X,y)
     Kernel_SVM(X,y)
-    # SVM(X,y)
-    # Logistic_Regression(X,y)
-    # Decision_Tree_Classification(X,y)
-    # K_NN(X,y)
+    Decision_Tree_Classification(X,y)
 
 
 def main():
     pontuar_os_municipios()
-    dataset = df.loc[ :89, :]
+    dataset = df.loc[ : 301, :]
+    dataset = dataset.drop(columns=['Site Prefeitura', 'Site Camara', 'Desenvolvedores', 'Portal da Transparência', 'Url do Link Correto'])
     dataset = dataset.dropna(subset=['consegui_html'])
     # df = df.dropna(subset=['consegui_html'])
     classificar(dataset)
-
-    # TESTAR ALGUM
-    # with open('portais/839.html', 'r') as arq:
-    #     page = arq.read()
-    #     text = BeautifulSoup(page, "html5lib").get_text().lower()
-    #     print(len(text))
-    # print(df.iloc[ :89, :5])
 
 
 main()
