@@ -14,16 +14,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.neighbors import KNeighborsClassifier
 
-
-# print(df.describe())
-
 df = pd.read_csv("links.tsv", sep='\t')
 df['Link Correto'] = df['Link Correto'].replace(['x'], 1)
 df['Link Correto'].fillna(0, inplace=True)
 
 df.loc[:, "consegui_html"] = None
 
-# df.loc[:, "numero_de_tags"] = 0
 df.loc[:, "plurianual"] = 0
 df.loc[:, "despesas"] = 0
 df.loc[:, "receitas"] = 0
@@ -38,9 +34,6 @@ df.loc[:, "contas públicas"] = 0
 df.loc[:, "obras públicas"] = 0
 df.loc[:, "portal da transparência"] = 0
 df.loc[:, "transparência"] = 0
-# df.loc[:, "link transparência"] = 0 ######
-
-# df.loc[:, "portal no link"] = 0
 
 targets_for_text = ['plurianual', 'despesas', 'receitas', 'servidores', 'orçamentária', 'licitações', 'contratos', 'inexigibilidade',
                     'dispensa', 'concurso', 'contas públicas', 'obras públicas', 'portal da transparência', 'transparência']
@@ -68,11 +61,6 @@ def pontuar_os_municipios():
                 if portal_estadual:
                     df.loc[count, "consegui_html"] = None
 
-                # link_transp = re.findall('transparencia|tp|portal-da-transparencia|portal', df.loc[count, 'Portal da Transparência']) 
-                # for palavra in link_transp:
-                #     df.loc[count, "link transparência"] = +1
-                
-                # print(text)
                 find_targets = pontuar_texto(text)
                 for palavra in find_targets:
                     df.loc[count, palavra] += 1
@@ -82,36 +70,10 @@ def pontuar_os_municipios():
             continue
 
 
-def Random_Florest(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8, random_state = 0)
-    classifier = RandomForestClassifier(n_estimators = 10, criterion = 'gini', random_state = 0)
-    classifier.fit(X_train, y_train.ravel())
-    y_pred = classifier.predict(X_test)
-    ac = accuracy_score(y_test, y_pred)
-    print('Random_Florest: ', ac)
-    # cm = confusion_matrix(y_test, y_pred)
-    # print(cm)
-
-    # z_pred = classifier.predict(df.iloc[ :, 1:].values)
-    # print (z_pred.tolist().count(0))
-
-def Kernel_SVM(X,y):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8, random_state = 0)
-
-    classifier = SVC(kernel = 'rbf', random_state = 0)
-    classifier.fit(X_train, y_train.ravel())
-    y_pred = classifier.predict(X_test)
-    ac = accuracy_score(y_test, y_pred)
-    print('Kernel_SVM: ', ac)
-
-    # data = df.dropna(subset=['consegui_html'])
-    # z_pred = classifier.predict(data.iloc[ :, 2:].values)
-    # print (z_pred.tolist().count(1))
-
 
 def Decision_Tree_Classification(X,y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8, random_state = 0)
-    classifier = DecisionTreeClassifier(criterion = 'gini', random_state = 0)
+    classifier = DecisionTreeClassifier(criterion = 'gini', random_state = 0, min_samples_leaf = 5)
     classifier.fit(X_train, y_train.ravel())
     y_pred = classifier.predict(X_test)
     cm = confusion_matrix(y_test, y_pred)
@@ -141,18 +103,16 @@ def classificar(dataset):
     y = dataset.iloc[:, 1:2].values
     dataset.to_csv("data.csv", index = False)
 
-    Random_Florest(X,y)
-    Kernel_SVM(X,y)
-    Decision_Tree_Classification(X,y)
+    Decision_Tree_Classification(X,y)   
 
 
 def main():
     pontuar_os_municipios()
     dataset = df.loc[ : 301, :]
+
     dataset = dataset.drop(columns=['Site Prefeitura', 'Site Camara', 'Desenvolvedores', 'Portal da Transparência', 'Url do Link Correto'])
     dataset = dataset.dropna(subset=['consegui_html'])
-    # df = df.dropna(subset=['consegui_html'])
-    classificar(dataset)
 
+    classificar(dataset)
 
 main()
