@@ -5,7 +5,7 @@ from datetime import datetime
 
 def convert_date(df, column_name):
     
-    df[column_name] = pd.to_datetime(df[column_name], errors='coerce')
+    df[column_name] = pd.to_datetime(df[column_name], errors='coerce', dayfirst=True)
     
     return df
 
