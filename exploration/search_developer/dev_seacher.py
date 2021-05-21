@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import pandas as pd
-import requests
+import requests 
 import re
 from bs4 import BeautifulSoup
 from time import sleep
@@ -18,6 +18,7 @@ targets_for_text = ['Portal Fácil','ABO-MG','GOVBR TB','RKM SISTEMAS','Betha','
                     'ADPM','DEC Soluções Digitais','Instar Tecnologia','CONECT BR TECNOLOGIA LTDA.','Vitória Tecnologia Ltda','W8 Serviços e Tecnologia Web','Município Web','Masterix Sistemas']
 targets_for_link = ['http://www.portalfacil.com.br','https://www.abominas.org.br/','https://rkms.com.br/','http://www.conam.com.br/']
 targets_for_split = ['portaltp','betha','memory','portalcidadao','horusdm','siplanweb']
+targets_for_new_devs=['Todos os Direitos Reservados.','Todos os Direitos','Desenvolvido por','Copyright']
 
 headers = {
     'Accept-Encoding': 'gzip, deflate, sdch',
@@ -34,13 +35,13 @@ def encontrar_provedor(pagina):
   for x in lista:
     if x in targets_for_split:
       print(x)
-      return
+      return x
   for y in lista:
     lista2 = y.split('/')
   for z in lista2:
     if z in targets_for_split:
       print("grp")
-      return
+      return "grp"
   max_retries = 1
   retries = max_retries
   while (retries):
@@ -49,22 +50,48 @@ def encontrar_provedor(pagina):
       sleep(1)
       page = requests.get(pagina,headers=headers)
       soup = BeautifulSoup(page.content,"html5lib")
-      for searched_word in targets_for_text:
-        results = soup.body.find_all(string=re.compile('.*{0}.*'.format(searched_word)), recursive=True)
-        if len(results) != 0:
-            print(f'{searched_word.lower()}')
-            return
+      if soup.body is not None:
+        for searched_word in targets_for_text:
+          results = soup.body.findAll(string=re.compile('.*{0}.*'.format(searched_word)), recursive=True)
+          if len(results) != 0:
+              print(f'{searched_word.lower()}')
+              return searched_word.lower()
       links = soup.findAll("a")
       for link in links:
         if link.get('href') in targets_for_link:
           print(link.get('href'))
-          return
+          return link.get('href')
+      if soup.body is not None:
+        for searched_word in targets_for_new_devs:
+          results = soup.body.findAll(string=re.compile('.*{0}.*'.format(searched_word)), recursive=True)
+          for element in results:
+            next_element = element.findNext()
+            element1  = element.replace(" ", "")
+            if len(element1) > len(searched_word) + 4:
+              print(element)
+              return element
+            elif next_element.get("href") is not None:
+              print(next_element.get("href"))
+              return next_element.get("href")
+            elif next_element.get_text() is not None:
+              print(next_element.get_text())
+              return next_element.get_text()
       print("N/A")
+      return "N/A"
     except (requests.exceptions.ConnectionError, requests.exceptions.Timeout, requests.exceptions.TooManyRedirects, TimeoutError):
       print("Failed to connect to ", pagina, ". Attempt:", max_retries - retries, " of ", max_retries)
     else:
       break
 
-dataset = pd.read_table("/content/links.tsv")
-for link in dataset["links"]:
-  encontrar_provedor(link);
+df = pd.read_table("/content/links.tsv")
+for index, row in df.iterrows():
+  if pd.notnull(row['Url do Link Correto']):
+    row['Desenvolvedores'] = encontrar_provedor(row['Url do Link Correto'])
+  else:
+    row['Desenvolvedores'] = encontrar_provedor(row['Portal da Transparência'])
+
+for index, row in df.iterrows():
+  if row['Desenvolvedores'] == 'http://www.portalfacil.com.br':
+    row['Desenvolvedores'] = 'portal fácil'
+
+df.to_csv('data.csv',index = False)
