@@ -49,5 +49,6 @@ def main():
     intersection = pd.merge(dados_portal, dados_api, how ='inner', on =['Fornecedor', 'Valor', 'Data'])
     print(intersection)
     print('Size of intersecion: ', len(intersection.index), ' Percentage of intersection/api data: ', len(intersection.index)/len(dados_api.index))
+    print('Diff: ', max(len(dados_portal), len(dados_api)) - len(intersection))
     
 main()
