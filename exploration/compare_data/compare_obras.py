@@ -55,6 +55,7 @@ def main():
     dados_api = format_api_df(dados_api)
 
     intersection = pd.merge(dados_portal, dados_api, how ='inner', on = ['Nome', 'Tipo', 'Situacao', 'Data Inicio', 'Data Termino'])
+    print(intersection)
     print('Size of intersecion: ', len(intersection), ' Percentage of intersection/api data: ', len(intersection)/len(dados_api))
     print('Diff: ', max(len(dados_portal), len(dados_api)) - len(intersection))
 main()
