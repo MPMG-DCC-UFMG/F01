@@ -76,7 +76,7 @@ def process_page(page_number):
             btn.send_keys(Keys.RETURN)
             try:
                 sleep(1)
-                modal = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'modal fade in fv-modal-stack')]")))
+                modal = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'modal fade in fv-modal-stack')]"))).find_element_by_class_name('modal-content')
                 html += modal.get_attribute('innerHTML')
                 close_btn = WebDriverWait(modal, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "close")))
                 close_btn.click()
@@ -90,7 +90,7 @@ def process_page(page_number):
             print('Couldnt open modal')
         
         finally:
-            html += '</div> \n' 
+            html += '</div>' 
     
     download_file(page_number, html)
         
