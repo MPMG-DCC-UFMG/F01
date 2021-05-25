@@ -157,6 +157,7 @@ def plot_dtc(classifier, feature_names):
             feature_names=feature_names);
     fig.savefig('imagename.png')
 
+    return y_test, y_pred
 
 def cross_validation(model, X_train, y_train):
     

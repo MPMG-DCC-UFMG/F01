@@ -1,11 +1,11 @@
 #Script that iterates through each page and renders all ajax and js elements. Then the DOM for each page is downloaded in an HTML file.
 import math
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-
 from time import sleep
 
 PATH = "C:\Program Files (x86)\geckodriver.exe"
@@ -13,10 +13,9 @@ driver = webdriver.Firefox(executable_path = PATH)
 
 
 #Funciona para Contas Públicas, Estagiários e Concursos Públicos
-url_contas = "https://transparencia.valadares.mg.gov.br/contas-publicas"
+url = "https://transparencia.valadares.mg.gov.br/diario-eletronico"
+directory = 'Governador Valadares/diario_eletronico/'
 
-directory = 'Governador Valadares/contas-publicas/'
-url = url_contas
 
 
 def accept_cookies():
@@ -32,7 +31,7 @@ def accept_cookies():
 
 #Function that gets all rendered DOM and downloads it
 def download_file(page_number):
-    html = driver.find_element_by_id('lista_resultados').get_attribute('innerHTML')
+    html = driver.find_element_by_id('listagem').get_attribute('innerHTML')
     filename = directory + str(page_number) + '.html'
     with open(filename,'w',encoding = 'utf-8') as f:
         f.write(html)
@@ -67,8 +66,8 @@ def main ():
         while(True):
             print('Verificando se estamos na página: ', page_number)            
             nav = driver.find_element_by_class_name('pagination-content')             
-            element = WebDriverWait(driver, 10).until(check_page(nav, page_number))
-            sleep(2)
+            WebDriverWait(driver, 10).until(check_page(nav, page_number))
+            sleep(1)
             download_file(page_number)
             page_number += 1
             if(page_number >= number_of_pages): 
