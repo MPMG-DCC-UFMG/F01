@@ -8,21 +8,31 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from time import sleep
 
-PATH = "C:\Program Files (x86)\chromedriver.exe"
-options = webdriver.ChromeOptions()
-options.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = webdriver.Chrome(PATH,options=options)
+PATH = "C:\Program Files (x86)\geckodriver.exe"
+driver = webdriver.Firefox(executable_path = PATH)
 
 
 #Funciona para Contas Públicas, Estagiários e Concursos Públicos
 url_contas = "https://transparencia.valadares.mg.gov.br/contas-publicas"
 
-directory = 'contas_publicas/contas_publicas'
+directory = 'Governador Valadares/contas-publicas/'
 url = url_contas
+
+
+def accept_cookies():
+    try:
+        # element = EC.presence_of_element_located((By.ID, 'cookieConsent'))
+        element = EC.element_to_be_clickable((By.ID, 'cookieConsent'))
+        WebDriverWait(driver, 5).until(element)
+        driver.find_element_by_xpath('//*[@id="closeCookieConsent"]').click()
+        print("Cookies Accept")
+        sleep(2)
+    except:
+        driver.quit()
 
 #Function that gets all rendered DOM and downloads it
 def download_file(page_number):
-    html = driver.find_element_by_tag_name('html').get_attribute('innerHTML')
+    html = driver.find_element_by_id('lista_resultados').get_attribute('innerHTML')
     filename = directory + str(page_number) + '.html'
     with open(filename,'w',encoding = 'utf-8') as f:
         f.write(html)
@@ -50,6 +60,7 @@ class check_page(object):
 
 def main ():    
     driver.get(url)
+    accept_cookies()
     page_number = 1
     number_of_pages = math.ceil(int(driver.find_element_by_id('lbl_TotalRegistros').text)/10)
     try: 
