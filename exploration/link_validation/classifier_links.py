@@ -19,6 +19,8 @@ from sklearn import model_selection
 
 from imblearn.under_sampling import RandomUnderSampler
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 import nltk
 nltk.download('stopwords')
 nltk.download('rslp')
@@ -201,7 +203,7 @@ def grid_search(parameters, model, X_train, y_train):
 
 def randomized_search (parameters, model, X_train, y_train):
     
-    rsearch = RandomizedSearchCV(estimator=model, param_distributions=parameters, n_iter=100)
+    rsearch = RandomizedSearchCV(estimator=model, param_distributions=parameters, n_iter=100, random_state=42)
     rsearch.fit(X_train, y_train.ravel())
     
     return rsearch
@@ -224,6 +226,14 @@ def test_parameters(X_train, y_train, classifier, parameters, search_model='rsea
         print(search.best_score_)
     
     return search
+
+
+def tf_idf(X):
+    
+    tfidf =TfidfTransformer(norm=u'l2', use_idf=True, smooth_idf=True, sublinear_tf=False)
+    data =tfidf.fit_transform(X)
+    
+    return data.todense()
 
 
 def save_results(dtc):
@@ -254,10 +264,13 @@ def main_dtc(verbose=True):
     X = df.iloc[:, 2:].values
     y = df.iloc[:, 1:2].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    X = tf_idf(X)
     
-    rus = RandomUnderSampler()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=43)
+    print(len(X_train))
+    rus = RandomUnderSampler(random_state=42)
     X_train, y_train = rus.fit_resample(X_train, y_train)
+    print(len(X_train))
     
     model = DecisionTreeClassifier()
 
@@ -272,7 +285,7 @@ def main_dtc(verbose=True):
 
     dtc = fit_dtc(
         X_train, y_train, criterion=rsearch.best_estimator_.criterion,
-        splitter=rsearch.best_estimator_.splitter, min_samples_leaf=10,
+        splitter=rsearch.best_estimator_.splitter, min_samples_leaf=rsearch.best_estimator_.min_samples_leaf,
         min_samples_split=rsearch.best_estimator_.min_samples_split,
         max_depth=rsearch.best_estimator_.max_depth)
     
