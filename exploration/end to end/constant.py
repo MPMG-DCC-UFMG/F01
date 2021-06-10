@@ -4,6 +4,13 @@ CONCURSO_PUBLICO = ['Concursos Públicos']
 DIARIA_VIAGEM = ['Despesas por Diárias']
 URL = 'https://transparencia.valadares.mg.gov.br/'
 
+#Ferramenta de Busca
+SEARCH_TOOL = {
+    'name':['search', 'buscar', 'busca'],
+    'id' :['search', 'buscar', 'busca'],
+    'class' :['search', 'form-control'],
+    'value' :['palavra-chave', 'pesquis', 'Busqu']
+    }
 
 #Concurso Publico
 CHECKLIST_CONCURSO_SEARCH = {
