@@ -5,7 +5,8 @@ DIARIA_VIAGEM = ['Despesas por Diárias']
 CONTRATOS = ['Contratos e Aditivos', 'Contratos', 'CONTRATOS', 'contratos']
 ORDENAR = ['ordenar', 'Ordenar', 'ordernar por', 'Ordenar Por', 'Ordenar por']
 URL = 'https://transparencia.valadares.mg.gov.br/'
-
+FAQ = ['Faq', 'FAQ', 'Faq']
+FAQ_SEARCH = ['Perguntas Frequentes', 'perguntas frequentes', 'Perguntas', 'perguntas']
 #Ferramenta de Busca
 SEARCH_TOOL = {
     'name':['search', 'buscar', 'busca'],
@@ -13,7 +14,6 @@ SEARCH_TOOL = {
     'class' :['search', 'form-control'],
     'value' :['palavra-chave', 'pesquis', 'Busqu']
     }
-
 
 #Concurso Publico
 CHECKLIST_CONCURSO_SEARCH = {
