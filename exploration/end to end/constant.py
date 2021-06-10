@@ -2,7 +2,10 @@ LEGISLACAO_MUNICIPAL = ['Legislação Municipal', 'Regulamentação Municipal']
 ORGANIZACAO = ['Estrutura Organizacional', 'estrutura organizacional', 'ESTRUTURA ORGANIZACIONAL', 'Organograma', 'Estrutura Administrativa']
 CONCURSO_PUBLICO = ['Concursos Públicos']
 DIARIA_VIAGEM = ['Despesas por Diárias']
+CONTRATOS = ['Contratos e Aditivos', 'Contratos', 'CONTRATOS', 'contratos']
+ORDENAR = ['ordenar', 'Ordenar', 'ordernar por', 'Ordenar Por', 'Ordenar por']
 URL = 'https://transparencia.valadares.mg.gov.br/'
+
 
 
 #Concurso Publico
@@ -25,4 +28,10 @@ CHECKLIST_VIAGEM_SEARCH = {
     'num_diarias':['Número de Diárias'],
     'valor_total':['Valor'],
     'base_legal':['Base Legal']
+}
+#Legislação
+CHECKLIST_CONTRATOS = {
+    'registro': [],
+    'desc_objeto' : ['Objeto'],
+    'licitacao_origem' : ['Licitação'],
 }
