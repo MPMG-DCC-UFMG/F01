@@ -29,7 +29,7 @@ def main():
     filename = './Governador Valadares/faq/perguntas_frequentes.html'
     markup = BeautifulSoup(codecs.open(filename, 'r', 'utf-8').read(),  "html.parser" )
     ans, questions = predict(markup)
-    print(ans is not None)
+    print(ans is not None and questions is not None)
     explain(ans, macro, questions)
 
 main()
