@@ -48,3 +48,8 @@ LEIS_ORCAMENTARIAS = {
     'LEI_ORCAMENTARIA': ['Lei Orçamentária Anual','LOA - Lei Orçamentária Anual'],
     'LEI_DIRETRIZES':['Lei de Diretrizes Orçamentárias','LDO - Lei de Diretrizes Orçamentárias']
 }
+
+CONTACT = ['Telefone']
+
+
+
