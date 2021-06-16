@@ -51,5 +51,10 @@ LEIS_ORCAMENTARIAS = {
 
 CONTACT = ['Telefone']
 
+DESPESAS = {
+    'descricao' : ["Favorecido", "Unidade", "Fornecedor","Ação", "Descrição", 'Tipo'],
+    'valor' : ['Empenhado', 'Liquidado', 'Pago', "Valor Empenhado", "Valor Liquidado", "Valor Pago"]
+}
+
 
 
