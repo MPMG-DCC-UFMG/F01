@@ -9,7 +9,6 @@ def validate_item(url):
     if os.path.exists('./Governador Valadares/' + dir):
         return True
     try:
-        if (constant.URL not in url): url = constant.URL + url
         request = requests.get(url)
         print('Trying to reach ', url)
         if request.status_code < 400:  return True
@@ -29,7 +28,6 @@ def search_checklist_item(markup, search):
 def main():
     file = codecs.open('Governador Valadares/home/home.html', 'r', 'utf-8')    
     html = BeautifulSoup(file.read(),  "html.parser" )
-    print(search_checklist_item(html, constant.ORGANIZACAO))
     print(search_checklist_item(html, constant.LEGISLACAO_MUNICIPAL))
 
 main()
