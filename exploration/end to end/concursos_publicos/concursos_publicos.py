@@ -59,7 +59,8 @@ def main():
     html = BeautifulSoup(file.read(),  "html.parser" )
     
     for elem in html.find_all(href=True):
-        for s in html, constant.CONCURSO_PUBLICO: 
-            if s in elem.getText() and validate_items(elem['href']): return True
+        for s in html: 
+            if s in constant.CONCURSO_PUBLICO: 
+                if s in elem.getText() and validate_items(elem['href']): return True
 
 main()
