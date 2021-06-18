@@ -126,6 +126,30 @@ def check_year(ano):
         return False
     return True
 
+def check_competencia(date):
+    """
+    Check if the string is a valid date with MM/YY
+    Parameters
+    ----------
+    date : string
+        String containing a date MM/YY
+        
+    Returns
+    -------
+    Boolean
+        If date is valid, return true else false.
+    """
+    
+    splitter = search_splitter(date)
+    month, year = date.split(splitter)
+    day = 1
+
+    try :
+        datetime.datetime(int(year),int(month),int(day))
+    except ValueError :
+        return False
+    
+    return True
 
 def check_name(name):
     """
