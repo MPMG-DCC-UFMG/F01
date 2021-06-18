@@ -47,8 +47,8 @@ def get_all_filenames_in_dir(dir):
     return f
 
 #iterates through files 
-def predict(url):
-    dir = './Governador Valadares/' + convert_url_to_dir(url)
+def predict(urls):
+    dir = './Governador Valadares/' + convert_url_to_dir(urls)
     if os.path.exists(dir):
         filenames = get_all_filenames_in_dir(dir)
         html = BeautifulSoup(codecs.open('./Governador Valadares/' + dir + filenames[0], 'r', 'utf-8').read(),  "html.parser" )
@@ -67,9 +67,14 @@ def explain():
 def main():
     file = codecs.open('Governador Valadares/home/home.html', 'r', 'utf-8')    
     html = BeautifulSoup(file.read(),  "html.parser" )
+    possible_urls = []
+    
     for elem in html.find_all(href=True):
         for s in constant.DIARIA_VIAGEM: 
-            if s in elem.getText() and predict(elem['href']): return True
+            if s in elem.getText():
+                possible_urls.append(elem['href'])
+            
+    predict(possible_urls)
 
     explain()
 main()
