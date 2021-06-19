@@ -1,12 +1,11 @@
-import codecs
-import os
-import requests
-import constant
-from os import walk
+import os, sys, requests, codecs, constant, unidecode, re, math
+import pandas as pd
+sys.path.insert(1, '../')
+
+from utils import table_to_csv
 from bs4 import BeautifulSoup
 
 checklist_viagens = {
-    'publicacao_informacoes': False,
     'nome':False,
     'cargo':False,
     'destino':False,
@@ -16,56 +15,37 @@ checklist_viagens = {
     'valor_total':False,
     'base_legal':False
 }
-#Transforms url extracted in html to dir where the respective html of the link page is
-def convert_url_to_dir(url): #still needs solution
-    #return url.replace(constant.URL, '')
-    return 'despesas-por-diarias/'
 
-def validate_item(headers, key, search):
-    for s in search: 
-        if next((header for header in headers if s in header.getText()), None): 
-            checklist_viagens[key] = s
+expected_type = {
+    'nome':'str',
+    'cargo':'str',
+    'destino':'str',
+    'atividade':'str',
+    'periodo':'str',
+    'num_diarias':'int',
+    'valor_total':'int',
+    'base_legal':'str'
+}
 
-#Search for checklist atributes in correct page  
-def search_in_dump(markup):
-    headers = markup.find('thead').find_all('th')
-    if(markup.find('table').find('summary')):
-        table_summary = markup.find('table').find('summary').getText() 
-        if(table_summary in constant.CHECKLIST_VIAGEM_SEARCH['publicacao_informacoes']): checklist_viagens['publicacao_informacoes'] = table_summary
-
-    if markup.find('tbody').find_all('tr'): #if theres any rows in table
-        for key in checklist_viagens.keys():
-            validate_item(headers, key, constant.CHECKLIST_VIAGEM_SEARCH[key])
-
-
-#Returns all files that correspond to checklist item       
-def get_all_filenames_in_dir(dir):
-    f = []
-    for (dirpath, dirnames, filenames) in walk(dir):
-        f.extend(filenames)
-        break
-    return f
+path = "../../../../Governador Valadares"
+folder = 'despesas-por-diarias'
+home_dir = "/home/home.html"
 
 #iterates through files 
-def predict(urls):
-    dir = './Governador Valadares/' + convert_url_to_dir(urls)
-    if os.path.exists(dir):
-        filenames = get_all_filenames_in_dir(dir)
-        html = BeautifulSoup(codecs.open('./Governador Valadares/' + dir + filenames[0], 'r', 'utf-8').read(),  "html.parser" )
-        search_in_dump(html)    
+def predict(df):
+    for header in df.head(): #for each header
+        for item in constant.CHECKLIST_VIAGEM_SEARCH: #search for each checklist item
+            for key in constant.CHECKLIST_VIAGEM_SEARCH[item]: # search for key word
+                if key in unidecode.unidecode(header).lower():  #if key word is in header
+                    if(expected_type[item] == 'int'):
+                        new_list = [ l for l in df[header] if ((not pd.isnull(l)) and any(c.isdigit() for c in l))]
+                        checklist_viagens[item] = [header, len(new_list)]   
+                    else:    
+                        new_list = [l for l in df[header] if (not pd.isnull(l))]
+                        checklist_viagens[item] = [header, len(new_list)]
 
-def explain():
-   print("\n")
-   for key in checklist_viagens.keys():
-        if checklist_viagens[key]:
-           print("Foi encontrada a seguinte coluna para", key, ":", checklist_viagens[key])
-        else: 
-           print("Não foi encontrada nenhuma referência a", key)
-   print("\n")
-
-
-def main():
-    file = codecs.open('Governador Valadares/home/home.html', 'r', 'utf-8')    
+def get_possible_urls():
+    file = codecs.open(path + home_dir, 'r', 'utf-8')    
     html = BeautifulSoup(file.read(),  "html.parser" )
     possible_urls = []
     
@@ -73,8 +53,29 @@ def main():
         for s in constant.DIARIA_VIAGEM: 
             if s in elem.getText():
                 possible_urls.append(elem['href'])
-            
-    predict(possible_urls)
+    return possible_urls
 
-    explain()
+def explain(len_df):
+   print("\n")
+   for key in checklist_viagens.keys():
+        if checklist_viagens[key]:
+            print("Foi encontrada a seguinte coluna para", key, ":", checklist_viagens[key][0], "e", round(100* checklist_viagens[key][1]/len_df, 2), "% da coluna está preenchida.")
+        else: 
+           print("Não foi encontrada nenhuma referência a", key)
+   print("\n")
+
+def main():
+    
+    possible_urls = get_possible_urls()
+    len_df = float('inf')
+    if(possible_urls):    
+        all_files = os.listdir("{}/{}".format(path, folder))
+        df = table_to_csv.convert(all_files, path, folder)
+        len_df = df.shape[0]
+        predict(df)
+
+    explain(len_df)
+
 main()
+
+
