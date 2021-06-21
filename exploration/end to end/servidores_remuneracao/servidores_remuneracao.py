@@ -13,6 +13,9 @@ warnings.filterwarnings("ignore")
 
 path = "./Governador Valadares/API/recursos-humanos/servidores/servidores.csv"
 
+def explain(data):
+    print("O Validador analisou as colunas com tipos chaves",data,
+        "\n O valor de retorno é True se as colunas possuem conteúdos validos e False caso contrário.")
 
 def get_folders(name, folders):
     
@@ -85,10 +88,9 @@ def main_pagamentos():
         df, date_isvalid = check_all_competencia(df, column='DtCompetencia')
 
     data = {"date": date_isvalid, 'value': value_isvalid, 'description': description_isvalid}
-
     aux = pd.DataFrame(list(data.items()))
     result = pd.concat([aux.drop([1], axis=1), aux[1].apply(pd.Series)], axis=1)
-    
+    explain(data)
     return result
 
 
