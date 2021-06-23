@@ -10,7 +10,6 @@ contato = {
     'search_telephone_number': False,
 }
 
-
 def search_telephone_number(markup_html):
     text = markup_html.getText()
 
@@ -50,7 +49,7 @@ def explain():
         print("Não foi encontrado informações na tag <address> um valor textual das seguintes palavras chave")
     print("\n")
 
-def predict():
+def predict_contato():
     for key in contato.keys():
         if contato[key]: return True
     return False
@@ -71,7 +70,9 @@ def main():
     contato["search_telephone_number"] = search_telephone_number(html)
     print("search_telephone_number: ", search_telephone_number(html))
 
-    print(predict())
+    predict = predict_contato()
+
+    print("Predict: ",predict, "\n")
 
     explain()
 
