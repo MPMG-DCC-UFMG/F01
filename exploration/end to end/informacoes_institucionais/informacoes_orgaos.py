@@ -15,7 +15,9 @@ num_orgao = {
         'horário_atendimento':0,
         'competência':0
     }
-
+def explain():
+    print("O validador procura por todos os Órgãos e retorna a porcentagem de",checklist_info_institucionais.keys(),"presente na URL para cada Órgão.")
+    
 def count_orgao(Unidades,Endereco_Telefone,Horario,Competencia):
     if len(Unidades.getText()) > 5:
         num_orgao['Unidades'] = num_orgao['Unidades'] + 1
@@ -48,5 +50,6 @@ def main():
     html = BeautifulSoup(file.read(), "html.parser")
     for elem in html.find_all(class_="divDadosUnidade"):
         get_children_classes(elem)
+    explain()
     calculate_percentage()
 main()

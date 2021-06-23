@@ -5,7 +5,7 @@ import os
 
 def read_content(path, folder, file):
     
-    page = open("{}/{}/{}".format(path, folder, file)).read()
+    page = open("{}/{}/{}".format(path, folder, file), encoding="utf8").read()
     soup = BeautifulSoup(page, features="lxml")
     
     return soup

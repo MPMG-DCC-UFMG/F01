@@ -3,7 +3,16 @@ import constant
 from bs4 import BeautifulSoup
 import re
 
-def search_checklist_item(markup, search):
+search_tool = {
+    'value': False 
+}
+
+def explain():
+    if search_tool: print("Foi encontrado um 'input' do tipo texto com algum dos seus atributos com um dos radicais: 'busc', 'pesquis'. Ou a palavra 'search'")
+    else: print ("Não foi encontrado um 'input' do tipo texto com algum dos seus atributos com um dos radicais: 'busc', 'pesquis'. Ou a palavra 'search'")
+def predict_search_tool(markup):
+
+    search = constant.SEARCH_TOOL
 
     # Search for all inputs none hidden
     for elem in markup.find_all("input", attrs={"type": "text"}):
@@ -30,22 +39,21 @@ def search_checklist_item(markup, search):
        
 def validade_atribute_name(elem, search):
  
-    for s in search["name"]: 
+    for s in search["value"]: 
         p = re.compile(f'.*{s}.*')
         if p.match(elem): return True
 
 def validade_atribute_id(elem, search):
 
-    for s in search["id"]: 
+    for s in search["value"]: 
         p = re.compile(f'.*{s}.*')
         if p.match(elem): return True
 
 def validade_atribute_class(elem, search):
 
-    for s in search["class"]: 
+    for s in search["value"]: 
         p = re.compile(f'.*{s}.*')
         if p.match(elem): return True
- 
 
 def validade_atribute_value(elem, search):
 
@@ -53,9 +61,14 @@ def validade_atribute_value(elem, search):
         p = re.compile(f'.*{s}.*')
         if p.match(elem): return True
 
+
 def main():
     file = codecs.open('Governador Valadares/home/home.html', 'r', 'utf-8')    
     html = BeautifulSoup(file.read(),  "html.parser" )
-    print(search_checklist_item(html, constant.SEARCH_TOOL))
+
+    predict = predict_search_tool(html)
+    print("Predict: ",predict, "\n")
+
+    explain()
 
 main()
