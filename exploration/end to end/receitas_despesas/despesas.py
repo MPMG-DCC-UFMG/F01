@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# +
+
 import os
 import pandas as pd
 import numpy as np
@@ -7,7 +7,6 @@ import datetime
 
 import sys
 sys.path.insert(1, '../')
-# -
 
 from utils import table_to_csv
 from utils.preprocess import format_values
