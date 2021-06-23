@@ -18,7 +18,7 @@ def get_macro(item_text):
 
     return macro
 
-def predict(macro):
+def predict_link_portal(macro):
 
     if macro is not None:
         items['URL_PORTAL'] = True
@@ -32,9 +32,12 @@ def predict(macro):
         
         if tag_grandparent.find(class_= re.compile("(?:.*sidebar.*|.*navbar.*|.*menu.*)")):
             items['ABA_NO_MENU'] = True
+            return True
 
         if tag_grandparent.find(id= re.compile("(?:.*sidebar.*|.*navbar.*|.*menu.*)")):
             items['ABA_NO_MENU'] = True
+            return True
+    return False
 
 
 def explain(items_explain):
@@ -54,8 +57,11 @@ def explain(items_explain):
 def main():
     item_text = constant.ABA_TRANSPARENCIA
     macro = get_macro(item_text)
-    predict(macro)
+
+    predict = predict_link_portal(macro)
+
+    print("Predict: ",predict ,"\n")
     explain(items)
-    print(items)
+    # print(items)
 
 main()

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# +
+
 import os
 import pandas as pd
 import numpy as np
@@ -7,7 +7,6 @@ import datetime
 
 import sys
 sys.path.insert(1, '../')
-# -
 
 from utils import table_to_csv
 from utils.preprocess import format_values
@@ -73,22 +72,23 @@ def check_all_year(df, column="Ano"):
     return df, df[column + '_isvalid'].all()
 
 
-def main_despesas():
+def check(folders, path, verbose=False):
+    
+    if verbose:
+        print("Check Values")
     
     data = {}
-
-    folders = os.listdir(path)
-    folders = get_folders("despesa", folders)
-
+    
     for folder in folders:
-
-        print(folder)
-
+    
+        if verbose:
+            print('-- {}'.format(folder))
+            
         all_files = os.listdir("{}/{}".format(path, folder))
         df = table_to_csv.convert(all_files, path, folder)
 
         df = df.loc[df[df.columns[0]] != "Total página Total geral"]
-
+        
         if 'Data' in df.columns:
             df, date_isvalid = check_all_dates(df, column='Data')
         elif 'Ano' in df.columns:
@@ -96,15 +96,54 @@ def main_despesas():
 
         df, value_isvalid = check_all_values(df, columns_name=constant.DESPESAS['valor'])
         df, description_isvalid = check_all_description(df, columns_name=constant.DESPESAS['descricao'])
-
+        
         data[folder] = {"date": date_isvalid, 'value': value_isvalid, 'description': description_isvalid}
-
+        
     aux = pd.DataFrame(list(data.items()))
     result = pd.concat([aux.drop([1], axis=1), aux[1].apply(pd.Series)], axis=1)
     
     return result
 
 
-df = main_despesas()
+def search(path, keyword='despesa', verbose=False):
+    
+    if verbose:
+        print("Search")
+    
+    folders = os.listdir(path)
+    folders = get_folders(keyword, folders)
+    
+    return folders
 
-df
+
+def predict(path, keyword='despesa', verbose=False): 
+    
+    
+    folders = search(path, keyword=keyword)
+    df = check(folders, path, verbose)
+    
+    if verbose:
+        print("Predict")
+    
+    prediction = df.date.all() and df.value.all()and df.description.all()
+        
+    return prediction, df
+
+
+def explain(df):
+    
+    print("Os seguintes arquivos foram verificados:")
+    for index, row in df.iterrows():
+        print("{}:\n data: {}, valor: {}, descrição: {}".format(row[0], 
+                                                                row['date'],
+                                                                row['value'],
+                                                                row['description']))
+
+
+def main_despesas(keyword='despesa', verbose=True):
+    
+    prediction, df = predict(path, keyword=keyword, verbose=verbose)
+    explain(df)
+
+
+main_despesas(verbose=True)
