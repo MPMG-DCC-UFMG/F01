@@ -1,4 +1,4 @@
-# Indexing Enviroment
+# Indexing Environment
 
 ## Tools nedded:
 * [Current Version of JDK](https://www.oracle.com/br/java/technologies/javase/javase-jdk8-downloads.html) 
@@ -6,24 +6,24 @@
 * [Kibana](https://www.elastic.co/guide/en/kibana/current/install.html)
 * [Elastic Search](https://www.elastic.co/pt/downloads/elasticsearch)
 
-## Running Elastic Search:
+## Executing Elastic Search:
 
-Go to elasticsearch-7.13.2\config\elasticsearch.yml and uncomment cluster.name and node.name. Name your node with a meaningfull name, job_name. The cluster name is up to your imagination, I named mine givanildo_hulk_paraiba. 
+Go to **elasticsearch-7.13.2\config\elasticsearch.yml** and uncomment *cluster.name* and *node.name*. Name your node with a meaningful name, *job_name*. The cluster name is up to your imagination, I named mine givanildo_hulk_paraiba. 
 
 Inside the ElasticSearch folder run 
 ````bash
 bin\elasticsearch.bat
 ````
-To verify if elastic search is running, navigate to http://localhost:9200 
+To verify if Elastic Search is running, navigate to http://localhost:9200 
 <!--  -->
-## Running Kibana
+## Executing Kibana
 Inside the Kibana folder run 
 ````bash
 bin\kibana.bat
 ````
-To verify if kibana is running, navigate to http://localhost:5601/app/home
+To verify if Kibana is running, navigate to http://localhost:5601/app/home
 
-## Running Fscrawler
+## Executing Fscrawler
 Inside the Fscrawler folder run 
 ````bash
 bin\fscrawler job_name
@@ -32,14 +32,14 @@ bin\fscrawler job_name
 job [job_name] does not exist
 Do you want to create it (Y/N)? Y
 ````
-Go to C:\Users\user\.fscrawler\job_name\_settings.yaml and change the url attribute to the path where the dump is. Then run fscrawler again.
+Go to **C:\Users\user\.fscrawler\job_name\_settings.yaml** and change the *url* attribute to the path where the dump is. Then run Fscrawler again.
 
 ````bash
 bin\fscrawler job_name
 ````
 
 ## Indexing Files
-While ElasticSearch, Kibana and Fscrawler are running, execute indexing.py in another cmd tab, remember to change PATH in indexing.py so that the dir contains the ElasticSearch folder, for instance mine was:
+While ElasticSearch, Kibana and Fscrawler are running, execute *indexing.py* in another cmd tab, remember to change *PATH* in *indexing.py* so that the dir contains the ElasticSearch folder, for instance mine was:
 
 ````bash
 PATH = 'C:\\Users\\ritar\\Desktop\\SearchEngine\\'
