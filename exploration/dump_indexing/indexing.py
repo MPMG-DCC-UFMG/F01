@@ -2,12 +2,13 @@ from elasticsearch import Elasticsearch
 import os
 
 PATH = 'C:\\Users\\ritar\\Desktop\\SearchEngine\\'
+job_name = "dump"
 os.chdir(PATH)
 es = Elasticsearch('127.0.0.1', port=9200)
 
 def request_search(search_term):
     res = es.search(
-        index='dump',
+        index=job_name,
         body={
             "query" : {"match": {"content": search_term,}},
             "highlight" : {"pre_tags" : ["<b>"] , "post_tags" : ["</b>"], "fields" : {"content":{}}}

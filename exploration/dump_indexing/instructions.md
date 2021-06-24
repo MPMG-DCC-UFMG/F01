@@ -39,7 +39,7 @@ bin\fscrawler job_name
 ````
 
 ## Indexing Files
-While ElasticSearch, Kibana and Fscrawler are running, execute *indexing.py* in another cmd tab, remember to change *PATH* in *indexing.py* so that the dir contains the ElasticSearch folder, for instance mine was:
+While ElasticSearch, Kibana and Fscrawler are running, execute *indexing.py* in another cmd tab. Remember to change the *job_name* variable to your job name and the *PATH* variable in *indexing.py* to the dir that contains the ElasticSearch folder, for instance mine was:
 
 ````bash
 PATH = 'C:\\Users\\ritar\\Desktop\\SearchEngine\\'
