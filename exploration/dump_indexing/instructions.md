@@ -32,14 +32,14 @@ bin\fscrawler job_name
 job [job_name] does not exist
 Do you want to create it (Y/N)? Y
 ````
-Go to C:\Users\user\.fscrawler\job_name\_settings.yaml and change url attribute to folder where the dump is and then run fscrawler again.
+Go to C:\Users\user\.fscrawler\job_name\_settings.yaml and change the url attribute to the path where the dump is. Then run fscrawler again.
 
 ````bash
 bin\fscrawler job_name
 ````
 
 ## Indexing Files
-While running ElasticSearch, Kibana and Fscrawler run indexing.py, remember to change PATH in indexing.py so that the dir contains the ElasticSearch folder, for instance mine was:
+While ElasticSearch, Kibana and Fscrawler are running, execute indexing.py in another cmd tab, remember to change PATH in indexing.py so that the dir contains the ElasticSearch folder, for instance mine was:
 
 ````bash
 PATH = 'C:\\Users\\ritar\\Desktop\\SearchEngine\\'

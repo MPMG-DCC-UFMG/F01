@@ -9,7 +9,7 @@ def request_search(search_term):
     res = es.search(
         index='dump',
         body={
-            "query" : {"match": {"content": search_term}},
+            "query" : {"match": {"content": search_term,}},
             "highlight" : {"pre_tags" : ["<b>"] , "post_tags" : ["</b>"], "fields" : {"content":{}}}
         })
 
