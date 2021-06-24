@@ -16,7 +16,6 @@ def get_macro(item_text):
 def explain(macro,item_text):
     if(macro is None):
         print("Não foi encontrado no menu principal do portal o link:\n",item_text)
-        return  
     
     print("Foi encontrado no menu principal do portal o link :", macro['href'])
 
