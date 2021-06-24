@@ -17,7 +17,10 @@ def request_search(search_term):
     for hit in res["hits"]["hits"]:
         hit["good_summary"]="….".join(hit["highlight"]["content"][1:])
  
-    print(res)
+
+    print("Term searched: ", search_term)
+    for h in res['hits']['hits']:
+        print("score: ", h['_score'], "path: ",h['_source']['file']['url'])
 
 
 if __name__ == "__main__":

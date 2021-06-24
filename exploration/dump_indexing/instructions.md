@@ -8,7 +8,7 @@
 
 ## Running Elastic Search:
 
-Go to elasticsearch-7.13.2\config\elasticsearch.yml and uncomment cluster.name and node.name. Name it something meaninful, i named mine givanildo_hulk_paraiba. 
+Go to elasticsearch-7.13.2\config\elasticsearch.yml and uncomment cluster.name and node.name. Name your node with a meaningfull name, job_name. The cluster name is up to your imagination, I named mine givanildo_hulk_paraiba. 
 
 Inside the ElasticSearch folder run 
 ````bash
@@ -32,7 +32,11 @@ bin\fscrawler job_name
 job [job_name] does not exist
 Do you want to create it (Y/N)? Y
 ````
-Go to C:\Users\user\.fscrawler\job_name\_settings.yaml and change url attribute to folder where the dump is.
+Go to C:\Users\user\.fscrawler\job_name\_settings.yaml and change url attribute to folder where the dump is and then run fscrawler again.
+
+````bash
+bin\fscrawler job_name
+````
 
 ## Indexing Files
 While running ElasticSearch, Kibana and Fscrawler run indexing.py, remember to change PATH in indexing.py so that the dir contains the ElasticSearch folder, for instance mine was:
