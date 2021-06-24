@@ -2,11 +2,17 @@ import codecs
 import os
 from bs4 import BeautifulSoup
 
-checklist_info_institucionais = {
+checklist_info_institucionais_percent = {
     'competência': 0,
     'endereço': 0,
     'telefone': 0,
     'horário_atendimento': 0
+}
+checklist_info_institucionais = {
+    'competência': False,
+    'endereço': False,
+    'telefone': False,
+    'horário_atendimento': False
 }
 num_orgao = {
         'Unidades':0,
@@ -16,7 +22,8 @@ num_orgao = {
         'competência':0
     }
 def explain():
-    print("O validador procura por todos os Órgãos e retorna a porcentagem de",checklist_info_institucionais.keys(),"presente na URL para cada Órgão.")
+    print("A porcentagem de requisitos atendidos para cada categoria foi: ", checklist_info_institucionais_percent,
+    "\nPara valores maiores que 60% o item foi considerado como atendido.")
     
 def count_orgao(Unidades,Endereco_Telefone,Horario,Competencia):
     if len(Unidades.getText()) > 5:
@@ -33,23 +40,27 @@ def count_orgao(Unidades,Endereco_Telefone,Horario,Competencia):
             num_orgao['competência'] = num_orgao['competência'] + 1
 
 def get_children_classes(elem):
-    checklist_info_institucionais
     Unidades = elem.find(class_="nmUnidade")
     Endereco_Telefone = elem.find(class_="dsEndereco well")
     Horario = elem.find(class_="dsHorarioFuncionamento well")
     Competencia = elem.find(class_="dsCompetencias well")
     count_orgao(Unidades,Endereco_Telefone,Horario,Competencia)
 
-def calculate_percentage():
-    for key in checklist_info_institucionais:
-        checklist_info_institucionais[key] = num_orgao[key]/num_orgao['Unidades']
-    print(checklist_info_institucionais)
+def predict():
+    for key in checklist_info_institucionais_percent:
+        checklist_info_institucionais_percent[key] = round(num_orgao[key]/num_orgao['Unidades'],2)
+        if checklist_info_institucionais_percent[key] > 0.6:
+            checklist_info_institucionais[key] = True
+    
+    return checklist_info_institucionais
 
 def main():
     file = codecs.open('Governador Valadares/organograma/organograma.html', 'r', 'utf-8')
     html = BeautifulSoup(file.read(), "html.parser")
     for elem in html.find_all(class_="divDadosUnidade"):
         get_children_classes(elem)
+    values = predict()
     explain()
-    calculate_percentage()
+    print(values)
+
 main()
