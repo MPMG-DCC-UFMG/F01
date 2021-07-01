@@ -11,30 +11,33 @@ def search_keywords_faq(markup, constants):
         questions_by_t.add(a.getText())
     return markup.find(text=constants), questions_by_t
 
-
-def explain_faq(faq_dict):
-    if(faq_dict['Title'] is None):    
-        print("\nNenhuma das palavras chave a seguir foram encontradas na página direcionada pelo link:")
-        for fs in constant.FAQ_SEARCH:
-            print(fs, ' ')
-        return 
-
-    print("\nNa página direcionada pelo link foi encontrado o seguinte título:", faq_dict['Title'])    
-    print("Foram encontradas", len(faq_dict['Questions']), "perguntas na página\n")
-    for q in faq_dict['Questions']:
-        print(q)
-
 def predict_faq():
     filename = '../../Governador Valadares/faq/perguntas_frequentes.html'
     markup = BeautifulSoup(codecs.open(filename, 'r', 'utf-8').read(),  "html.parser" )
     title, questions = search_keywords_faq(markup, constant.FAQ_SEARCH)
     classifier = title is not None and questions is not None
 
-    print("\nPrediction:", classifier)
+    print("\nPrediction FAQ:", classifier)
     ans = {
-        'Title': title,
-        'Questions': questions,
+        'title': title,
+        'questions': questions,
         'classifier': classifier 
     }
 
     return ans
+
+def explain_faq(faq_dict):
+    if(faq_dict['classifier']):    
+        
+        print("\nNa página direcionada pelo link foi encontrado o seguinte título:", faq_dict['title'])    
+        print("Foram encontradas", len(faq_dict['questions']), "perguntas na página\n")
+        for q in faq_dict['questions']:
+            print(q)
+        
+    elif faq_dict['title'] is None:
+               
+        print("\nNenhuma das palavras chave a seguir foram encontradas na página direcionada pelo link:")
+        for fs in constant.FAQ_SEARCH:
+            print(fs, ' ')
+        
+
