@@ -30,7 +30,7 @@ def predict_faq():
     title, questions = search_keywords_faq(markup, constant.FAQ_SEARCH)
     classifier = title is not None and questions is not None
 
-    print("\nPrediction:", classifier)
+    print("\nPrediction faq:", classifier)
     ans = {
         'Title': title,
         'Questions': questions,
