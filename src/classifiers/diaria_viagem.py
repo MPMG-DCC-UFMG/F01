@@ -75,7 +75,7 @@ def explain_diaria_viagem(df):
         else:
             classifier = False
 
-    print("\nPrediction diaria: \n", classifier)
+    print("\nPrediction diaria:", classifier, "\n")
     len_df = float('inf')
     len_df = df.shape[0]
     for key in checklist_viagens.keys():
