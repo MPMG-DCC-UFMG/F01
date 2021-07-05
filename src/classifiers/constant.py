@@ -1,3 +1,9 @@
+
+#----------------------------------------- Acesso a informação ----------------------------------------
+ABA_TRANSPARENCIA = 'http://transparencia.valadares.mg.gov.br/'
+URL_TRANSPARENCIA_MG = 'www.transparencia.mg.gov.br'
+# -----------------------------------------------------------------------------------------------------
+
 FAQ = ['Faq', 'FAQ', 'Faq']
 FAQ_SEARCH = ['Perguntas Frequentes', 'perguntas frequentes', 'Perguntas', 'perguntas']
 
