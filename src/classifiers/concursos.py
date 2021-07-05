@@ -7,51 +7,61 @@ from bs4 import BeautifulSoup
 home_path = "../../Governador Valadares/home/home.html"
 file_path = '../../Governador Valadares/downloads/categoria/ConcursoPublico-EditalNo00120190022019e0032019.html'
 
-checklist_concursos = {
-    'copia_digital':False,
-    'status':False,
-    'recursos':[False, False],
-    'resultado': False,
-    'nomeacao':False
-}
 
-def get_markup():
-    #missing indexing :p
-    
-    file = codecs.open(file_path, 'r', 'utf-8')    
-    return BeautifulSoup(file.read(),  "html.parser" )
 
-def predict_dados_concurso(markup):
-    
+def search_keywords_dados_concurso(markup):
+
+    status = None
+    resultado = None
+    nomeacao = None
     for div in markup.find_all('div', {"class": "list-group"}):
-    
         for key in constant.CHECKLIST_CONCURSO_SEARCH['status']:
             ref = div.find(text = re.compile('.*({}).*'.format(key)))
             if(ref): 
-                checklist_concursos['status'] = ref
+                status = ref
                 break
         for key in constant.CHECKLIST_CONCURSO_SEARCH['resultado']:
             ref = div.find(text = re.compile('.*({}).*'.format(key)))
             if(ref): 
-                checklist_concursos['resultado'] = ref
+                resultado = ref
                 break
+        
         ref = div.find(text = re.compile('.*({}).*'.format(constant.CHECKLIST_CONCURSO_SEARCH['nomeacao'])))
-        if(ref): checklist_concursos['nomeacao'] = ref
+        if(ref): nomeacao = ref
             
-        if (checklist_concursos['status'] and checklist_concursos['resultado'] and checklist_concursos['nomeacao']): return True
+        if (status and resultado and nomeacao): return [status, resultado, nomeacao]
 
-    return False
+    return [status, resultado, nomeacao]
+
+def predict_dados_concurso():
+        
+    markup =  BeautifulSoup(codecs.open(file_path, 'r', 'utf-8').read(),  "html.parser" )
+    search_keywords_dados_concurso(markup)
+    
+    dados_concurso = search_keywords_dados_concurso(markup)
+    classifier =  dados_concurso is not None
+    
+    print("\nPrediction Dados Concurso:", classifier)
+    ans = {
+        'status': dados_concurso[0], 
+        'resultado': dados_concurso[1], 
+        'nomeacao': dados_concurso[2],
+        'classifier': classifier 
+    }
+
+    return ans
 
 
-def explain_dados_concurso():
 
-    if(checklist_concursos['status']): print("\nFoi encontrada uma referência a Status do Andamento do concurso:", checklist_concursos['status'])
+def explain_dados_concurso(dados_concurso):
+
+    if(dados_concurso['status']): print("\nFoi encontrada uma referência a Status do Andamento do concurso:", dados_concurso['status'])
     else: print("\nNão foi encontrada uma referência a Status do Andamento do concurso")
     
-    if(checklist_concursos['resultado']): print("Foi encontrada uma referência a Resultado de concursos:", checklist_concursos['resultado'])
+    if(dados_concurso['resultado']): print("Foi encontrada uma referência a Resultado de concursos:", dados_concurso['resultado'])
     else: print("Não foi encontrada uma referência a Resultado de concursos")
     
-    if(checklist_concursos['nomeacao']): print("Foi encontrada uma referência a Nomeação:", checklist_concursos['nomeacao'])
+    if(dados_concurso['nomeacao']): print("Foi encontrada uma referência a Nomeação:", dados_concurso['nomeacao'])
     else:  print("Não foi encontrada uma referência a Nomeação")
 
 
