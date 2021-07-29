@@ -13,14 +13,14 @@ if __name__ == "__main__":
     # faq_dict = predict_faq()
     # explain_faq(faq_dict)
 
-    concursos_dict = predict_dados_concurso()
-    explain_dados_concurso(concursos_dict)
+    # concursos_dict = predict_dados_concurso()
+    # explain_dados_concurso(concursos_dict)
 
-    concursos_dict = predict_copia_edital()
-    explain_copia_edital(concursos_dict)
+    # concursos_dict = predict_copia_edital()
+    # explain_copia_edital(concursos_dict)
     
-    concursos_dict = predict_recursos()
-    explain_recursos(concursos_dict)
+    # concursos_dict = predict_recursos()
+    # explain_recursos(concursos_dict)
 
 
     # df = predict_diaria_viagem()
@@ -36,8 +36,8 @@ if __name__ == "__main__":
     # explain_unidades_administrativas()
 
     # ----------------------- Acesso a informação --------------------------
-    informacoes_dict = predict_informacoes()
-    explain_informacoes(informacoes_dict)
+    # informacoes_dict = predict_informacoes()
+    # explain_informacoes(informacoes_dict)
 
 
 

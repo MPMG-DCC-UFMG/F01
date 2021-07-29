@@ -4,10 +4,11 @@ import re
 import constant
 from os import walk
 
-#--------------------------------------------------------- Acesso à Informações ----------------------------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------#
+#----------------------------------------Sub_tags Acesso à Informações ----------------------------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------#
 
-
-#-------- Aba denominada “Transparência” no menu principal
+#Informações-------- Aba denominada “Transparência” no menu principal
 def search_keywords_linkportal(markup, constants):
     macro = markup.findAll(href = constants) 
     return macro
@@ -51,10 +52,9 @@ def explain_link_portal(link_portal):
     
     else:
         print("Link para o portal da transparencia não foi encontrado no site\n")  
-# -------------------------------------------------------------------------------------
 
 
-# Texto padrão explicativo sobre a Lei de Acesso à Informação
+#Informações------- Texto padrão explicativo sobre a Lei de Acesso à Informação -------------------------------------
 def search_keywords_text_expl(markup, constants):
     pass
 def predict_text_expl():
@@ -62,7 +62,7 @@ def predict_text_expl():
 def explain_text_expl():
     pass
 
-# Link de acesso à legislação federal sobre a transparência (Lei nº 12.527/2011 e eventual legislação superveniente)
+#Informações----- Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011) ----------------------------------
 def search_keywords_legs_federal(markup, constants):
     pass
 def predict_legs_federal():
@@ -70,7 +70,7 @@ def predict_legs_federal():
 def explain_legs_federal():
     pass
 
-# Link de acesso à legislação Estadual sobre a transparência (Decreto Estadual nº 45.969/2012 e eventual legislação superveniente)
+#Informações----- Link de acesso à leg Estadual sobre a transparência (Decreto Estadual nº 45.969/2012)-----------------
 def search_keywords_legs_estadual(markup, constants):
     pass
 def predict_legs_estadual():
@@ -79,7 +79,7 @@ def explain_legs_estadual():
     pass
 
 
-# Link de acesso ao site da Transparência (www.transparencia.mg.gov.br)
+#Informações------------- Link de acesso ao site da Transparência (www.transparencia.mg.gov.br) ----------------------
 
 def search_keywords_site_transparencia(markup, constants):
     macro = markup.find(href = constants)
@@ -110,9 +110,9 @@ def explain_site_transparencia(site_transparencia_dict):
     else:
         print("Foi encontrado no menu principal do portal o link :", constant.URL_TRANSPARENCIA_MG)
 
-# --------------------------------------------------------------------------------
 
-# Acesso ilimitado a todas as informações públicas do sítio eletrônico: o acesso sem cadastro ou ao fornecimento de dados pessoais
+#Informações----- Acesso ilimitado a todas as informações públicas do sítio eletrônico: o acesso sem cadastro ou ao fornecimento de dados pessoais
+
 def search_keywords_acesso_ilimitado(markup, constants):
     pass
 def predict_acesso_ilimitado():
@@ -121,7 +121,8 @@ def explain_acesso_ilimitado():
     pass
 
 
-# Link de respostas a perguntas mais frequentes da sociedade.
+#Informações-------------------- Link de respostas a perguntas mais frequentes da sociedade.----------------------------
+
 def search_keywords_faq(markup, constants):
     questions_by_t = set(markup.find_all(text= re.compile(r'([?]+$)')))
     for a in markup.find_all("a", {'id': re.compile(r'^pergunta')}):
@@ -133,7 +134,7 @@ def predict_faq():
     markup = BeautifulSoup(codecs.open(filename, 'r', 'utf-8').read(),  "html.parser" )
     title, questions = search_keywords_faq(markup, constant.FAQ_SEARCH)
     classifier = title is not None and questions is not None
-    print("\nPrediction Perguntas Frequentes:", classifier)
+    print("Prediction Perguntas Frequentes:", classifier)
     ans = {
         'title': title,
         'questions': questions,
@@ -162,7 +163,7 @@ def explain_faq(faq_dict):
 
 def predict_informacoes():
 
-    print("\n -- Prediction Acesso a Informação:  ---- \n")
+    print("\n -------------- Prediction Informação:  ------------------- \n")
 
     link_portal_dict = predict_link_portal()
 
@@ -189,22 +190,22 @@ def predict_informacoes():
 
 def explain_informacoes(informacoes_dict):
 
-    print("\n --- Explain Acesso a Informação:  ---- \n")
+    print("\n ------------------ Explain Informação:  ---------------")
 
 
-    print("\n - Explain aba denominada transparencia no menu principal: - \n")
+    print("\n - Explain Informação: Aba denominada transparencia no menu principal: - \n")
     link_portal_dict = informacoes_dict['link_portal_dict']
     explain_link_portal(link_portal_dict)
 
-    print("\n - Explain Perguntas Frequentes: - \n")
+    print("\n - Explain Informação: Perguntas Frequentes: - \n")
     faq_dict = informacoes_dict['faq_dict']
     explain_faq(faq_dict)
 
-    print("\n - Link de acesso ao site da Transparência (www.transparencia.mg.gov.br): - \n")
+    print("\n - Explain Informação: Link de acesso ao site da Transparência (www.transparencia.mg.gov.br): - \n")
     site_transparencia_dict = informacoes_dict['site_transparencia_dict']
     explain_site_transparencia(site_transparencia_dict)
 
-
+    print("\n\n")
 
 
 # --------------------------------------------------------------------------------------
@@ -213,9 +214,9 @@ def explain_informacoes(informacoes_dict):
 
 
 
-
-#------------------------------------------ Requisitos Exigidos nos sítios eletrônicos----------------------------------------#
-
+#--------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------Requisitos Exigidos nos sítios eletrônicos--------------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------#
 
 def predict_requisitos_exigidos_dos_sites():
     # Contém ferramenta de pesquisa de conteúdo (“lupa”)
@@ -229,9 +230,9 @@ def explain_requisitos_exigidos_dos_sites():
     pass
 
 
-
-# --------------------------------------------------- Bases de dados abertos --------------------------------------------------#
-
+#--------------------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------- Bases de dados abertos ----------------------------------------------#
+#--------------------------------------------------------------------------------------------------------------------------#
 
 def predict_bases_de_dados_aberta():
     # Publica na internete relação das bases de dados abertos do município ou do estado
@@ -239,11 +240,9 @@ def predict_bases_de_dados_aberta():
 
 
 
-
-
-
-# -------------------------------------- Relatório estatístico (Divulgação de relatório de atendimentos) -------------------------#
-
+#--------------------------------------------------------------------------------------------------------------------------#
+#-----------------------------------Relatório estatístico (Divulgação de relatório de atendimentos)------------------------#
+#--------------------------------------------------------------------------------------------------------------------------#
 
 def predict_relatorio_estatistico():
     # Quantidade de pedidos recebidos
