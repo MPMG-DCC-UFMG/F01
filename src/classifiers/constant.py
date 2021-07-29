@@ -33,3 +33,17 @@ CHECKLIST_VIAGEM_SEARCH = {
 URL = 'https://transparencia.valadares.mg.gov.brs'
 LEGISLACAO_MUNICIPAL = ['Legislação Municipal', 'Regulamentação Municipal']
 ORGANIZACAO = ['Estrutura Organizacional', 'estrutura organizacional', 'ESTRUTURA ORGANIZACIONAL', 'Organograma', 'Estrutura Administrativa']
+
+
+# ------------------------------------------ Licitações -----------------------------------------------------------
+
+
+ORDEM_LICITACOES = {
+    'ordem' : ['ordenar por', 'data crescente', 'data decrescente', 'número crescente', 'número descente', 'data de abertura', 'data de publicação', 'data de publicações'],
+    'tipo' : ['Dispensa','Inexigibilidade']
+}
+
+OBJETO_LICITACOES = ['objeto', 'detalhamento do objeto']
+
+SITUACAO_LICITACOES = ['anulada', 'cancelada', 'deserta', 'andamento', 'encerrada', 'fracassada', 'homologada', 'revogada', 'suspensa' ]
+
