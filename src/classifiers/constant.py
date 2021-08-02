@@ -19,15 +19,13 @@ CHECKLIST_CONCURSO_SEARCH = {
 DIARIA_VIAGEM = ['Despesas por Diárias']
 #Reserva de Viagem
 CHECKLIST_VIAGEM_SEARCH = {
-    'publicacao_informacoes': ['diarias', 'despesas por diarias', 'despesas com diarias'],
-    'nome':['nome', 'favorecido'],
+    'nome':['nome', 'favorecido', 'beneficiario'],
     'cargo': ['cargo', 'atribuição'],
+    'valor_total':['valor'],
+    'periodo': ['periodo', 'ano'],
     'destino': ['destino'],
     'atividade':['descricao', 'motivo', 'atividade empenhada'],
-    'periodo': ['periodo', 'ano'],
     'num_diarias':['numero de diarias'],
-    'valor_total':['valor'],
-    'base_legal':['base legal']
 }
   
 URL = 'https://transparencia.valadares.mg.gov.brs'
