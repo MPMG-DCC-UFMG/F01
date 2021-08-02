@@ -56,7 +56,7 @@ def search_keywords_estrutura_organizacional(markup, constants):
        
 def predict_estrutura_organizacional():
     #link_list,score = search_pages(object, keyword) #Not working yet
-    file = codecs.open('Governador Valadares/home/home.html', 'r', 'utf-8')    
+    file = codecs.open('../../Governador Valadares/home/home.html', 'r', 'utf-8')    
     html = BeautifulSoup(file.read(),  "html.parser" )
 
     return search_keywords_estrutura_organizacional(html, constant.ORGANIZACAO)
