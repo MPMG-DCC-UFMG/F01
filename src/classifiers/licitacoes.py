@@ -5,7 +5,7 @@ import re
 import os
 import numpy as np
 import sys
-sys.path.insert(0, '/home/cinthia/MPMG/F01/exploration/end\ to\ end/')
+sys.path.insert(0, '/home/cinthia/MPMG/F01/src')
 
 from utils import indexing
 from utils import table_to_csv
