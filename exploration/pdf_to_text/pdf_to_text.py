@@ -22,10 +22,27 @@ def extract_text(pages):
     
     return texts
 
+def reset_eof_of_pdf_return_stream(pdf_stream_in:list):
+    # find the line position of the EOF
+    for i, x in enumerate(pdf_stream_in[::-1]):
+        if b'%%EOF' in x:
+            actual_line = len(pdf_stream_in)-i
+            break
 
-def main(name_file, path, verbose=True):
-    
-    pdf_file = PyPDF2.PdfFileReader('{}/{}'.format(path, name_file))
+    # return the list up to that point
+    return pdf_stream_in[:actual_line]
+
+
+def main(name_file, fixed_file, path, verbose=True):
+    with open('{}/{}'.format(path, name_file), 'rb') as p:
+        txt = (p.readlines())
+
+    txtx = reset_eof_of_pdf_return_stream(txt)
+
+    with open('{}/{}'.format(path, fixed_file), 'wb') as f:
+        f.writelines(txtx)
+      
+    pdf_file = PyPDF2.PdfFileReader('{}/{}'.format(path, fixed_file))
     num_pages = pdf_file.getNumPages()
     
     if verbose:
@@ -37,8 +54,9 @@ def main(name_file, path, verbose=True):
     return " ".join(content)
 
 
-path = '../../../persistence_area'
-name_file = 'Relatorio_Anual_de_Prestacao_de_Contas_Municipal_869_Ano_2020.pdf'
-content = main(name_file, path, verbose=True)
+path = 'C:/Users/pedro/Desktop/teste'
+name_file = 'Licitacao.pdf'
+fixed_file= 'Licitacao_fixed.pdf'
+content = main(name_file, fixed_file, path, verbose=True)
 content = remove_noise(content)
-content
+print(content)

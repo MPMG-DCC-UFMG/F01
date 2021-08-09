@@ -2,6 +2,13 @@
 #----------------------------------------- Acesso a informação ----------------------------------------
 ABA_TRANSPARENCIA = 'http://transparencia.valadares.mg.gov.br/'
 URL_TRANSPARENCIA_MG = 'www.transparencia.mg.gov.br'
+
+LEI_ACESSO_INFORMACAO = ['Lei Federal 12.527', 'LEI Nº 12.527, DE 18 DE NOVEMBRO DE 2011']
+LEI_ACESSO_INFORMACAO_CONTEUDO = 'Art. 6º Cabe aos órgãos e entidades do poder público, observadas as normas e procedimentos específicos aplicáveis, assegurar a'
+
+
+DADOS_ABERTOS = ['API', 'dados abertos']
+
 # -----------------------------------------------------------------------------------------------------
 
 FAQ = ['Faq', 'FAQ', 'Faq']
@@ -19,15 +26,13 @@ CHECKLIST_CONCURSO_SEARCH = {
 DIARIA_VIAGEM = ['Despesas por Diárias']
 #Reserva de Viagem
 CHECKLIST_VIAGEM_SEARCH = {
-    'publicacao_informacoes': ['diarias', 'despesas por diarias', 'despesas com diarias'],
-    'nome':['nome', 'favorecido'],
+    'nome':['nome', 'favorecido', 'beneficiario'],
     'cargo': ['cargo', 'atribuição'],
+    'valor_total':['valor'],
+    'periodo': ['periodo', 'ano'],
     'destino': ['destino'],
     'atividade':['descricao', 'motivo', 'atividade empenhada'],
-    'periodo': ['periodo', 'ano'],
     'num_diarias':['numero de diarias'],
-    'valor_total':['valor'],
-    'base_legal':['base legal']
 }
   
 URL = 'https://transparencia.valadares.mg.gov.brs'
