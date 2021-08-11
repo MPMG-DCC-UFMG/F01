@@ -9,12 +9,13 @@ LEI_ACESSO_INFORMACAO_CONTEUDO = 'Art. 6º Cabe aos órgãos e entidades do pode
 
 DADOS_ABERTOS = ['API', 'dados abertos']
 
-# -----------------------------------------------------------------------------------------------------
-
 FAQ = ['Faq', 'FAQ', 'Faq']
 FAQ_SEARCH = ['Perguntas Frequentes', 'perguntas frequentes', 'Perguntas', 'perguntas']
 
-CONCURSO_PUBLICO = ['Concursos Públicos', 'Concurso Público', 'Concurso', 'concurso']
+# ---------------------------------------- Concursos --------------------------------------------------
+CONCURSO_PUBLICO = 'Concurso Público'
+CONCURSO_PUBLICO_KEYWORDS = ['Edital', 'Recursos', 'Aprovados', 'Nomeação', 'edital', 'convocados', 'remanescentes', 'recursos aprovados', 
+                            'avaliação psicológica', 'carater eliminatório']
 CHECKLIST_CONCURSO_SEARCH = {
     'copia_digital': ['Edital'],
     'recursos': ['Recursos', 'Aprovados'],
@@ -23,7 +24,10 @@ CHECKLIST_CONCURSO_SEARCH = {
     'status':['Status', 'Andamento', 'COMUNICADO', 'Comunicado']
 }
 
+# ----------------------------------- Diarias de Viagem --------------------------------------
+
 DIARIA_VIAGEM = ['Despesas por Diárias']
+DIARIA_VIAGEM_KEYS = []
 #Reserva de Viagem
 CHECKLIST_VIAGEM_SEARCH = {
     'nome':['nome', 'favorecido', 'beneficiario'],

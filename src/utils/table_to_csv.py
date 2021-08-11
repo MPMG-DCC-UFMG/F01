@@ -40,10 +40,10 @@ def convert_html(soup):
     try:
         df = pd.read_html(str(soup.table))[0]
         type = 'table'
-    except ValueError:
+    except ValueError:   
         df = list_to_text(soup)
         type = 'list'
-    
+
     return df, type
 
 def convert(all_files, path, folder):
@@ -62,7 +62,6 @@ def convert(all_files, path, folder):
 
 
 def convert_one_file(path):
-
     soup = BeautifulSoup(open(path), features="lxml")
     df = convert_html(soup)
 

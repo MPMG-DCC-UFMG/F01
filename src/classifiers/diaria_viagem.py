@@ -4,6 +4,7 @@ import pandas as pd
 sys.path.insert(1, '../')
 
 from utils import singlepage_to_csv
+from utils import indexing
 
 checklist_viagens = {
     'nome':False,
@@ -41,6 +42,7 @@ def search_keywords_diaria_viagem(df):
 
 def predict_diaria_viagem():
 
+    filepath = ''
     df = singlepage_to_csv.convert(filepath)
     search_keywords_diaria_viagem(df)    
     checklist_viagens['len_df'] = df.shape[0]
