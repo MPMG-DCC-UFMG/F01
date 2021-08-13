@@ -43,6 +43,20 @@ if __name__ == "__main__":
     print("Predict - Inexigibilidade: {}".format(isvalid))
     licitacoes.explain(result, 'inexigibilidade')
 
+    #Resultado
+    isvalid, result = licitacoes.predict_resultado(
+        search_term='', keywords_search='', path_base=path_base, num_matches=40,
+        filter_word='licitacoes', job_name='index_gv', threshold=0)
+
+    licitacoes.explain(result, 'resultado')
+
+    #Dispensa
+    isvalid, result = licitacoes.predict_dispensa(
+        search_term='', keywords_search='', path_base=path_base, num_matches=40,
+        filter_word='licitacoes', job_name='index_gv', threshold=0)
+
+    licitacoes.explain(result, 'dispensa')
+
     # Disponibilização de Editais
     isvalid, result = licitacoes.predict_editais(
         search_term, keywords_search, path_base, num_matches=40,
