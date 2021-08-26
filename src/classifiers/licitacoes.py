@@ -339,7 +339,7 @@ def explain(df, column_name):
          len(df[column_name]), sum(df[column_name])))
 
 
-path_base = "/home/cinthia/MPMG/persistence_area/"
+#path_base = "/home/cinthia/MPMG/persistence_area/"
     # path_base = "C:/Users/ritar"
-    # path_base = "C:/Users/pedro"
+path_base = "C:/Users/pedro"
 

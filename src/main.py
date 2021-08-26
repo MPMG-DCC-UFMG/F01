@@ -6,8 +6,8 @@ sys.path.insert(1, './classifiers')
 # from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
 # from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
-# from acesso_a_informacao.informacoes import predict_informacoes, explain_informacoes
-import licitacoes 
+from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
+# import licitacoes 
 
 if __name__ == "__main__":
 
@@ -17,61 +17,68 @@ if __name__ == "__main__":
 
     
     #local onde está o dump
-    path_base = "/home/cinthia/MPMG/persistence_area"
+    #path_base = "/home/cinthia/MPMG/persistence_area"
     # path_base = "C:/Users/ritar"
-    # path_base = "C:/Users/pedro"
+    path_base = "C:/Users/pedro"
 
-    search_term="Licitações"
-    keywords_search = ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ]
+    search_term='Acesso a informao'
+    keywords=['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']
+    isvalid, result = predict_legs_federal(
+        search_term, keywords, path_base, num_matches=40,
+        job_name='index_gv', threshold = 0)
     
-    # Procedimentos licitatórios
-    keywords_check=['nmero da licitao', 'modalidade', 'objeto', 'status', 'editais']
-    isvalid, result = licitacoes.predict_proc_lic(
-        search_term, keywords_search, path_base, num_matches=40,
-        keywords_check=keywords_check,
-        filter_word='licitacoes', job_name='index_gv', threshold = 0)
+    explain_legs_federal(result)
+    # search_term="Licitações"
+    # keywords_search = ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ]
+    
+    # # Procedimentos licitatórios
+    # keywords_check=['nmero da licitao', 'modalidade', 'objeto', 'status', 'editais']
+    # isvalid, result = licitacoes.predict_proc_lic(
+    #     search_term, keywords_search, path_base, num_matches=40,
+    #     keywords_check=keywords_check,
+    #     filter_word='licitacoes', job_name='index_gv', threshold = 0)
 
-    for i in range(len(keywords_check)):
-        print("Predict - Procedimentos Licitatórios - {}: {}".format(keywords_check[i], isvalid[i]))
-        licitacoes.explain(result['proc_lic'], keywords_check[i])
+    # for i in range(len(keywords_check)):
+    #     print("Predict - Procedimentos Licitatórios - {}: {}".format(keywords_check[i], isvalid[i]))
+    #     licitacoes.explain(result['proc_lic'], keywords_check[i])
 
-    # Procedimentos de Inexigibilidade
-    isvalid, result = licitacoes. predict_inexigibilidade(
-        search_term, keywords_search, path_base, num_matches=40,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+    # # Procedimentos de Inexigibilidade
+    # isvalid, result = licitacoes. predict_inexigibilidade(
+    #     search_term, keywords_search, path_base, num_matches=40,
+    #     filter_word='licitacoes', job_name='index_gv', threshold=0)
 
-    print("Predict - Inexigibilidade: {}".format(isvalid))
-    licitacoes.explain(result, 'inexigibilidade')
+    # print("Predict - Inexigibilidade: {}".format(isvalid))
+    # licitacoes.explain(result, 'inexigibilidade')
 
-    #Resultado
-    isvalid, result = licitacoes.predict_resultado(
-        search_term='', keywords_search='', path_base=path_base, num_matches=40,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+    # #Resultado
+    # isvalid, result = licitacoes.predict_resultado(
+    #     search_term='', keywords_search='', path_base=path_base, num_matches=40,
+    #     filter_word='licitacoes', job_name='index_gv', threshold=0)
 
-    licitacoes.explain(result, 'resultado')
+    # licitacoes.explain(result, 'resultado')
 
-    #Dispensa
-    isvalid, result = licitacoes.predict_dispensa(
-        search_term='', keywords_search='', path_base=path_base, num_matches=40,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+    # #Dispensa
+    # isvalid, result = licitacoes.predict_dispensa(
+    #     search_term='', keywords_search='', path_base=path_base, num_matches=40,
+    #     filter_word='licitacoes', job_name='index_gv', threshold=0)
 
-    licitacoes.explain(result, 'dispensa')
+    # licitacoes.explain(result, 'dispensa')
 
-    # Disponibilização de Editais
-    isvalid, result = licitacoes.predict_editais(
-        search_term, keywords_search, path_base, num_matches=40,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+    # # Disponibilização de Editais
+    # isvalid, result = licitacoes.predict_editais(
+    #     search_term, keywords_search, path_base, num_matches=40,
+    #     filter_word='licitacoes', job_name='index_gv', threshold=0)
 
-    print("Predict - Editais: {}".format(isvalid))
-    licitacoes.explain(result, 'editais')
+    # print("Predict - Editais: {}".format(isvalid))
+    # licitacoes.explain(result, 'editais')
 
-    # Permite Busca
-    isvalid, result = licitacoes.predict_busca(
-        search_term, keywords_search, path_base, num_matches=40,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+    # # Permite Busca
+    # isvalid, result = licitacoes.predict_busca(
+    #     search_term, keywords_search, path_base, num_matches=40,
+    #     filter_word='licitacoes', job_name='index_gv', threshold=0)
 
-    print("Predict - Busca: {}".format(isvalid))
-    licitacoes.explain(result, 'busca')
+    # print("Predict - Busca: {}".format(isvalid))
+    # licitacoes.explain(result, 'busca')
 
     # concursos_dict = predict_copia_edital()
     # explain_copia_edital(concursos_dict)

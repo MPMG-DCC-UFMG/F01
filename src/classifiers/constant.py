@@ -5,7 +5,7 @@ URL_TRANSPARENCIA_MG = 'www.transparencia.mg.gov.br'
 
 LEI_ACESSO_INFORMACAO = ['Lei Federal 12.527', 'LEI Nº 12.527, DE 18 DE NOVEMBRO DE 2011']
 LEI_ACESSO_INFORMACAO_CONTEUDO = 'Art. 6º Cabe aos órgãos e entidades do poder público, observadas as normas e procedimentos específicos aplicáveis, assegurar a'
-
+LINK_LEGS_FEDERAL = ['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']
 
 DADOS_ABERTOS = ['API', 'dados abertos']
 

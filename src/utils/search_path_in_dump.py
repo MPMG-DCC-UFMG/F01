@@ -1,7 +1,29 @@
 import pandas as pd
 import os
+from pathlib import Path
 
 from utils import table_to_csv
+
+def agg_type(paths):
+
+    files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[]}
+
+    for path in paths:
+
+        suffix = Path(path).suffixes[0]
+        
+        if suffix == ".xls":
+            files['xls'].append(path)
+        elif suffix == '.csv':
+            files['csv'].append(path)
+        elif (suffix == ".html") or (suffix == '.xml'):
+            files['html'].append(path)
+        elif (suffix == ".pdf"):
+            files['pdf'].append(path)
+        elif (suffix == ".doc") or (suffix == '.docx'):
+            files['doc'].append(path)
+
+    return files
 
 def get_extension(path):
     return path.split('.')[-1]
