@@ -3,7 +3,9 @@ import codecs
 import re
 import constant
 from os import walk
-
+from utils import indexing
+from utils import table_to_csv
+from utils import search_path_in_dump
 #--------------------------------------------------------------------------------------------------------------------------#
 #----------------------------------------Sub_tags Informações ----------------------------------------------------#
 #--------------------------------------------------------------------------------------------------------------------------#
@@ -68,11 +70,33 @@ def explain_text_expl():
 
 #Informações----- Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011) ----------------------------------
 def search_keywords_legs_federal(markup, constants):
-    pass
-def predict_legs_federal():
-    pass
-def explain_legs_federal():
-    pass
+    target = []
+    for a in markup.findAll(href = constants):
+        target.append(a.get_text())
+    return target
+
+def predict_legs_federal(search_term, keywords, path_base, num_matches = 1,
+    job_name = 'index_gv', threshold= 0):
+
+    _, sorted_result = indexing.request_search(
+      search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
+    path = [i[2] for i in sorted_result]
+    path_html = search_path_in_dump.agg_type(path)["html"]
+    for i in path_html:
+        file = codecs.open(i, 'r', 'utf-8')
+        markup = BeautifulSoup(file.read(),  "html.parser" )
+        macro = search_keywords_legs_federal(markup,constant.LINK_LEGS_FEDERAL)
+        if macro is not None:
+            return True, macro
+            
+    return False,None
+
+def explain_legs_federal(result):
+    if result is not None:
+        print(f"O link foi encontrado no botão {result}")
+    else:
+        print("O link da lei 12.527 não foi encontrado.")
+     
 
 #Informações----- Link de acesso à leg Estadual sobre a transparência (Decreto Estadual nº 45.969/2012)-----------------
 def search_keywords_legs_estadual(markup, constants):
@@ -162,27 +186,28 @@ def predict_informacoes():
 
     print("\n -------------- Prediction Informação:  ------------------- \n")
 
-    link_portal_dict = predict_link_portal()
+    # link_portal_dict = predict_link_portal()
 
     # text_expl_dict = predict_text_expl()
 
-    # legs_federal_dict = predict_legs_federal()
+    legs_federal_dict = predict_legs_federal()
 
     # legs_estadual_dict = predict_legs_estadual()
 
-    site_transparencia_dict =  predict_site_transparencia()
+    # site_transparencia_dict =  predict_site_transparencia()
 
     # acesso_ilimitado_dict = predict_acesso_ilimitado()
 
-    faq_dict = predict_faq()
+    # faq_dict = predict_faq()
 
 
-    informacoes_dict = { 'link_portal_dict': link_portal_dict, 
-                        'faq_dict': faq_dict ,
-                        'site_transparencia_dict' : site_transparencia_dict,
-                        }
+    # informacoes_dict = { 'link_portal_dict': link_portal_dict, 
+    #                     'faq_dict': faq_dict ,
+    #                     'site_transparencia_dict' : site_transparencia_dict,
+    #                     }
 
-    return informacoes_dict
+    # return informacoes_dict
+    return legs_federal_dict
 
 
 def explain_informacoes(informacoes_dict):
