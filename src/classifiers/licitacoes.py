@@ -7,8 +7,8 @@ import numpy as np
 import sys
 from pathlib import Path
 
-#sys.path.insert(0, '../')
-sys.path.insert(0, '/home/cinthia/MPMG/F01/src')
+sys.path.insert(0, '../')
+# sys.path.insert(0, '/home/cinthia/MPMG/F01/src')
 
 from utils import indexing
 from utils import table_to_csv

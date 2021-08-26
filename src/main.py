@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     
     #local onde está o dump
-    path_base = "/home/cinthia/MPMG/persistence_area"
+    path_base = "/home/asafe/GitHub/Coleta_C01"
     # path_base = "C:/Users/ritar"
     # path_base = "C:/Users/pedro"
 
