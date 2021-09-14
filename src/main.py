@@ -7,7 +7,9 @@ sys.path.insert(1, './classifiers')
 # from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
 from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
-# import licitacoes 
+from acesso_a_informacao.informacoes import predict_text_expl, explain_text_expl
+
+import licitacoes 
 
 if __name__ == "__main__":
 
@@ -17,18 +19,39 @@ if __name__ == "__main__":
 
     
     #local onde está o dump
-    path_base = "/home/asafe/GitHub/Coleta_C01"
+    path_base = "/home/asafe"
     #path_base = "/home/cinthia/MPMG/persistence_area"
     # path_base = "C:/Users/ritar"
-    path_base = "C:/Users/pedro"
+    # path_base = "C:/Users/pedro"
 
-    search_term='Acesso a informao'
-    keywords=['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']
-    isvalid, result = predict_legs_federal(
-        search_term, keywords, path_base, num_matches=40,
+    #------------------------------------------INFORMAÇÃO-----------------------------------------
+
+    # Link de acesso à legislação federal sobre a transparência (Lei nº 12.527/2011 e eventual legislação superveniente)
+
+    # search_term='Acesso a informao'
+    # keywords=['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']
+    # isvalid, result = predict_legs_federal(
+    #     search_term, keywords, path_base, num_matches=40,
+    #     job_name='index_gv', threshold = 0)
+    
+    # explain_legs_federal(result)
+    # print(result)
+
+
+    # Texto padrão explicativo sobre a Lei de Acesso à Informação
+    search_term='Lei de acesso'
+    keywords=['LAI', 'Lei de acesso à informação']
+    isvalid, result = predict_text_expl(
+        search_term, keywords, path_base, num_matches=30,
         job_name='index_gv', threshold = 0)
     
-    explain_legs_federal(result)
+    explain_text_expl(isvalid, result)
+    # print("result: ", result)
+
+
+
+    #------------------------------------------LICITAÇÕES-----------------------------------------
+
     # search_term="Licitações"
     # keywords_search = ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ]
     
@@ -79,6 +102,7 @@ if __name__ == "__main__":
     #     filter_word='licitacoes', job_name='index_gv', threshold=0)
 
     # print("Predict - Busca: {}".format(isvalid))
+    # print(result)
     # licitacoes.explain(result, 'busca')
 
     # concursos_dict = predict_copia_edital()
