@@ -8,6 +8,7 @@ sys.path.insert(1, './classifiers')
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
 from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
 from acesso_a_informacao.informacoes import predict_text_expl, explain_text_expl
+from acesso_a_informacao.informacoes import predict_faq, explain_faq
 
 import licitacoes 
 
@@ -39,15 +40,29 @@ if __name__ == "__main__":
 
 
     # Texto padrão explicativo sobre a Lei de Acesso à Informação
-    search_term='Lei de acesso'
-    keywords=['LAI', 'Lei de acesso à informação']
-    isvalid, result = predict_text_expl(
-        search_term, keywords, path_base, num_matches=30,
-        job_name='index_gv', threshold = 0)
+    # my_jobs:
+            # index_gv, num_matches=30
+            # index_ipatinga, num_matches=30
+            # index_para_de_minas, num_matches=30
+    # ----
+
+    # search_term='Lei de acesso'
+    # keywords=['LAI', 'Lei de acesso à informação']
+    # isvalid, result = predict_text_expl(
+    #     search_term, keywords, path_base, num_matches=30,
+    #     job_name='index_gv', threshold = 0)
     
-    explain_text_expl(isvalid, result)
+    # explain_text_expl(isvalid, result)
     # print("result: ", result)
 
+
+    # Link de respostas a perguntas mais frequentes da sociedade.
+    
+    search_term='Perguntas Frequentes'
+    keywords=['FAQ', 'Perguntas', 'Respostas']
+    isvalid, result = predict_faq(search_term, keywords, path_base, num_matches=30,
+        job_name='index_gv', threshold = 0)
+    explain_faq(isvalid, result)
 
 
     #------------------------------------------LICITAÇÕES-----------------------------------------

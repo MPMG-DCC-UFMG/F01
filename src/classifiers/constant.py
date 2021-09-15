@@ -10,6 +10,10 @@ LEI_ACESSO_INFORMACAO_CONTEUDO = [
     'Lei Federal 12.527',
     'Sistema Eletrônico de Serviço de Informações ao Cidadão',
     'e-SIC',
+    # Possíveis acréscimos:
+    # O acesso a informações públicas
+    # ficou instituído 
+    # viabilizar o acesso
 ]
 
 LINK_LEGS_FEDERAL = ['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']
