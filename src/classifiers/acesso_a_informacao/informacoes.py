@@ -3,6 +3,7 @@ import codecs
 import re
 import constant
 from os import walk
+import pandas as pd
 from utils import indexing
 from utils import table_to_csv
 from utils import search_path_in_dump
@@ -58,17 +59,72 @@ def explain_link_portal(link_portal):
 
 #Informações------- Texto padrão explicativo sobre a Lei de Acesso à Informação -------------------------------------
 
-def search_keywords_text_expl(markup, constants):
+def search_keywords_text_expl(df, markup, constants):
     # buscar pelo indexador por arquivos que contenham: constants.LEI_ACESSO_INFORMACAO e verificar se este contem
     # LEI_ACESSO_INFORMACAO_CONTEUDO
-    pass
+    markup = markup.get_text()
+
+    page_results = []
+
+    for macro in constants:
+
+        try:
+            if re.search(f'.*{macro}.*', markup, re.IGNORECASE) != None:
+                page_results.append(1)
+            else: 
+                page_results.append(0)
+
+        except TypeError:
+            page_results.append(0)
+
+    return page_results
+
     
-def predict_text_expl():
-    pass
-def explain_text_expl():
-    pass
+def predict_text_expl(search_term, keywords, path_base, num_matches = 1,
+    job_name = 'index_gv', threshold= 0):
+
+    _, sorted_result = indexing.request_search(
+        search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
+
+    path = [i[2] for i in sorted_result]
+    path_html = search_path_in_dump.agg_type(path)["html"]
+
+    columns = constant.LEI_ACESSO_INFORMACAO_CONTEUDO
+
+    result = pd.DataFrame( columns=columns, index=path_html)
+
+    for index, item in enumerate(path_html, start=0):
+        # print('result[index]', index)
+        file = codecs.open(item, 'r', 'utf-8')
+        markup = BeautifulSoup(file.read(),  "html.parser" )
+
+        page_results = search_keywords_text_expl(result, markup, constant.LEI_ACESSO_INFORMACAO_CONTEUDO)
+        result.loc[item] = page_results
+
+    result['sum'] = result.iloc[:,:].sum(axis=1)
+
+    # Verificar se algum dos resultados apresentou mais que duas  das keywords 
+    if (len(result[result['sum'] > 2]) > 0):
+        return True, result
+    else:
+        return False, result
+
+def explain_text_expl(isvalid, result):
+
+    print(result[result['sum'] > 2].index)
+
+    if (isvalid):
+        print(f"Texto padrão explicativo sobre a Lei de Acesso à Informação foi encotrado")
+
+        print(f"\tDe {len(result)} documentos candidados {len(result[result['sum'] > 2])} deles tem mais de 2 das 4 keywords")
+    else:
+        print("Texto padrão explicativo sobre a Lei de Acesso à Informação não foi encotrado")
+        x = 1
+        print(f"\tDe {len(result)} documentos candidados nenhum deles tem mais de 2 das 4 keywords \n")
+
 
 #Informações----- Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011) ----------------------------------
+
 def search_keywords_legs_federal(markup, constants):
     target = []
     for a in markup.findAll(href = constants):
@@ -86,6 +142,7 @@ def predict_legs_federal(search_term, keywords, path_base, num_matches = 1,
         file = codecs.open(i, 'r', 'utf-8')
         markup = BeautifulSoup(file.read(),  "html.parser" )
         macro = search_keywords_legs_federal(markup,constant.LINK_LEGS_FEDERAL)
+        print('macro', macro)
         if macro is not None:
             return True, macro
             
@@ -157,27 +214,48 @@ def search_keywords_faq(markup, constants):
         questions_by_t.add(a.getText())
     return markup.find(text=constants), questions_by_t
 
-def predict_faq():
-    filename = '../../Governador Valadares/faq/perguntas_frequentes.html'
-    markup = BeautifulSoup(codecs.open(filename, 'r', 'utf-8').read(),  "html.parser" )
-    title, questions = search_keywords_faq(markup, constant.FAQ_SEARCH)
-    classifier = title is not None and questions is not None
-    print("Prediction Perguntas Frequentes:", classifier)
-    ans = {
-        'title': title,
-        'questions': questions,
-        'classifier': classifier 
-    }
-    return ans
+def predict_faq(search_term, keywords, path_base, num_matches = 1,
+    job_name = 'index_gv', threshold= 0):
 
-def explain_faq(faq_dict):
-    if(faq_dict['classifier']):    
-        print("Na página direcionada pelo link foi encontrado o seguinte título:", faq_dict['title'])    
+    _, sorted_result = indexing.request_search(
+      search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
+    path = [i[2] for i in sorted_result]
+    path_html = search_path_in_dump.agg_type(path)["html"]
+
+    ans = {
+        'page': None,
+        'title': None,
+        'questions': None,
+        'classifier': None 
+    }
+
+    for filename in path_html:
+        try:
+            markup = BeautifulSoup(codecs.open(filename, 'r', 'utf-8').read(),  "html.parser" )
+            title, questions = search_keywords_faq(markup, constant.FAQ_SEARCH)
+            classifier = title is not None and questions is not None
+            if title is not None and questions is not None:
+                ans = {
+                    'page': filename,
+                    'title': title,
+                    'questions': questions
+                }
+                return True, ans
+        except TypeError:
+            continue
+    return False, ans
+        
+
+def explain_faq(isvalid, faq_dict):
+    print("Prediction Perguntas Frequentes:", isvalid) 
+    if isvalid :  
+        print(f"Na página direcionada {faq_dict['page']} foi encontrado o seguinte título:", faq_dict['title'])    
         print("Foram encontradas", len(faq_dict['questions']), "perguntas na página\n")
         for q in faq_dict['questions']:
             print(q)
-    elif faq_dict['title'] is None:     
-        print("\nNenhuma das palavras chave a seguir foram encontradas na página direcionada pelo link:")
+
+    elif isvalid is False:     
+        print("\nNenhuma das palavras chave a seguir foram encontradas na página direcionada pelo indexador:")
         for fs in constant.FAQ_SEARCH:
             print(fs, ' ')
         

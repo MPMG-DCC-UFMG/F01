@@ -4,8 +4,12 @@ import re
 import os
 import numpy as np
 import sys
-#sys.path.insert(0, '../')
-sys.path.insert(0, '/home/cinthia/F01/src')
+
+#sys.path.insert(0, '/home/cinthia/F01/src')
+
+from pathlib import Path
+
+sys.path.insert(0, '../')
 
 from utils import indexing
 from utils import html_to_csv
