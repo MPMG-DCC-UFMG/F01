@@ -1,6 +1,8 @@
 import pandas as pd
 import os
 from pathlib import Path
+import json
+import codecs
 
 from utils import table_to_csv
 
@@ -27,6 +29,9 @@ def agg_type(paths):
 
 def get_extension(path):
     return path.split('.')[-1]
+
+def get_name(path):
+    return path.split('/')[-1]
 
 def format_path(path):
     path = path.split(os.sep)
@@ -102,3 +107,13 @@ def list_to_csv(paths, path_base, unwanted_name):
                         list_df.append(new_df)
                     
     return pd.concat(list_df)
+
+
+def get_url(path_base, filename):
+
+    file_description = path_base + "/" + format_path(filename) + "/" + 'file_description.jsonl'
+    arquivo = codecs.open(file_description, 'r', 'utf-8').readlines()
+    for line in arquivo:
+        json = eval(line)
+        if (json['file_name'] == get_name(filename)):
+            return json['url']
