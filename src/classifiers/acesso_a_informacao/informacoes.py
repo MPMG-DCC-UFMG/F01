@@ -5,8 +5,7 @@ import constant
 from os import walk
 import pandas as pd
 from utils import indexing
-from utils import table_to_csv
-from utils import search_path_in_dump
+from utils import path_functions
 from lxml import etree
 import lxml.html
 from lxml.cssselect import CSSSelector
@@ -25,15 +24,15 @@ def search_keywords_linkportal(markup, constants):
 def predict_link_portal(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
         search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
 
-    # paths = search_path_in_dump.get_paths(sorted_result)
+    # paths = path_functions.get_paths(sorted_result)
     # paths = (sorted(set(paths)))
-    # paths = search_path_in_dump.filter_paths(paths, word="prefeitura")
+    # paths = path_functions.filter_paths(paths, word="prefeitura")
 
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     result = {
     'filename' : None,
@@ -50,7 +49,7 @@ def predict_link_portal(search_term, keywords, path_base, num_matches = 1,
             print('vish',filename,"******")
             result['filename'] = filename
 
-            url = search_path_in_dump.get_url(path_base, filename)
+            url = path_functions.get_url(path_base, filename)
  
             result['url'] = url
 
@@ -132,19 +131,19 @@ def search_keywords_text_expl(df, markup, constants):
 def predict_text_expl(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
         search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
 
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     columns = constant.LEI_ACESSO_INFORMACAO_CONTEUDO
 
     result = pd.DataFrame( columns=columns, index=path_html)
 
     for index, item in enumerate(path_html, start=0):
-        # print('result[index]', item, '\n', search_path_in_dump.get_url(path_base, item))
-        print(search_path_in_dump.get_url(path_base, item))
+        # print('result[index]', item, '\n', path_functions.get_url(path_base, item))
+        # print(path_functions.get_url(path_base, item))
         file = codecs.open(item, 'r', 'utf-8')
         markup = BeautifulSoup(file.read(),  "html.parser" )
 
@@ -186,10 +185,10 @@ def search_keywords_legs_federal(markup, constants):
 def predict_legs_federal(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
       search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     result = {
         'file_name' : None,
@@ -205,7 +204,7 @@ def predict_legs_federal(search_term, keywords, path_base, num_matches = 1,
 
         if len(result['macro']):
             result['file_name'] = filename
-            result['url'] = search_path_in_dump.get_url(path_base, filename)
+            result['url'] = path_functions.get_url(path_base, filename)
 
             return True, result
             
@@ -229,10 +228,10 @@ def search_keywords_legs_estadual(markup, constants):
 def predict_legs_estadual(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
       search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     result = {
         'file_name' : None,
@@ -248,7 +247,7 @@ def predict_legs_estadual(search_term, keywords, path_base, num_matches = 1,
 
         if len(result['macro']):
             result['file_name'] = filename
-            result['url'] = search_path_in_dump.get_url(path_base, filename)
+            result['url'] = path_functions.get_url(path_base, filename)
             return True, result
             
     return False,None
@@ -272,10 +271,10 @@ def search_keywords_site_transparencia(markup, constants):
 def predict_site_transparencia(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
       search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     results = []
     result = {
@@ -285,14 +284,14 @@ def predict_site_transparencia(search_term, keywords, path_base, num_matches = 1
     } 
 
     for filename in path_html:
-        # print(search_path_in_dump.get_url(path_base, filename))
+        # print(path_functions.get_url(path_base, filename))
         file = codecs.open(filename, 'r', 'utf-8')
         markup = BeautifulSoup(file.read(),  "html.parser" )
         result['macro'] = search_keywords_site_transparencia(markup,constant.URL_TRANSPARENCIA_MG)
 
         if len(result['macro']):
             result['file_name'] = filename
-            result['url'] = search_path_in_dump.get_url(path_base, filename)
+            result['url'] = path_functions.get_url(path_base, filename)
 
             results.append(result)
             # return True, result
@@ -327,11 +326,11 @@ def search_keywords_acesso_ilimitado(markup):
 def predict_acesso_ilimitado(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
         search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
 
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     result = []
 
@@ -340,7 +339,7 @@ def predict_acesso_ilimitado(search_term, keywords, path_base, num_matches = 1,
         markup = BeautifulSoup(file.read(),  "html.parser" )
         macro = search_keywords_acesso_ilimitado(markup)
         if (len(macro) != 0):
-            result.append({'filename': filename, 'url': search_path_in_dump.get_url(path_base, filename), 'macro': macro})
+            result.append({'filename': filename, 'url': path_functions.get_url(path_base, filename), 'macro': macro})
 
     if (len(result) > 0):
         return False, result
@@ -370,10 +369,10 @@ def explain_acesso_ilimitado(isvalid, result):
 # def predict_faq(search_term, keywords, path_base, num_matches = 1,
 #     job_name = 'index_gv', threshold= 0):
 
-#     _, sorted_result = indexing.request_search(
+#     sorted_result = indexing.request_search(
 #       search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
 #     path = [i[2] for i in sorted_result]
-#     path_html = search_path_in_dump.agg_type(path)["html"]
+#     path_html = path_functions.agg_paths_by_type(path)["html"]
 
 #     ans = {
 #         'page': None,
@@ -430,10 +429,10 @@ def search_keywords_faq(markup, constant):
 def predict_faq(search_term, keywords, path_base, num_matches = 1,
     job_name = 'index_gv', threshold= 0):
 
-    _, sorted_result = indexing.request_search(
+    sorted_result = indexing.request_search(
       search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
     path = [i[2] for i in sorted_result]
-    path_html = search_path_in_dump.agg_type(path)["html"]
+    path_html = path_functions.agg_paths_by_type(path)["html"]
 
     result = []
 
@@ -443,7 +442,7 @@ def predict_faq(search_term, keywords, path_base, num_matches = 1,
         markup = BeautifulSoup(file.read(),  "html.parser" )
         macro = search_keywords_faq(markup, constant.FAQ_SEARCH)
         if (len(macro) != 0):
-            result.append({'filename': filename, 'url': search_path_in_dump.get_url(path_base, filename), 'macro': macro})
+            result.append({'filename': filename, 'url': path_functions.get_url(path_base, filename), 'macro': macro})
 
     if (len(result) > 0):
         return True, result

@@ -7,6 +7,9 @@ import os
 
 es = Elasticsearch('127.0.0.1', port=9200)
 
+def remove_index (job_name):
+   es.indices.delete(index=job_name, ignore=[400, 404])
+
 def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv', verbose=False):
 
    response = es.search(
@@ -18,7 +21,6 @@ def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv
             "bool":{
                "should":[
                   { "terms": { "array": keywords }},
-                  { "fuzzy" : { "content": search_term }},
                   { "match" : { "content": search_term }},
                ]
             },
@@ -28,8 +30,7 @@ def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv
    
    result = [ (hit['_source'].get('file').get('filesize'), hit['_score'], hit['_source'].get('path').get('real')) for hit in response['hits']['hits']]
 
-   sorted_result = sorted(result, key=lambda tup: float(tup[0]), reverse=True)
-   return result, sorted_result
+   return result
 
 
 
