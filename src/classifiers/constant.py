@@ -5,14 +5,14 @@ ABA_TRANSPARENCIA = {
     'index_divinopolis' :  'http://177.69.246.151/portal/servicos/sonner/transparencia.php',
     'index_para_de_minas' : 'http://transparencia.parademinas.mg.gov.br/',
     'index_uberaba' : 'conteudo,37644', 
-    'index_uberlandia' : '', 
+    'index_uberlandia' : 'https://www.uberlandia.mg.gov.br/portal-da-transparencia/', 
     'index_montes_claros' : 'https://transparencia.montesclaros.mg.gov.br/',
     'index_teofilo_otoni': 'https://transparencia.teofilootoni.mg.gov.br/portalcidadao/#efb33c382dcf9e4ae2294337ce2a566034ee25478c90493e56f55878a4d19d547154abb93a539ca141901243121b0442f68667740d76583a9b6fc842805a701255f50abffb83548323feb3d4a215dcba05fc4b5b868699999c1d78af95bbbed2ae7ab27d940f9f7a8b2debb75557ba1cd7f6303c3be5a0edaecf72a00208c722773c5ec1c75725b2',
     'index_varginha' : '',
     'index_passsos' : '',  
     'index_pouso_alegre': 'https://pousoalegre.atende.net/?pg=transparencia#!/',
     'index_juiz_de_fora' : '', 
-    'index_governador_valadares' :  'http://transparencia.valadares.mg.gov.br/',
+    'index_governador_valadares' :  'transparencia.valadares.mg.gov.br',
     'index_ipatinga' : 'http://transparencia.ipatinga.mg.gov.br',
     'index_betim' : '', 
     'index_congonhas' : '', 
@@ -33,6 +33,9 @@ LEI_ACESSO_INFORMACAO_CONTEUDO = [
     'Regula o acesso a informações previsto no inciso' ,
     'aumentando a transparência da gestão pública',
     'Leis que regem o Portal'
+    'Regula o acesso a informações previsto'
+    'Regulamenta o acesso à informação'
+    'Dispõe sobre a disponibilização de informações'
     # Possíveis acréscimos:
     # O acesso a informações públicas
     # ficou instituído 

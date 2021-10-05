@@ -16,6 +16,7 @@ from acesso_a_informacao.informacoes import predict_site_transparencia, explain_
 from acesso_a_informacao.informacoes import predict_acesso_ilimitado, explain_acesso_ilimitado
 from acesso_a_informacao.informacoes import predict_faq, explain_faq
 
+
 import licitacoes 
 
 if __name__ == "__main__":
@@ -30,91 +31,75 @@ if __name__ == "__main__":
     # path_base = "C:/Users/ritar"
     # path_base = "C:/Users/pedro"
 
-    #------------------------------------------INFORMAÇÃO-----------------------------------------
+# -----------------------------------------
 
-#     Aba denominada “Transparência” no menu principal do sítio eletrônico
+    # Uberlândia
 
-    search_term = 'Prefeitura'
-    keywords=['Home', 'Menu', 'Transparência', 'Portal', 'Secretarias', 'Legislação']
-    isvalid, result = predict_link_portal(
-        search_term, keywords, path_base, num_matches=60,
-        job_name='index_ipatinga', threshold = 0)
-    
-    explain_link_portal(isvalid, result)
-#     -------
+    #-------------------------------INFORMAÇÃO-------------------------------------
 
+    # #--- Aba denominada “Transparência” no menu principal do site
+    # isvalid, result = predict_link_portal(path_base = path_base, num_matches=500,
+    #     job_name='index_uberlandia')
+    # explain_link_portal(isvalid, result)
 
-    # Texto padrão explicativo sobre a Lei de Acesso à Informação
-
-    search_term = 'Lei'
-    keywords=['LAI', 'Lei de acesso à informação']
-    isvalid, result = predict_text_expl(
-        search_term, keywords, path_base, num_matches=60,
-        job_name='index_pouso_alegre', threshold = 0)
-    
+    #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
+    isvalid, result = predict_text_expl(path_base = path_base, job_name='index_uberlandia')
     explain_text_expl(isvalid, result)
-    # --------
 
+    # #--- Link de acesso à legislação federal (Lei nº 12.527/2011)
+    # isvalid, result = predict_legs_federal(path_base = path_base, job_name='index_uberlandia')
+    # explain_legs_federal(isvalid, result)
 
-    # Link de acesso à legislação federal sobre a transparência (Lei nº 12.527/2011 e eventual legislação superveniente)
+    # #--- Link de acesso à legislação (Decreto Estadual nº 45.969/2012)
+    # isvalid, result = predict_legs_estadual(path_base = path_base, job_name='index_uberlandia')
+    # explain_legs_estadual(isvalid, result)
 
-    search_term='Acesso a informao'
-    keywords=['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']
-    isvalid, result = predict_legs_federal(
-        search_term, keywords, path_base, num_matches=40,
-        job_name='index_pouso_alegre', threshold = 0)
-    
-    explain_legs_federal(isvalid, result)
-    # ---------
+    # #--- Link de acesso www.transparencia.mg.gov.br
+    # isvalid, result = predict_site_transparencia(path_base=path_base, num_matches=40, job_name='index_uberlandia')
+    # explain_site_transparencia(isvalid, result)
 
+    # #-- Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico
+    # isvalid, result = predict_acesso_ilimitado(path_base=path_base, job_name='index_uberlandia')
+    # explain_acesso_ilimitado(isvalid, result)
 
-    # Link de acesso à legislação 'federal' sobre a transparência (Decreto Estadual nº 45.969/2012 e eventual legislação superveniente)
+    # #--- FAQ
+    # isvalid, result = predict_faq(path_base=path_base, job_name='index_uberlandia')
+    # explain_faq(isvalid, result)
 
-    search_term='Acesso a informao'
-    keywords=['https://www.almg.gov.br/consulte/legislacao/completa/completa.html?num=45969&ano=2012&tipo=DEC']
-    isvalid, result = predict_legs_estadual(
-        search_term, keywords, path_base, num_matches=40,
-        job_name='index_pouso_alegre', threshold = 0)
-    
-    explain_legs_estadual(isvalid, result)
-    # ---------
+# -----------------------------------------
 
-    # Link de acesso ao site da Transparência (www.transparencia.mg.gov.br)
+    # Para de Minas
 
-    search_term='Acesso a informao'
-    keywords=['www.transparencia.mg.gov.br']
-    isvalid, result = predict_site_transparencia(
-        search_term, keywords, path_base, num_matches=40,
-        job_name='index_pouso_alegre', threshold = 0)
-    
-    explain_site_transparencia(isvalid, result)
-    # ---------
+    # # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
+    # isvalid, result = predict_link_portal(path_base = path_base, job_name='index_para_de_minas')
+    # explain_link_portal(isvalid, result)
 
-    # Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico: 
-    # o acesso não pode estar condicionado à criação de um cadastro ou ao fornecimento de dados pessoais
+    # #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
+    # isvalid, result = predict_text_expl(path_base = path_base, job_name='index_para_de_minas')
+    # explain_text_expl(isvalid, result)
 
-    search_term = 'Login'
-    keywords=['necessrio efetuar login', 'senha', 'login' 'usuário']
-    isvalid, result = predict_acesso_ilimitado(
-        search_term, keywords, path_base, num_matches=2600,
-        job_name='index_pouso_alegre', threshold = 0)
-    
-    explain_acesso_ilimitado(isvalid, result)
-    # ---------
+    # #--- Link de acesso à legislação federal (Lei nº 12.527/2011)
+    # isvalid, result = predict_legs_federal(path_base = path_base, job_name='index_para_de_minas')
+    # explain_legs_federal(isvalid, result)
 
+    # #--- Link de acesso à legislação (Decreto Estadual nº 45.969/2012)
+    # isvalid, result = predict_legs_estadual(path_base = path_base, job_name='index_para_de_minas')
+    # explain_legs_estadual(isvalid, result)
 
-    # Link de respostas a perguntas mais frequentes da sociedade.
-    
-    search_term='Perguntas Frequentes'
-    keywords=['FAQ', 'Perguntas', 'Respostas']
-    isvalid, result = predict_faq(
-        search_term, keywords, path_base, num_matches=30,
-        job_name='index_pouso_alegre', threshold = 0)
+    # #--- Link de acesso www.transparencia.mg.gov.br
+    # isvalid, result = predict_site_transparencia(path_base=path_base, num_matches=40, job_name='index_para_de_minas')
+    # explain_site_transparencia(isvalid, result)
 
-    explain_faq(isvalid, result)
-    #--------    
+    # #-- Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico
+    # isvalid, result = predict_acesso_ilimitado(path_base=path_base, job_name='index_para_de_minas')
+    # explain_acesso_ilimitado(isvalid, result)
 
+    # #--- FAQ
+    # isvalid, result = predict_faq(path_base=path_base, job_name='index_para_de_minas')
+    # explain_faq(isvalid, result)
 
+# -----------------------------------------
+   
 
 
     #------------------------------------------LICITAÇÕES-----------------------------------------
