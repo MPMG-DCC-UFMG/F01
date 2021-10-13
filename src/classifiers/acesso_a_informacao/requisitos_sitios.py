@@ -15,7 +15,7 @@ from utils import check_df
 
 def get_files_to_valid(
     search_term, index_keywords, num_matches,
-    job_name, path_base, type='html', pattern='/tmp/es/data'): 
+    job_name, path_base, type='html'): 
         
     #Search
     result = indexing.request_search(
@@ -28,10 +28,6 @@ def get_files_to_valid(
 
     #Return files in specific type
     html_files = agg_files.get(type)
-
-    #Replace pattern by path_base
-    if pattern != "":
-        html_files = path_functions.create_valid_path (html_files, path_base=path_base, pattern=pattern)
 
     return html_files
 
@@ -91,12 +87,12 @@ def analyze_tags(html_files):
 
 def predict_search_engine (
     search_term='busca', keywords="", num_matches=10,
-    job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    job_name="", path_base="", verbose=False):
 
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -111,12 +107,12 @@ def predict_search_engine (
 
 def predict_update_infos(
     search_term, keywords=["", 'baixar'], num_matches=10, job_name="",
-     path_base="", pattern="", verbose=False):
+     path_base="", verbose=False):
 
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -132,12 +128,12 @@ def predict_update_infos(
 def predict_accessibility(search_term='acessibilidade', 
     keywords=['decreto nº 7.724', 'acessibilidade na divulgação das informações',
     'opção de contraste', 'trabalhar com leitores de páginas'], 
-    num_matches=10, job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    num_matches=10, job_name="", path_base="", verbose=False):
     
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -153,12 +149,12 @@ def predict_accessibility(search_term='acessibilidade',
 def predict_address(search_term="page-principal", 
     keywords=["portal", "informações", "servicos", "site", "municipal", "governo", "publico",
     "Prefeitura Municipal de Governador Valadares - Portal da Transparência", "Principal"],
-    num_matches=10, job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    num_matches=10, job_name="", path_base="", verbose=False):
 
     #Search
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all files
     result = analyze_tags(html_files)
@@ -173,12 +169,12 @@ def predict_address(search_term="page-principal",
 
 def predict_export_reports(search_term='page-principal', 
     keywords=['pdf', 'xml', 'csv', 'xls', 'download', 'baixar', 'export', 'exportar'], 
-    num_matches=10, job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    num_matches=10, job_name="", path_base="", verbose=False):
     
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base,)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -200,6 +196,4 @@ def explain(df, column_name, elemento, verbose=False):
         print(result)
 
     return result
-
-
 
