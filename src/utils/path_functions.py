@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import codecs
 
 def agg_paths_by_type(paths):
 
@@ -29,6 +30,9 @@ def format_path(path):
     
 def get_extension(path):
     return path.split('.')[-1]
+
+def get_name(path):
+    return path.split('/')[-1]
 
 def get_paths(indexes):
 
@@ -68,3 +72,13 @@ def preprocess_paths(sorted_result, word):
 def create_valid_path (html_files, path_base, pattern='/tmp/es/data'):
 
     return [i.replace(pattern, path_base) for i in html_files]
+
+
+def get_url(path_base, filename):
+
+    file_description = path_base + "/" + format_path(filename) + "/" + 'file_description.jsonl'
+    arquivo = codecs.open(file_description, 'r', 'utf-8').readlines()
+    for line in arquivo:
+        json = eval(line)
+        if (json['file_name'] == get_name(filename)):
+            return json['url']

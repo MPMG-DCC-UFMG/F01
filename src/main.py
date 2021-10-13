@@ -7,14 +7,29 @@ sys.path.insert(0, '/home/cinthia/F01/src/classifiers')
 # from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
 # from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
+<<<<<<< HEAD
 #from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
 #from acesso_a_informacao.informacoes import predict_text_expl, explain_text_expl
 #from acesso_a_informacao.informacoes import predict_faq, explain_faq
 from acesso_a_informacao import requisitos_sitios
+=======
+
+from acesso_a_informacao.informacoes import predict_link_portal, explain_link_portal
+from acesso_a_informacao.informacoes import predict_text_expl, explain_text_expl
+
+from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
+from acesso_a_informacao.informacoes import predict_legs_estadual, explain_legs_estadual
+from acesso_a_informacao.informacoes import predict_site_transparencia, explain_site_transparencia
+from acesso_a_informacao.informacoes import predict_acesso_ilimitado, explain_acesso_ilimitado
+from acesso_a_informacao.informacoes import predict_faq, explain_faq
+
+
+
 import licitacoes 
 import constant
 
 def add_in_dict(output, item, isvalid, result_explain):
+
 
     output[item]['predict'] = isvalid
     output[item]['explain'] = result_explain
@@ -50,6 +65,80 @@ def add_in_dict(output, item, isvalid, result_explain):
         search_term, keywords, path_base, num_matches=30,
         job_name='index_gv', threshold = 0)
     explain_faq(isvalid, result)
+
+    
+    #local onde está o dump
+    path_base = "/home/asafe"
+    #path_base = "/home/cinthia/MPMG/persistence_area"
+    # path_base = "C:/Users/ritar"
+    # path_base = "C:/Users/pedro"
+
+# -----------------------------------------
+
+    # Uberlândia
+
+    #-------------------------------INFORMAÇÃO-------------------------------------
+
+    # #--- Aba denominada “Transparência” no menu principal do site
+    # isvalid, result = predict_link_portal(path_base = path_base, num_matches=500,
+    #     job_name='index_uberlandia')
+    # explain_link_portal(isvalid, result)
+
+    #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
+    isvalid, result = predict_text_expl(path_base = path_base, job_name='index_uberlandia')
+    explain_text_expl(isvalid, result)
+
+    # #--- Link de acesso à legislação federal (Lei nº 12.527/2011)
+    # isvalid, result = predict_legs_federal(path_base = path_base, job_name='index_uberlandia')
+    # explain_legs_federal(isvalid, result)
+
+    # #--- Link de acesso à legislação (Decreto Estadual nº 45.969/2012)
+    # isvalid, result = predict_legs_estadual(path_base = path_base, job_name='index_uberlandia')
+    # explain_legs_estadual(isvalid, result)
+
+    # #--- Link de acesso www.transparencia.mg.gov.br
+    # isvalid, result = predict_site_transparencia(path_base=path_base, num_matches=40, job_name='index_uberlandia')
+    # explain_site_transparencia(isvalid, result)
+
+    # #-- Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico
+    # isvalid, result = predict_acesso_ilimitado(path_base=path_base, job_name='index_uberlandia')
+    # explain_acesso_ilimitado(isvalid, result)
+
+    # #--- FAQ
+    # isvalid, result = predict_faq(path_base=path_base, job_name='index_uberlandia')
+    # explain_faq(isvalid, result)
+
+# -----------------------------------------
+
+    # Para de Minas
+
+    # # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
+    # isvalid, result = predict_link_portal(path_base = path_base, job_name='index_para_de_minas')
+    # explain_link_portal(isvalid, result)
+
+    # #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
+    # isvalid, result = predict_text_expl(path_base = path_base, job_name='index_para_de_minas')
+    # explain_text_expl(isvalid, result)
+
+    # #--- Link de acesso à legislação federal (Lei nº 12.527/2011)
+    # isvalid, result = predict_legs_federal(path_base = path_base, job_name='index_para_de_minas')
+    # explain_legs_federal(isvalid, result)
+
+    # #--- Link de acesso à legislação (Decreto Estadual nº 45.969/2012)
+    # isvalid, result = predict_legs_estadual(path_base = path_base, job_name='index_para_de_minas')
+    # explain_legs_estadual(isvalid, result)
+
+    # #--- Link de acesso www.transparencia.mg.gov.br
+    # isvalid, result = predict_site_transparencia(path_base=path_base, num_matches=40, job_name='index_para_de_minas')
+    # explain_site_transparencia(isvalid, result)
+
+    # #-- Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico
+    # isvalid, result = predict_acesso_ilimitado(path_base=path_base, job_name='index_para_de_minas')
+    # explain_acesso_ilimitado(isvalid, result)
+
+    # #--- FAQ
+    # isvalid, result = predict_faq(path_base=path_base, job_name='index_para_de_minas')
+    # explain_faq(isvalid, result)
 
 
     return output"""
