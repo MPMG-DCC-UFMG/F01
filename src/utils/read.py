@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 
 def read_html(path):
 
-    soup = BeautifulSoup(open(path), features="lxml",from_encoding="utf-8")
+    text = open(path, encoding='latin-1').read()
+    soup = BeautifulSoup(text, features="lxml",from_encoding="latin-1")
 
     return soup
 
