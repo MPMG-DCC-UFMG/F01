@@ -47,7 +47,7 @@ def predict_link_portal(search_term = 'Prefeitura',
     for filename in path_html:
 
         if 'prefeitura' in filename:
-            print('vish',filename,"******")
+            # print(filename,"******")
             result['filename'] = filename
 
             url = path_functions.get_url(path_base, filename)
@@ -55,44 +55,49 @@ def predict_link_portal(search_term = 'Prefeitura',
             result['url'] = url
 
             try:
+                file = codecs.open(filename, 'r', 'utf-8')
+                markup = BeautifulSoup(file.read(),  "html.parser" )
+            except:
                 file = codecs.open(filename, 'r', 'latin-1')
                 markup = BeautifulSoup(file.read(),  "html.parser" )
-                macro = search_keywords_linkportal(markup,constant.ABA_TRANSPARENCIA[job_name])
-                result['macro'] = macro
 
-                # Search xpath
+            macro = search_keywords_linkportal(markup,constant.ABA_TRANSPARENCIA[job_name])
+            result['macro'] = macro
+
+            # Search xpath
+            try:
+                arquivo = codecs.open(filename, 'r', 'utf-8')
+                dom =  lxml.html.fromstring(arquivo.read())
+            except:
                 arquivo = codecs.open(filename, 'r', 'latin-1')
                 dom =  lxml.html.fromstring(arquivo.read())
-                selAnchor = CSSSelector('a')
-                tree = etree.ElementTree(dom)
-                foundElements = selAnchor(dom)
-                for e in foundElements:
-                    if e.get('href') == constant.ABA_TRANSPARENCIA[job_name]:
-                        # print(e.get('href'))
-                        result['xpath'].append(tree.getpath(e))
+            selAnchor = CSSSelector('a')
+            tree = etree.ElementTree(dom)
+            foundElements = selAnchor(dom)
+            for e in foundElements:
+                if e.get('href') == constant.ABA_TRANSPARENCIA[job_name]:
+                    # print(e.get('href'))
+                    result['xpath'].append(tree.getpath(e))
 
+            if len(macro) == 0:
+                return False, result
+            else:
+                tags_a = macro
+                for tag_a in tags_a:
+                    tag_parent = tag_a.parent
+                    tag_grandparent = tag_parent.parent
+                    try:
+                        if tag_grandparent.find(class_= re.compile("(?:.*sidebar.*|.*navbar.*|.*menu.*|.*menuprincipal.*)", re.IGNORECASE)):
+                            result['LINK_NO_MENU'] = True
+                    except TypeError:
+                        continue
+                    try:
+                        if tag_grandparent.find(id= re.compile("(?:.*sidebar.*|.*navbar.*|.*menu.*|.*menuprincipal.*)", re.IGNORECASE)):
+                            result['LINK_NO_MENU'] = True
+                    except TypeError:
+                        continue
+                return True, result
 
-                if len(macro) == 0:
-                    return False, result
-                else:
-                    tags_a = macro
-                    for tag_a in tags_a:
-                        tag_parent = tag_a.parent
-                        tag_grandparent = tag_parent.parent
-                        try:
-                            if tag_grandparent.find(class_= re.compile("(?:.*sidebar.*|.*navbar.*|.*menu.*|.*menuprincipal.*)", re.IGNORECASE)):
-                                result['LINK_NO_MENU'] = True
-                        except TypeError:
-                            continue
-                        try:
-                            if tag_grandparent.find(id= re.compile("(?:.*sidebar.*|.*navbar.*|.*menu.*|.*menuprincipal.*)", re.IGNORECASE)):
-                                result['LINK_NO_MENU'] = True
-                        except TypeError:
-                            continue
-
-                    return True, result
-            except TypeError:
-                continue
             
     return False, result
 
@@ -120,6 +125,7 @@ def search_keywords_text_expl(df, markup, constants):
     page_results = []
 
     for macro in constants:
+        # print(macro)
 
         try:
             if re.search(f'.*{macro}.*', markup, re.IGNORECASE) != None:
@@ -144,14 +150,20 @@ def predict_text_expl(search_term = 'Lei', keywords=['LAI', 'Lei de acesso à in
     columns = constant.LEI_ACESSO_INFORMACAO_CONTEUDO
     result = pd.DataFrame( columns=columns, index=path_html)
 
+    # print(path_html)
+
     for index, item in enumerate(path_html, start=0):
         # print('result[index]', item, '\n', path_functions.get_url(path_base, item))
-        # print(path_functions.get_url(path_base, item))
-        file = codecs.open(item, 'r', 'utf-8')
-        markup = BeautifulSoup(file.read(),  "html.parser" )
+        try:
+            file = codecs.open(item, 'r', 'utf-8')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        except:
+            file = codecs.open(item, 'r', 'latin-1')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
 
         page_results = search_keywords_text_expl(result, markup, constant.LEI_ACESSO_INFORMACAO_CONTEUDO)
-        print(item, page_results)
+
+        # print(path_functions.get_url(path_base, item), page_results)
         result.loc[item] = page_results
 
     result['sum'] = result.iloc[:,:].sum(axis=1)
@@ -180,9 +192,10 @@ def explain_text_expl(isvalid, result):
 
 def search_keywords_legs_federal(markup, constants):
     target = []
-    for a in markup.findAll(href = constants):
+    for a in markup.findAll(href = re.compile(constants, re.IGNORECASE)):
         target.append(a)
     target = set(target)
+    # print(target)
     return target
 
 def predict_legs_federal(search_term='Acesso a informao', keywords=['http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm'], 
@@ -200,9 +213,13 @@ def predict_legs_federal(search_term='Acesso a informao', keywords=['http://www.
     } 
 
     for filename in path_html:
-        # print(filename)
-        file = codecs.open(filename, 'r', 'utf-8')
-        markup = BeautifulSoup(file.read(),  "html.parser" )
+        # print(path_functions.get_url(path_base, filename), filename)
+        try:
+            file = codecs.open(filename, 'r', 'utf-8')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        except:
+            file = codecs.open(filename, 'r', 'latin-1')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
         result['macro'] = search_keywords_legs_federal(markup,constant.LINK_LEGS_FEDERAL)
 
         if len(result['macro']):
@@ -223,7 +240,7 @@ def explain_legs_federal(isvalid, result):
 # Link de acesso à leg Estadual sobre a transparência (Decreto Estadual nº 45.969/2012)-----------------
 def search_keywords_legs_estadual(markup, constants):
     target = []
-    for a in markup.findAll(href = constants):
+    for a in markup.findAll(href = re.compile(constants, re.IGNORECASE)):
         target.append(a)
     return target
     
@@ -243,8 +260,12 @@ def predict_legs_estadual(search_term='Acesso a informao', keywords=['https://ww
 
     for filename in path_html:
         # print(filename)
-        file = codecs.open(filename, 'r', 'utf-8')
-        markup = BeautifulSoup(file.read(),  "html.parser" )
+        try:
+            file = codecs.open(filename, 'r', 'utf-8')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        except:
+            file = codecs.open(filename, 'r', 'latin-1')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
         result['macro'] = search_keywords_legs_estadual(markup,constant.LINK_LEGS_ESTADUAL)
 
         if len(result['macro']):
@@ -287,16 +308,20 @@ def predict_site_transparencia(search_term='Acesso a informao', keywords=['www.t
 
     for filename in path_html:
         # print(path_functions.get_url(path_base, filename))
-        file = codecs.open(filename, 'r', 'utf-8')
-        markup = BeautifulSoup(file.read(),  "html.parser" )
-        result['macro'] = search_keywords_site_transparencia(markup,constant.URL_TRANSPARENCIA_MG)
+        try:
+            file = codecs.open(filename, 'r', 'utf-8')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        except:
+            file = codecs.open(filename, 'r', 'latin-1')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        macro = search_keywords_site_transparencia(markup,constant.URL_TRANSPARENCIA_MG)
 
-        if len(result['macro']):
+        if len(macro):
             result['file_name'] = filename
             result['url'] = path_functions.get_url(path_base, filename)
+            result['macro'] = macro
 
             results.append(result)
-            # return True, result
     if len(results):
         return True, results
     else:
@@ -337,8 +362,12 @@ def predict_acesso_ilimitado(search_term = 'Login', keywords=['necessrio efetuar
     result = []
 
     for filename in path_html:
-        file = codecs.open(filename, 'r', 'utf-8')
-        markup = BeautifulSoup(file.read(),  "html.parser" )
+        try:
+            file = codecs.open(filename, 'r', 'utf-8')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        except:
+            file = codecs.open(filename, 'r', 'latin-1')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
         macro = search_keywords_acesso_ilimitado(markup)
         if (len(macro) != 0):
             result.append({'filename': filename, 'url': path_functions.get_url(path_base, filename), 'macro': macro})
@@ -387,8 +416,12 @@ def predict_faq(search_term='Perguntas Frequentes', keywords=['FAQ', 'Perguntas'
 
     for filename in path_html:
         # print(filename)
-        file = codecs.open(filename, 'r', 'utf-8')
-        markup = BeautifulSoup(file.read(),  "html.parser" )
+        try:
+            file = codecs.open(filename, 'r', 'utf-8')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
+        except:
+            file = codecs.open(filename, 'r', 'latin-1')
+            markup = BeautifulSoup(file.read(),  "html.parser" )
         macro = search_keywords_faq(markup, constant.FAQ_SEARCH)
         if (len(macro) != 0):
             result.append({'filename': filename, 'url': path_functions.get_url(path_base, filename), 'macro': macro})

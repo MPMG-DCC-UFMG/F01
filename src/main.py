@@ -16,6 +16,7 @@ from acesso_a_informacao.informacoes import predict_site_transparencia, explain_
 from acesso_a_informacao.informacoes import predict_acesso_ilimitado, explain_acesso_ilimitado
 from acesso_a_informacao.informacoes import predict_faq, explain_faq
 
+from acesso_a_informacao.base_dados import predict_bases_de_dados_abertos, explain_bases_de_dados_abertos
 
 import licitacoes 
 
@@ -31,74 +32,52 @@ if __name__ == "__main__":
     # path_base = "C:/Users/ritar"
     # path_base = "C:/Users/pedro"
 
+    #-------------------------------INFORMAÇÃO-------------------------------------
+
 # -----------------------------------------
 
     # Uberlândia
-
-    #-------------------------------INFORMAÇÃO-------------------------------------
 
     # #--- Aba denominada “Transparência” no menu principal do site
     # isvalid, result = predict_link_portal(path_base = path_base, num_matches=500,
     #     job_name='index_uberlandia')
     # explain_link_portal(isvalid, result)
 
-    #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
-    isvalid, result = predict_text_expl(path_base = path_base, job_name='index_uberlandia')
-    explain_text_expl(isvalid, result)
+# -----------------------------------------
 
-    # #--- Link de acesso à legislação federal (Lei nº 12.527/2011)
-    # isvalid, result = predict_legs_federal(path_base = path_base, job_name='index_uberlandia')
-    # explain_legs_federal(isvalid, result)
-
-    # #--- Link de acesso à legislação (Decreto Estadual nº 45.969/2012)
-    # isvalid, result = predict_legs_estadual(path_base = path_base, job_name='index_uberlandia')
-    # explain_legs_estadual(isvalid, result)
-
-    # #--- Link de acesso www.transparencia.mg.gov.br
-    # isvalid, result = predict_site_transparencia(path_base=path_base, num_matches=40, job_name='index_uberlandia')
-    # explain_site_transparencia(isvalid, result)
-
-    # #-- Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico
-    # isvalid, result = predict_acesso_ilimitado(path_base=path_base, job_name='index_uberlandia')
-    # explain_acesso_ilimitado(isvalid, result)
-
-    # #--- FAQ
-    # isvalid, result = predict_faq(path_base=path_base, job_name='index_uberlandia')
-    # explain_faq(isvalid, result)
+    # Para de Minas - Padrão
 
 # -----------------------------------------
 
-    # Para de Minas
-
-    # # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
-    # isvalid, result = predict_link_portal(path_base = path_base, job_name='index_para_de_minas')
-    # explain_link_portal(isvalid, result)
+    # Betim
 
     # #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
-    # isvalid, result = predict_text_expl(path_base = path_base, job_name='index_para_de_minas')
+    # isvalid, result = predict_text_expl(path_base = path_base, num_matches = 10, job_name='index_betim')
     # explain_text_expl(isvalid, result)
 
-    # #--- Link de acesso à legislação federal (Lei nº 12.527/2011)
-    # isvalid, result = predict_legs_federal(path_base = path_base, job_name='index_para_de_minas')
-    # explain_legs_federal(isvalid, result)
+# -----------------------------------------
 
-    # #--- Link de acesso à legislação (Decreto Estadual nº 45.969/2012)
-    # isvalid, result = predict_legs_estadual(path_base = path_base, job_name='index_para_de_minas')
-    # explain_legs_estadual(isvalid, result)
-
-    # #--- Link de acesso www.transparencia.mg.gov.br
-    # isvalid, result = predict_site_transparencia(path_base=path_base, num_matches=40, job_name='index_para_de_minas')
-    # explain_site_transparencia(isvalid, result)
-
-    # #-- Acesso ilimitado a todas as informações públicas disponibilizadas no sítio eletrônico
-    # isvalid, result = predict_acesso_ilimitado(path_base=path_base, job_name='index_para_de_minas')
-    # explain_acesso_ilimitado(isvalid, result)
-
-    # #--- FAQ
-    # isvalid, result = predict_faq(path_base=path_base, job_name='index_para_de_minas')
-    # explain_faq(isvalid, result)
+    # Congonhas - Padrão
 
 # -----------------------------------------
+
+    # Paracatu - Padrão
+
+# -----------------------------------------
+
+    # Governador Valadares
+
+    # # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
+    # isvalid, result = predict_link_portal(path_base = path_base, num_matches = 60 ,job_name='index_governador_valadares')
+    # explain_link_portal(isvalid, result)
+
+# Bases de dados abertos
+
+    isvalid, result = predict_bases_de_dados_abertos(path_base = path_base, num_matches = 60 ,job_name='index_governador_valadares')
+    explain_bases_de_dados_abertos(isvalid, result)
+
+
+
    
 
 
