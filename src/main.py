@@ -4,26 +4,14 @@ import pandas as pd
 
 sys.path.insert(0, '/home/cinthia/F01/src/classifiers')
 
-# from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
-# from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
-# from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
-<<<<<<< HEAD
-#from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
-#from acesso_a_informacao.informacoes import predict_text_expl, explain_text_expl
-#from acesso_a_informacao.informacoes import predict_faq, explain_faq
 from acesso_a_informacao import requisitos_sitios
-=======
-
 from acesso_a_informacao.informacoes import predict_link_portal, explain_link_portal
 from acesso_a_informacao.informacoes import predict_text_expl, explain_text_expl
-
 from acesso_a_informacao.informacoes import predict_legs_federal, explain_legs_federal
 from acesso_a_informacao.informacoes import predict_legs_estadual, explain_legs_estadual
 from acesso_a_informacao.informacoes import predict_site_transparencia, explain_site_transparencia
 from acesso_a_informacao.informacoes import predict_acesso_ilimitado, explain_acesso_ilimitado
 from acesso_a_informacao.informacoes import predict_faq, explain_faq
-
-
 
 import licitacoes 
 import constant
