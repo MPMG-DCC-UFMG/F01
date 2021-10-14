@@ -15,7 +15,7 @@ from utils import check_df
 
 def get_files_to_valid(
     search_term, index_keywords, num_matches,
-    job_name, path_base, type='html', pattern='/tmp/es/data'): 
+    job_name, path_base, type='html'): 
         
     #Search
     result = indexing.request_search(
@@ -24,14 +24,10 @@ def get_files_to_valid(
     files = [i[2] for i in result]
 
     #Aggregate file by type
-    agg_files = path_functions.agg_paths_bytype(files)
+    agg_files = path_functions.agg_paths_by_type(files)
 
     #Return files in specific type
     html_files = agg_files.get(type)
-
-    #Replace pattern by path_base
-    if pattern != "":
-        html_files = path_functions.create_valid_path (html_files, path_base=path_base, pattern=pattern)
 
     return html_files
 
@@ -83,22 +79,23 @@ def analyze_tags(html_files):
         text = check_tags_address(soup, tags_address)
 
         matches.append(len(text))
-
-    result = pd.DataFrame({'files': html_files, 'matches': matches, 'found_text': " ".join(text)})
-
+    try:
+        result = pd.DataFrame({'files': html_files, 'matches': matches, 'found_text': " ".join(text)})
+    except UnboundLocalError:
+        result = pd.DataFrame({'files': [], 'matches': [], 'found_text': ""})
     return result
 
 def predict_search_engine (
-    keyword_to_search, search_term, index_keywords, num_matches,
-    job_name, path_base, pattern='/tmp/es/data', verbose=False):
+    search_term='busca', keywords="", num_matches=10,
+    job_name="", path_base="", verbose=False):
 
     #Search all files using keywords
     html_files = get_files_to_valid(
-        search_term, index_keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        search_term, keywords, num_matches,
+        job_name, path_base)
 
     #Analyze all html files searching keywords
-    result = analyze_html(html_files, keyword_to_search=keyword_to_search)
+    result = analyze_html(html_files, keyword_to_search=keywords)
 
     #Check result 
     isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
@@ -108,13 +105,14 @@ def predict_search_engine (
 
     return isvalid, result
 
-def predict_update_infos(search_term, keywords, num_matches,
-    job_name, path_base, pattern='/tmp/es/data', verbose=False):
+def predict_update_infos(
+    search_term, keywords=["", 'baixar'], num_matches=10, job_name="",
+     path_base="", verbose=False):
 
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -130,12 +128,12 @@ def predict_update_infos(search_term, keywords, num_matches,
 def predict_accessibility(search_term='acessibilidade', 
     keywords=['decreto nº 7.724', 'acessibilidade na divulgação das informações',
     'opção de contraste', 'trabalhar com leitores de páginas'], 
-    num_matches=10, job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    num_matches=10, job_name="", path_base="", verbose=False):
     
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -151,12 +149,12 @@ def predict_accessibility(search_term='acessibilidade',
 def predict_address(search_term="page-principal", 
     keywords=["portal", "informações", "servicos", "site", "municipal", "governo", "publico",
     "Prefeitura Municipal de Governador Valadares - Portal da Transparência", "Principal"],
-    num_matches=10, job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    num_matches=10, job_name="", path_base="", verbose=False):
 
     #Search
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base)
 
     #Analyze all files
     result = analyze_tags(html_files)
@@ -171,12 +169,12 @@ def predict_address(search_term="page-principal",
 
 def predict_export_reports(search_term='page-principal', 
     keywords=['pdf', 'xml', 'csv', 'xls', 'download', 'baixar', 'export', 'exportar'], 
-    num_matches=10, job_name="", path_base="", pattern='/tmp/es/data', verbose=False):
+    num_matches=10, job_name="", path_base="", verbose=False):
     
     #Search all files using keywords
     html_files = get_files_to_valid(
         search_term, keywords, num_matches,
-        job_name, path_base, pattern=pattern)
+        job_name, path_base,)
 
     #Analyze all html files searching keywords
     result = analyze_html(html_files, keyword_to_search=keywords)
@@ -189,34 +187,13 @@ def predict_export_reports(search_term='page-principal',
 
     return isvalid, result
 
-def explain(df, column_name, elemento):
+def explain(df, column_name, elemento, verbose=False):
 
-    print("Explain - Quantidade de arquivos analizados: {}\n\tQuantidade de aquivos que possuem o item \"{}\" : {}\n".format(
-         len(df[column_name]), sum(df[column_name]), elemento))
+    result = "Explain - Quantidade de arquivos analizados: {}\n\tQuantidade de aquivos que possuem o item \"{}\" : {}\n".format(
+         len(df[column_name]), sum(df[column_name]), elemento)
 
-"""  
-path_base = "/home/cinthia/F01/data"
-pattern='/tmp/es/data'
-num_matches = 10
-job_name='index_governador_valadares'
+    if verbose:
+        print(result)
 
+    return result
 
-todays_date = date.today()
-search_term='RECEITAS - {}'.format(str(todays_date.year))
-keywords=['RECEITAS - {}'.format(str(todays_date.year)), "DESPESAS - {}".format(str(todays_date.year)), str(todays_date.year)]
-
-isvalid, result = predict_upadate_infos(
-    search_term=search_term, keywords=keywords,
-    num_matches=num_matches, job_name=job_name, path_base=path_base,
-     pattern='/tmp/es/data', verbose=True)
-explain(result, column_name='matches', elemento='Ferramenta de busca')
-
-isvalid, result = predict_accessibility (
-    num_matches=num_matches, job_name=job_name, path_base=path_base,
-     pattern='/tmp/es/data', verbose=True)
-explain(result, column_name='matches', elemento='Ferramenta de busca')
-
-isvalid, result = predict_address(num_matches=10,
-    job_name=job_name, path_base=path_base, verbose=True)
-explain(result, column_name='matches', elemento='Disponibiliza Endereço')
-"""

@@ -9,7 +9,6 @@ def agg_paths_by_type(paths):
     for path in paths:
 
         suffix = Path(path).suffixes[0]
-        # print(suffix)
 
         if suffix == ".xls":
             files['xls'].append(path)

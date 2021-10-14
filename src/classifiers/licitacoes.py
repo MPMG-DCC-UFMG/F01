@@ -92,7 +92,7 @@ def check_all_files_busca(paths, path_base, result):
 def predict_proc_lic(
     search_term, keywords_search, path_base, num_matches=40,
     keywords_check=['nmero da licitao', 'modalidade', 'objeto', 'status', 'editais'],
-    filter_word='licitacoes', job_name='index_gv', threshold = 0): 
+    filter_word='licitacoes', job_name='index_gv', threshold = 0, pattern='/tmp/es/data'): 
 
     result = {'proc_lic': []}
 
@@ -102,6 +102,10 @@ def predict_proc_lic(
     paths = path_functions.preprocess_paths(sorted_result, word=filter_word)
 
     files = path_functions.agg_paths_by_type(paths)
+
+    if pattern != "":
+        files = path_functions.create_valid_path (files, path_base=path_base, pattern=pattern)
+
     for key, values in files.items():
         
         if (key == 'html') or (key == 'xls'):
@@ -121,7 +125,7 @@ def predict_proc_lic(
 
 def predict_inexigibilidade(
     search_term, keywords_search, path_base, num_matches=40,
-     filter_word='licitacoes', job_name='index_gv', threshold=0): 
+     filter_word='licitacoes', job_name='index_gv', threshold=0, pattern='/tmp/es/data'): 
 
     result = {'inexigibilidade': []}
 
@@ -131,6 +135,10 @@ def predict_inexigibilidade(
     paths = path_functions.preprocess_paths(sorted_result, word=filter_word)
 
     files = path_functions.agg_paths_by_type(paths)
+
+    if pattern != "":
+        files = path_functions.create_valid_path (files, path_base=path_base, pattern=pattern)
+
     for key, values in files.items():
         
         if (key == 'html') or (key == 'xls'):
@@ -150,7 +158,7 @@ def predict_inexigibilidade(
 
 def predict_resultado(
     search_term, keywords_search, path_base, num_matches=40,
-     filter_word='licitacoes', job_name='index_gv', threshold=0): 
+     filter_word='licitacoes', job_name='index_gv', threshold=0, pattern='/tmp/es/data'): 
 
     result = {'resultado': []}
 
@@ -160,6 +168,10 @@ def predict_resultado(
     paths = path_functions.preprocess_paths(sorted_result, word=filter_word)
 
     files = path_functions.agg_paths_by_type(paths)
+
+    if pattern != "":
+        files = path_functions.create_valid_path (files, path_base=path_base, pattern=pattern)
+
     for key, values in files.items():
         
         if (key == 'html') or (key == 'xls'):
@@ -179,7 +191,7 @@ def predict_resultado(
 
 def predict_dispensa(
     search_term, keywords_search, path_base, num_matches=40,
-     filter_word='licitacoes', job_name='index_gv', threshold=0): 
+     filter_word='licitacoes', job_name='index_gv', threshold=0, pattern='/tmp/es/data'): 
 
     result = {'dispensa': []}
 
@@ -189,6 +201,10 @@ def predict_dispensa(
     paths = path_functions.preprocess_paths(sorted_result, word=filter_word)
 
     files = path_functions.agg_paths_by_type(paths)
+
+    if pattern != "":
+        files = path_functions.create_valid_path (files, path_base=path_base, pattern=pattern)
+
     for key, values in files.items():
         
         if (key == 'html') or (key == 'xls'):
@@ -208,7 +224,7 @@ def predict_dispensa(
            
 def predict_editais(
     search_term, keywords_search, path_base, num_matches=40,
-    filter_word='licitacoes', job_name='index_gv', threshold=0): 
+    filter_word='licitacoes', job_name='index_gv', threshold=0, pattern='/tmp/es/data'): 
 
     result = {'editais': []}
 
@@ -218,6 +234,10 @@ def predict_editais(
     paths = path_functions.preprocess_paths(sorted_result, word=filter_word)
 
     files = path_functions.agg_paths_by_type(paths)
+
+    if pattern != "":
+        files = path_functions.create_valid_path (files, path_base=path_base, pattern=pattern)
+
     for key, values in files.items():
         
         if (key == 'html') or (key == 'xls'):
@@ -237,27 +257,35 @@ def predict_editais(
 
 def predict_busca(
     search_term, keywords_search, path_base, num_matches=40,
-    filter_word='licitacoes', job_name='index_gv', threshold=0): 
+    filter_word='licitacoes', job_name='index_gv', threshold=0, pattern='/tmp/es/data'): 
 
     result = {'busca': []}
 
     #Search
     _, sorted_result = indexing.request_search(
       search_term=search_term, keywords=keywords_search, num_matches=num_matches, job_name=job_name)
-    paths = path_functions.preprocess_paths(sorted_result, word=filter_word)
+    files = path_functions.preprocess_paths(sorted_result, word=filter_word)
+
+    if pattern != "":
+        files = path_functions.create_valid_path (files, path_base=path_base, pattern=pattern)
 
     #Analyze
-    result = path_functions.check_all_files_busca(paths, path_base, result)
+    result = path_functions.check_all_files_busca(files, path_base, result)
 
     #Check
     isvalid = check_df.infos_isvalid(result, column_name='busca', threshold=threshold)
     
     return isvalid, result
 
-def explain(df, column_name):
+def explain(df, column_name, verbose=False):
 
-    print("Explain - Quantidade de arquivos analizados: {}\n\tQuantidade de aquivos válidos: {}\n".format(
-         len(df[column_name]), sum(df[column_name])))
+    result = "Explain - Quantidade de arquivos analizados: {}\n\tQuantidade de aquivos válidos: {}\n".format(
+         len(df[column_name]), sum(df[column_name]))
+
+    if verbose:
+        print(result)
+
+    return result
 
 
 #path_base = "/home/cinthia/MPMG/persistence_area/"

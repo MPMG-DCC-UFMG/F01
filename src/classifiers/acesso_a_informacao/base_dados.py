@@ -28,7 +28,7 @@ def search_keywords_dados_abertos(markup):
 
 
 def predict_bases_de_dados_abertos(search_term='Dados abertos', keywords=['dados abertos', 'API', 'divulgação'], 
-    path_base = '/home', num_matches = 30, job_name = ''):
+    path_base = '/home', num_matches = 60, job_name = ''):
 
     sorted_result = indexing.request_search(
       search_term=search_term, keywords = keywords, num_matches=num_matches, job_name=job_name)
