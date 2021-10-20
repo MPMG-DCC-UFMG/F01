@@ -15,7 +15,6 @@ from utils import search_html
 from utils import read
 from utils import check_df
 
-
 def get_files_to_valid(
     search_term, index_keywords, num_matches,
     job_name, path_base, type='html'): 
@@ -38,7 +37,7 @@ def count_matches (text, keyword_to_search):
 
     matches = 0
     for i in keyword_to_search:
-        matches += text.count(i)
+        matches += text.lower().count(i.lower())
 
     return matches
 
