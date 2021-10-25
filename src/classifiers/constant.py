@@ -12,7 +12,7 @@ ABA_TRANSPARENCIA = {
     'index_passsos' : '',  
     'index_pouso_alegre': 'https://pousoalegre.atende.net/?pg=transparencia#!/',
     'index_juiz_de_fora' : '', 
-    'index_governador_valadares' :  'transparencia.valadares.mg.gov.br',
+    'index_governador_valadares' :  ['transparencia.valadares.mg.gov.br'],
     'index_ipatinga' : 'http://transparencia.ipatinga.mg.gov.br',
     'index_betim' : 'http://servicos.betim.mg.gov.br/appsgi/servlet/wmtranspinicial', 
     'index_congonhas' : 'https://www.congonhas.mg.gov.br/index.php/portal-da-transparencia/', 
@@ -29,7 +29,6 @@ LEI_ACESSO_INFORMACAO_CONTEUDO = [
     'Lei Federal 12.527',
     'Sistema Eletrônico de Serviço de Informações ao Cidadão',
     'A Lei de Acesso a Informações no',
-    'e-SIC',
     'em cumprimento a Lei nº 12.527',
     'Regula o acesso a informações previsto no inciso' ,
     'aumentando a transparência da gestão pública',
@@ -50,7 +49,7 @@ LINK_LEGS_ESTADUAL = 'https://www.almg.gov.br/consulte/legislacao/completa/compl
 
 ACESSO_ILIMITADO = ['necessrio efetuar login', 'clique aqui para fazer login', 'clique aqui para fazer cadastro', 'para baixar necessrio']
 
-DADOS_ABERTOS = ['API', 'dados abertos']
+DADOS_ABERTOS = ['API dos dados abertos', 'dados abertos']
 
 FAQ = ['Faq', 'FAQ', 'Faq']
 FAQ_SEARCH = ['Perguntas Frequentes', 'perguntas frequentes', 'Perguntas', 'perguntas']

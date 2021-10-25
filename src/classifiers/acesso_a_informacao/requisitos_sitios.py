@@ -7,29 +7,11 @@ from datetime import date
 sys.path.insert(0, '/home/cinthia/F01/src')
 
 from utils import indexing
+from utils.indexing import get_files_to_valid
 from utils import path_functions
 from utils import search_html
 from utils import read
 from utils import check_df
-
-
-def get_files_to_valid(
-    search_term, index_keywords, num_matches,
-    job_name, path_base, type='html'): 
-        
-    #Search
-    result = indexing.request_search(
-      search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
-      
-    files = [i[2] for i in result]
-
-    #Aggregate file by type
-    agg_files = path_functions.agg_paths_by_type(files)
-
-    #Return files in specific type
-    html_files = agg_files.get(type)
-
-    return html_files
 
 def count_matches (text, keyword_to_search):
 
