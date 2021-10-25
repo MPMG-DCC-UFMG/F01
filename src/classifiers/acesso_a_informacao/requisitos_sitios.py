@@ -1,8 +1,11 @@
 
+from codecs import ignore_errors
 import pandas as pd
 import sys
 import itertools
 from datetime import date
+import re
+import string
 
 sys.path.insert(0, '/home/cinthia/F01/src')
 
@@ -17,20 +20,22 @@ def count_matches (text, keyword_to_search):
 
     matches = 0
     for i in keyword_to_search:
-        matches += text.count(i)
+        matches += text.lower().count(i.lower())
 
     return matches
 
 def analyze_html(html_files, keyword_to_search):
 
     matches = []
+    urls = []
 
     for path in html_files:
         
         text = read.read_file(path)
         matches.append(count_matches (text, keyword_to_search))
+        urls.append(path_functions.get_url('/home/cinthia', path))
 
-    result = pd.DataFrame({'files': html_files, 'matches': matches})
+    result = pd.DataFrame({'files': html_files, 'urls': urls, 'matches': matches})
 
     return result
 
@@ -50,6 +55,8 @@ def check_tags_address(soup, address):
 def analyze_tags(html_files):
 
     matches = []
+    urls = []
+    found_text = []
 
     for path in html_files:
         
@@ -60,11 +67,24 @@ def analyze_tags(html_files):
         tags_address = search_html.search_tags_address(tags)
         text = check_tags_address(soup, tags_address)
 
-        matches.append(len(text))
+        text = str(' '.join(text).encode('ascii','ignore'))
+
+        x = re.search(r"(rua|Rua|Av|Avenida|Praça)(.*)\s([\s\w]*),\s\b[0-9]{1,6}\s*([\-]|[\|]|[  +]|[\,])?\s([\s\w]*)", text, re.IGNORECASE)
+        if x == None:
+            matches.append(0)
+            found_text.append('')
+        else:
+            matches.append(1)
+            found_text.append(x.group())
+
+        urls.append(path_functions.get_url('/home/cinthia', path))
+
     try:
-        result = pd.DataFrame({'files': html_files, 'matches': matches, 'found_text': " ".join(text)})
+        result = pd.DataFrame({'files': html_files, 'matches': matches, 'urls':urls, 'found_text': found_text})
     except UnboundLocalError:
-        result = pd.DataFrame({'files': [], 'matches': [], 'found_text': ""})
+        result = pd.DataFrame({'files': [], 'matches': [], 'urls': [], 'found_text': ""})
+
+    result.to_csv("test.csv")
     return result
 
 def predict_search_engine (
@@ -170,9 +190,13 @@ def predict_export_reports(search_term='page-principal',
     return isvalid, result
 
 def explain(df, column_name, elemento, verbose=False):
+    
+    match_url = list(df.loc[df['matches'] > 0]['urls'])
 
-    result = "Explain - Quantidade de arquivos analizados: {}\n\tQuantidade de aquivos que possuem o item \"{}\" : {}\n".format(
-         len(df[column_name]), sum(df[column_name]), elemento)
+    result = {'num_analisados': len(df[column_name]),
+              'num_matches': sum(df[column_name]),
+              'match_link': match_url,
+              'item': elemento}
 
     if verbose:
         print(result)
