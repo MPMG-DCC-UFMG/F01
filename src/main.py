@@ -24,7 +24,6 @@ def add_in_dict(output, item, isvalid, result_explain):
 def pipeline_informacoes(keywords, path_base, num_matches, job_name):
 
     output = {'link_portal': {},
-              'new_link_portal': {},
               'text_expl': {},
               'legs_federal': {},
               'legs_estadual': {},
@@ -48,55 +47,48 @@ def pipeline_informacoes(keywords, path_base, num_matches, job_name):
 
     # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
     isvalid, result = informacoes.predict_link_portal(path_base = path_base, num_matches = 60, job_name=job_name)
-    result_explain = informacoes.explain_link_portal(isvalid, result)
+    result_explain  = informacoes.explain_link_portal(result, column_name='matches', elemento='link_portal')
     output = add_in_dict(output, 'link_portal', isvalid, result_explain)
 
-    isvalid, result = informacoes.new_predict_link_portal(path_base = path_base, num_matches = 60, job_name=job_name)
+    #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
+    isvalid, result = informacoes.predict_text_expl(path_base = path_base, job_name=job_name)
+    result_explain = informacoes.explain_text_expl(isvalid, result)
+    output = add_in_dict(output, 'text_expl', isvalid, result_explain)
+
+
+    # Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011)
+    isvalid, result = informacoes.predict_legs_federal(path_base = path_base, job_name=job_name)
+    result_explain = informacoes.explain_legs_federal(isvalid, result)
+    output = add_in_dict(output, 'legs_federal', isvalid, result_explain)
+
+
+    # Link de acesso à leg sobre a transparência (Decreto Estadual nº 45.969/2012)
+    isvalid, result = informacoes.predict_legs_estadual(path_base = path_base, job_name=job_name)
+    result_explain = informacoes.explain_legs_estadual(isvalid, result)
+    output = add_in_dict(output, 'legs_estadual', isvalid, result_explain)
+
+    # Link de acesso ao site da Transparência (www.transparencia.mg.gov.br)
+    isvalid, result = informacoes.predict_site_transparencia(path_base = path_base, job_name=job_name)
+    result_explain = informacoes.explain_site_transparencia(isvalid, result)
+    output = add_in_dict(output, 'site_transparencia', isvalid, result_explain)
+
+
+    # Acesso ilimitado a todas as informações públicas do sítio eletrônico
+    isvalid, result = informacoes.predict_acesso_ilimitado(path_base = path_base, job_name=job_name)
+    result_explain = informacoes.explain_acesso_ilimitado(isvalid, result, column_name='matches', elemento='login')
+    output = add_in_dict(output, 'acesso_ilimitado', isvalid, result_explain)
+
+    # Link de respostas a perguntas mais frequentes da sociedade.
+    isvalid, result = informacoes.predict_faq(path_base = path_base, job_name=job_name)
+    result_explain = informacoes.explain_faq(isvalid, result)
+    output = add_in_dict(output, 'faq', isvalid, result_explain)
+
+
+    isvalid, result = informacoes.new_predict_text_expl(path_base = path_base, job_name=job_name)
     result_explain  = informacoes.explain(
-        result, column_name='matches', elemento='new_link_portal', verbose=True)
+        result, column_name='matches', elemento='new_predict_text_expl', verbose=False)
 
-    output = add_in_dict(output, 'new_link_portal', isvalid, result_explain)
-
-
-    # #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
-    # isvalid, result = informacoes.predict_text_expl(path_base = path_base, job_name=job_name)
-    # result_explain = informacoes.explain_text_expl(isvalid, result)
-    # output = add_in_dict(output, 'text_expl', isvalid, result_explain)
-
-
-    # # Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011)
-    # isvalid, result = informacoes.predict_legs_federal(path_base = path_base, job_name=job_name)
-    # result_explain = informacoes.explain_legs_federal(isvalid, result)
-    # output = add_in_dict(output, 'legs_federal', isvalid, result_explain)
-
-
-    # # Link de acesso à leg sobre a transparência (Decreto Estadual nº 45.969/2012)
-    # isvalid, result = informacoes.predict_legs_estadual(path_base = path_base, job_name=job_name)
-    # result_explain = informacoes.explain_legs_estadual(isvalid, result)
-    # output = add_in_dict(output, 'legs_estadual', isvalid, result_explain)
-
-    # # Link de acesso ao site da Transparência (www.transparencia.mg.gov.br)
-    # isvalid, result = informacoes.predict_site_transparencia(path_base = path_base, job_name=job_name)
-    # result_explain = informacoes.explain_site_transparencia(isvalid, result)
-    # output = add_in_dict(output, 'site_transparencia', isvalid, result_explain)
-
-
-    # # Acesso ilimitado a todas as informações públicas do sítio eletrônico
-    # isvalid, result = informacoes.predict_acesso_ilimitado(path_base = path_base, job_name=job_name)
-    # result_explain = informacoes.explain_acesso_ilimitado(isvalid, result)
-    # output = add_in_dict(output, 'acesso_ilimitado', isvalid, result_explain)
-
-    # # Link de respostas a perguntas mais frequentes da sociedade.
-    # isvalid, result = informacoes.predict_faq(path_base = path_base, job_name=job_name)
-    # result_explain = informacoes.explain_faq(isvalid, result)
-    # output = add_in_dict(output, 'faq', isvalid, result_explain)
-
-
-    # isvalid, result = informacoes.new_predict_text_expl(path_base = path_base, job_name=job_name)
-    # result_explain  = informacoes.explain(
-    #     result, column_name='matches', elemento='new_predict_text_expl', verbose=True)
-
-    # output = add_in_dict(output, 'new_predict_text_expl', isvalid, result_explain)
+    output = add_in_dict(output, 'new_predict_text_expl', isvalid, result_explain)
 
 
     return output
@@ -290,7 +282,7 @@ def main():
 # path_base = "/home/cinthia/F01/data"
 path_base = "/home/asafe"
 num_matches = 10
-job_name='index_governador_valadares'
+job_name='index_varginha'
 keywords = constant.keywords
 
 
