@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
+from utils import path_functions
 import os
 
 # !pip install elasticsearch_dsl
@@ -31,6 +32,24 @@ def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv
    result = [ (hit['_source'].get('file').get('filesize'), hit['_score'], hit['_source'].get('path').get('real')) for hit in response['hits']['hits']]
 
    return result
+
+def get_files_to_valid(
+    search_term, index_keywords, num_matches,
+    job_name, path_base, type='html'): 
+        
+    #Search
+    result = request_search(
+      search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
+      
+    files = [i[2] for i in result]
+
+    #Aggregate file by type
+    agg_files = path_functions.agg_paths_by_type(files)
+
+    #Return files in specific type
+    html_files = agg_files.get(type)
+
+    return html_files
 
 
 
