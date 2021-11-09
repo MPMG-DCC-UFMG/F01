@@ -1,0 +1,1 @@
+# Permite gerar relatório da consulta de empenhos ou de pagamentos em formato aberto	

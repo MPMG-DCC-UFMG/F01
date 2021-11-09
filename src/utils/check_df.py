@@ -31,7 +31,6 @@ def files_isvalid(df, column_name, threshold=0):
     """
     
     for i in df[column_name]:
-
         if i > threshold:
             return True
     return False

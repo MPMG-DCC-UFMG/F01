@@ -11,7 +11,8 @@ import pandas as pd
 from classifiers.acesso_a_informacao import requisitos_sitios
 from classifiers.acesso_a_informacao import informacoes
 from classifiers.acesso_a_informacao import base_dados
-import classifiers.licitacoes 
+from classifiers.acesso_a_informacao import divulgacao_atendimentos
+from classifiers import licitacoes 
 import constant
 
 def add_in_dict(output, item, isvalid, result_explain):
@@ -44,23 +45,20 @@ def pipeline_informacoes(keywords, path_base, num_matches, job_name):
     # isvalid, result = informacoes.predict_text_expl(path_base = path_base, num_matches = 10, job_name='index_betim')
     # informacoes.explain_text_expl(isvalid, result)
 
-
     # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
-    isvalid, result = informacoes.predict_link_portal(path_base = path_base, num_matches = 60, job_name=job_name)
+    isvalid, result = informacoes.predict_link_portal(path_base = path_base, job_name=job_name)
     result_explain  = informacoes.explain_link_portal(result, column_name='matches', elemento='link_portal')
     output = add_in_dict(output, 'link_portal', isvalid, result_explain)
 
     #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
     isvalid, result = informacoes.predict_text_expl(path_base = path_base, job_name=job_name)
-    result_explain = informacoes.explain_text_expl(isvalid, result)
+    result_explain  = informacoes.explain(result, column_name='matches', elemento='text_expl', verbose=False)
     output = add_in_dict(output, 'text_expl', isvalid, result_explain)
-
 
     # Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011)
     isvalid, result = informacoes.predict_legs_federal(path_base = path_base, job_name=job_name)
     result_explain = informacoes.explain_legs_federal(isvalid, result)
     output = add_in_dict(output, 'legs_federal', isvalid, result_explain)
-
 
     # Link de acesso à leg sobre a transparência (Decreto Estadual nº 45.969/2012)
     isvalid, result = informacoes.predict_legs_estadual(path_base = path_base, job_name=job_name)
@@ -72,7 +70,6 @@ def pipeline_informacoes(keywords, path_base, num_matches, job_name):
     result_explain = informacoes.explain_site_transparencia(isvalid, result)
     output = add_in_dict(output, 'site_transparencia', isvalid, result_explain)
 
-
     # Acesso ilimitado a todas as informações públicas do sítio eletrônico
     isvalid, result = informacoes.predict_acesso_ilimitado(path_base = path_base, job_name=job_name)
     result_explain = informacoes.explain_acesso_ilimitado(isvalid, result, column_name='matches', elemento='login')
@@ -83,16 +80,7 @@ def pipeline_informacoes(keywords, path_base, num_matches, job_name):
     result_explain = informacoes.explain_faq(isvalid, result)
     output = add_in_dict(output, 'faq', isvalid, result_explain)
 
-
-    isvalid, result = informacoes.new_predict_text_expl(path_base = path_base, job_name=job_name)
-    result_explain  = informacoes.explain(
-        result, column_name='matches', elemento='new_predict_text_expl', verbose=False)
-
-    output = add_in_dict(output, 'new_predict_text_expl', isvalid, result_explain)
-
-
     return output
-
 
 def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbose=False):
 
@@ -184,6 +172,33 @@ def pipeline_base_dados(keywords, path_base, num_matches, job_name, verbose=Fals
 
     return output
 
+def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name, verbose=False):
+
+    output = {'pedidos_recebidos': {},
+              'pedidos_atendidos': {},
+              'pedidos_indeferidos': {},
+              }
+
+    # Quantidade de pedidos recebidos
+    isvalid, result = divulgacao_atendimentos.predict_pedidos_recebidos(path_base = path_base, job_name=job_name)
+    result_explain = divulgacao_atendimentos.explain(result, column_name='matches', elemento='pedidos_recebidos', verbose=False)
+
+    output = add_in_dict(output, 'pedidos_recebidos', isvalid, result_explain)
+
+    # Quantidade e/ou percentual de pedidos atendidos
+    isvalid, result = divulgacao_atendimentos.predict_pedidos_atendidos(path_base = path_base, job_name=job_name)
+    result_explain = divulgacao_atendimentos.explain(result, column_name='matches', elemento='pedidos_atendidos', verbose=False)
+
+    output = add_in_dict(output, 'pedidos_atendidos', isvalid, result_explain)
+
+    # Quantidade e/ou percentual de pedidos indeferidos
+    isvalid, result = divulgacao_atendimentos.predict_pedidos_indeferidos(path_base = path_base, job_name=job_name)
+    result_explain = divulgacao_atendimentos.explain(result, column_name='matches', elemento='pedidos_indeferidos', verbose=False)
+
+    output = add_in_dict(output, 'pedidos_indeferidos', isvalid, result_explain)
+
+    return output
+
 
 def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tags, verbose=False):
 
@@ -264,17 +279,18 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
 
 def main():
 
-    output_informacoes = pipeline_informacoes(
-        keywords, path_base, num_matches, job_name)
-    output_requisitos_sitios = pipeline_requisitos_sitios(
-        keywords, path_base, num_matches, job_name)
+    # output_informacoes = pipeline_informacoes(
+    #     keywords, path_base, num_matches, job_name)
+    # output_requisitos_sitios = pipeline_requisitos_sitios(
+    #     keywords, path_base, num_matches, job_name)
     output_licitacoes = pipeline_licitacoes(
-        keywords, path_base, pattern, num_matches, job_name)
+        keywords, path_base, pattern, num_matches, job_name, tags)
 
 
-    output = {'informacoes': output_informacoes, 
-              'requisitos_sitios': output_requisitos_sitios,
-              'licitacoes': output_licitacoes}
+    output = {
+                # 'informacoes': output_informacoes, 
+                # 'requisitos_sitios': output_requisitos_sitios,
+                'licitacoes': output_licitacoes}
 
     return output
 
@@ -282,20 +298,28 @@ def main():
 # path_base = "/home/cinthia/F01/data"
 path_base = "/home/asafe"
 num_matches = 10
-job_name='index_varginha'
+job_name = 'index_para_de_minas'
 keywords = constant.keywords
+pattern = ''
+tags = ''
 
+# main()
 
-result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
-df = pd.DataFrame(result).T
-df.to_csv("result_informacoes.csv", index=False)
+# result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
+# df = pd.DataFrame(result).T
+# df.to_csv("result_informacoes.csv", index=False)
 
 # result = pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name)
 # df = pd.DataFrame(result).T
 # df.to_csv("result.csv", index=False)
 # print(pd.DataFrame(result).T)
 
-
 # result = pipeline_base_dados(keywords, path_base, num_matches, job_name)
 # df = pd.DataFrame(result).T
 # df.to_csv("result_base_dados.csv", index=False)
+
+
+result = pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name)
+df = pd.DataFrame(result).T
+df.to_csv("result_divulgacao_atendimentos.csv", index=False)
+

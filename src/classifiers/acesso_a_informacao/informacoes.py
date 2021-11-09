@@ -38,9 +38,6 @@ def analyze_html(html_files, keyword_to_search):
 #--------------------------------------------------------------------------------------------------------------------------#
 
 # Aba denominada “Transparência” no menu principal
-def search_keywords_linkportal(markup, constants):
-    macro = markup.findAll(href = re.compile(f"{constants}")) 
-    return macro
 
 def predict_link_portal(search_term = 'Prefeitura', 
     keywords = ['Home', 'Menu', 'Transparência', 'Portal'],
@@ -78,55 +75,7 @@ def explain_link_portal(df, column_name, elemento, verbose=False):
 
 # Texto padrão explicativo sobre a Lei de Acesso à Informação -------------------------------------
 
-def search_keywords_text_expl(df, markup, constants):
-    # buscar pelo indexador por arquivos que contenham: constants.LEI_ACESSO_INFORMACAO e verificar se este contem
-    # LEI_ACESSO_INFORMACAO_CONTEUDO
-    markup = markup.get_text()
-
-    page_results = []
-
-    for macro in constants:
-        # print(macro)
-
-        try:
-            if re.search(f'.*{macro}.*', markup, re.IGNORECASE) != None:
-                page_results.append(1)
-            else: 
-                page_results.append(0)
-
-        except TypeError:
-            page_results.append(0)
-
-    return page_results
-
-def predict_text_expl(search_term = 'Lei', keywords=['LAI', 'Lei de acesso à informação'], 
-    path_base='/home', num_matches = 60, job_name = ''):
-
-    paths_html = indexing.get_files_to_valid( search_term, keywords, num_matches, job_name, path_base)
-
-    columns = constant.LEI_ACESSO_INFORMACAO_CONTEUDO
-    result = pd.DataFrame( columns=columns, index=paths_html)
-
-    # print(path_html)
-
-    for index, item in enumerate(paths_html, start=0):
-        # print('result[index]', item, '\n', path_functions.get_url(path_base, item))
-        markup = read.read_html(item)
-
-        page_results = search_keywords_text_expl(result, markup, constant.LEI_ACESSO_INFORMACAO_CONTEUDO)
-
-        # print(path_functions.get_url(path_base, item), page_results)
-        result.loc[item] = page_results
-
-    result['sum'] = result.iloc[:,:].sum(axis=1)
-
-    # Verificar se algum dos resultados apresentou mais que duas  das keywords 
-    if (len(result[result['sum'] > 1]) > 0):
-        return True, result
-    else:
-        return False, result
-
-def new_predict_text_expl(search_term = 'Lei', keywords=['LAI', 'Lei de acesso à informação', "Lei Federal 12.527"],  
+def predict_text_expl(search_term = 'Lei', keywords=['LAI', 'Lei de acesso à informação', "Lei Federal 12.527"],  
     path_base='/home', num_matches = 60, job_name = ''):
 
     #Search all files using keywords
@@ -142,14 +91,6 @@ def new_predict_text_expl(search_term = 'Lei', keywords=['LAI', 'Lei de acesso �
 
     return isvalid, result
 
-def explain_text_expl(isvalid, result):
-
-    print(result.index, result['sum'])
-    if (isvalid):
-        result_explain = (f"Texto padrão explicativo sobre a Lei de Acesso à Informação foi encotrado, de {len(result)} documentos candidados {len(result[result['sum'] > 2])} deles tem pelo menos 2 das keywords")
-    else:
-        result_explain = (f"Texto padrão explicativo sobre a Lei de Acesso à Informação não foi encotrado, de {len(result)} documentos candidados nenhum deles tem pelo menos 2 das keywords \n")
-    return result_explain
 
 # Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011) ----------------------------------
 
@@ -192,6 +133,7 @@ def explain_legs_federal(isvalid, result):
         result_explain = " O link da lei 12.527 não foi encontrado."
     return result_explain
      
+
 # Link de acesso à leg Estadual sobre a transparência (Decreto Estadual nº 45.969/2012)-----------------
 def search_keywords_legs_estadual(markup, constants):
     target = []
@@ -279,6 +221,7 @@ def explain_site_transparencia(isvalid, results):
     else:
         result_explain = f"Não foi encontrado um link para uma das páginas: {constant.URL_TRANSPARENCIA_MG}"
     return result_explain
+    
     
 # Acesso ilimitado a todas as informações públicas do sítio eletrônico: o acesso sem cadastro ou ao fornecimento de dados pessoais
 
