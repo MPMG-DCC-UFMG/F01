@@ -6,4 +6,4 @@ pandas==1.2.4
 lxml==4.6.3
 selenium==3.141.0
 wikipedia==1.4.0
-
+PyMuPDF==1.19.1
