@@ -1,0 +1,17 @@
+indexes = [
+    'index_divinopolis',
+    'index_para_de_minas',
+    'index_uberaba',
+    'index_uberlandia',
+    'index_montes_claros',	
+    'index_teofilo_otoni',	
+    'index_varginha',	
+    'index_passos',
+    'index_pouso_alegre',
+    'index_juiz_de_fora',
+    'index_governador_valadares',
+    'index_ipatinga',
+    'index_betim',
+    'index_congonhas',
+    'index_paracatu',
+]

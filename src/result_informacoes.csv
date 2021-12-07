@@ -1,9 +1,9 @@
 predict,explain
-True,Explain - Quantidade de arquivos analizados: 95 . Quantidade de aquivos que possuem o item 'link_portal': 95
-False,Explain - Quantidade de arquivos analizados: 27 . Quantidade de aquivos que possuem o item 'text_expl': 0
-False, O link da lei 12.527 não foi encontrado.
+False,Explain - Quantidade de arquivos analizados: 55 . Quantidade de aquivos que possuem o item 'link_portal': 2
+True,Explain - Quantidade de arquivos analizados: 8 . Quantidade de aquivos que possuem o item 'text_expl': 1
+True, O link foi encontrado em https://transparencia.teofilootoni.mg.gov.br/
 False,	O link do Decreto Estadual nº 45.969/2012 não foi encontrado.
 False,"Não foi encontrado um link para uma das páginas: ['http://www.transparencia.mg.gov.br/', 'www.transparencia.mg.gov.br', 'https://www.transparencia.mg.gov.br/transferencia-de-impostos-a-municipios']"
-False,Explain - Quantidade de arquivos analizados: 134. Quantidade de aquivos que possuem referência a 'login': 134
-False,Nenhuma referência a Perguntas Frequentes foi encontrada nas páginas
+False,Explain - Quantidade de arquivos analizados: 3. Quantidade de aquivos que possuem referência a 'login': 3
+True,Explain - Quantidade de aquivos que possuem o item 'Perguntas Frequentes' : 1
 ,

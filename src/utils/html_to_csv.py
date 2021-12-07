@@ -1,12 +1,17 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import os
+import codecs
 
 
 def read_content(path, folder, file):
-    
-    page = open("{}/{}/{}".format(path, folder, file), encoding="utf8").read()
-    soup = BeautifulSoup(page, features="lxml")
+
+    try:
+        file = codecs.open("{}/{}/{}".format(path, folder, file), 'r', 'utf-8')
+        soup = BeautifulSoup(file, features="lxml")
+    except:
+        file = codecs.open("{}/{}/{}".format(path, folder, file), 'r', 'latin-1')
+        soup = BeautifulSoup(file, features="lxml")
     
     return soup
 

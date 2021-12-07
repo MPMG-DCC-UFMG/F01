@@ -3,11 +3,20 @@ import pandas as pd
 import numpy as np
 import datetime
 import re
-from utils.preprocess import format_values
 
 import warnings
 warnings.filterwarnings("ignore")
 
+
+def format_values(df, column_name):
+    
+    df[column_name] = df[column_name].astype(str)
+    df[column_name] = df[column_name].str.replace("R\$", '')
+    df[column_name] = df[column_name].str.replace(".", '')
+    df[column_name] = df[column_name].str.replace(",", '.')
+    df[column_name] = df[column_name].astype(float)
+    
+    return df
 
 def isvalid(data):
     """
@@ -100,10 +109,12 @@ def check_date(date):
     Boolean
         If date is valid, return true else false.
     """
-    splitter = search_splitter(date)
-    day, month, year = date.split(splitter)
+    if type(date) == float:
+        return False
 
     try :
+        splitter = search_splitter(date)
+        day, month, year = date.split(splitter)
         datetime.datetime(int(year),int(month),int(day))
     except ValueError :
         return False

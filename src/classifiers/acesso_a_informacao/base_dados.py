@@ -37,7 +37,7 @@ def predict_bases_de_dados_abertos(search_term='Dados abertos', keywords=['dados
     result = []
 
     for filename in paths_html:
-        print(path_functions.get_url(path_base, filename), filename)
+        # print(path_functions.get_url(path_base, filename), filename)
         try:
             file = codecs.open(filename, 'r', 'utf-8')
             markup = BeautifulSoup(file.read(),  "html.parser" )

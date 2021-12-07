@@ -41,7 +41,7 @@ def analyze_html(html_files, keyword_to_search):
         text = read.read_file(path)
         # print(path_functions.get_url("/home/asafe", path), count_matches (text, keyword_to_search))
         matches.append(count_matches (text, keyword_to_search))
-        print(count_matches (text, keyword_to_search))
+        # print(count_matches (text, keyword_to_search))
 
     result = pd.DataFrame({'files': html_files, 'matches': matches})
 

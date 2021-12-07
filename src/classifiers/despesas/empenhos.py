@@ -1,21 +1,20 @@
 # Empenhos
-    # Número
-    # Valor
-    # Data
-    # Favorecido
-    # Descrição
 
-# -*- coding: utf-8 -*-
-
-import os
+from utils import indexing
+from re import T
 import pandas as pd
 import numpy as np
-import datetime
-
 import sys
+from utils import checker
+from utils import path_functions
+import pandas as pd
+import numpy as np
+import warnings
+from bs4 import BeautifulSoup
+from utils import read
+
 sys.path.insert(1, '../')
 
-from utils import checker
 
 #Textos de Planos e Leis Orçamentárias
 LEIS_ORCAMENTARIAS = {
@@ -24,53 +23,28 @@ LEIS_ORCAMENTARIAS = {
     'LEI_DIRETRIZES':['Lei de Diretrizes Orçamentárias','LDO - Lei de Diretrizes Orçamentárias']
 }
 DESPESAS = {
-    'descricao' : ["Favorecido", "Unidade", "Fornecedor","Ação", "Descrição", 'Tipo'],
-    'valor' : ['Empenhado', 'Liquidado', 'Pago', "Valor Empenhado", "Valor Liquidado", "Valor Pago"]
+    'numero' : ['Número', 'Empenho', 'Empenho/ Processo'],
+    'descricao' : ['Unidade', 'Fornecedor','Ação', 'Descrição', 'Tipo'],
+    'favorecido' : ['Favorecido', 'Credor'],
+    'valor' : ['Empenhado', 'Liquidado', 'Pago', 'Valor Empenhado', 'Valor Liquidado', 'Valor Pago', 'Empenhado no período (R$)']
 }
 
-
-import warnings
-warnings.filterwarnings("ignore")
-
-
-path = "./Governador Valadares"
-
-
-def format_values(df, column_name):
-    
-    df[column_name] = df[column_name].astype(str)
-    df[column_name] = df[column_name].str.replace("R\$", '')
-    df[column_name] = df[column_name].str.replace(".", '')
-    df[column_name] = df[column_name].str.replace(",", '.')
-    df[column_name] = df[column_name].astype(float)
-    
-    return df
-
-
-
-# *********************
-
-def read_content(path, folder, file):
-    
-    page = open("{}/{}/{}".format(path, folder, file), encoding="utf8").read()
-    soup = BeautifulSoup(page, features="lxml")
-    
-    return soup
+warnings.filterwarnings('ignore')
 
 def list_to_text(soup):
 
     type = []
     text = []
     try:
-        for i in soup.find("div", { "id" : "detalhes" }).findAll('li'):
-            info = i.get_text().split(": ")
+        for i in soup.find('div', { 'id' : 'detalhes' }).findAll('li'):
+            info = i.get_text().split(': ')
         
             if len(info) == 2:
-                type.append(info[0].lower().replace("\n", ''))
+                type.append(info[0].lower().replace('\n', ''))
                 text.append(info[1])
             elif len(info) == 1:
-                type.append(info[0].lower().replace("\n", ''))
-                text.append("")
+                type.append(info[0].lower().replace('\n', ''))
+                text.append('')
 
         df = pd.DataFrame([text], columns=type)
 
@@ -80,10 +54,12 @@ def list_to_text(soup):
 
     return df
 
-def convert_html(soup):
+def convert_html_table(soup):
     type = 'None'
-    
     try:
+        # Deleting <tfoot> element 
+        if soup.tfoot:
+            soup.tfoot.extract()
         df = pd.read_html(str(soup.table))[0]
         type = 'table'
     except ValueError:
@@ -92,157 +68,212 @@ def convert_html(soup):
     
     return df, type
 
-def convert(all_files, path, folder):
+def convert(all_files):
 
     list_df = []
     for file in all_files:
 
-        soup = read_content(path, folder, file)
-        df = convert_html(soup)
+        soup = read.read_html(file)
+        df, _ = convert_html_table(soup)
         list_df.append(df)
-    
-    df = pd.concat(list_df)
-    df = df.drop_duplicates()
-    
+
+    df = pd.DataFrame()
+    if(len(list_df)):
+        df = pd.concat(list_df)
+        df = df.drop_duplicates()
+
     return df
 
-
-def convert_one_file(path):
-
-    soup = BeautifulSoup(open(path), features="lxml")
-    df = convert_html(soup)
-
-    return df   
-
-# *********************
-
-
-
-
-def get_folders(name, folders):
-    
-    despesas = []
-    for folder in folders:
-    
-        if folder.find(name) != -1:
-            despesas.append(folder)
-            
-    return despesas
-
-
-def check_all_dates(df, column='Data'):
-    
-    vfunc = np.vectorize(checker.check_date)
-    df[column + '_isvalid'] = vfunc(df[column])
-    
-    return df, df[column + '_isvalid'].all()
-
-def check_all_values(df, columns_name=['Empenhado', 'Liquidado', 'Pago', "Valor Empenhado", "Valor Liquidado", "Valor Pago"]):
+def check_all_values(df, columns_name):
 
     vfunc = np.vectorize(checker.check_value)
     valid = []
     
-    for i in columns_name:
-        if i in df.columns:
-            if df[i].dtypes != float:
-                df = format_values(df, i)
-            df[i + '_isvalid'] =  vfunc(df[i])
-            valid.append((i, df[i + '_isvalid'].all()))
-    
-    return df, any(valid)
+    df['isvalid'] = False    
+    for valor in columns_name:
+        if valor in df.columns:
+            if df[valor].dtypes != float:
+                df = checker.format_values(df, valor)
+            df['isvalid'] =  vfunc(df[valor])
+            valid.append(df['isvalid'].sum())
 
-def check_all_description(df, columns_name=["Favorecido", "Unidade", "Fornecedor","Ação", "Descrição", 'Tipo']):
+    isvalid = False
+    for c in valid:
+        if c > (len(df.index)/2):
+            isvalid = True
+    return df, isvalid
+
+def check_all_description(df, columns_name):
 
     vfunc = np.vectorize(checker.check_description)
     valid = []
     
+    df['isvalid'] = False
     for i in columns_name:
         if i in df.columns:
-            df[i + '_isvalid'] =  vfunc(df[i])
-            valid.append((i, df[i + '_isvalid'].all()))
+            df['isvalid'] =  vfunc(df[i])
+            valid.append(df['isvalid'].all())
             
     return df, any(valid)
 
-def check_all_year(df, column="Ano"):
+def check_all_year(df, column='Ano'):
     
     vfunc = np.vectorize(checker.check_year)
-    df[column + '_isvalid'] =  vfunc(df[column])
+    df['isvalid'] =  vfunc(df[column])
     
-    return df, df[column + '_isvalid'].all()
+    return df, df['isvalid'].all()
 
-
-def check(folders, path, verbose=False):
+def predict_numero(search_term = 'Empenhos',
+    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
     
+    #Search all files using keywords
+    html_files = indexing.get_files_to_valid(
+        search_term, keywords, num_matches,
+        job_name, path_base)
+
+    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+    # for file in html_files:
+    #     print(file)
+
     if verbose:
-        print("Check Values")
-    
-    data = {}
-    
-    for folder in folders:
-    
-        if verbose:
-            print('-- {}'.format(folder))
-            
-        all_files = os.listdir("{}/{}".format(path, folder))
-        df = convert(all_files, path, folder)
+        print('\nPredict Número:')
 
-        df = df.loc[df[df.columns[0]] != "Total página Total geral"]
+    result = convert(html_files)
+    # print(result.columns)
+    # Cheking valor
+    result, isvalid = check_all_values(result, columns_name=DESPESAS['numero'])
         
-        if 'Data' in df.columns:
-            df, date_isvalid = check_all_dates(df, column='Data')
-        elif 'Ano' in df.columns:
-            df, date_isvalid = check_all_year(df, column='Ano')
+    return isvalid, result
 
-        df, value_isvalid = check_all_values(df, columns_name=DESPESAS['valor'])
-        df, description_isvalid = check_all_description(df, columns_name=DESPESAS['descricao'])
-        
-        data[folder] = {"date": date_isvalid, 'value': value_isvalid, 'description': description_isvalid}
-        
-    aux = pd.DataFrame(list(data.items()))
-    result = pd.concat([aux.drop([1], axis=1), aux[1].apply(pd.Series)], axis=1)
+
+def predict_valor(search_term = 'Empenhos',
+    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
     
+    #Search all files using keywords
+    html_files = indexing.get_files_to_valid(
+        search_term, keywords, num_matches,
+        job_name, path_base)
+
+    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+
+    if verbose:
+        print('\nPredict Valor:')
+
+    result = convert(html_files)
+    # Cheking valor
+    result, isvalid = check_all_values(result, columns_name=DESPESAS['valor'])
+        
+    return isvalid, result
+
+def predict_data(search_term = 'Empenhos',
+    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
+    
+    #Search all files using keywords
+    html_files = indexing.get_files_to_valid(
+        search_term, keywords, num_matches,
+        job_name, path_base)
+
+    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+
+    if verbose:
+        print('\nPredict Data:')
+
+    result = convert(html_files)
+    # Cheking Data
+    if 'Data' in result.columns:
+        vfunc = np.vectorize(checker.check_date)
+        result['isvalid'] = vfunc(result['Data'])
+        isvalid = result['isvalid'].all()
+    elif 'Ano' in result.columns:
+        result, isvalid = check_all_year(result, column='Ano')
+    elif 'Data do empenho' in result.columns:
+        vfunc = np.vectorize(checker.check_date)
+        result['isvalid'] = vfunc(result['Data do empenho'])
+        isvalid = result['isvalid'].all()
+    else:
+        result['isvalid'] = False
+        isvalid = False
+    
+    return isvalid, result
+
+def predict_favorecido(search_term = 'Empenhos',
+    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
+
+    #Search all files using keywords
+    html_files = indexing.get_files_to_valid(
+        search_term, keywords, num_matches,
+        job_name, path_base)
+
+    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+
+    if verbose:
+        print('\nPredict Favorecido:')
+
+    result = convert(html_files)
+
+    # Cheking Descricao
+    result, isvalid = check_all_description(result, columns_name=DESPESAS['favorecido'])
+    
+    return isvalid, result
+
+
+def predict_descricao(search_term = 'Empenhos',
+    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
+    
+    #Search all files using keywords
+    html_files = indexing.get_files_to_valid(
+        search_term, keywords, num_matches,
+        job_name, path_base)
+
+    html_files = filter(lambda filename: filter_word in filename, html_files)
+    html_files = list(html_files)
+
+    if verbose:
+        print('\nPredict Descrição:')
+
+    result = convert(html_files)
+
+    # Cheking Descricao
+    result, isvalid = check_all_description(result, columns_name=DESPESAS['descricao'])
+    
+    return isvalid, result
+
+
+
+# def predict_numero(search_term = 'Empenhos',
+#     keywords=['despesa'],
+#     filter_word='esic' , path_base='/home', num_matches = 100, job_name = ''):
+
+#     #Search all files using keywords
+#     html_files = indexing.get_files_to_valid(
+#         search_term, keywords, num_matches,
+#         job_name, path_base)
+
+#     html_files = filter(lambda filename: filter_word in filename, html_files)
+#     html_files = list(html_files)
+
+#     #Analyze all html files searching keywords
+#     result = analyze_html(html_files, keyword_to_search=['total', 'totais', 'recebidos'])
+#     result_pdf = analyze_pdf (path_base, pdf_files, keyword_to_search=['atendidos', 'solucionado', 'concedidos'], verbose=False)
+#     df_atendidos = pd.concat([result, result_pdf])
+#     #Check result 
+#     isvalid = check_df.files_isvalid(df_atendidos, column_name='matches', threshold=0)
+#     return isvalid, result
+
+
+def explain(isvalid, result, column_name, elemento, verbose=False):
+
+    print(isvalid)
+    result = "Explain - Quantidade de entradas analizadas: {} . Quantidade de entradas que possuem o item '{}' válido: {}".format(
+        len(result[column_name]), elemento, sum(result[column_name]))
+
+    if verbose:
+        print('\n \t Predict -', isvalid)
+        print('\t', result)
+
     return result
-
-
-def search(path, keyword='despesa', verbose=False):
-    
-    if verbose:
-        print("Search")
-    
-    folders = os.listdir(path)
-    folders = get_folders(keyword, folders)
-    
-    return folders
-
-
-def predict(path, keyword='despesa', verbose=False): 
-    
-    
-    folders = search(path, keyword=keyword)
-    df = check(folders, path, verbose)
-    
-    if verbose:
-        print("Predict")
-    
-    prediction = df.date.all() and df.value.all()and df.description.all()
-        
-    return prediction, df
-
-
-def explain(df):
-    
-    print("Os seguintes arquivos foram verificados:")
-    for index, row in df.iterrows():
-        print("{}:\n data: {}, valor: {}, descrição: {}".format(row[0], 
-                                                                row['date'],
-                                                                row['value'],
-                                                                row['description']))
-
-
-def main_despesas(keyword='despesa', verbose=True):
-    
-    prediction, df = predict(path, keyword=keyword, verbose=verbose)
-    explain(df)
-
-
-main_despesas(verbose=True)

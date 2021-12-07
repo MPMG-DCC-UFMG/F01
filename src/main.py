@@ -1,5 +1,6 @@
-import sys
-import pandas as pd
+import os
+from utils.indexing import remove_index
+import json
 #sys.path.insert(1, './classifiers')
 
 # sys.path.insert(0, '/home/cinthia/F01/src/classifiers')
@@ -12,14 +13,22 @@ from classifiers.acesso_a_informacao import requisitos_sitios
 from classifiers.acesso_a_informacao import informacoes
 from classifiers.acesso_a_informacao import base_dados
 from classifiers.acesso_a_informacao import divulgacao_atendimentos
+
+from classifiers.despesas import empenhos
+from classifiers.despesas import pagamentos
+from classifiers.despesas import consulta_favorecido
+from classifiers.despesas import gerar_relatorio
+from classifiers.despesas import relatorios
+
 from classifiers import licitacoes 
 import constant
 
-def add_in_dict(output, item, isvalid, result_explain):
+path = '/home/asafe/GitHub/Coleta_C01/gv'
 
+
+def add_in_dict(output, item, isvalid, result_explain):
     output[item]['predict'] = isvalid
     output[item]['explain'] = result_explain
-
     return output
 
 def pipeline_informacoes(keywords, path_base, num_matches, job_name):
@@ -168,6 +177,8 @@ def pipeline_base_dados(keywords, path_base, num_matches, job_name, verbose=Fals
     isvalid, result = base_dados.predict_bases_de_dados_abertos(path_base = path_base, job_name=job_name)
     result_explain = base_dados.explain_bases_de_dados_abertos(isvalid, result)
 
+    print(result_explain)
+
     output = add_in_dict(output, 'relação_das_bases', isvalid, result_explain)
 
     return output
@@ -179,26 +190,18 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
               'pedidos_indeferidos': {},
               }
 
-    # Quantidade de pedidos recebidos
-    isvalid, result = divulgacao_atendimentos.predict_pedidos_recebidos(path_base = path_base, job_name=job_name)
-    result_explain = divulgacao_atendimentos.explain(result, column_name='matches', elemento='pedidos_recebidos', verbose=False)
+    (isvalid_recebidos, df_recebidos), (isvalid_atendidos,df_atendidos), (isvalid_indeferidos,df_indeferidos) = divulgacao_atendimentos.predict_relatorio_estatistico(path_base = path_base, job_name=job_name)
+    
+    result_explain_recebidos = divulgacao_atendimentos.explain(df_recebidos, column_name='matches', elemento='pedidos_recebidos', verbose=False)
+    result_explain_atendidos = divulgacao_atendimentos.explain(df_atendidos, column_name='matches', elemento='pedidos_atendidos', verbose=False)
+    result_explain_indeferidos = divulgacao_atendimentos.explain(df_indeferidos, column_name='matches', elemento='pedidos_indeferidos', verbose=False)
+    
+    output = add_in_dict(output, 'pedidos_recebidos', isvalid_recebidos, result_explain_recebidos)
+    output = add_in_dict(output, 'pedidos_atendidos', isvalid_atendidos, result_explain_atendidos)
+    output = add_in_dict(output, 'pedidos_indeferidos', isvalid_indeferidos, result_explain_indeferidos)
 
-    output = add_in_dict(output, 'pedidos_recebidos', isvalid, result_explain)
-
-    # Quantidade e/ou percentual de pedidos atendidos
-    isvalid, result = divulgacao_atendimentos.predict_pedidos_atendidos(path_base = path_base, job_name=job_name)
-    result_explain = divulgacao_atendimentos.explain(result, column_name='matches', elemento='pedidos_atendidos', verbose=False)
-
-    output = add_in_dict(output, 'pedidos_atendidos', isvalid, result_explain)
-
-    # Quantidade e/ou percentual de pedidos indeferidos
-    isvalid, result = divulgacao_atendimentos.predict_pedidos_indeferidos(path_base = path_base, job_name=job_name)
-    result_explain = divulgacao_atendimentos.explain(result, column_name='matches', elemento='pedidos_indeferidos', verbose=False)
-
-    output = add_in_dict(output, 'pedidos_indeferidos', isvalid, result_explain)
 
     return output
-
 
 def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tags, verbose=False):
 
@@ -277,6 +280,49 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
     return output
 
 
+def pipeline_despesas(verbose=False):
+
+    output = {'Empenhos - Número': {},
+              'Empenhos - Valor': {},
+              'Empenhos - Data': {},
+              'Empenhos - Favorecido': {},
+              'Empenhos - Descrição': {},
+              'Pagamentos - Valor': {},
+              'Pagamentos - Data': {},
+              'Pagamentos - Favorecido': {},
+              'Pagamentos - Empenho de referência': {},
+              'Consulta Favorecido': {},
+              'Consulta Favorecido': {},
+              'pedidos_indeferidos': {},
+              }
+
+    # Empenhos
+    all_files = os.listdir('{}/{}'.format(path, 'despesas-empenho'))
+
+    isvalid, result = empenhos.predict_numero(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Número', verbose=verbose)
+    output = add_in_dict(output, 'Empenhos - Número', isvalid, result_explain)
+
+    isvalid, result = empenhos.predict_valor(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Valor', verbose=verbose)
+    output = add_in_dict(output, 'Empenhos - Valor', isvalid, result_explain)
+
+    isvalid, result = empenhos.predict_data(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Data', verbose=verbose)
+    output = add_in_dict(output, 'Empenhos - Data', isvalid, result_explain)
+
+    isvalid, result = empenhos.predict_favorecido(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Favorecido', verbose=verbose)
+    output = add_in_dict(output, 'Empenhos - Favorecido', isvalid, result_explain)
+
+    isvalid, result = empenhos.predict_descricao(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Descrição', verbose=verbose)
+    output = add_in_dict(output, 'Empenhos - Descrição', isvalid, result_explain)
+
+    return output
+
+
+
 def main():
 
     # output_informacoes = pipeline_informacoes(
@@ -298,12 +344,13 @@ def main():
 # path_base = "/home/cinthia/F01/data"
 path_base = "/home/asafe"
 num_matches = 10
-job_name = 'index_para_de_minas'
+job_name = 'index_congonhas'
 keywords = constant.keywords
 pattern = ''
 tags = ''
 
 # main()
+
 
 # result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
 # df = pd.DataFrame(result).T
@@ -319,7 +366,8 @@ tags = ''
 # df.to_csv("result_base_dados.csv", index=False)
 
 
-result = pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name)
-df = pd.DataFrame(result).T
-df.to_csv("result_divulgacao_atendimentos.csv", index=False)
+# result = pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name, verbose=True)
+# df = pd.DataFrame(result).T
+# df.to_csv("result_divulgacao_atendimentos.csv", index=False)
 
+result = pipeline_despesas(verbose=True)

@@ -61,6 +61,20 @@ def filter_paths(paths, word):
             
     return filtered_paths
 
+def filter_paths2(paths, words):
+    """
+    Filtra os caminhos retornados pelo indexador por palavras-chave
+    """
+
+    filtered_paths = []
+    for i in paths:
+        for word in words:
+            if i.find(word) != -1:
+                filtered_paths.append(i)
+                break
+            
+    return filtered_paths
+
 def preprocess_paths(sorted_result, word):
 
     paths = get_paths(sorted_result)

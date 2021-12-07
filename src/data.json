@@ -1,0 +1,1 @@
+{"Empenhos - Número": {"predict": true, "explain": "Explain - Quantidade de entradas analizadas: 380 . Quantidade de entradas que possuem o item 'Número' válidos: 380"}, "Empenhos - Valor": {"predict": true, "explain": "Explain - Quantidade de entradas analizadas: 380 . Quantidade de entradas que possuem o item 'Valor' válidos: 380"}, "Empenhos - Data": {"predict": 

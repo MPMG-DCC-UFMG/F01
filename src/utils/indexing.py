@@ -12,7 +12,6 @@ def remove_index (job_name):
    es.indices.delete(index=job_name, ignore=[400, 404])
 
 def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv', verbose=False):
-
    response = es.search(
    index=job_name, 
    body={
@@ -37,19 +36,19 @@ def get_files_to_valid(
     search_term, index_keywords, num_matches,
     job_name, path_base, type='html'): 
         
-    #Search
-    result = request_search(
-      search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
+   #Search
+   result = request_search(
+   search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
       
-    files = [i[2] for i in result]
+   files = [i[2] for i in result]
 
-    #Aggregate file by type
-    agg_files = path_functions.agg_paths_by_type(files)
+   #Aggregate file by type
+   agg_files = path_functions.agg_paths_by_type(files)
 
-    #Return files in specific type
-    html_files = agg_files.get(type)
+   #Return files in specific type
+   files = agg_files.get(type)
 
-    return html_files
+   return files
 
 
 
