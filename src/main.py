@@ -280,24 +280,21 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
     return output
 
 
-def pipeline_despesas(verbose=False):
+def pipeline_empenhos(path_base, job_name, verbose=False):
 
     output = {'Empenhos - Número': {},
               'Empenhos - Valor': {},
               'Empenhos - Data': {},
               'Empenhos - Favorecido': {},
               'Empenhos - Descrição': {},
-              'Pagamentos - Valor': {},
-              'Pagamentos - Data': {},
-              'Pagamentos - Favorecido': {},
-              'Pagamentos - Empenho de referência': {},
-              'Consulta Favorecido': {},
-              'Consulta Favorecido': {},
-              'pedidos_indeferidos': {},
+            #   'Pagamentos - Valor': {},
+            #   'Pagamentos - Data': {},
+            #   'Pagamentos - Favorecido': {},
+            #   'Pagamentos - Empenho de referência': {},
+            #   'Consulta Favorecido': {},
+            #   'Consulta Favorecido': {},
+            #   'pedidos_indeferidos': {},
               }
-
-    # Empenhos
-    all_files = os.listdir('{}/{}'.format(path, 'despesas-empenho'))
 
     isvalid, result = empenhos.predict_numero(path_base = path_base, job_name=job_name, verbose=verbose)
     result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Número', verbose=verbose)
@@ -321,7 +318,38 @@ def pipeline_despesas(verbose=False):
 
     return output
 
+def pipeline_relatorios(path_base, job_name, verbose=False):
 
+    output = {
+              'Link de acesso ao Plano Plurianual do município': {},
+              'Link de acesso à Lei de Diretrizes Orçamentaria do município': {},
+              'Link de acesso à Lei Orçamentária Anual do município': {},
+              'Apresentação do balanço anual, com as respectivas demonstrações contábeis': {},
+              'Relatórios da execução orçamentária e gestão fiscal': {}
+              }
+
+    isvalid, result = relatorios.predict_plano_plurianual(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Plano Plurianual', verbose=verbose)
+    output = add_in_dict(output, 'Link de acesso ao Plano Plurianual do município', isvalid, result_explain)
+
+    isvalid, result = relatorios.predict_lei_diretrizes_orcamentarias(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Lei de Diretrizes Orçamentaria', verbose=verbose)
+    output = add_in_dict(output, 'Link de acesso à Lei de Diretrizes Orçamentaria do município', isvalid, result_explain)
+    # print(isvalid, result)
+
+    isvalid, result = relatorios.predict_lei_orcamentaria_anual(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Lei Orçamentária Anual', verbose=verbose)
+    output = add_in_dict(output, 'Link de acesso à Lei Orçamentária Anual do município', isvalid, result_explain)
+
+    # isvalid, result = relatorios.predict_balanco_demonstracoes(path_base = path_base, job_name=job_name, verbose=verbose)
+    # result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Balanço anual e demonstrações contábeis', verbose=verbose)
+    # output = add_in_dict(output, 'Apresentação do balanço anual, com as respectivas demonstrações contábeis', isvalid, result_explain)
+
+    # isvalid, result = relatorios.predict_plano_plurianual(path_base = path_base, job_name=job_name, verbose=verbose)
+    # result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Relatórios da execução orçamentária e gestão fiscal', verbose=verbose)
+    # output = add_in_dict(output, 'Relatórios da execução orçamentária e gestão fiscal', isvalid, result_explain)
+
+    return output
 
 def main():
 
@@ -344,7 +372,7 @@ def main():
 # path_base = "/home/cinthia/F01/data"
 path_base = "/home/asafe"
 num_matches = 10
-job_name = 'index_congonhas'
+job_name = 'ipatinga'
 keywords = constant.keywords
 pattern = ''
 tags = ''
@@ -370,4 +398,6 @@ tags = ''
 # df = pd.DataFrame(result).T
 # df.to_csv("result_divulgacao_atendimentos.csv", index=False)
 
-result = pipeline_despesas(verbose=True)
+# result = pipeline_empenhos(path_base, job_name, verbose=True)
+result = pipeline_relatorios(path_base, job_name, verbose=True)
+# print(result)

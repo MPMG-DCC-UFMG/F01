@@ -62,8 +62,8 @@ def pdf_to_text(name_file, fixed_file, path, drawing=False, verbose=True):
         
     return " ".join(content)
 
-def pdf_from_image(file, verbose=False):
-    pages = convert_from_path(file, 350)
+def pdf_from_image(file, page_limit, verbose=False):
+    pages = convert_from_path(file, 350, last_page=page_limit)
     text = ""
     for page in pages:
 
@@ -93,7 +93,7 @@ def pdf_from_image(file, verbose=False):
 
     text = remove_noise(text)
     if verbose:
-        print(text)
+        print(text[:50])
     return text
 
 # path = '/home/cinthia/F01/'
@@ -109,12 +109,14 @@ def count_matches (text, keyword_to_search):
 
     return matches
 
-def analyze_pdf(path_base, pdf_files, keyword_to_search, verbose=False):
+def analyze_pdf(path_base, pdf_files, keyword_to_search, page_limit, verbose=False):
 
     matches = []
 
     for file in pdf_files:
-        print("aux:", file, "***********")
+        if verbose:
+            print("Analyzing pdf:", file)
+
         content = pdf_to_text(file, fixed_file, path_base, drawing=True, verbose=False)
         content = remove_noise(content)
         # print(path_functions.get_url("/home/asafe", path), count_matches (text, keyword_to_search))
@@ -123,11 +125,11 @@ def analyze_pdf(path_base, pdf_files, keyword_to_search, verbose=False):
 
         # In case you have not found the keywords, we will do the search with OCR
         if (num_matches == 0):
-            content = pdf_from_image(file, verbose)
+            content = pdf_from_image(file, page_limit, verbose)
             num_matches = count_matches (content, keyword_to_search)
 
         matches.append(num_matches)
-    
+
     result = pd.DataFrame({'files': pdf_files, 'matches': matches})
 
     return result

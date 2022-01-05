@@ -1,7 +1,6 @@
 # Empenhos
 
 from utils import indexing
-from re import T
 import pandas as pd
 import numpy as np
 import sys
@@ -10,11 +9,9 @@ from utils import path_functions
 import pandas as pd
 import numpy as np
 import warnings
-from bs4 import BeautifulSoup
 from utils import read
 
 sys.path.insert(1, '../')
-
 
 #Textos de Planos e Leis Orçamentárias
 LEIS_ORCAMENTARIAS = {
@@ -230,8 +227,7 @@ def predict_descricao(search_term = 'Empenhos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = filter(lambda filename: filter_word in filename, html_files)
-    html_files = list(html_files)
+    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
 
     if verbose:
         print('\nPredict Descrição:')
@@ -242,28 +238,6 @@ def predict_descricao(search_term = 'Empenhos',
     result, isvalid = check_all_description(result, columns_name=DESPESAS['descricao'])
     
     return isvalid, result
-
-
-
-# def predict_numero(search_term = 'Empenhos',
-#     keywords=['despesa'],
-#     filter_word='esic' , path_base='/home', num_matches = 100, job_name = ''):
-
-#     #Search all files using keywords
-#     html_files = indexing.get_files_to_valid(
-#         search_term, keywords, num_matches,
-#         job_name, path_base)
-
-#     html_files = filter(lambda filename: filter_word in filename, html_files)
-#     html_files = list(html_files)
-
-#     #Analyze all html files searching keywords
-#     result = analyze_html(html_files, keyword_to_search=['total', 'totais', 'recebidos'])
-#     result_pdf = analyze_pdf (path_base, pdf_files, keyword_to_search=['atendidos', 'solucionado', 'concedidos'], verbose=False)
-#     df_atendidos = pd.concat([result, result_pdf])
-#     #Check result 
-#     isvalid = check_df.files_isvalid(df_atendidos, column_name='matches', threshold=0)
-#     return isvalid, result
 
 
 def explain(isvalid, result, column_name, elemento, verbose=False):
