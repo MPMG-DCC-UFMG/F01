@@ -13,12 +13,6 @@ from utils import read
 
 sys.path.insert(1, '../')
 
-#Textos de Planos e Leis Orçamentárias
-LEIS_ORCAMENTARIAS = {
-    'PLANO_PLURIANUAL': ['PPA - Plano Plurianual','Plano Plurianual'],
-    'LEI_ORCAMENTARIA': ['Lei Orçamentária Anual','LOA - Lei Orçamentária Anual'],
-    'LEI_DIRETRIZES':['Lei de Diretrizes Orçamentárias','LDO - Lei de Diretrizes Orçamentárias']
-}
 DESPESAS = {
     'numero' : ['Número', 'Empenho', 'Empenho/ Processo'],
     'descricao' : ['Unidade', 'Fornecedor','Ação', 'Descrição', 'Tipo'],
@@ -121,7 +115,7 @@ def check_all_year(df, column='Ano'):
     return df, df['isvalid'].all()
 
 def predict_numero(search_term = 'Empenhos',
-    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    keywords=['Empenhos', 'despesa', 'empenhado', 'favorecido', 'valor'],
     filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
     
     #Search all files using keywords
@@ -145,7 +139,7 @@ def predict_numero(search_term = 'Empenhos',
 
 
 def predict_valor(search_term = 'Empenhos',
-    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    keywords=['Empenhos', 'despesa', 'empenhado', 'favorecido', 'valor'],
     filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
     
     #Search all files using keywords
@@ -165,7 +159,7 @@ def predict_valor(search_term = 'Empenhos',
     return isvalid, result
 
 def predict_data(search_term = 'Empenhos',
-    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    keywords=['Empenhos', 'despesa', 'empenhado', 'favorecido', 'valor'],
     filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
     
     #Search all files using keywords
@@ -197,7 +191,7 @@ def predict_data(search_term = 'Empenhos',
     return isvalid, result
 
 def predict_favorecido(search_term = 'Empenhos',
-    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    keywords=['Empenhos', 'despesa', 'empenhado', 'favorecido', 'valor'],
     filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
 
     #Search all files using keywords
@@ -219,7 +213,7 @@ def predict_favorecido(search_term = 'Empenhos',
 
 
 def predict_descricao(search_term = 'Empenhos',
-    keywords=['Empenhos, despesa, empenhado, favorecido, valor'],
+    keywords=['Empenhos', 'despesa', 'empenhado', 'favorecido', 'valor'],
     filter_word='despesas' , path_base='/home', num_matches = 100, job_name = '', verbose=False):
     
     #Search all files using keywords

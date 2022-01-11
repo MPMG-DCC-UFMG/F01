@@ -279,7 +279,6 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
 
     return output
 
-
 def pipeline_empenhos(path_base, job_name, verbose=False):
 
     output = {'Empenhos - Número': {},
@@ -287,13 +286,6 @@ def pipeline_empenhos(path_base, job_name, verbose=False):
               'Empenhos - Data': {},
               'Empenhos - Favorecido': {},
               'Empenhos - Descrição': {},
-            #   'Pagamentos - Valor': {},
-            #   'Pagamentos - Data': {},
-            #   'Pagamentos - Favorecido': {},
-            #   'Pagamentos - Empenho de referência': {},
-            #   'Consulta Favorecido': {},
-            #   'Consulta Favorecido': {},
-            #   'pedidos_indeferidos': {},
               }
 
     isvalid, result = empenhos.predict_numero(path_base = path_base, job_name=job_name, verbose=verbose)
@@ -318,6 +310,57 @@ def pipeline_empenhos(path_base, job_name, verbose=False):
 
     return output
 
+def pipeline_pagamentos(path_base, job_name, verbose=False):
+
+    output = {'Pagamentos - Valor': {},
+              'Pagamentos - Data': {},
+              'Pagamentos - Favorecido': {},
+              'Pagamentos - Empenho de referência': {},
+              }
+
+    isvalid, result = pagamentos.predict_valor(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Valor', verbose=verbose)
+    output = add_in_dict(output, 'Pagamentos - Valor', isvalid, result_explain)
+
+    isvalid, result = pagamentos.predict_data(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Data', verbose=verbose)
+    output = add_in_dict(output, 'Pagamentos - Data', isvalid, result_explain)
+
+    isvalid, result = pagamentos.predict_favorecido(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Favorecido', verbose=verbose)
+    output = add_in_dict(output, 'Pagamentos - Favorecido', isvalid, result_explain)
+
+    isvalid, result = pagamentos.predict_empenho_referencia(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Empenho de referência', verbose=verbose)
+    output = add_in_dict(output, 'Pagamentos - Empenho de referência', isvalid, result_explain)
+
+    return output
+
+def pipeline_consulta_por_favorecido(path_base, job_name, verbose=False):
+
+    output = {
+              'Possibilita consulta de empenhos ou pagamentos por favorecido': {},
+              }
+    
+    isvalid, result = consulta_favorecido.predict_favorecido(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = consulta_favorecido.explain(isvalid, result, column_name='matches', elemento='Plano Plurianual', verbose=verbose)
+    output = add_in_dict(output, list(output.keys())[0], isvalid, result_explain)
+
+    return output
+
+
+def pipeline_formato_aberto(path_base, job_name, verbose=False):
+
+    output = {
+              'Permite gerar relatório da consulta de empenhos ou de pagamentos em formato aberto': {},
+              }
+
+    isvalid, result = gerar_relatorio.predict_relatorio(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = gerar_relatorio.explain(isvalid, result, column_name='matches', elemento='Relatório em formato aberto', verbose=verbose)
+    output = add_in_dict(output, list(output.keys())[0], isvalid, result_explain)
+
+    return output
+
 def pipeline_relatorios(path_base, job_name, verbose=False):
 
     output = {
@@ -335,21 +378,22 @@ def pipeline_relatorios(path_base, job_name, verbose=False):
     isvalid, result = relatorios.predict_lei_diretrizes_orcamentarias(path_base = path_base, job_name=job_name, verbose=verbose)
     result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Lei de Diretrizes Orçamentaria', verbose=verbose)
     output = add_in_dict(output, 'Link de acesso à Lei de Diretrizes Orçamentaria do município', isvalid, result_explain)
-    # print(isvalid, result)
 
     isvalid, result = relatorios.predict_lei_orcamentaria_anual(path_base = path_base, job_name=job_name, verbose=verbose)
     result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Lei Orçamentária Anual', verbose=verbose)
     output = add_in_dict(output, 'Link de acesso à Lei Orçamentária Anual do município', isvalid, result_explain)
 
-    # isvalid, result = relatorios.predict_balanco_demonstracoes(path_base = path_base, job_name=job_name, verbose=verbose)
-    # result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Balanço anual e demonstrações contábeis', verbose=verbose)
-    # output = add_in_dict(output, 'Apresentação do balanço anual, com as respectivas demonstrações contábeis', isvalid, result_explain)
+    isvalid, result = relatorios.predict_balanco_demonstracoes(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Balanço anual e demonstrações contábeis', verbose=verbose)
+    output = add_in_dict(output, 'Apresentação do balanço anual, com as respectivas demonstrações contábeis', isvalid, result_explain)
 
-    # isvalid, result = relatorios.predict_plano_plurianual(path_base = path_base, job_name=job_name, verbose=verbose)
-    # result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Relatórios da execução orçamentária e gestão fiscal', verbose=verbose)
-    # output = add_in_dict(output, 'Relatórios da execução orçamentária e gestão fiscal', isvalid, result_explain)
+    isvalid, result = relatorios.predict_execucao_orcamentaria_gestao_fiscal(path_base = path_base, job_name=job_name, verbose=verbose)
+    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Relatórios da execução orçamentária e gestão fiscal', verbose=verbose)
+    output = add_in_dict(output, 'Relatórios da execução orçamentária e gestão fiscal', isvalid, result_explain)
 
     return output
+
+
 
 def main():
 
@@ -372,7 +416,7 @@ def main():
 # path_base = "/home/cinthia/F01/data"
 path_base = "/home/asafe"
 num_matches = 10
-job_name = 'ipatinga'
+job_name = 'index_congonhas'
 keywords = constant.keywords
 pattern = ''
 tags = ''
@@ -398,6 +442,12 @@ tags = ''
 # df = pd.DataFrame(result).T
 # df.to_csv("result_divulgacao_atendimentos.csv", index=False)
 
+"""
+    Despesas
+"""
 # result = pipeline_empenhos(path_base, job_name, verbose=True)
-result = pipeline_relatorios(path_base, job_name, verbose=True)
+# result = pipeline_pagamentos(path_base, job_name, verbose=True)
+result = pipeline_consulta_por_favorecido(path_base, job_name, verbose=True)
+result = pipeline_formato_aberto(path_base, job_name, verbose=True)
+# result = pipeline_relatorios(path_base, job_name, verbose=True)
 # print(result)

@@ -12,9 +12,21 @@ path2 = '/home/asafe/Downloads/abc.html'
 
 
 # with open(path, encoding="utf8", errors='ignore') as f:
-f = codecs.open(path3, 'r', encoding="utf-8", errors='ignore')
-text = f.read()
-print(text)
+# f = codecs.open(path3, 'r', encoding="utf-8", errors='ignore')
+# text = f.read()
+# print(text)
+
+
+keywords='Pagamentos asdasd asd asd asd asd asd asd credor'
+teste = ['asdasd', 'b']
+
+print(['a' for word in teste if keywords.count(word)])
+
+print(any(word in keywords for word in teste))
+
+
+# if any():
+#     print(teste)
 
 # f.write(s1)
 

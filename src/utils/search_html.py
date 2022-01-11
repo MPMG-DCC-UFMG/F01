@@ -32,16 +32,22 @@ def count_matches (text, keyword_to_search):
 
     return matches
 
-def analyze_html(html_files, keyword_to_search):
+def analyze_html(html_files, keyword_to_search, need_one = None):
 
     matches = []
 
     for path in html_files:
         
-        text = read.read_file(path)
+        text = read.read_html(path).getText()
         # print(path_functions.get_url("/home/asafe", path), count_matches (text, keyword_to_search))
-        matches.append(count_matches (text, keyword_to_search))
-        # print(count_matches (text, keyword_to_search))
+        if need_one:
+            if (any(word in text for word in need_one)):
+                matches.append(count_matches (text, keyword_to_search))
+                print('here')
+            else:
+                matches.append(0)
+        else:
+            matches.append(count_matches (text, keyword_to_search))
 
     result = pd.DataFrame({'files': html_files, 'matches': matches})
 
