@@ -1,4 +1,0 @@
-predict,explain
-True,Explain - Quantidade de arquivos analizados: 11 . Quantidade de aquivos que possuem o item 'pedidos_recebidos': 3
-False,Explain - Quantidade de arquivos analizados: 11 . Quantidade de aquivos que possuem o item 'pedidos_atendidos': 0
-False,Explain - Quantidade de arquivos analizados: 11 . Quantidade de aquivos que possuem o item 'pedidos_indeferidos': 0

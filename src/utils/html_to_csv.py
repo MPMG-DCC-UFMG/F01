@@ -23,14 +23,13 @@ def list_to_text(soup):
     try:
         for i in soup.find("div", { "id" : "detalhes" }).findAll('li'):
             info = i.get_text().split(": ")
-        
-            if len(info) == 2:
+            # print(info)
+            if len(info) >= 2:
                 type.append(info[0].lower().replace("\n", ''))
-                text.append(info[1])
+                text.append(''.join(info[1:]))
             elif len(info) == 1:
                 type.append(info[0].lower().replace("\n", ''))
                 text.append("")
-
         df = pd.DataFrame([text], columns=type)
 
     except AttributeError:
@@ -45,7 +44,7 @@ def convert_html(soup):
     try:
         df = pd.read_html(str(soup.table))[0]
         type = 'table'
-    except ValueError:   
+    except ValueError:  
         df = list_to_text(soup)
         type = 'list'
 
@@ -104,6 +103,17 @@ def all_lists_to_csv(paths, path_base, unwanted_name):
                     
     return pd.concat(list_df)
 
+def all_lists_to_csv2(paths):
+
+    list_df = []
+    for file_name in paths:
+        new_df = one_list_to_csv(file_name)
+        if(not new_df.empty):
+            list_df.append(new_df)
+    if (len(list_df)):              
+        return pd.concat(list_df)
+    else: return pd.DataFrame()
+
 def concat_lists(files):
 
     if len(files) == 1:
@@ -121,7 +131,7 @@ def load_and_convert_files(path_base, paths, type):
         if os.path.isfile("licitacoes.csv"):
             df = pd.read_csv("licitacoes.csv")
         else:
-            df = all_lists_to_csv(paths, path_base, "licitacoes.csv")
+            df = all_lists_to_csv2(paths)
 
     elif type == 'csv':
 

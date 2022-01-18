@@ -16,10 +16,11 @@ keywords = {
         'search_term':'page-principal', 
         'keywords':['busca', 'Ir para página', 'uc_painel_buscar','palavra-chave', 'search']},
     'proc_lic': {
-       'search_term': 'licitacoes',
+       'search_term': 'Licitaes Licitações',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
-    }}
+       'itens': ['nmero da licitao', 'modalidade', 'objeto', 'status', 'editais']
+    }
+}
 
 keywords_uberaba = {
     'export_reports': {

@@ -25,7 +25,6 @@ import constant
 
 path = '/home/asafe/GitHub/Coleta_C01/gv'
 
-
 def add_in_dict(output, item, isvalid, result_explain):
     output[item]['predict'] = isvalid
     output[item]['explain'] = result_explain
@@ -218,63 +217,75 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
 
     # Procedimentos licitatórios
     isvalid, result = licitacoes.predict_proc_lic(
-        search_term=search_term, keywords_search=keywords, keywords_check=itens, 
+        search_term=search_term, keywords_search=keywords_to_search, keywords_check=itens, 
         path_base=path_base, num_matches=num_matches,
         filter_word='licitacoes', job_name=job_name, threshold = 0)
 
     for i in range(len(itens)):
-        print("Predict - Procedimentos Licitatórios - {}: {}".format(itens[i], isvalid[i]))
-        result_explain = licitacoes.explain(result['proc_lic'], itens[i])
-
+        if verbose:
+            print("Predict - Procedimentos Licitatórios - {}: {}".format(itens[i], isvalid[i]))
+        result_explain = licitacoes.explain(result['proc_lic'], itens[i], verbose)
     output = add_in_dict(output, 'proc_lic', isvalid, result_explain)
+
 
     # Procedimentos de Inexigibilidade
     isvalid, result = licitacoes. predict_inexigibilidade(
-        search_term=search_term, keywords=keywords_to_search,
+        search_term=search_term, keywords_search=keywords_to_search,
         path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+        filter_word='licitacoes', job_name=job_name, threshold=0)
 
-    result_explain=licitacoes.explain(result, 'inexigibilidade')
+    if verbose:
+        print("Predict - Licitações / Registro dos procedimentos de inexigibilidade:", isvalid)
 
+    result_explain=licitacoes.explain(result, 'inexigibilidade', verbose)
     output = add_in_dict(output, 'inexigibilidade', isvalid, result_explain)
 
-    #Resultado
-    isvalid, result = licitacoes.predict_resultado(
-        search_term=search_term, keywords_search=keywords_to_search, path_base=path_base, num_matches=40,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
-    
-    result_explain=licitacoes.explain(result, 'resultado')
-
-    output = add_in_dict(output, 'resultado', isvalid, result_explain)
 
     #Dispensa
     isvalid, result = licitacoes.predict_dispensa(
         search_term=search_term, keywords_search=keywords_to_search,
         path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+        filter_word='licitacoes', job_name=job_name, threshold=0)
 
-    result_explain=licitacoes.explain(result, 'dispensa')
+    if verbose:
+        print("Predict - Licitações / Registros de procedimentos de dispensa de licitação:", isvalid)
 
+    result_explain=licitacoes.explain(result, 'dispensa', verbose)
     output = add_in_dict(output, 'dispensa', isvalid, result_explain)
+
+    #Resultado
+    isvalid, result = licitacoes.predict_resultado(
+        search_term=search_term, keywords_search=keywords_to_search, path_base=path_base, num_matches=40,
+        filter_word='licitacoes', job_name=job_name, threshold=0)
+    
+    if verbose:
+        print("Predict - Licitações / Resultado das licitações:", isvalid)
+
+    result_explain=licitacoes.explain(result, 'resultado', verbose)
+    output = add_in_dict(output, 'resultado', isvalid, result_explain)
 
     # Disponibilização de Editais
     isvalid, result = licitacoes.predict_editais(
             search_term=search_term, keywords_search=keywords_to_search,
             path_base=path_base, num_matches=num_matches,
-            filter_word='licitacoes', job_name='index_gv', threshold=0)
+            filter_word='licitacoes', job_name=job_name, threshold=0)
 
-    result_explain=licitacoes.explain(result, 'editais')
+    if verbose:
+        print("Predict - Licitações / Disponibilização de Editais:", isvalid)
 
+    result_explain=licitacoes.explain(result, 'editais', verbose)
     output = add_in_dict(output, 'editais', isvalid, result_explain)
 
     # Permite Busca
     isvalid, result = licitacoes.predict_busca(
         search_term=search_term, keywords_search=keywords_to_search,
         path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name='index_gv', threshold=0)
+        filter_word='licitacoes', job_name=job_name, threshold=0)
 
-    result_explain=licitacoes.explain(result, 'busca')
+    if verbose:
+        print("Predict - Licitações / Permite Busca:", isvalid)
 
+    result_explain=licitacoes.explain(result, 'busca', verbose)
     output = add_in_dict(output, 'busca', isvalid, result_explain)
 
     return output
@@ -348,7 +359,6 @@ def pipeline_consulta_por_favorecido(path_base, job_name, verbose=False):
 
     return output
 
-
 def pipeline_formato_aberto(path_base, job_name, verbose=False):
 
     output = {
@@ -393,8 +403,6 @@ def pipeline_relatorios(path_base, job_name, verbose=False):
 
     return output
 
-
-
 def main():
 
     # output_informacoes = pipeline_informacoes(
@@ -402,7 +410,7 @@ def main():
     # output_requisitos_sitios = pipeline_requisitos_sitios(
     #     keywords, path_base, num_matches, job_name)
     output_licitacoes = pipeline_licitacoes(
-        keywords, path_base, pattern, num_matches, job_name, tags)
+        keywords, path_base, pattern, num_matches, job_name, tags, verbose=True)
 
 
     output = {
@@ -416,12 +424,12 @@ def main():
 # path_base = "/home/cinthia/F01/data"
 path_base = "/home/asafe"
 num_matches = 10
-job_name = 'index_congonhas'
+job_name = 'index_governador_valadares'
 keywords = constant.keywords
 pattern = ''
 tags = ''
 
-# main()
+main()
 
 
 # result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
@@ -447,7 +455,7 @@ tags = ''
 """
 # result = pipeline_empenhos(path_base, job_name, verbose=True)
 # result = pipeline_pagamentos(path_base, job_name, verbose=True)
-result = pipeline_consulta_por_favorecido(path_base, job_name, verbose=True)
-result = pipeline_formato_aberto(path_base, job_name, verbose=True)
+# result = pipeline_consulta_por_favorecido(path_base, job_name, verbose=True)
+# result = pipeline_formato_aberto(path_base, job_name, verbose=True)
 # result = pipeline_relatorios(path_base, job_name, verbose=True)
 # print(result)

@@ -43,7 +43,7 @@ def get_files_to_valid(
    files = [i[2] for i in result]
 
    #Aggregate file by type
-   agg_files = path_functions.agg_paths_by_type(files)
+   agg_files = path_functions.agg_paths_by_type2(files)
 
    #Return files in specific type
    files = agg_files.get(type)
