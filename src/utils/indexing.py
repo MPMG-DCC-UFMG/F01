@@ -34,7 +34,7 @@ def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv
 
 def get_files_to_valid(
     search_term, index_keywords, num_matches,
-    job_name, path_base, type='html'): 
+    job_name, path_base, types=None): 
         
    #Search
    result = request_search(
@@ -46,9 +46,26 @@ def get_files_to_valid(
    agg_files = path_functions.agg_paths_by_type2(files)
 
    #Return files in specific type
-   files = agg_files.get(type)
+   if types:
+      filter_files = []
+      for ty in types:
+         filter_files.extend(agg_files.get(ty))
+      return filter_files
+   return files
+
+def get_files(
+    search_term, index_keywords, num_matches,
+    job_name, path_base): 
+        
+   #Search
+   result = request_search(
+   search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
+      
+   files = [i[2] for i in result]
 
    return files
+
+
 
 
 

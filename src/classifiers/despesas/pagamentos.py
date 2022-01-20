@@ -131,7 +131,7 @@ def predict_valor(search_term = 'Pagamentos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     result = convert_to_df(html_files)
     
@@ -152,7 +152,7 @@ def predict_data(search_term = 'Pagamentos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     result = convert_to_df(html_files)
 
@@ -187,7 +187,7 @@ def predict_favorecido(search_term = 'Pagamentos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     if verbose:
         print('\nPredict Favorecido:')
@@ -209,7 +209,7 @@ def predict_empenho_referencia(search_term = 'Pagamentos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     result = convert_to_df(html_files)
 

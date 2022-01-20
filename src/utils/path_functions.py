@@ -21,12 +21,11 @@ def agg_paths_by_type(paths):
         elif (suffix == "doc") or (suffix == 'docx'):
             files['doc'].append(path)
 
-    print("files1", files)
     return files
 
 def agg_paths_by_type2(paths):
 
-    files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[]}
+    files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[], 'bat':[]}
 
     for path in paths:
 
@@ -36,6 +35,8 @@ def agg_paths_by_type2(paths):
             files['xls'].append(path)
         elif suffix == '.csv':
             files['csv'].append(path)
+        elif suffix == '.bat':
+            files['bat'].append(path)   
         elif (suffix == ".html") or (suffix == '.xml'):
             files['html'].append(path)
         elif (suffix == ".pdf"):
@@ -71,30 +72,23 @@ def format_path(path):
     path = path.split(os.sep)
     return os.sep.join(path[3: len(path)-1])
 
-def filter_paths(paths, word):
-    """
-    Filtra os caminhos retornados pelo indexador por uma palavra-chave
-    """
-
-    filtered_paths = []
-    for i in paths:
-        if i.find(word) != -1:
-            filtered_paths.append(i)
-            
-    return filtered_paths
-
-def filter_paths2(paths, words):
+def filter_paths(paths, words):
     """
     Filtra os caminhos retornados pelo indexador por palavras-chave
     """
 
     filtered_paths = []
     for i in paths:
-        for word in words:
-            if i.find(word) != -1:
+        if type(words) is list:
+            for word in words:
+                if i.find(word) != -1:
+                    filtered_paths.append(i)
+                    break
+        else:
+            if i.find(words) != -1:
                 filtered_paths.append(i)
-                break
-            
+
+                
     return filtered_paths
 
 def preprocess_paths(sorted_result, word):

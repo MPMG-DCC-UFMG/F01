@@ -15,7 +15,7 @@ def predict_relatorio(search_term = 'Empenhos Pagamentos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     # Analyze 
     result = analyze_html(html_files, keyword_to_search=['pdf', 'excel', 'exportar'], need_one=keywords)

@@ -123,7 +123,7 @@ def predict_numero(search_term = 'Empenhos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+    html_files = path_functions.filter_paths(html_files, ['despesas', 'empenhos'])
     # for file in html_files:
     #     print(file)
 
@@ -147,7 +147,7 @@ def predict_valor(search_term = 'Empenhos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+    html_files = path_functions.filter_paths(html_files, ['despesas', 'empenhos'])
 
     if verbose:
         print('\nPredict Valor:')
@@ -167,7 +167,7 @@ def predict_data(search_term = 'Empenhos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+    html_files = path_functions.filter_paths(html_files, ['despesas', 'empenhos'])
 
     if verbose:
         print('\nPredict Data:')
@@ -199,7 +199,7 @@ def predict_favorecido(search_term = 'Empenhos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+    html_files = path_functions.filter_paths(html_files, ['despesas', 'empenhos'])
 
     if verbose:
         print('\nPredict Favorecido:')
@@ -221,7 +221,7 @@ def predict_descricao(search_term = 'Empenhos',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, ['despesas', 'empenhos'])
+    html_files = path_functions.filter_paths(html_files, ['despesas', 'empenhos'])
 
     if verbose:
         print('\nPredict Descrição:')

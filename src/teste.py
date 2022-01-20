@@ -17,18 +17,6 @@ path2 = '/home/asafe/Downloads/abc.html'
 # print(text)
 
 
-keywords='Pagamentos asdasd asd asd asd asd asd asd credor'
-teste = ['asdasd', 'b']
-
-print(['a' for word in teste if keywords.count(word)])
-
-print(any(word in keywords for word in teste))
-
-
-# if any():
-#     print(teste)
-
-# f.write(s1)
 
 # soup = BeautifulSoup(text, features="lxml",from_encoding="Windows-1252")
 
@@ -42,5 +30,3 @@ print(any(word in keywords for word in teste))
 #     file.write(soup)
 
 # print(source)
-
-

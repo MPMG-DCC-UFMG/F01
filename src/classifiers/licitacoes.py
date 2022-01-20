@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
+from click import types
 import pandas as pd
 import re
 import os
-import numpy as np
 import sys
-
+from itertools import chain
+from collections import defaultdict
 #sys.path.insert(0, '/home/cinthia/F01/src')
 
 from pathlib import Path
@@ -29,13 +30,12 @@ def analyze_proc_lici(df, keywords):
     for i in keywords:
 
         isvalid, column_name = check_df.contains_keyword(df=df, word=i)
-        # print(i)
-        # print(isvalid, column_name, i)
+        # print(isvalid, '|', column_name,'|' ,i)
 
         if isvalid:
             val[i] = list(~df[column_name].isna())
         else:
-            val[i] = [False]
+            val[i] = []
     
     return val
 
@@ -85,7 +85,7 @@ def analyze_busca(format_path):
         soup = BeautifulSoup(open(format_path), features="lxml")
         text = soup.get_text()
 
-        if re.search("filtrar\s*pesquisa", text, re.IGNORECASE) != None:
+        if re.search("filtrar\s*pesquisa|filtrar", text, re.IGNORECASE) != None:
             return True
     
     except TypeError and UnicodeDecodeError:
@@ -107,6 +107,7 @@ def analyze_edital(df, column_name):
 def check_all_files_busca(paths, result):
 
     for file_name in paths:
+        print(file_name)
         result['busca'].append(analyze_busca(file_name))
 
     return result
@@ -115,48 +116,81 @@ def check_all_files_busca(paths, result):
 def predict_proc_lic(
     search_term, keywords_search, path_base, num_matches=40,
     keywords_check=['número', 'modalidade', 'objeto', 'status', 'editais'],
-    filter_word='licitacoes', job_name='index', threshold = 0, pattern='/tmp/es/data'): 
+    filter_word='licitacao', job_name='index', threshold = 0, pattern='/tmp/es/data', types='html'): 
 
-    result = {'proc_lic': []}
+    result_html = {'proc_lic': {}}
+    result_bat = {'proc_lic': {}}
 
     #Search
-    html_files = indexing.get_files_to_valid(
+    files = indexing.get_files(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
-    #Convert
-    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, type='html')
-    
-    #Analyze
-    result['proc_lic'] = analyze_proc_lici(df, keywords_check)
+    files = path_functions.filter_paths(files, filter_word)
+        
+    files = path_functions.agg_paths_by_type2(files)
 
+    for key, values in files.items():
+        
+        if key == 'html' and 'html' in types:
+            #Convert
+            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            result_html['proc_lic'] = analyze_proc_lici(df_html, keywords_check)
+
+        if key == 'bat' and 'bat' in types:
+            #Convert
+            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+
+            #Analyze
+            result_bat['proc_lic'] = analyze_proc_lici(df_bat, keywords_check)
+     
+
+    result = defaultdict(list)
+    for k, v in chain(result_html['proc_lic'].items(), result_bat['proc_lic'].items()):
+        result[k].extend(v)
+
+    result = {'proc_lic': dict(result)}
     #Check
     isvalid = []
     for i in keywords_check:
         isvalid.append(check_df.infos_isvalid(result['proc_lic'], i, threshold=threshold))
-    # print(result)
 
     return isvalid, result
 
 
 def predict_inexigibilidade(
     search_term, keywords_search, path_base, num_matches=40,
-    filter_word='licitacoes', job_name='index', threshold=0, pattern='/tmp/es/data'): 
+    filter_word='licitac', job_name='index', threshold=0, pattern='/tmp/es/data', types='html'): 
 
     result = {'inexigibilidade': []}
+    df = pd.DataFrame()
 
     #Search
-    html_files = indexing.get_files_to_valid(
+    files = indexing.get_files(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
-    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, type='html')
+    files = path_functions.filter_paths(files, filter_word)
+        
+    files = path_functions.agg_paths_by_type2(files)
+
+    for key, values in files.items():
+        
+        if key == 'html' and 'html' in types:
+            #Convert
+            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df = pd.concat([df, df_html])
+
+        if key == 'bat' and 'bat' in types:
+            #Convert
+            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df = pd.concat([df, df_bat])
 
     #Analyze
     isvalid, column_modalidade = check_df.contains_keyword(df, word='modalidade')
-    if isvalid:
-        for index, value in df.iterrows():
-            result['inexigibilidade'].append(analyze_inexibilidade (value, column_modalidade))
+
+    for index, value in df.iterrows():
+        result['inexigibilidade'].append(analyze_inexibilidade (value, column_modalidade))
             
     #Check
     isvalid = check_df.infos_isvalid(result, column_name='inexigibilidade', threshold=threshold)
@@ -165,27 +199,41 @@ def predict_inexigibilidade(
 
 def predict_dispensa(
     search_term, keywords_search, path_base, num_matches=40,
-     filter_word='licitacoes', job_name='index', threshold=0, pattern='/tmp/es/data'): 
+     filter_word='licitac', job_name='index', threshold=0, pattern='/tmp/es/data', types='html'): 
 
     result = {'dispensa': []}
+    df = pd.DataFrame()
 
     #Search
-    html_files = indexing.get_files_to_valid(
+    files = indexing.get_files(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
-    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, type='html')
-    
+    files = path_functions.filter_paths(files, filter_word)
+        
+    files = path_functions.agg_paths_by_type2(files)
+
+    for key, values in files.items():
+        
+        if key == 'html' and 'html' in types:
+            #Convert
+            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df = pd.concat([df, df_html])
+
+        if key == 'bat' and 'bat' in types:
+            #Convert
+            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df = pd.concat([df, df_bat])
+
     #Analyze
     isvalid, column_modalidade = check_df.contains_keyword(df, word='modalidade')
-    if isvalid:
 
-        for index, value in df.iterrows():
-            result['dispensa'].append(analyze_dispensa (value, column_modalidade))
+    for index, value in df.iterrows():
+        result['dispensa'].append(analyze_dispensa (value, column_modalidade))
             
     #Check
     isvalid = check_df.infos_isvalid(result, column_name='dispensa', threshold=threshold)
-    
+        
     return isvalid, result
 
 def predict_resultado(
@@ -195,7 +243,7 @@ def predict_resultado(
     result = {'resultado': []}
 
     #Search
-    html_files = indexing.get_files_to_valid(
+    html_files = indexing.get_files(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
@@ -220,7 +268,7 @@ def predict_editais(
     result = {'editais': []}
 
     #Search
-    html_files = indexing.get_files_to_valid(
+    html_files = indexing.get_files(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
@@ -245,7 +293,7 @@ def predict_busca(
     #Search
     html_files = indexing.get_files_to_valid(
         search_term, keywords_search, num_matches,
-        job_name, path_base)
+        job_name, path_base, types=['html'])
 
     #Analyze
     result = check_all_files_busca(html_files, result)
@@ -256,9 +304,8 @@ def predict_busca(
     return isvalid, result
 
 def explain(df, column_name, verbose=False):
-    print(df)
 
-    result = "Explain - Quantidade de arquivos analizados: {}\n\tQuantidade de aquivos válidos: {}\n".format(
+    result = "Explain - Quantidade entradas analizadas: {}\n\tQuantidade de entradas válidas: {}\n".format(
          len(df[column_name]), sum(df[column_name]))
 
     if verbose:

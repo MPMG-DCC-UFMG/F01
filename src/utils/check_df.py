@@ -8,11 +8,11 @@ def contains_keyword(df, word):
     for column_name in columns:
 
         finder = column_name.find(word)
-       
         if finder != -1:
-            return True, columns[i]
+            return True, df.columns[i]
     
         i +=1
+        
     return False, word
 
 def infos_isvalid(df, column_name, threshold=0): 

@@ -21,7 +21,7 @@ from classifiers.despesas import gerar_relatorio
 from classifiers.despesas import relatorios
 
 from classifiers import licitacoes 
-import constant
+import constant_simplanweb
 
 path = '/home/asafe/GitHub/Coleta_C01/gv'
 
@@ -161,7 +161,7 @@ def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbo
     result_explain = requisitos_sitios.explain(
         result, column_name='matches', elemento='Disponibiliza Endereço', verbose=verbose)
 
-    result.to_csv("test.csv", index=False)
+    result.to_csv('test.csv', index=False)
 
     output = add_in_dict(output, 'address', isvalid, result_explain)
 
@@ -202,11 +202,36 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
 
     return output
 
-def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tags, verbose=False):
+def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, pattern, num_matches, job_name, tags, verbose=False):
 
-    search_term=keywords['proc_lic']['search_term']
-    keywords_to_search = keywords['proc_lic']['keywords']
-    itens=keywords['proc_lic']['itens']
+    try:
+        types = keywords_template['types']
+    except KeyError:
+        types = ['html']
+
+    try:
+        search_term = keywords_municipio['licitacoes']['search_term']
+    except:
+        try:
+            search_term=keywords_template['licitacoes']['search_term']
+        except KeyError:
+            search_term = 'z'
+    
+    try:
+        keywords_to_search = keywords_municipio['licitacoes']['keywords']
+    except:
+        try:
+            keywords_to_search = keywords_template['licitacoes']['keywords']
+        except KeyError:
+            keywords_to_search = ['Licitações','Pregão','Inexigibilidade','Homologada','Resultado Final de Licitação', 'Modalidade','Fundamentação legal','Status']
+
+    try:
+        itens = keywords_municipio['licitacoes']['proc_lic_itens']
+    except:
+        try:
+            itens = keywords_template['licitacoes']['proc_lic_itens']
+        except KeyError:
+            itens = ['número da licitao', 'modalidade', 'objeto', 'status', 'editais']
 
     output = {'proc_lic': {},
             'inexigibilidade': {},
@@ -219,23 +244,23 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
     isvalid, result = licitacoes.predict_proc_lic(
         search_term=search_term, keywords_search=keywords_to_search, keywords_check=itens, 
         path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name=job_name, threshold = 0)
+        filter_word='licitacao', job_name=job_name, threshold = 0, types=types)
 
     for i in range(len(itens)):
         if verbose:
-            print("Predict - Procedimentos Licitatórios - {}: {}".format(itens[i], isvalid[i]))
+            print('Predict - Procedimentos Licitatórios - {}: {}'.format(itens[i], isvalid[i]))
         result_explain = licitacoes.explain(result['proc_lic'], itens[i], verbose)
     output = add_in_dict(output, 'proc_lic', isvalid, result_explain)
 
 
     # Procedimentos de Inexigibilidade
-    isvalid, result = licitacoes. predict_inexigibilidade(
+    isvalid, result = licitacoes.predict_inexigibilidade(
         search_term=search_term, keywords_search=keywords_to_search,
         path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name=job_name, threshold=0)
+        filter_word='licitac', job_name=job_name, threshold=0, types=types)
 
     if verbose:
-        print("Predict - Licitações / Registro dos procedimentos de inexigibilidade:", isvalid)
+        print('Predict - Licitações / Registro dos procedimentos de inexigibilidade:', isvalid)
 
     result_explain=licitacoes.explain(result, 'inexigibilidade', verbose)
     output = add_in_dict(output, 'inexigibilidade', isvalid, result_explain)
@@ -245,10 +270,10 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
     isvalid, result = licitacoes.predict_dispensa(
         search_term=search_term, keywords_search=keywords_to_search,
         path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name=job_name, threshold=0)
+        filter_word='licitac', job_name=job_name, threshold=0, types=types)
 
     if verbose:
-        print("Predict - Licitações / Registros de procedimentos de dispensa de licitação:", isvalid)
+        print('Predict - Licitações / Registros de procedimentos de dispensa de licitação:', isvalid)
 
     result_explain=licitacoes.explain(result, 'dispensa', verbose)
     output = add_in_dict(output, 'dispensa', isvalid, result_explain)
@@ -259,7 +284,7 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
         filter_word='licitacoes', job_name=job_name, threshold=0)
     
     if verbose:
-        print("Predict - Licitações / Resultado das licitações:", isvalid)
+        print('Predict - Licitações / Resultado das licitações:', isvalid)
 
     result_explain=licitacoes.explain(result, 'resultado', verbose)
     output = add_in_dict(output, 'resultado', isvalid, result_explain)
@@ -271,7 +296,7 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
             filter_word='licitacoes', job_name=job_name, threshold=0)
 
     if verbose:
-        print("Predict - Licitações / Disponibilização de Editais:", isvalid)
+        print('Predict - Licitações / Disponibilização de Editais:', isvalid)
 
     result_explain=licitacoes.explain(result, 'editais', verbose)
     output = add_in_dict(output, 'editais', isvalid, result_explain)
@@ -283,7 +308,7 @@ def pipeline_licitacoes(keywords, path_base, pattern, num_matches, job_name, tag
         filter_word='licitacoes', job_name=job_name, threshold=0)
 
     if verbose:
-        print("Predict - Licitações / Permite Busca:", isvalid)
+        print('Predict - Licitações / Permite Busca:', isvalid)
 
     result_explain=licitacoes.explain(result, 'busca', verbose)
     output = add_in_dict(output, 'busca', isvalid, result_explain)
@@ -410,7 +435,7 @@ def main():
     # output_requisitos_sitios = pipeline_requisitos_sitios(
     #     keywords, path_base, num_matches, job_name)
     output_licitacoes = pipeline_licitacoes(
-        keywords, path_base, pattern, num_matches, job_name, tags, verbose=True)
+        keywords_template, keywords_municipio, path_base, pattern, num_matches, job_name, tags, verbose=True)
 
 
     output = {
@@ -421,38 +446,55 @@ def main():
     return output
 
 
-# path_base = "/home/cinthia/F01/data"
-path_base = "/home/asafe"
+# path_base = '/home/cinthia/F01/data'
+path_base = '/home/asafe'
 num_matches = 10
-job_name = 'index_governador_valadares'
-keywords = constant.keywords
+# job_name = 'bias_fortes'
+# job_name = 'bom_jardim_de_minas'
+# job_name = 'cristina'
+# job_name = 'ewbank_da_camara'
+# job_name = 'maripa_de_minas'
+# job_name = 'merces'
+job_name = 'piranga'
+
+
+keywords_template = constant_simplanweb.keywords_template
+
 pattern = ''
 tags = ''
+
+try:
+    constant_municipio = 'constant_' + job_name
+    tf = open(constant_municipio + ".json", "r")
+    keywords_municipio = json.load(tf)
+except FileNotFoundError:
+    keywords_municipio = None
+    
 
 main()
 
 
 # result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
 # df = pd.DataFrame(result).T
-# df.to_csv("result_informacoes.csv", index=False)
+# df.to_csv('result_informacoes.csv', index=False)
 
 # result = pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name)
 # df = pd.DataFrame(result).T
-# df.to_csv("result.csv", index=False)
+# df.to_csv('result.csv', index=False)
 # print(pd.DataFrame(result).T)
 
 # result = pipeline_base_dados(keywords, path_base, num_matches, job_name)
 # df = pd.DataFrame(result).T
-# df.to_csv("result_base_dados.csv", index=False)
+# df.to_csv('result_base_dados.csv', index=False)
 
 
 # result = pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name, verbose=True)
 # df = pd.DataFrame(result).T
-# df.to_csv("result_divulgacao_atendimentos.csv", index=False)
+# df.to_csv('result_divulgacao_atendimentos.csv', index=False)
 
-"""
+'''
     Despesas
-"""
+'''
 # result = pipeline_empenhos(path_base, job_name, verbose=True)
 # result = pipeline_pagamentos(path_base, job_name, verbose=True)
 # result = pipeline_consulta_por_favorecido(path_base, job_name, verbose=True)

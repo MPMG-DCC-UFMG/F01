@@ -18,8 +18,8 @@ def predict_plano_plurianual(search_term = 'Plano Plurianual PPA',
     #     search_term, keywords, num_matches,
     #     job_name, path_base, 'pdf')
 
-    # html_files = path_functions.filter_paths2(html_files, filter_words)
-    # pdf_files = path_functions.filter_paths2(pdf_files, filter_words)
+    # html_files = path_functions.filter_paths(html_files, filter_words)
+    # pdf_files = path_functions.filter_paths(pdf_files, filter_words)
     if verbose:
         print('\nPredict Plano Plurianual:')
         print(html_files)
@@ -43,7 +43,7 @@ def predict_lei_diretrizes_orcamentarias(search_term = 'Diretrizes orçamentári
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     if verbose:
         print('\nPredict Lei de Diretrizes Orçamentaria:')
@@ -66,7 +66,7 @@ def predict_lei_orcamentaria_anual(search_term = 'Lei orçamentária anual LOA',
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     if verbose:
         print('\nPredict Lei Orçamentária Anual:')
@@ -91,7 +91,7 @@ def predict_balanco_demonstracoes(search_term = 'Balanço anual Demonstrações 
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     if verbose:
         print('\nPredict Balanço anual e demonstrações contábeis:')
@@ -115,7 +115,7 @@ def predict_execucao_orcamentaria_gestao_fiscal(search_term = 'Relatórios execu
         search_term, keywords, num_matches,
         job_name, path_base)
 
-    html_files = path_functions.filter_paths2(html_files, filter_words)
+    html_files = path_functions.filter_paths(html_files, filter_words)
 
     if verbose:
         print('\nPredict Relatórios da execução orçamentária e gestão fiscal:')

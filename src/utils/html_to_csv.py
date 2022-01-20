@@ -23,7 +23,6 @@ def list_to_text(soup):
     try:
         for i in soup.find("div", { "id" : "detalhes" }).findAll('li'):
             info = i.get_text().split(": ")
-            # print(info)
             if len(info) >= 2:
                 type.append(info[0].lower().replace("\n", ''))
                 text.append(''.join(info[1:]))
@@ -115,8 +114,9 @@ def all_lists_to_csv2(paths):
     else: return pd.DataFrame()
 
 def concat_lists(files):
-
-    if len(files) == 1:
+    if len(files) == 0:
+        df = pd.DataFrame()
+    elif len(files) == 1:
         df = files[0]
     else:
         df = pd.concat(files)
@@ -140,6 +140,13 @@ def load_and_convert_files(path_base, paths, type):
             list_csv.append(pd.read_csv(path_base + i))
 
         df = concat_lists(list_csv)
+    
+    elif type == 'bat':
+
+        list_csv = []
+        for i in  paths:
+            list_csv.append(pd.read_csv(i))
+        df = concat_lists(list_csv)
 
     elif type == 'xls':
 
@@ -148,5 +155,5 @@ def load_and_convert_files(path_base, paths, type):
             list_xls.append(pd.read_excel(path_base + i))
 
         df = concat_lists(list_xls)
-
+    
     return df

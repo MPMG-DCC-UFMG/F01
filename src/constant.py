@@ -1,4 +1,4 @@
-keywords = {
+keywords_template = {
     'export_reports': {
         'search_term':'page-principal', 
         'keywords':['pdf', 'xml', 'csv', 'xls', 'download', 'baixar', 'export', 'exportar']},
@@ -15,10 +15,10 @@ keywords = {
     'search_engine': {
         'search_term':'page-principal', 
         'keywords':['busca', 'Ir para página', 'uc_painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'Licitaes Licitações',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['nmero da licitao', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['nmer o da licitao', 'modalidade', 'objeto', 'status', 'editais']
     }
 }
 
@@ -39,10 +39,10 @@ keywords_uberaba = {
     'search_engine': {
         'search_term':'Portal da Transparência', 
         'keywords':['bnt_search','busca', 'campo_busca', 'buscar' 'Ir para página', 'painel_buscar', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_ipatinga = {
@@ -62,10 +62,10 @@ keywords_ipatinga = {
     'search_engine': {
         'search_term':'Prefeitura Municipal de Ipatinga - Principal', 
         'keywords':['busca', 'Ir para página', 'painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_betim = {
@@ -85,10 +85,10 @@ keywords_betim = {
     'search_engine': {
         'search_term':'Prefeitura Municipal de Ipatinga - Principal', 
         'keywords':['busca', 'Ir para página', 'uc_painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_divinopolis = {
@@ -108,10 +108,10 @@ keywords_divinopolis = {
     'search_engine': {
         'search_term':'Prefeitura de Divinópolis - Transparência', 
         'keywords':['BUSCA DO SITE','busca', 'campo_busca', 'buscar' 'Ir para página', 'uc_painel_buscar','palavra-chave', 'search', 'Transparência']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_uberlandia = {
@@ -131,10 +131,10 @@ keywords_uberlandia = {
     'search_engine': {
         'search_term':'Portal da Transparência - Portal da Prefeitura de Uberlândia', 
         'keywords':['BUSCA DO SITE','busca', 'campo_busca', 'buscar' 'Ir para página', 'uc_painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_montes_claros = {
@@ -154,10 +154,10 @@ keywords_montes_claros = {
     'search_engine': {
         'search_term':'Portal Montes Claros', 
         'keywords':['BUSCA DO SITE','busca', 'Busca', 'campo_busca', 'buscar' 'Ir para página', 'painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 
@@ -178,10 +178,10 @@ keywords_teofilo_otoni = {
     'search_engine': {
         'search_term':'Portal da Transparência', 
         'keywords':['BUSCA DO SITE','busca', 'Busca', 'campo_busca', 'buscar' 'Ir para página', 'painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_paracatu = {
@@ -201,10 +201,10 @@ keywords_paracatu = {
     'search_engine': {
         'search_term':'PPortal da Transparência · Paracatu', 
         'keywords':['bnt_search','busca', 'Busca', 'campo_busca', 'buscar' 'Ir para página', 'painel_buscar', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
 
 keywords_pouso_alegre = {
@@ -224,8 +224,8 @@ keywords_pouso_alegre = {
     'search_engine': {
         'search_term':'Portal da Transparência - MUNICÍPIO DE POUSO ALEGRE', 
         'keywords':['BUSCA DO SITE','busca', 'Busca', 'campo_busca', 'buscar' 'Ir para página', 'painel_buscar','palavra-chave', 'search']},
-    'proc_lic': {
+    'licitacoes': {
        'search_term': 'licitacoes',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       'itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número da licitação', 'modalidade', 'objeto', 'status', 'editais']
     }}
