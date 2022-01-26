@@ -1,6 +1,12 @@
 import os
 from utils.indexing import remove_index
 import json
+from constant_simplanweb import municipios_formatados
+
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("job")
+args = parser.parse_args()
 #sys.path.insert(1, './classifiers')
 
 # sys.path.insert(0, '/home/cinthia/F01/src/classifiers')
@@ -428,20 +434,33 @@ def pipeline_relatorios(path_base, job_name, verbose=False):
 
     return output
 
-def main():
+def main(jobs):
 
     # output_informacoes = pipeline_informacoes(
     #     keywords, path_base, num_matches, job_name)
     # output_requisitos_sitios = pipeline_requisitos_sitios(
     #     keywords, path_base, num_matches, job_name)
-    output_licitacoes = pipeline_licitacoes(
-        keywords_template, keywords_municipio, path_base, pattern, num_matches, job_name, tags, verbose=True)
+
+    for job_name in jobs:
 
 
-    output = {
-                # 'informacoes': output_informacoes, 
-                # 'requisitos_sitios': output_requisitos_sitios,
-                'licitacoes': output_licitacoes}
+        try:
+            constant_municipio = 'constant_' + args.job
+            tf = open(constant_municipio + ".json", "r")
+            keywords_municipio = json.load(tf)
+        except FileNotFoundError:
+            keywords_municipio = None
+    
+
+        output_licitacoes = pipeline_licitacoes(
+            keywords_template, keywords_municipio, path_base, pattern, num_matches, args.job, tags, verbose=True)
+
+
+        output = {
+                    # 'informacoes': output_informacoes, 
+                    # 'requisitos_sitios': output_requisitos_sitios,
+                    'licitacoes': output_licitacoes}
+        print(output)
 
     return output
 
@@ -449,29 +468,16 @@ def main():
 # path_base = '/home/cinthia/F01/data'
 path_base = '/home/asafe'
 num_matches = 10
-# job_name = 'bias_fortes'
-# job_name = 'bom_jardim_de_minas'
-# job_name = 'cristina'
-# job_name = 'ewbank_da_camara'
-# job_name = 'maripa_de_minas'
-# job_name = 'merces'
-job_name = 'piranga'
 
+# jobs = municipios_formatados
+jobs = ['merces']
 
 keywords_template = constant_simplanweb.keywords_template
 
 pattern = ''
 tags = ''
 
-try:
-    constant_municipio = 'constant_' + job_name
-    tf = open(constant_municipio + ".json", "r")
-    keywords_municipio = json.load(tf)
-except FileNotFoundError:
-    keywords_municipio = None
-    
-
-main()
+main(jobs)
 
 
 # result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
