@@ -4,14 +4,14 @@ from pathlib import Path
 import os
 import subprocess
 
-# MUNICIPIOS = municipios_formatados
-MUNICIPIOS = ['agora']
+MUNICIPIOS = municipios_formatados
+#MUNICIPIOS = ['agora']
 
 # MP
-HOME = Path("/home/ufmg.amedeiros/.fscrawler")
+HOME = Path("/home/ufmg.amedeiros")
 
 # Locamente
-HOME = Path.home()
+# HOME = Path.home()
 
 
 for municipio in MUNICIPIOS:
@@ -75,11 +75,9 @@ for municipio in MUNICIPIOS:
 
 
 
-    # """Não está funcionandoi em backgroup"""
-
-    subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio])
-    # subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
-    
+    # subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio])
+    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
+    print(process.pid)
 
 
     # os.system("Fim")
