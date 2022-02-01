@@ -1,6 +1,7 @@
 import os
 from utils.indexing import remove_index
 import json
+import pandas as pd
 from constant_simplanweb import municipios_formatados
 
 import argparse
@@ -221,7 +222,7 @@ def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, patter
         try:
             search_term=keywords_template['licitacoes']['search_term']
         except KeyError:
-            search_term = 'z'
+            search_term = 'licitac'
     
     try:
         keywords_to_search = keywords_municipio['licitacoes']['keywords']
@@ -239,6 +240,7 @@ def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, patter
         except KeyError:
             itens = ['número da licitao', 'modalidade', 'objeto', 'status', 'editais']
 
+    proc_lic = {'número': {}, 'modalidade': {},'objeto': {},'status': {}, 'editais': {}, 'editais': {}}
     output = {'proc_lic': {},
             'inexigibilidade': {},
             'resultado': {},
@@ -252,12 +254,15 @@ def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, patter
         path_base=path_base, num_matches=num_matches,
         filter_word='licitacao', job_name=job_name, threshold = 0, types=types)
 
+    # result_explain
     for i in range(len(itens)):
         if verbose:
             print('Predict - Procedimentos Licitatórios - {}: {}'.format(itens[i], isvalid[i]))
         result_explain = licitacoes.explain(result['proc_lic'], itens[i], verbose)
-    output = add_in_dict(output, 'proc_lic', isvalid, result_explain)
-
+        proc_lic = add_in_dict(proc_lic, itens[i], isvalid, result_explain)
+    
+    output['proc_lic'] = proc_lic
+    
 
     # Procedimentos de Inexigibilidade
     isvalid, result = licitacoes.predict_inexigibilidade(
@@ -461,6 +466,9 @@ def main(jobs):
                     # 'requisitos_sitios': output_requisitos_sitios,
                     'licitacoes': output_licitacoes}
         print(output)
+
+        df = pd.DataFrame(output).T
+        df.to_csv('output_licitacoes.csv', index=False)
 
     return output
 

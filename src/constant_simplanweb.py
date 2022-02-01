@@ -71,8 +71,8 @@ municipios_formatados = ['maripa_de_minas', 'bom_jardim_de_minas', 'bias_fortes'
 
 keywords_template = {
     'licitacoes': {
-       'search_term': 'Licitações licitação',
-       'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
+       'search_term': 'Licitações licitação Tomada Modalidade Objeto',
+       'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
        'proc_lic_itens': ['número', 'modalidade', 'objeto', 'status', 'editais']
     },
     'types': ['html','bat']

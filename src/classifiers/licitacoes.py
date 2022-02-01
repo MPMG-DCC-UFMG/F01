@@ -114,7 +114,7 @@ def check_all_files_busca(paths, result):
 
 
 def predict_proc_lic(
-    search_term, keywords_search, path_base, num_matches=40,
+    search_term, keywords_search, path_base, num_matches=100,
     keywords_check=['número', 'modalidade', 'objeto', 'status', 'editais'],
     filter_word='licitacao', job_name='index', threshold = 0, pattern='/tmp/es/data', types='html'): 
 
@@ -129,6 +129,7 @@ def predict_proc_lic(
     files = path_functions.filter_paths(files, filter_word)
         
     files = path_functions.agg_paths_by_type2(files)
+    print(files)
 
     for key, values in files.items():
         
@@ -140,10 +141,9 @@ def predict_proc_lic(
         if key == 'bat' and 'bat' in types:
             #Convert
             df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
-
+            # print(df_bat)
             #Analyze
             result_bat['proc_lic'] = analyze_proc_lici(df_bat, keywords_check)
-     
 
     result = defaultdict(list)
     for k, v in chain(result_html['proc_lic'].items(), result_bat['proc_lic'].items()):
@@ -294,6 +294,7 @@ def predict_busca(
     html_files = indexing.get_files_to_valid(
         search_term, keywords_search, num_matches,
         job_name, path_base, types=['html'])
+    print(html_files)
 
     #Analyze
     result = check_all_files_busca(html_files, result)
@@ -312,6 +313,21 @@ def explain(df, column_name, verbose=False):
         print(result)
 
     return result
+
+def explain_proc_lic(df, column_name, verbose=False):
+    print(df)
+    print("*******************************")
+    print(column_name)
+    result = ''
+
+    # result = "Explain - Quantidade entradas analizadas: {}\n\tQuantidade de entradas válidas: {}\n".format(
+    #      len(df[column_name]), sum(df[column_name]))
+
+    # if verbose:
+    #     print(result)
+
+    return result
+
 
 
 #path_base = "/home/cinthia/MPMG/persistence_area/"
