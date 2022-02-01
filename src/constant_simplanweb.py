@@ -19,9 +19,9 @@ municipios_simplanweb = ["Maripá de Minas",
 "Arantina",
 "Bocaina de Minas",
 "Belmiro Braga",
-"Cruzíli",
+"Cruzília",
 "Senhora de Oliveira",
-"Aracitab",
+"Aracitaba",
 "Laranjal",
 "Madre de Deus de Minas",
 "São Lourenço",
@@ -48,8 +48,8 @@ municipios_simplanweb = ["Maripá de Minas",
 "Pedro Teixeira",
 "Tabuleiro",
 "Chácara",
-"Senhora dos Remédio",
-"Guarar",
+"Senhora dos Remédios",
+"Guarara",
 "Aiuruoca",
 "Coronel Pacheco",
 "Carmo de Minas",
@@ -66,8 +66,8 @@ for municipio in municipios_simplanweb:
     municipios_formatados.append(new)
 # print(municipios_formatados)
 
-municipios_formatados = ['maripa_de_minas', 'bom_jardim_de_minas', 'bias_fortes', 'ewbank_da_camara', 'simao_pereira', 'cristina', 'guarani', 'piranga', 'passa_vinte', 'barra_longa', 'piau', 'merces', 'rio_espera', 'lamim', 'dom_vicoso', 'coimbra', 'bras_pire', 'senador_cortes', 'arantina', 'bocaina_de_minas', 'belmiro_braga', 'cruzili', 'senhora_de_oliveira', 'aracitab', 'laranjal', 'madre_de_deus_de_minas', 'sao_lourenco', 'toledo', 'amparo_do_serra', 'santana_do_garambeu', 'cipotanea', 'santa_rita_de_ibitipoca', 'rio_preto', 'mirai', 'estrela_dalva', 'olaria', 'diogo_de_vasconcelos', 'paulo_candido', 'minduri', 'rochedo_de_minas', 'volta_grande', 'chiador', 'fervedouro', 'seritinga', 'rio_novo', 'andrelandia', 'astolfo_dutra', 'pedro_teixeira', 'tabuleiro', 'chacara', 'senhora_dos_remedio', 'guarar', 'aiuruoca', 'coronel_pacheco', 'carmo_de_minas', 'oratorios', 'senador_firmino', 'canaa', 'ibertioga', 'lima_duarte', 'teixeira']
-# municipioos_to_sheel = ('maripa_de_minas' 'bom_jardim_de_minas' 'bias_fortes' 'ewbank_da_camara' 'simao_pereira' 'cristina' 'guarani' 'piranga' 'passa_vinte' 'barra_longa' 'piau' 'merces' 'rio_espera' 'lamim' 'dom_viooso' 'coimbra' 'bras_pire' 'senador_cortes' 'arantina' 'bocaina_de_minas' 'belmiro_braga' 'cruzili' 'senhora_de_oliveira' 'aracitab' 'laranjal' 'madre_de_deus_de_minas' 'sao_lourenoo' 'toledo' 'amparo_do_serra' 'santana_do_garambeu' 'cipotanea' 'santa_rita_de_ibitipoca' 'rio_preto' 'mirai' 'estrela_dalva' 'olaria' 'diogo_de_vasconcelos' 'paulo_candido' 'minduri' 'rochedo_de_minas' 'volta_grande' 'chiador' 'fervedouro' 'seritinga' 'rio_novo' 'andrelandia' 'astolfo_dutra' 'pedro_teixeira' 'tabuleiro' 'chacara' 'senhora_dos_remedio' 'guarar' 'aiuruoca' 'coronel_pacheco' 'carmo_de_minas' 'oratorios' 'senador_firmino' 'canaa' 'ibertioga' 'lima_duarte' 'teixeira')
+municipios_formatados = ['maripa_de_minas', 'bom_jardim_de_minas', 'bias_fortes', 'ewbank_da_camara', 'simao_pereira', 'cristina', 'guarani', 'piranga', 'passa_vinte', 'barra_longa', 'piau', 'merces', 'rio_espera', 'lamim', 'dom_vicoso', 'coimbra', 'bras_pires', 'senador_cortes', 'arantina', 'bocaina_de_minas', 'belmiro_braga', 'cruzilia', 'senhora_de_oliveira', 'aracitaba', 'laranjal', 'madre_de_deus_de_minas', 'sao_lourenco', 'toledo', 'amparo_do_serra', 'santana_do_garambeu', 'cipotanea', 'santa_rita_de_ibitipoca', 'rio_preto', 'mirai', 'estrela_dalva', 'olaria', 'diogo_de_vasconcelos', 'paulo_candido', 'minduri', 'rochedo_de_minas', 'volta_grande', 'chiador', 'fervedouro', 'seritinga', 'rio_novo', 'andrelandia', 'astolfo_dutra', 'pedro_teixeira', 'tabuleiro', 'chacara', 'senhora_dos_remedios', 'guarara', 'aiuruoca', 'coronel_pacheco', 'carmo_de_minas', 'oratorios', 'senador_firmino', 'canaa', 'ibertioga', 'lima_duarte', 'teixeira']
+# municipioos_to_sheel = ('maripa_de_minas' 'bom_jardim_de_minas' 'bias_fortes' 'ewbank_da_camara' 'simao_pereira' 'cristina' 'guarani' 'piranga' 'passa_vinte' 'barra_longa' 'piau' 'merces' 'rio_espera' 'lamim' 'dom_viooso' 'coimbra' 'bras_pires' 'senador_cortes' 'arantina' 'bocaina_de_minas' 'belmiro_braga' 'cruzilia' 'senhora_de_oliveira' 'aracitaba' 'laranjal' 'madre_de_deus_de_minas' 'sao_lourenoo' 'toledo' 'amparo_do_serra' 'santana_do_garambeu' 'cipotanea' 'santa_rita_de_ibitipoca' 'rio_preto' 'mirai' 'estrela_dalva' 'olaria' 'diogo_de_vasconcelos' 'paulo_candido' 'minduri' 'rochedo_de_minas' 'volta_grande' 'chiador' 'fervedouro' 'seritinga' 'rio_novo' 'andrelandia' 'astolfo_dutra' 'pedro_teixeira' 'tabuleiro' 'chacara' 'senhora_dos_remedios' 'guarara' 'aiuruoca' 'coronel_pacheco' 'carmo_de_minas' 'oratorios' 'senador_firmino' 'canaa' 'ibertioga' 'lima_duarte' 'teixeira')
 
 keywords_template = {
     'licitacoes': {

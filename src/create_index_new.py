@@ -4,7 +4,9 @@ from pathlib import Path
 import os
 import subprocess
 
-MUNICIPIOS = municipios_formatados
+# MUNICIPIOS = municipios_formatados
+
+MUNICIPIOS = ['belmiro_braga', 'bras_pires', 'cruzilia', 'aracitaba', 'sao_lourenco', 'diogo_de_vasconcelos', 'fervedouro', 'senhora_dos_remedios', 'guarara', 'aiurouca']
 #MUNICIPIOS = ['agora']
 
 # MP
@@ -76,22 +78,13 @@ for municipio in MUNICIPIOS:
 
 
 
-    process= subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio])
+    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
+    # process= subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio])
     print(process.pid, municipio)
 
     try:
-        outs, errs = process.communicate(timeout=15)
+        outs, errs = process.communicate(timeout=30)
     except:
         process.kill()
         outs, errs = process.communicate()
     print("finish", process.pid, municipio)
-    # process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
-
-
-    # os.system("Fim")
-
-# & ->  para rodar em segundo plano
-# & ->  para rodar em segundo plano
-# jobs -> vê quais estão rodando
-# fg %N > trazer uma tarefa para primeiro plano, onde N é o número do processo que deseja.
-

@@ -79,11 +79,3 @@ for municipio in MUNICIPIOS:
     process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
     print(process.pid)
 
-
-    # os.system("Fim")
-
-# & ->  para rodar em segundo plano
-# & ->  para rodar em segundo plano
-# jobs -> vê quais estão rodando
-# fg %N > trazer uma tarefa para primeiro plano, onde N é o número do processo que deseja.
-

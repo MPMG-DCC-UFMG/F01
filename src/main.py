@@ -259,7 +259,7 @@ def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, patter
         if verbose:
             print('Predict - Procedimentos Licitatórios - {}: {}'.format(itens[i], isvalid[i]))
         result_explain = licitacoes.explain(result['proc_lic'], itens[i], verbose)
-        proc_lic = add_in_dict(proc_lic, itens[i], isvalid, result_explain)
+        proc_lic = add_in_dict(proc_lic, itens[i], isvalid[i], result_explain)
     
     output['proc_lic'] = proc_lic
     
