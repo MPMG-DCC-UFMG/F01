@@ -2,6 +2,9 @@ from bs4 import BeautifulSoup
 import chardet
 import codecs
 import os
+import schedule
+import time
+
 
 # <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -30,3 +33,14 @@ path2 = '/home/asafe/Downloads/abc.html'
 #     file.write(soup)
 
 # print(source)
+
+def job():
+    print("tentando...")
+
+schedule.every(4).seconds.do(job)
+
+print('Running crawler')
+
+while True:
+    schedule.run_pending()
+    # time.sleep(1)

@@ -2,7 +2,11 @@ import os
 from utils.indexing import remove_index
 import json
 import pandas as pd
-from constant_simplanweb import municipios_formatados
+
+import constant_simplanweb
+from constant_simplanweb import municipios_simplanweb
+import constant_sintese
+from constant_sintese import municipios_sintese
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -28,9 +32,7 @@ from classifiers.despesas import gerar_relatorio
 from classifiers.despesas import relatorios
 
 from classifiers import licitacoes 
-import constant_simplanweb
 
-path = '/home/asafe/GitHub/Coleta_C01/gv'
 
 def add_in_dict(output, item, isvalid, result_explain):
     output[item]['predict'] = isvalid
@@ -477,10 +479,10 @@ def main(jobs):
 path_base = '/home/asafe'
 num_matches = 10
 
-# jobs = municipios_formatados
-jobs = ['merces']
+jobs = municipios_sintese
+# jobs = ['merces']
 
-keywords_template = constant_simplanweb.keywords_template
+keywords_template = constant_sintese.keywords_template
 
 pattern = ''
 tags = ''

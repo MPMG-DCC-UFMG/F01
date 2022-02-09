@@ -113,3 +113,16 @@ def get_url(path_base, filename):
         json = eval(line)
         if (json['file_name'] == get_name(filename)):
             return json['url']
+
+
+def format_city_names(municipipos):
+    ori = "ãâáíẽéêóôç "
+    rep  = "aaaioeeooc_"
+    result = []
+    for municipio in municipipos:
+        new = municipio.lower()
+        for i in range(len(ori)):
+            if ori[i] in new:
+                new = new.replace(ori[i],rep[i])
+        result.append(new)
+    return result

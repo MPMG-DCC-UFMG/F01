@@ -1,27 +1,33 @@
 import yaml
-from constant_simplanweb import municipios_formatados
+from constant_simplanweb import municipios_simplanweb
+from constant_sintese import municipios_sintese
 from pathlib import Path
 import os
+import json
 import subprocess
+import time
 
-MUNICIPIOS = municipios_formatados
-#MUNICIPIOS = ['agora']
+TIME_OUT = 240
+
+MUNICIPIOS = municipios_simplanweb + municipios_sintese
+
+# MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
-HOME = Path("/home/ufmg.amedeiros")
+# HOME = Path("/home/ufmg.amedeiros")
 
 # Locamente
-# HOME = Path.home()
-
+HOME = Path.home()
 
 for municipio in MUNICIPIOS:
 
     config = {
         'name': municipio,
         'fs': 
-            {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
+            # {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
+            {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
             'update_rate': '15m', 
-            'excludes': ['*/~*'], 
+            'excludes': ['*/screenshots*'], 
             'json_support': False, 
             'filename_as_id': False, 
             'add_filesize': True, 
@@ -38,7 +44,7 @@ for municipio in MUNICIPIOS:
             'ocr': 
                 {'language': 'por', 
                 'enabled': True, 
-                'pdf_strategy': 'ocr_and_text'}, 
+                'pdf_strategy': 'auto'}, 
             'follow_symlinks': False},
         'elasticsearch': 
             {'nodes': 
@@ -74,8 +80,20 @@ for municipio in MUNICIPIOS:
                 yaml.dump(config, yaml_file, default_flow_style=False)
 
 
+    print('Run crawler')
+    # process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
+    process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
 
-    # subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio])
-    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
-    print(process.pid)
+    try:
+        outs, errs = process.communicate(timeout=TIME_OUT)
+    except:
+        process.kill()
+        outs, errs = process.communicate()
 
+    status = municipio_directory / "_status.json"
+    if os.path.exists(status):
+        f = open(status)
+        data = json.load(f)
+        print("status:", data)
+
+    print("finish", process.pid, municipio)
