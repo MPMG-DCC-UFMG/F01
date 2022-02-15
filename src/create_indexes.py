@@ -43,7 +43,7 @@ for municipio in MUNICIPIOS:
             'continue_on_error': False, 
             'ocr': 
                 {'language': 'por', 
-                'enabled': True, 
+                'enabled': False, 
                 'pdf_strategy': 'auto'}, 
             'follow_symlinks': False},
         'elasticsearch': 
