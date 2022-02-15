@@ -1,5 +1,5 @@
 import yaml
-from constant_simplanweb import municipios_simplanweb
+# from constant_simplanweb import municipios_simplanweb
 from constant_sintese import municipios_sintese
 from pathlib import Path
 import os
@@ -10,7 +10,7 @@ import time
 TIME_OUT = 300
 
 # MUNICIPIOS = municipios_simplanweb + municipios_sintese
-MUNICIPIOS = municipios_simplanweb
+MUNICIPIOS = municipios_sintese
 # MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
