@@ -14,10 +14,10 @@ MUNICIPIOS = municipios_simplanweb
 # MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
-# HOME = Path("/home/ufmg.amedeiros")
+HOME = Path("/home/ufmg.amedeiros")
 
 # Locamente
-HOME = Path.home()
+# HOME = Path.home()
 
 for municipio in MUNICIPIOS:
 
