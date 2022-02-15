@@ -98,7 +98,7 @@ keywords_template = {
     'licitacoes': {
        'search_term': 'Licitações licitação Tomada Modalidade Objeto',
        'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-       'proc_lic_itens': ['número', 'modalidade', 'objeto', 'status', 'editais']
+       'proc_lic_itens': ['número', 'modalidade', 'objeto', 'status', 'resultado']
     },
-    'types': ['html','bat']
+    'types': ['html','pdf']
 }

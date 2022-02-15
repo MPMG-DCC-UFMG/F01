@@ -120,6 +120,7 @@ def predict_proc_lic(
 
     result_html = {'proc_lic': {}}
     result_bat = {'proc_lic': {}}
+    result_pdf = {'proc_lic': {}}
 
     #Search
     files = indexing.get_files(
@@ -129,27 +130,33 @@ def predict_proc_lic(
     files = path_functions.filter_paths(files, filter_word)
         
     files = path_functions.agg_paths_by_type2(files)
-    print(files)
 
     for key, values in files.items():
         
         if key == 'html' and 'html' in types:
             #Convert
-            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
             result_html['proc_lic'] = analyze_proc_lici(df_html, keywords_check)
 
         if key == 'bat' and 'bat' in types:
             #Convert
-            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
-            # print(df_bat)
+            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
             #Analyze
             result_bat['proc_lic'] = analyze_proc_lici(df_bat, keywords_check)
 
+        if key == 'pdf' and 'pdf' in types:
+            #Convert
+            df_pdfs = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
+            df_pdfs = df_pdfs.drop_duplicates()
+            #Analyze
+            result_pdf['proc_lic'] = analyze_proc_lici(df_pdfs, keywords_check)
+
     result = defaultdict(list)
-    for k, v in chain(result_html['proc_lic'].items(), result_bat['proc_lic'].items()):
+    for k, v in chain(result_html['proc_lic'].items(), result_bat['proc_lic'].items(), result_pdf['proc_lic'].items()):
         result[k].extend(v)
 
     result = {'proc_lic': dict(result)}
+
     #Check
     isvalid = []
     for i in keywords_check:
@@ -178,20 +185,34 @@ def predict_inexigibilidade(
         
         if key == 'html' and 'html' in types:
             #Convert
-            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
             df = pd.concat([df, df_html])
 
         if key == 'bat' and 'bat' in types:
             #Convert
-            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
             df = pd.concat([df, df_bat])
+
+        if key == 'pdf' and 'pdf' in types:
+            #Convert
+            df_pdfs = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
+            df_pdfs = df_pdfs.drop_duplicates()
+            df = pd.concat([df, df_pdfs])
+            #Analyze
+
+
+    if "Número Modalidade" in df.columns:
+        df.drop(columns=["Número Modalidade"],inplace=True)
 
     #Analyze
     isvalid, column_modalidade = check_df.contains_keyword(df, word='modalidade')
 
+    print('column_modalidade',column_modalidade)
+
     for index, value in df.iterrows():
         result['inexigibilidade'].append(analyze_inexibilidade (value, column_modalidade))
             
+    print(result)
     #Check
     isvalid = check_df.infos_isvalid(result, column_name='inexigibilidade', threshold=threshold)
         
@@ -217,13 +238,23 @@ def predict_dispensa(
         
         if key == 'html' and 'html' in types:
             #Convert
-            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df_html = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
             df = pd.concat([df, df_html])
 
         if key == 'bat' and 'bat' in types:
             #Convert
-            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, type=key)
+            df_bat = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
             df = pd.concat([df, df_bat])
+
+        if key == 'pdf' and 'pdf' in types:
+            #Convert
+            df_pdfs = html_to_csv.load_and_convert_files(path_base, paths=values, format_type=key)
+            df_pdfs = df_pdfs.drop_duplicates()
+            df = pd.concat([df, df_pdfs])
+            #Analyze
+
+    if "Número Modalidade" in df.columns:
+        df.drop(columns=["Número Modalidade"],inplace=True)
 
     #Analyze
     isvalid, column_modalidade = check_df.contains_keyword(df, word='modalidade')
@@ -247,7 +278,7 @@ def predict_resultado(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
-    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, type='html')
+    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, format_type='html')
 
     #Analyze
     isvalid, column_modalidade = check_df.contains_keyword(df, word='resultado')
@@ -272,7 +303,7 @@ def predict_editais(
         search_term, keywords_search, num_matches,
         job_name, path_base)
 
-    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, type='html')
+    df = html_to_csv.load_and_convert_files(path_base, paths=html_files, format_type='html')
 
     #Analyze
     isvalid, column_edital = check_df.contains_keyword(df, word='editais')

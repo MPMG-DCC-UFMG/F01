@@ -242,7 +242,7 @@ def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, patter
         except KeyError:
             itens = ['número da licitao', 'modalidade', 'objeto', 'status', 'editais']
 
-    proc_lic = {'número': {}, 'modalidade': {},'objeto': {},'status': {}, 'editais': {}, 'editais': {}}
+    proc_lic = {'número': {}, 'modalidade': {},'objeto': {},'status': {}, 'resultado': {}}
     output = {'proc_lic': {},
             'inexigibilidade': {},
             'resultado': {},
@@ -479,8 +479,10 @@ def main(jobs):
 path_base = '/home/asafe'
 num_matches = 10
 
-jobs = municipios_sintese
-# jobs = ['merces']
+# jobs = municipios_sintese
+jobs = ['veredinha']
+jobs = ['ibiai']
+jobs = ['patis']
 
 keywords_template = constant_sintese.keywords_template
 

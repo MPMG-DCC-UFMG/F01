@@ -7,10 +7,10 @@ import json
 import subprocess
 import time
 
-TIME_OUT = 240
+TIME_OUT = 300
 
-MUNICIPIOS = municipios_simplanweb + municipios_sintese
-
+# MUNICIPIOS = municipios_simplanweb + municipios_sintese
+MUNICIPIOS = municipios_simplanweb
 # MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
@@ -48,7 +48,7 @@ for municipio in MUNICIPIOS:
             'follow_symlinks': False},
         'elasticsearch': 
             {'nodes': 
-                [{'url': 'http://127.0.0.1:9200'}], 
+                [{'url': 'http://127.0.0.1:8055'}], 
                 'bulk_size': 100, 
                 'flush_interval': '5s', 
                 'byte_size': '10mb', 

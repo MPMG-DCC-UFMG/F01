@@ -6,7 +6,7 @@ import os
 
 # !pip install elasticsearch_dsl
 
-es = Elasticsearch('127.0.0.1', port=9200)
+es = Elasticsearch('127.0.0.1', port=8055)
 
 def remove_index (job_name):
    es.indices.delete(index=job_name, ignore=[400, 404])

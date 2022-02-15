@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import os
 import codecs
-
+import tabula
 
 def read_content(path, folder, file):
 
@@ -124,16 +124,16 @@ def concat_lists(files):
 
 
 
-def load_and_convert_files(path_base, paths, type):
+def load_and_convert_files(path_base, paths, format_type):
 
-    if type == 'html':
+    if format_type == 'html':
         
         if os.path.isfile("licitacoes.csv"):
             df = pd.read_csv("licitacoes.csv")
         else:
             df = all_lists_to_csv2(paths)
 
-    elif type == 'csv':
+    elif format_type == 'csv':
 
         list_csv = []
         for i in  paths:
@@ -141,19 +141,42 @@ def load_and_convert_files(path_base, paths, type):
 
         df = concat_lists(list_csv)
     
-    elif type == 'bat':
+    elif format_type == 'bat':
 
         list_csv = []
         for i in  paths:
             list_csv.append(pd.read_csv(i))
         df = concat_lists(list_csv)
 
-    elif type == 'xls':
+    elif format_type == 'xls':
 
         list_xls = []
         for i in  paths:
             list_xls.append(pd.read_excel(path_base + i))
 
         df = concat_lists(list_xls)
+
+    elif format_type == 'pdf':
+
+        number_entry_each_table = 1
+        number_of_tables_per_doc = 1
+
+        list_dfs = []
+        for i in  paths:
+            lista_tabelas = tabula.read_pdf(i, pages='all')
+            for tabela in lista_tabelas:
+
+                if ('Unnamed: 0' in tabela.columns.values):
+                    tabela.columns = tabela.loc[0].values
+                    tabela.drop(0 , inplace=True)
+
+                    tabela = tabela.loc[:number_entry_each_table]
+
+                list_dfs.append(tabela)
+
+                break
+                
+
+        df = concat_lists(list_dfs)
     
     return df
