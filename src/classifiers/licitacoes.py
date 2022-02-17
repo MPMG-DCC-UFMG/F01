@@ -107,7 +107,7 @@ def analyze_edital(df, column_name):
 def check_all_files_busca(paths, result):
 
     for file_name in paths:
-        print(file_name)
+        # print(file_name)
         result['busca'].append(analyze_busca(file_name))
 
     return result
@@ -207,12 +207,12 @@ def predict_inexigibilidade(
     #Analyze
     isvalid, column_modalidade = check_df.contains_keyword(df, word='modalidade')
 
-    print('column_modalidade',column_modalidade)
+    # print('column_modalidade',column_modalidade)
 
     for index, value in df.iterrows():
         result['inexigibilidade'].append(analyze_inexibilidade (value, column_modalidade))
             
-    print(result)
+    # print(result)
     #Check
     isvalid = check_df.infos_isvalid(result, column_name='inexigibilidade', threshold=threshold)
         
@@ -325,7 +325,7 @@ def predict_busca(
     html_files = indexing.get_files_to_valid(
         search_term, keywords_search, num_matches,
         job_name, path_base, types=['html'])
-    print(html_files)
+    # print(html_files)
 
     #Analyze
     result = check_all_files_busca(html_files, result)
@@ -344,21 +344,6 @@ def explain(df, column_name, verbose=False):
         print(result)
 
     return result
-
-def explain_proc_lic(df, column_name, verbose=False):
-    print(df)
-    print("*******************************")
-    print(column_name)
-    result = ''
-
-    # result = "Explain - Quantidade entradas analizadas: {}\n\tQuantidade de entradas válidas: {}\n".format(
-    #      len(df[column_name]), sum(df[column_name]))
-
-    # if verbose:
-    #     print(result)
-
-    return result
-
 
 
 #path_base = "/home/cinthia/MPMG/persistence_area/"

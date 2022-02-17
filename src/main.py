@@ -8,10 +8,10 @@ from constant_simplanweb import municipios_simplanweb
 import constant_sintese
 from constant_sintese import municipios_sintese
 
-import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("job")
-args = parser.parse_args()
+# import argparse
+# parser = argparse.ArgumentParser()
+# parser.add_argument("job")
+# args = parser.parse_args()
 #sys.path.insert(1, './classifiers')
 
 # sys.path.insert(0, '/home/cinthia/F01/src/classifiers')
@@ -23,7 +23,7 @@ args = parser.parse_args()
 from classifiers.acesso_a_informacao import requisitos_sitios
 from classifiers.acesso_a_informacao import informacoes
 from classifiers.acesso_a_informacao import base_dados
-from classifiers.acesso_a_informacao import divulgacao_atendimentos
+# from classifiers.acesso_a_informacao import divulgacao_atendimentos
 
 from classifiers.despesas import empenhos
 from classifiers.despesas import pagamentos
@@ -448,29 +448,42 @@ def main(jobs):
     # output_requisitos_sitios = pipeline_requisitos_sitios(
     #     keywords, path_base, num_matches, job_name)
 
+    df_all = pd.DataFrame()
     for job_name in jobs:
+
+        print("**",job_name,"**")
 
 
         try:
-            constant_municipio = 'constant_' + args.job
+            constant_municipio = 'constant_' + job_name
             tf = open(constant_municipio + ".json", "r")
             keywords_municipio = json.load(tf)
         except FileNotFoundError:
             keywords_municipio = None
     
 
-        output_licitacoes = pipeline_licitacoes(
-            keywords_template, keywords_municipio, path_base, pattern, num_matches, args.job, tags, verbose=True)
+        try:
+            output_licitacoes = pipeline_licitacoes(
+                keywords_template, keywords_municipio, path_base, pattern, num_matches, job_name, tags, verbose=False)
+        except:
+            output_licitacoes = {'proc_lic': {},
+            'inexigibilidade': {},
+            'resultado': {},
+            'dispensa': {},
+            'editais': {},
+            'busca': {}}
 
-
+        output_licitacoes['cidade'] = job_name
         output = {
+                    # 'cidade':job_name,
                     # 'informacoes': output_informacoes, 
                     # 'requisitos_sitios': output_requisitos_sitios,
                     'licitacoes': output_licitacoes}
         print(output)
 
         df = pd.DataFrame(output).T
-        df.to_csv('output_licitacoes.csv', index=False)
+        df_all = pd.concat([df_all, df])
+        df_all.to_csv('output_licitacoes.csv', index=False)
 
     return output
 
@@ -480,9 +493,9 @@ path_base = '/home/asafe'
 num_matches = 10
 
 # jobs = municipios_sintese
-jobs = ['veredinha']
-jobs = ['ibiai']
-jobs = ['patis']
+# jobs = ['veredinha']
+jobs = ['ibiai','veredinha','outroo']
+# jobs = ['patis']
 
 keywords_template = constant_sintese.keywords_template
 
