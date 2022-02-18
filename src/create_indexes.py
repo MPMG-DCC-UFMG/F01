@@ -10,7 +10,21 @@ import time
 TIME_OUT = 300
 
 # MUNICIPIOS = municipios_simplanweb + municipios_sintese
-MUNICIPIOS = municipios_sintese
+# MUNICIPIOS = municipios_sintese
+MUNICIPIOS = ['presidente_kubitschek',
+        'engenheiro_navarro',
+        'chapada_gaucha',
+        'cachoeira_de_pajeu',
+        'mamonas',
+        'janauba',
+        'bocaiuva',
+        'guaraciama',
+        'pai_pedro',
+        'varzea_da_palma',
+        'virgem_da_lapa',
+        'curral_de_dentro',
+        'monte_azul',
+        'santana_do_riacho']
 # MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
@@ -81,7 +95,7 @@ for municipio in MUNICIPIOS:
 
 
     print('Run crawler')
-    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio])
+    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop 1'])
     # process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
 
     try:

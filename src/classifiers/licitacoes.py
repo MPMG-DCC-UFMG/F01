@@ -128,6 +128,7 @@ def predict_proc_lic(
         job_name, path_base)
 
     files = path_functions.filter_paths(files, filter_word)
+    print(files)
         
     files = path_functions.agg_paths_by_type2(files)
 
@@ -156,6 +157,8 @@ def predict_proc_lic(
         result[k].extend(v)
 
     result = {'proc_lic': dict(result)}
+
+    print(result)
 
     #Check
     isvalid = []
