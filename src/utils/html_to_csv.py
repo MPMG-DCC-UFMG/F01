@@ -173,6 +173,7 @@ def load_and_convert_files(path_base, paths, format_type):
                     tabela = tabela.loc[:number_entry_each_table]
 
                 list_dfs.append(tabela)
+                print(tabela)
 
                 break
                 
