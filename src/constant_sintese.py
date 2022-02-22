@@ -91,6 +91,18 @@ municipios_sintese = [
     "Itacarambi",
 ]
 
+['presidente_kubitschek',
+        'engenheiro_navarro',
+        'chapada_gaucha',
+        'mamonas',
+        'guaraciama',
+        'pai_pedro',
+        'varzea_da_palma',
+        'virgem_da_lapa',
+        'curral_de_dentro',
+        'monte_azul',
+        'santana_do_riacho']
+
 municipios_sintese = format_city_names(municipios_sintese)
 # print(municipios_sintese)
 

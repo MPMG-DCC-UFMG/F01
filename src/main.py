@@ -493,22 +493,9 @@ path_base = '/home/asafe'
 num_matches = 10
 
 # jobs = municipios_sintese
-# jobs = ['veredinha']
-# jobs = ['ibiai','veredinha','outroo']
-jobs = ['presidente_kubitschek',
-        'engenheiro_navarro',
-        'chapada_gaucha',
-        'cachoeira_de_pajeu',
-        'mamonas',
-        'janauba',
-        'bocaiuva',
-        'guaraciama',
-        'pai_pedro',
-        'varzea_da_palma',
-        'virgem_da_lapa',
-        'curral_de_dentro',
-        'monte_azul',
-        'santana_do_riacho']
+
+jobs = ['engenheiro_navarro']
+
 # jobs = ['patis']
 
 keywords_template = constant_sintese.keywords_template
