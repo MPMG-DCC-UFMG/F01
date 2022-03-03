@@ -30,10 +30,10 @@ MUNICIPIOS = municipios_PT
 # MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
-# HOME = Path("/home/ufmg.amedeiros")
+HOME = Path("/home/ufmg.amedeiros")
 
 # Localmente
-HOME = Path.home()
+# HOME = Path.home()
 
 for municipio in MUNICIPIOS:
 
