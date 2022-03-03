@@ -11,7 +11,7 @@ es = Elasticsearch('127.0.0.1', port=8055)
 def remove_index (job_name):
    es.indices.delete(index=job_name, ignore=[400, 404])
 
-def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv', verbose=False):
+def request_search(search_term, keywords_search=[], num_matches= 10, job_name='index_gv', verbose=False):
    response = es.search(
    index=job_name, 
    body={
@@ -20,7 +20,7 @@ def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv
          {
             "bool":{
                "should":[
-                  { "terms": { "array": keywords }},
+                  { "terms": { "array": keywords_search }},
                   { "match" : { "content": search_term }},
                ]
             },
@@ -33,12 +33,12 @@ def request_search(search_term, keywords=[], num_matches= 10, job_name='index_gv
    return result
 
 def get_files_to_valid(
-    search_term, index_keywords, num_matches,
+    search_term, keywords_search, num_matches,
     job_name, path_base, types=None): 
         
    #Search
    result = request_search(
-   search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
+   search_term=search_term, keywords_search=keywords_search, num_matches=num_matches, job_name=job_name)
       
    files = [i[2] for i in result]
 
@@ -53,13 +53,12 @@ def get_files_to_valid(
       return filter_files
    return files
 
-def get_files(
-    search_term, index_keywords, num_matches,
-    job_name, path_base): 
+def get_files(search_term, num_matches,
+      job_name, keywords_search): 
         
    #Search
    result = request_search(
-   search_term=search_term, keywords=index_keywords, num_matches=num_matches, job_name=job_name)
+   search_term=search_term, keywords_search=keywords_search, num_matches=num_matches, job_name=job_name)
       
    files = [i[2] for i in result]
 

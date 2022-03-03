@@ -1,7 +1,0 @@
-{
-    "licitacoes": {
-       "search_term": "Licitações licitação",
-       "keywords": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status" ],
-       "proc_lic_itens": ["número", "modalidade", "objeto", "status", "editais"]
-    }
-}

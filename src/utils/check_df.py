@@ -2,11 +2,13 @@ def contains_keyword(df, word):
     """
     Verifica se um dataframe possui uma coluna cujo nome contém uma palavra-chave especifica
     """
-
-    columns = [i.lower() for i in df.columns]
+    # columns = [i.lower() for i in df.columns]
     i = 0
-    for column_name in columns:
-
+    for column_name in df.columns:
+        try:
+            column_name = column_name.lower()
+        except AttributeError:
+            continue
         finder = column_name.find(word)
         if finder != -1:
             return True, df.columns[i]

@@ -2,11 +2,12 @@ import os
 from utils.indexing import remove_index
 import json
 import pandas as pd
+import sys
 
-import constant_simplanweb
-from constant_simplanweb import municipios_simplanweb
-import constant_sintese
-from constant_sintese import municipios_sintese
+from utils import indexing
+from utils import path_functions
+from utilconst.constant_pt import municipios_PT
+from utilconst.constant_pt import keywords_template
 
 # import argparse
 # parser = argparse.ArgumentParser()
@@ -33,6 +34,8 @@ from classifiers.despesas import relatorios
 
 from classifiers import licitacoes 
 
+
+keywords = keywords_template
 
 def add_in_dict(output, item, isvalid, result_explain):
     output[item]['predict'] = isvalid
@@ -211,119 +214,83 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
 
     return output
 
-def pipeline_licitacoes(keywords_template, keywords_municipio, path_base, pattern, num_matches, job_name, tags, verbose=False):
+def pipeline_licitacoes(keywords, num_matches, job_name):
 
     try:
         types = keywords_template['types']
     except KeyError:
-        types = ['html']
+        types = 'html'
 
-    try:
-        search_term = keywords_municipio['licitacoes']['search_term']
-    except:
-        try:
-            search_term=keywords_template['licitacoes']['search_term']
-        except KeyError:
-            search_term = 'licitac'
-    
-    try:
-        keywords_to_search = keywords_municipio['licitacoes']['keywords']
-    except:
-        try:
-            keywords_to_search = keywords_template['licitacoes']['keywords']
-        except KeyError:
-            keywords_to_search = ['Licitações','Pregão','Inexigibilidade','Homologada','Resultado Final de Licitação', 'Modalidade','Fundamentação legal','Status']
+    search_term = keywords['licitacoes']['search_term']
+    keywords_to_search = keywords['licitacoes']['keywords']
+    proc_lic_itens = keywords['licitacoes']['proc_lic_itens']
+    editais = keywords['licitacoes']['editais']
 
-    try:
-        itens = keywords_municipio['licitacoes']['proc_lic_itens']
-    except:
-        try:
-            itens = keywords_template['licitacoes']['proc_lic_itens']
-        except KeyError:
-            itens = ['número da licitao', 'modalidade', 'objeto', 'status', 'editais']
-
-    proc_lic = {'número': {}, 'modalidade': {},'objeto': {},'status': {}, 'resultado': {}}
-    output = {'proc_lic': {},
+    output = {
+            'proc_lic_numero': {},
+            'proc_lic_modalidade': {},
+            'proc_lic_objeto': {},
+            'proc_lic_status': {},
+            'proc_lic_resultado': {},
             'inexigibilidade': {},
-            'resultado': {},
             'dispensa': {},
             'editais': {},
-            'busca': {}}
+            'busca': {}
+            }
 
-    # Procedimentos licitatórios
-    isvalid, result = licitacoes.predict_proc_lic(
-        search_term=search_term, keywords_search=keywords_to_search, keywords_check=itens, 
-        path_base=path_base, num_matches=num_matches,
-        filter_word='licitacao', job_name=job_name, threshold = 0, types=types)
+    #Search
+    files = indexing.get_files(
+        search_term, num_matches,
+        job_name, keywords_search=keywords_to_search)
 
-    # result_explain
-    for i in range(len(itens)):
-        if verbose:
-            print('Predict - Procedimentos Licitatórios - {}: {}'.format(itens[i], isvalid[i]))
-        result_explain = licitacoes.explain(result['proc_lic'], itens[i], verbose)
-        proc_lic = add_in_dict(proc_lic, itens[i], isvalid[i], result_explain)
-    
-    output['proc_lic'] = proc_lic
-    
+    files = path_functions.filter_paths(files, words=['licitacao','licitacoes'])
+    files = path_functions.agg_paths_by_type2(files)
 
-    # Procedimentos de Inexigibilidade
-    isvalid, result = licitacoes.predict_inexigibilidade(
-        search_term=search_term, keywords_search=keywords_to_search,
-        path_base=path_base, num_matches=num_matches,
-        filter_word='licitac', job_name=job_name, threshold=0, types=types)
+    validador = licitacoes.Licitacoes(files, proc_lic_itens[0], ttype=types)
 
-    if verbose:
-        print('Predict - Licitações / Registro dos procedimentos de inexigibilidade:', isvalid)
+    # Procedimentos Licitatórios número
+    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
+    result_explain = licitacoes.explain(result, proc_lic_itens[0])
+    output = add_in_dict(output, 'proc_lic_numero', isvalid, result_explain)
 
-    result_explain=licitacoes.explain(result, 'inexigibilidade', verbose)
+    # Procedimentos Licitatórios modalidade
+    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[1])
+    result_explain = licitacoes.explain(result, proc_lic_itens[1])
+    output = add_in_dict(output, 'proc_lic_modalidade', isvalid, result_explain)
+
+    # Procedimentos Licitatórios objeto
+    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[2])
+    result_explain = licitacoes.explain(result, proc_lic_itens[2])
+    output = add_in_dict(output, 'proc_lic_objeto', isvalid, result_explain)
+
+    # Procedimentos Licitatórios status
+    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[3])
+    result_explain = licitacoes.explain(result, proc_lic_itens[3])
+    output = add_in_dict(output, 'proc_lic_status', isvalid, result_explain)
+
+    # Procedimentos Licitatórios resultado
+    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[4])
+    result_explain = licitacoes.explain(result, proc_lic_itens[4])
+    output = add_in_dict(output, 'proc_lic_resultado', isvalid, result_explain)
+
+    # Procedimentos modalidade Inexigibilidade
+    isvalid, result = validador.predict_inexibilidade()
+    result_explain = licitacoes.explain(result, 'inexigibilidade')
     output = add_in_dict(output, 'inexigibilidade', isvalid, result_explain)
 
-
-    #Dispensa
-    isvalid, result = licitacoes.predict_dispensa(
-        search_term=search_term, keywords_search=keywords_to_search,
-        path_base=path_base, num_matches=num_matches,
-        filter_word='licitac', job_name=job_name, threshold=0, types=types)
-
-    if verbose:
-        print('Predict - Licitações / Registros de procedimentos de dispensa de licitação:', isvalid)
-
-    result_explain=licitacoes.explain(result, 'dispensa', verbose)
+    # Procedimentos modalidade Dispensa
+    isvalid, result = validador.predict_dispensa()
+    result_explain = licitacoes.explain(result, 'dispensa')
     output = add_in_dict(output, 'dispensa', isvalid, result_explain)
 
-    #Resultado
-    isvalid, result = licitacoes.predict_resultado(
-        search_term=search_term, keywords_search=keywords_to_search, path_base=path_base, num_matches=40,
-        filter_word='licitacoes', job_name=job_name, threshold=0)
-    
-    if verbose:
-        print('Predict - Licitações / Resultado das licitações:', isvalid)
-
-    result_explain=licitacoes.explain(result, 'resultado', verbose)
-    output = add_in_dict(output, 'resultado', isvalid, result_explain)
-
     # Disponibilização de Editais
-    isvalid, result = licitacoes.predict_editais(
-            search_term=search_term, keywords_search=keywords_to_search,
-            path_base=path_base, num_matches=num_matches,
-            filter_word='licitacoes', job_name=job_name, threshold=0)
-
-    if verbose:
-        print('Predict - Licitações / Disponibilização de Editais:', isvalid)
-
-    result_explain=licitacoes.explain(result, 'editais', verbose)
+    isvalid, result = validador.predict_editais(editais)
+    result_explain=licitacoes.explain(result, 'editais')
     output = add_in_dict(output, 'editais', isvalid, result_explain)
 
     # Permite Busca
-    isvalid, result = licitacoes.predict_busca(
-        search_term=search_term, keywords_search=keywords_to_search,
-        path_base=path_base, num_matches=num_matches,
-        filter_word='licitacoes', job_name=job_name, threshold=0)
-
-    if verbose:
-        print('Predict - Licitações / Permite Busca:', isvalid)
-
-    result_explain=licitacoes.explain(result, 'busca', verbose)
+    isvalid, result = validador.predict_busca()
+    result_explain=licitacoes.explain(result, 'busca')
     output = add_in_dict(output, 'busca', isvalid, result_explain)
 
     return output
@@ -441,39 +408,38 @@ def pipeline_relatorios(path_base, job_name, verbose=False):
 
     return output
 
-def main(jobs):
-
-    # output_informacoes = pipeline_informacoes(
-    #     keywords, path_base, num_matches, job_name)
-    # output_requisitos_sitios = pipeline_requisitos_sitios(
-    #     keywords, path_base, num_matches, job_name)
+def main(jobs,keywords):
 
     df_all = pd.DataFrame()
     for job_name in jobs:
 
         print("**",job_name,"**")
 
-
         try:
             constant_municipio = 'constant_' + job_name
             tf = open(constant_municipio + ".json", "r")
-            keywords_municipio = json.load(tf)
+            keywords = json.load(tf)
         except FileNotFoundError:
-            keywords_municipio = None
-    
+            pass
 
         try:
-            output_licitacoes = pipeline_licitacoes(
-                keywords_template, keywords_municipio, path_base, pattern, num_matches, job_name, tags, verbose=False)
+            output_licitacoes = output_licitacoes = pipeline_licitacoes(
+                keywords, num_matches, job_name)
         except:
+            print("erro",job_name )
             output_licitacoes = {'proc_lic': {},
-            'inexigibilidade': {},
-            'resultado': {},
-            'dispensa': {},
-            'editais': {},
-            'busca': {}}
+                                'inexigibilidade': {},
+                                'resultado': {},
+                                'dispensa': {},
+                                'editais': {},
+                                'busca': {}}
 
         output_licitacoes['cidade'] = job_name
+
+        # output_informacoes = pipeline_informacoes(
+        #     keywords, path_base, num_matches, job_name)
+        # output_requisitos_sitios = pipeline_requisitos_sitios(
+        #     keywords, path_base, num_matches, job_name)
         output = {
                     # 'cidade':job_name,
                     # 'informacoes': output_informacoes, 
@@ -487,49 +453,12 @@ def main(jobs):
 
     return output
 
-
 # path_base = '/home/cinthia/F01/data'
 path_base = '/home/asafe'
 num_matches = 10
 
-# jobs = municipios_sintese
+jobs = municipios_PT
 
-jobs = ['engenheiro_navarro']
+# jobs = ['engenheiro_navarro']
 
-# jobs = ['patis']
-
-keywords_template = constant_sintese.keywords_template
-
-pattern = ''
-tags = ''
-
-main(jobs)
-
-
-# result = pipeline_informacoes(keywords, path_base, num_matches, job_name)
-# df = pd.DataFrame(result).T
-# df.to_csv('result_informacoes.csv', index=False)
-
-# result = pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name)
-# df = pd.DataFrame(result).T
-# df.to_csv('result.csv', index=False)
-# print(pd.DataFrame(result).T)
-
-# result = pipeline_base_dados(keywords, path_base, num_matches, job_name)
-# df = pd.DataFrame(result).T
-# df.to_csv('result_base_dados.csv', index=False)
-
-
-# result = pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name, verbose=True)
-# df = pd.DataFrame(result).T
-# df.to_csv('result_divulgacao_atendimentos.csv', index=False)
-
-'''
-    Despesas
-'''
-# result = pipeline_empenhos(path_base, job_name, verbose=True)
-# result = pipeline_pagamentos(path_base, job_name, verbose=True)
-# result = pipeline_consulta_por_favorecido(path_base, job_name, verbose=True)
-# result = pipeline_formato_aberto(path_base, job_name, verbose=True)
-# result = pipeline_relatorios(path_base, job_name, verbose=True)
-# print(result)
+main(jobs, keywords)

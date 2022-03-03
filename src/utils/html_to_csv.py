@@ -124,7 +124,7 @@ def concat_lists(files):
 
 
 
-def load_and_convert_files(path_base, paths, format_type):
+def load_and_convert_files(paths, format_type):
 
     if format_type == 'html':
         
@@ -137,11 +137,26 @@ def load_and_convert_files(path_base, paths, format_type):
 
         list_csv = []
         for i in  paths:
-            list_csv.append(pd.read_csv(path_base + i))
+            list_csv.append(pd.read_csv(i))
 
         df = concat_lists(list_csv)
     
     elif format_type == 'bat':
+
+        list_csv = []
+        for i in  paths:
+            tabela = pd.read_csv(i)
+            if ('Unnamed' in ' '.join(tabela.columns.values)):
+                tabela.columns = tabela.loc[0].values
+                tabela.drop(0 , inplace=True)
+            # print("******",i)
+            # print(tabela)
+            # print(tabela.columns)
+            list_csv.append(tabela)
+        df = concat_lists(list_csv)
+        df.to_csv("df_bugado.csv")
+    
+    elif format_type == 'doc':
 
         list_csv = []
         for i in  paths:
@@ -152,7 +167,7 @@ def load_and_convert_files(path_base, paths, format_type):
 
         list_xls = []
         for i in  paths:
-            list_xls.append(pd.read_excel(path_base + i))
+            list_xls.append(pd.read_excel(i))
 
         df = concat_lists(list_xls)
 
@@ -166,7 +181,7 @@ def load_and_convert_files(path_base, paths, format_type):
             lista_tabelas = tabula.read_pdf(i, pages='all')
             for tabela in lista_tabelas:
 
-                if ('Unnamed: 0' in tabela.columns.values):
+                if ('Unnamed' in ' '.join(tabela.columns.values)):
                     tabela.columns = tabela.loc[0].values
                     tabela.drop(0 , inplace=True)
 

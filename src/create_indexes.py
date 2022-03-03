@@ -1,6 +1,8 @@
 import yaml
 # from constant_simplanweb import municipios_simplanweb
-from constant_sintese import municipios_sintese
+# from constants.constant_sintese import municipios_sintese
+from utilconst.constant_pt import municipios_PT
+
 from pathlib import Path
 import os
 import json
@@ -10,36 +12,36 @@ import time
 TIME_OUT = 300
 
 # MUNICIPIOS = municipios_simplanweb + municipios_sintese
-# MUNICIPIOS = municipios_sintese
-MUNICIPIOS = ['presidente_kubitschek',
-        'engenheiro_navarro',
-        'chapada_gaucha',
-        'cachoeira_de_pajeu',
-        'mamonas',
-        'janauba',
-        'bocaiuva',
-        'guaraciama',
-        'pai_pedro',
-        'varzea_da_palma',
-        'virgem_da_lapa',
-        'curral_de_dentro',
-        'monte_azul',
-        'santana_do_riacho']
+MUNICIPIOS = municipios_PT
+# MUNICIPIOS = ['presidente_kubitschek',
+#         'engenheiro_navarro',
+#         'chapada_gaucha',
+#         'cachoeira_de_pajeu',
+#         'mamonas',
+#         'janauba',
+#         'bocaiuva',
+#         'guaraciama',
+#         'pai_pedro',
+#         'varzea_da_palma',
+#         'virgem_da_lapa',
+#         'curral_de_dentro',
+#         'monte_azul',
+#         'santana_do_riacho']
 # MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
 
 # MP
-HOME = Path("/home/ufmg.amedeiros")
+# HOME = Path("/home/ufmg.amedeiros")
 
-# Locamente
-# HOME = Path.home()
+# Localmente
+HOME = Path.home()
 
 for municipio in MUNICIPIOS:
 
     config = {
         'name': municipio,
         'fs': 
-            {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
-            # {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
+            # {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
+            {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
             'update_rate': '15m', 
             'excludes': ['*/screenshots*'], 
             'json_support': False, 
@@ -95,8 +97,8 @@ for municipio in MUNICIPIOS:
 
 
     print('Run crawler')
-    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop 1'])
-    # process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
+    # process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop 1'])
+    process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
 
     try:
         outs, errs = process.communicate(timeout=TIME_OUT)
