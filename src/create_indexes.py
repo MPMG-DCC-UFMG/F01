@@ -40,8 +40,8 @@ for municipio in MUNICIPIOS:
     config = {
         'name': municipio,
         'fs': 
-            # {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
-            {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
+            {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
+            # {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
             'update_rate': '15m', 
             'excludes': ['*/screenshots*'], 
             'json_support': False, 
@@ -97,8 +97,8 @@ for municipio in MUNICIPIOS:
 
 
     print('Run crawler')
-    # process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop 1'])
-    process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
+    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop 1'])
+    # process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
 
     try:
         outs, errs = process.communicate(timeout=TIME_OUT)
