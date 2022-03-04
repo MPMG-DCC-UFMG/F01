@@ -46,7 +46,7 @@ municipios_PT = [
     "Piedade do Rio Grande"
 ]
 
-municipios_PT = ["Ibituruna"]
+# municipios_PT = ["Ibituruna"]
 
 municipios_PT = format_city_names(municipios_PT)
 
