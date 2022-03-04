@@ -7,10 +7,10 @@ municipios_PT = [
 #     "Catas Altas da Noruega",
 #     "Dores de Campos",
     "Careaçu",
-    "São Brás do Suaçuí",
+    # "São Brás do Suaçuí",
 #     "Nazareno",
 #     "Entre Rios de Minas",
-    "Santana dos Montes",
+    # "Santana dos Montes",
 #     "Conceição da Barra de Minas",
 #     "Coronel Xavier Chaves",
     "Carandaí",
@@ -43,7 +43,7 @@ municipios_PT = [
     "Ervália",
 #     "Conceição dos Ouros",
 #     "Lagoa Dourada",
-    "Piedade do Rio Grande"
+    # "Piedade do Rio Grande"
 ]
 
 # municipios_PT = ["Ibituruna"]
