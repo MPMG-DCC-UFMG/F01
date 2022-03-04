@@ -31,7 +31,7 @@ municipios_PT = [
     "São João del Rei",
 #     "Prados",
 #     "Antônio Carlos",
-    "Alfredo Vasconcelos",
+    # "Alfredo Vasconcelos",
 #     "Ingaí",
 #     "São Tiago",
 #     "Belo Vale",

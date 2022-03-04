@@ -422,17 +422,19 @@ def main(jobs,keywords):
         except FileNotFoundError:
             pass
 
-        try:
-            output_licitacoes = output_licitacoes = pipeline_licitacoes(
+        output_licitacoes = output_licitacoes = pipeline_licitacoes(
                 keywords, num_matches, job_name)
-        except:
-            print("erro",job_name )
-            output_licitacoes = {'proc_lic': {},
-                                'inexigibilidade': {},
-                                'resultado': {},
-                                'dispensa': {},
-                                'editais': {},
-                                'busca': {}}
+        # try:
+        #     output_licitacoes = output_licitacoes = pipeline_licitacoes(
+        #         keywords, num_matches, job_name)
+        # except:
+        #     print("erro",job_name )
+        #     output_licitacoes = {'proc_lic': {},
+        #                         'inexigibilidade': {},
+        #                         'resultado': {},
+        #                         'dispensa': {},
+        #                         'editais': {},
+        #                         'busca': {}}
 
         output_licitacoes['cidade'] = job_name
 
