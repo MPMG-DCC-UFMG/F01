@@ -46,14 +46,14 @@ municipios_PT = [
     # "Piedade do Rio Grande"
 ]
 
-# municipios_PT = ["Ibituruna"]
+# municipios_PT = ["Careaçu"]
 
 municipios_PT = format_city_names(municipios_PT)
 
 keywords_template = {
     'licitacoes': {
-       'search_term': 'Licitac Modalidade Inexigibi',
-       'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
+       'search_term': 'Licitac Dispensa Inexigibi',
+       'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Status", "Objeto" ],
        'proc_lic_itens': ['n° processo', 'modalidade', 'objeto', 'situação', 'Editais de Licitação e Demais Arquivos'],
        'editais': 'Editais de Licitação e Demais Arquivos'
     },

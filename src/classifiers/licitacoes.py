@@ -117,7 +117,7 @@ class Licitacoes:
             val[keywords] = []
         return val
 
-    def predict_df(self, keyword_check): 
+    def predict_df(self, keyword_check):
         result = self.analyze_procedimentos_licitatorios(self.df, keyword_check)
         isvalid = check_df.infos_isvalid(result, keyword_check, threshold=0)
         return isvalid, result
@@ -176,7 +176,7 @@ class Licitacoes:
         if isvalid:
             result['editais'].append(analyze_edital(self.df, column_edital))
 
-        print(self.df['Editais de Licitação e Demais Arquivos'])
+        # print(self.df['Editais de Licitação e Demais Arquivos'])
         #Check
         isvalid = check_df.infos_isvalid(result, column_name='editais', threshold=0)
         return isvalid, result
