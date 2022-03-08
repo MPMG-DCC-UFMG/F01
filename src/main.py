@@ -232,8 +232,7 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
             'proc_lic_objeto': {},
             'proc_lic_status': {},
             'proc_lic_resultado': {},
-            'inexigibilidade': {},
-            'dispensa': {},
+            'inexigibilidade_e_dispensa': {},
             'editais': {},
             'busca': {}
             }
@@ -273,15 +272,15 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     result_explain = licitacoes.explain(result, proc_lic_itens[4])
     output = add_in_dict(output, 'proc_lic_resultado', isvalid, result_explain)
 
-    # Procedimentos modalidade Inexigibilidade
-    isvalid, result = validador.predict_inexibilidade()
-    result_explain = licitacoes.explain(result, 'inexigibilidade')
-    output = add_in_dict(output, 'inexigibilidade', isvalid, result_explain)
-
-    # Procedimentos modalidade Dispensa
-    isvalid, result = validador.predict_dispensa()
-    result_explain = licitacoes.explain(result, 'dispensa')
-    output = add_in_dict(output, 'dispensa', isvalid, result_explain)
+    # Procedimentos modalidade Inexigibilidade e Dispensa
+    isvalid_inexigibilidade, result_inexigibilidade = validador.predict_inexibilidade()
+    isvalid_dispensa, result_dispensa = validador.predict_dispensa()
+    isvalid = isvalid_inexigibilidade and isvalid_dispensa 
+    result = result_inexigibilidade['inexigibilidade']
+    result.extend(result_dispensa['dispensa'])
+    result = {'inexigibilidade e dispensa': result} 
+    result_explain = licitacoes.explain(result, 'inexigibilidade e dispensa')
+    output = add_in_dict(output, 'inexigibilidade_e_dispensa', isvalid, result_explain)
 
     # Disponibilização de Editais
     isvalid, result = validador.predict_editais(editais)
@@ -442,22 +441,30 @@ def main(jobs,keywords):
         #     keywords, path_base, num_matches, job_name)
         # output_requisitos_sitios = pipeline_requisitos_sitios(
         #     keywords, path_base, num_matches, job_name)
-        output = {
-                    # 'cidade':job_name,
-                    # 'informacoes': output_informacoes, 
-                    # 'requisitos_sitios': output_requisitos_sitios,
-                    'licitacoes': output_licitacoes}
-        print(output)
 
-        df = pd.DataFrame(output).T
-        df_all = pd.concat([df_all, df])
-        df_all.to_csv('output_licitacoes.csv', index=False)
+        output = {
+                    '43': output_licitacoes['proc_lic_numero']['predict'],
+                    '44': output_licitacoes['proc_lic_modalidade']['predict'],
+                    '45': output_licitacoes['proc_lic_objeto']['predict'],
+                    '46': output_licitacoes['proc_lic_status']['predict'],
+                    '47': output_licitacoes['proc_lic_resultado']['predict'],
+                    '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
+                    '49': output_licitacoes['editais']['predict'],
+                    '50': output_licitacoes['busca']['predict'],
+                }
+        print(output)
+        with open('/home/asafe/Desktop/MPMG/results/' + job_name + '.json' , 'w') as fp:
+            json.dump(output, fp)
+
+
+        # df = pd.DataFrame(output).T
+        # df_all = pd.concat([df_all, df])
+        # df_all.to_csv('output_licitacoes.csv', index=False)
 
     return output
 
-# path_base = '/home/cinthia/F01/data'
 path_base = '/home/asafe'
-num_matches = 10
+num_matches = 20
 
 jobs = municipios_PT
 

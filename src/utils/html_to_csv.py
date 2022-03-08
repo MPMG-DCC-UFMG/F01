@@ -154,7 +154,6 @@ def load_and_convert_files(paths, format_type):
             # print(tabela.columns)
             list_csv.append(tabela)
         df = concat_lists(list_csv)
-        df.to_csv("df_bugado.csv")
     
     elif format_type == 'doc':
 
