@@ -6,4 +6,4 @@ Este repositório apresenta códigos dos validadores e da API que disponibiliza 
 O repositório está dividido nos seguintes diretórios:
 
 * src: contém implementações dos validaores, referentes as licitações públicas;
-* service: contém visualizações do painel do Projeto Águas Limpas;
+* service: contém o código da API REST JSON que disponibiliza os resultados obtidos para cada município;
