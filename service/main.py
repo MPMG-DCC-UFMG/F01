@@ -4,7 +4,7 @@ import json
 app = Flask(__name__)
 app.run(debug=True)
 
-PATH_RESULTS_BASE = '/home/asafe/Desktop/MPMG/results/'
+PATH_RESULTS_BASE = '/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/F01/results/'
 
 def open_file(namefile):
     with open(PATH_RESULTS_BASE + namefile +'.json', 'r') as myfile:

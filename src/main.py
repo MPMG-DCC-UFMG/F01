@@ -453,7 +453,7 @@ def main(jobs,keywords):
                     '50': output_licitacoes['busca']['predict'],
                 }
         print(output)
-        with open('/home/asafe/Desktop/MPMG/results/' + job_name + '.json' , 'w') as fp:
+        with open('results/' + job_name + '.json' , 'w') as fp:
             json.dump(output, fp)
 
 
