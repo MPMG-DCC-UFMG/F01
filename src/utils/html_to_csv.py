@@ -39,7 +39,6 @@ def list_to_text(soup):
 
 def convert_html(soup):
     type = 'None'
-    
     try:
         df = pd.read_html(str(soup.table))[0]
         type = 'table'
@@ -53,23 +52,18 @@ def convert(all_files, path, folder):
 
     list_df = []
     for file in all_files:
-
         soup = read_content(path, folder, file)
         df = convert_html(soup)
         list_df.append(df)
-    
     df = pd.concat(list_df)
     df = df.drop_duplicates()
     
     return df
 
-
 def convert_one_file(path):
     soup = BeautifulSoup(open(path), features="lxml")
     df = convert_html(soup)
-
     return df   
-
 
 def one_list_to_csv (format_path):
     """
@@ -78,7 +72,7 @@ def one_list_to_csv (format_path):
     try: 
 
         df, type = convert_one_file(format_path)
-        if type == 'list':
+        if type == 'list' or type == 'table':
             return df
         
     except ValueError:
@@ -86,23 +80,7 @@ def one_list_to_csv (format_path):
 
     return pd.DataFrame()
 
-def all_lists_to_csv(paths, path_base, unwanted_name):
-
-    list_df = []
-    for path, type in paths:
-        if type == 'html':
-            files = os.listdir(path_base + os.sep + path)
-            for file in files:
-                format_path = "{}/{}/{}".format(path_base, path, file)
-                if not os.path.isfile(unwanted_name):
-                    new_df = one_list_to_csv(format_path)
-                    
-                    if(not new_df.empty):
-                        list_df.append(new_df)
-                    
-    return pd.concat(list_df)
-
-def all_lists_to_csv2(paths):
+def all_lists_to_csv(paths):
 
     list_df = []
     for file_name in paths:
@@ -111,7 +89,8 @@ def all_lists_to_csv2(paths):
             list_df.append(new_df)
     if (len(list_df)):              
         return pd.concat(list_df)
-    else: return pd.DataFrame()
+    else: 
+        return pd.DataFrame()
 
 def concat_lists(files):
     if len(files) == 0:
@@ -122,16 +101,10 @@ def concat_lists(files):
         df = pd.concat(files)
     return df
 
-
-
 def load_and_convert_files(paths, format_type):
 
     if format_type == 'html':
-        
-        if os.path.isfile("licitacoes.csv"):
-            df = pd.read_csv("licitacoes.csv")
-        else:
-            df = all_lists_to_csv2(paths)
+        df = all_lists_to_csv(paths)
 
     elif format_type == 'csv':
 
@@ -194,4 +167,5 @@ def load_and_convert_files(paths, format_type):
 
         df = concat_lists(list_dfs)
     
+    df = df.drop_duplicates()
     return df

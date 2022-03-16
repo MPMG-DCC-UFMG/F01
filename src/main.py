@@ -7,7 +7,9 @@ import sys
 from utils import indexing
 from utils import path_functions
 from utilconst.constant_pt import municipios_PT
-from utilconst.constant_pt import keywords_template
+
+from utilconst.constant_betha import municipios_betha
+from utilconst.constant_betha import keywords_template
 
 # import argparse
 # parser = argparse.ArgumentParser()
@@ -456,7 +458,6 @@ def main(jobs,keywords):
         with open('results/' + job_name + '.json' , 'w') as fp:
             json.dump(output, fp)
 
-
         # df = pd.DataFrame(output).T
         # df_all = pd.concat([df_all, df])
         # df_all.to_csv('output_licitacoes.csv', index=False)
@@ -464,9 +465,9 @@ def main(jobs,keywords):
     return output
 
 path_base = '/home/asafe'
-num_matches = 20
+num_matches = 50
 
-jobs = municipios_PT
+jobs = municipios_betha
 
 # jobs = ['engenheiro_navarro']
 

@@ -53,7 +53,7 @@ def analyze_busca(format_path):
         soup = BeautifulSoup(open(format_path), features="lxml")
         text = soup.get_text()
 
-        if re.search("filtrar\s*pesquisa|filtrar", text, re.IGNORECASE) != None:
+        if re.search("filtrar\s*pesquisa|filtrar|pesquisar", text, re.IGNORECASE) != None:
             return True
     
     except TypeError or UnicodeDecodeError:
@@ -92,11 +92,11 @@ def get_files(search_term, keywords_search, path_base, job_name, num_matches=100
     return files
 
 def get_df(files, ttype):
-        df = None
-        for key, values in files.items():
-            if key == ttype:
-                df = html_to_csv.load_and_convert_files(paths=values, format_type=key)
-        return df
+    df = None
+    for key, values in files.items():
+        if key == ttype:
+            df = html_to_csv.load_and_convert_files(paths=values, format_type=key)
+    return df
 
 class Licitacoes:
 
@@ -121,7 +121,6 @@ class Licitacoes:
         result = self.analyze_procedimentos_licitatorios(self.df, keyword_check)
         isvalid = check_df.infos_isvalid(result, keyword_check, threshold=0)
         return isvalid, result
-
 
     def predict_inexibilidade(self):
 

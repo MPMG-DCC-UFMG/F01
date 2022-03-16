@@ -1,7 +1,8 @@
 import yaml
-# from constant_simplanweb import municipios_simplanweb
-# from constants.constant_sintese import municipios_sintese
+# from utilconst import municipios_simplanweb
+# from utilconst.constant_sintese import municipios_sintese
 from utilconst.constant_pt import municipios_PT
+from utilconst.constant_betha import municipios_betha
 
 from pathlib import Path
 import os
@@ -11,23 +12,8 @@ import time
 
 TIME_OUT = 300
 
-# MUNICIPIOS = municipios_simplanweb + municipios_sintese
-MUNICIPIOS = municipios_PT
-# MUNICIPIOS = ['presidente_kubitschek',
-#         'engenheiro_navarro',
-#         'chapada_gaucha',
-#         'cachoeira_de_pajeu',
-#         'mamonas',
-#         'janauba',
-#         'bocaiuva',
-#         'guaraciama',
-#         'pai_pedro',
-#         'varzea_da_palma',
-#         'virgem_da_lapa',
-#         'curral_de_dentro',
-#         'monte_azul',
-#         'santana_do_riacho']
-# MUNICIPIOS = ['ibiai', 'patis', 'veredinha']
+# MUNICIPIOS = municipios_simplanweb + municipios_sintese + municipios_PT
+MUNICIPIOS = municipios_betha
 
 # MP
 HOME = Path("/home/ufmg.amedeiros")
