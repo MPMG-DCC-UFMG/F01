@@ -254,7 +254,7 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
     result_explain = licitacoes.explain(result, proc_lic_itens[0])
     output = add_in_dict(output, 'proc_lic_numero', isvalid, result_explain)
-    print(output)
+    
     # Procedimentos Licitatórios modalidade
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[1])
     result_explain = licitacoes.explain(result, proc_lic_itens[1])
