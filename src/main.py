@@ -428,44 +428,34 @@ def main(jobs,keywords):
         try:
             output_licitacoes = output_licitacoes = pipeline_licitacoes(
                 keywords, num_matches, job_name)
+
+            output_licitacoes['cidade'] = job_name
+
+            # output_informacoes = pipeline_informacoes(
+            #     keywords, path_base, num_matches, job_name)
+            # output_requisitos_sitios = pipeline_requisitos_sitios(
+            #     keywords, path_base, num_matches, job_name)
+
+            output = {
+                        '43': output_licitacoes['proc_lic_numero']['predict'],
+                        '44': output_licitacoes['proc_lic_modalidade']['predict'],
+                        '45': output_licitacoes['proc_lic_objeto']['predict'],
+                        '46': output_licitacoes['proc_lic_status']['predict'],
+                        '47': output_licitacoes['proc_lic_resultado']['predict'],
+                        '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
+                        '49': output_licitacoes['editais']['predict'],
+                        '50': output_licitacoes['busca']['predict'],
+                    }
+            print(output)
+            with open('results/' + job_name + '.json' , 'w') as fp:
+                json.dump(output, fp)
+
         except:
             print("erro",job_name )
-            output_licitacoes = {'proc_lic_numero': {},
-                                'proc_lic_modalidade': {},
-                                'proc_lic_objeto': {},
-                                'proc_lic_status': {},
-                                'proc_lic_resultado': {},
-                                'inexigibilidade_e_dispensa': {},
-                                'editais': {},
-                                'busca': {},
-                                }
-
-        output_licitacoes['cidade'] = job_name
-
-        # output_informacoes = pipeline_informacoes(
-        #     keywords, path_base, num_matches, job_name)
-        # output_requisitos_sitios = pipeline_requisitos_sitios(
-        #     keywords, path_base, num_matches, job_name)
-
-        output = {
-                    '43': output_licitacoes['proc_lic_numero']['predict'],
-                    '44': output_licitacoes['proc_lic_modalidade']['predict'],
-                    '45': output_licitacoes['proc_lic_objeto']['predict'],
-                    '46': output_licitacoes['proc_lic_status']['predict'],
-                    '47': output_licitacoes['proc_lic_resultado']['predict'],
-                    '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
-                    '49': output_licitacoes['editais']['predict'],
-                    '50': output_licitacoes['busca']['predict'],
-                }
-        print(output)
-        with open('results/' + job_name + '.json' , 'w') as fp:
-            json.dump(output, fp)
 
         # df = pd.DataFrame(output).T
         # df_all = pd.concat([df_all, df])
         # df_all.to_csv('output_licitacoes.csv', index=False)
-
-    return output
 
 path_base = '/home/asafe'
 num_matches = 50
