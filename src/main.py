@@ -430,12 +430,15 @@ def main(jobs,keywords):
                 keywords, num_matches, job_name)
         except:
             print("erro",job_name )
-            output_licitacoes = {'proc_lic': {},
-                                'inexigibilidade': {},
-                                'resultado': {},
-                                'dispensa': {},
+            output_licitacoes = {'proc_lic_numero': {},
+                                'proc_lic_modalidade': {},
+                                'proc_lic_objeto': {},
+                                'proc_lic_status': {},
+                                'proc_lic_resultado': {},
+                                'inexigibilidade_e_dispensa': {},
                                 'editais': {},
-                                'busca': {}}
+                                'busca': {},
+                                }
 
         output_licitacoes['cidade'] = job_name
 
