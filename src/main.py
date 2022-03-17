@@ -423,11 +423,11 @@ def main(jobs,keywords):
         except FileNotFoundError:
             pass
 
-        # output_licitacoes = output_licitacoes = pipeline_licitacoes(
-        #         keywords, num_matches, job_name)
-        try:
-            output_licitacoes = output_licitacoes = pipeline_licitacoes(
+        output_licitacoes = output_licitacoes = pipeline_licitacoes(
                 keywords, num_matches, job_name)
+        try:
+            # output_licitacoes = output_licitacoes = pipeline_licitacoes(
+            #     keywords, num_matches, job_name)
 
             output_licitacoes['cidade'] = job_name
 
