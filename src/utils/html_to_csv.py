@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import codecs
 import tabula
+from utils import read
 
 def read_content(path, folder, file):
 
@@ -61,9 +62,10 @@ def convert(all_files, path, folder):
     return df
 
 def convert_one_file(path):
-    soup = BeautifulSoup(open(path), features="lxml")
-    df = convert_html(soup)
-    return df   
+    soup = read.read_html(path)
+    # soup = BeautifulSoup(open(path), features="lxml")
+    df, type = convert_html(soup)
+    return df, type   
 
 def one_list_to_csv (format_path):
     """
@@ -104,6 +106,7 @@ def concat_lists(files):
 def load_and_convert_files(paths, format_type):
 
     if format_type == 'html':
+        # print(paths)
         df = all_lists_to_csv(paths)
 
     elif format_type == 'csv':

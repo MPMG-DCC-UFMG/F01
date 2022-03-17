@@ -10,6 +10,7 @@ from utils import indexing
 from utils import html_to_csv
 from utils import path_functions
 from utils import check_df
+from utils import read
 
 def analyze_inexibilidade (value, column_name):
     """
@@ -50,7 +51,7 @@ def analyze_busca(format_path):
     """
 
     try:
-        soup = BeautifulSoup(open(format_path), features="lxml")
+        soup = read.read_html(format_path)
         text = soup.get_text()
 
         if re.search("filtrar\s*pesquisa|filtrar|pesquisar", text, re.IGNORECASE) != None:
