@@ -24,6 +24,8 @@ Por padrão a porta sera a `5000` http://localhost:5000
 
 ## Consultas ao resultado dos validadores
 
+Obs: Os itens estão listados em 'lista_exigencias.csv'
+
 ### Consulta de todos os itens de um municipio:
 
 ```
