@@ -4,6 +4,9 @@ def contains_keyword(df, word):
     """
     # columns = [i.lower() for i in df.columns]
     i = 0
+    if df is None:
+        return False, word
+
     for column_name in df.columns:
         try:
             column_name = column_name.lower()

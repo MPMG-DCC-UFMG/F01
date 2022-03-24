@@ -6,10 +6,17 @@ import sys
 
 from utils import indexing
 from utils import path_functions
-from utilconst.constant_pt import municipios_PT
 
+# PT
+from utilconst.constant_pt import municipios_PT
+from utilconst.constant_pt import keywords_PT
+# Betha
 from utilconst.constant_betha import municipios_betha
-from utilconst.constant_betha import keywords_template
+from utilconst.constant_betha import keywords_betha
+# Template2
+from utilconst.constant_template2 import municipios_template2
+from utilconst.constant_template2 import keywords_template2
+
 
 # import argparse
 # parser = argparse.ArgumentParser()
@@ -36,8 +43,9 @@ from classifiers.despesas import relatorios
 
 from classifiers import licitacoes 
 
+path_base = '/home/asafe'
+num_matches = 1000
 
-keywords = keywords_template
 
 def add_in_dict(output, item, isvalid, result_explain):
     output[item]['predict'] = isvalid
@@ -55,17 +63,6 @@ def pipeline_informacoes(keywords, path_base, num_matches, job_name):
               'faq': {},
               'new_predict_text_expl': {},
               }
-
-    # Uberlândia
-    # #--- Aba denominada “Transparência” no menu principal do site
-    # isvalid, result = informacoes.predict_link_portal(path_base = path_base, num_matches=500,
-    #     job_name='index_uberlandia')
-    # informacoes.explain_link_portal(isvalid, result)
-
-    # Betim
-    # #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
-    # isvalid, result = informacoes.predict_text_expl(path_base = path_base, num_matches = 10, job_name='index_betim')
-    # informacoes.explain_text_expl(isvalid, result)
 
     # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
     isvalid, result = informacoes.predict_link_portal(path_base = path_base, job_name=job_name)
@@ -219,7 +216,7 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
 def pipeline_licitacoes(keywords, num_matches, job_name):
 
     try:
-        types = keywords_template['types']
+        types = keywords['types']
     except KeyError:
         types = 'html'
 
@@ -243,12 +240,12 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     files = indexing.get_files(
         search_term, num_matches,
         job_name, keywords_search=keywords_to_search)
-
+    
     files = path_functions.filter_paths(files, words=['licitacao','licitacoes'])
     files = path_functions.agg_paths_by_type2(files)
-
+    # print('bat', len(files['bat']))
+    # print('pdf', len(files['pdf']))
     validador = licitacoes.Licitacoes(files, proc_lic_itens[0], ttype=types)
-    # print(validador.df)
 
     # Procedimentos Licitatórios número
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
@@ -417,52 +414,33 @@ def main(jobs,keywords):
 
         print("**",job_name,"**")
 
-        try:
-            constant_municipio = 'constant_' + job_name
-            tf = open(constant_municipio + ".json", "r")
-            keywords = json.load(tf)
-        except FileNotFoundError:
-            pass
-
+    # try:
         output_licitacoes = output_licitacoes = pipeline_licitacoes(
-                keywords, num_matches, job_name)
-        try:
-            # output_licitacoes = output_licitacoes = pipeline_licitacoes(
-            #     keywords, num_matches, job_name)
-
-            output_licitacoes['cidade'] = job_name
-
-            # output_informacoes = pipeline_informacoes(
-            #     keywords, path_base, num_matches, job_name)
-            # output_requisitos_sitios = pipeline_requisitos_sitios(
-            #     keywords, path_base, num_matches, job_name)
-
-            output = {
-                        '43': output_licitacoes['proc_lic_numero']['predict'],
-                        '44': output_licitacoes['proc_lic_modalidade']['predict'],
-                        '45': output_licitacoes['proc_lic_objeto']['predict'],
-                        '46': output_licitacoes['proc_lic_status']['predict'],
-                        '47': output_licitacoes['proc_lic_resultado']['predict'],
-                        '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
-                        '49': output_licitacoes['editais']['predict'],
-                        '50': output_licitacoes['busca']['predict'],
-                    }
-            print(output)
-            with open('results/' + job_name + '.json' , 'w') as fp:
-                json.dump(output, fp)
-
-        except:
-            print("erro",job_name )
+            keywords, num_matches, job_name)
+        output_licitacoes['cidade'] = job_name
+        # output_requisitos_sitios = pipeline_requisitos_sitios(
+        #     keywords, path_base, num_matches, job_name)
+        output = {
+                    '43': output_licitacoes['proc_lic_numero']['predict'],
+                    '44': output_licitacoes['proc_lic_modalidade']['predict'],
+                    '45': output_licitacoes['proc_lic_objeto']['predict'],
+                    '46': output_licitacoes['proc_lic_status']['predict'],
+                    '47': output_licitacoes['proc_lic_resultado']['predict'],
+                    '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
+                    '49': output_licitacoes['editais']['predict'],
+                    '50': output_licitacoes['busca']['predict'],
+                }
+        print(output)
+        with open('results/' + job_name + '.json' , 'w') as fp:
+            json.dump(output, fp)
+    # except:
+        # print("erro",job_name )
 
         # df = pd.DataFrame(output).T
         # df_all = pd.concat([df_all, df])
         # df_all.to_csv('output_licitacoes.csv', index=False)
 
-path_base = '/home/asafe'
-num_matches = 50
 
-jobs = municipios_betha
 
-# jobs = ['engenheiro_navarro']
-
-main(jobs, keywords)
+# main(municipios_PT, keywords_PT)
+main(municipios_template2, keywords_template2)

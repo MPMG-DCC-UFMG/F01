@@ -106,7 +106,6 @@ def concat_lists(files):
 def load_and_convert_files(paths, format_type):
 
     if format_type == 'html':
-        # print(paths)
         df = all_lists_to_csv(paths)
 
     elif format_type == 'csv':
@@ -152,10 +151,18 @@ def load_and_convert_files(paths, format_type):
         number_of_tables_per_doc = 1
 
         list_dfs = []
-        for i in  paths:
-            lista_tabelas = tabula.read_pdf(i, pages='all')
-            for tabela in lista_tabelas:
+        number_pdf = 0
+        for i in paths:
 
+            if number_pdf == 10:
+                break
+            # print(number_pdf, i)
+            lista_tabelas = tabula.read_pdf(i, pages='all')
+            if len(lista_tabelas) > 0:
+                number_pdf += 1
+                
+            for tabela in lista_tabelas:
+                # print(tabela)
                 if ('Unnamed' in ' '.join(tabela.columns.values)):
                     tabela.columns = tabela.loc[0].values
                     tabela.drop(0 , inplace=True)
@@ -163,7 +170,6 @@ def load_and_convert_files(paths, format_type):
                     tabela = tabela.loc[:number_entry_each_table]
 
                 list_dfs.append(tabela)
-                print(tabela)
 
                 break
                 

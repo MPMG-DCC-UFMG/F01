@@ -1,8 +1,9 @@
 import yaml
 # from utilconst import municipios_simplanweb
 # from utilconst.constant_sintese import municipios_sintese
-from utilconst.constant_pt import municipios_PT
-from utilconst.constant_betha import municipios_betha
+# from utilconst.constant_pt import municipios_PT
+# from utilconst.constant_betha import municipios_betha
+from utilconst.constant_template2 import municipios_template2
 
 from pathlib import Path
 import os
@@ -12,8 +13,8 @@ import time
 
 TIME_OUT = 300
 
-# MUNICIPIOS = municipios_simplanweb + municipios_sintese + municipios_PT
-MUNICIPIOS = municipios_betha
+# MUNICIPIOS = municipios_simplanweb + municipios_sintese + municipios_PT + municipios_betha + municipios_template2
+MUNICIPIOS = municipios_template2
 
 # MP
 HOME = Path("/home/ufmg.amedeiros")
@@ -29,7 +30,7 @@ for municipio in MUNICIPIOS:
             {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
             # {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
             'update_rate': '15m', 
-            'excludes': ['*/screenshots*'], 
+            'excludes': ['*/screenshots*', '*/log*'], 
             'json_support': False, 
             'filename_as_id': False, 
             'add_filesize': True, 
@@ -88,9 +89,11 @@ for municipio in MUNICIPIOS:
 
     try:
         outs, errs = process.communicate(timeout=TIME_OUT)
+        print("finish ok", process.pid, municipio)
     except:
         process.kill()
         outs, errs = process.communicate()
+        print("finish kill TIME_OUT", process.pid, municipio)
 
     status = municipio_directory / "_status.json"
     if os.path.exists(status):
@@ -98,4 +101,4 @@ for municipio in MUNICIPIOS:
         data = json.load(f)
         print("status:", data)
 
-    print("finish", process.pid, municipio)
+    

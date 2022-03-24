@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import re
 import os
 import sys
+import pandas as pd
 #sys.path.insert(0, '/home/cinthia/F01/src')
 
 sys.path.insert(0, '../')
@@ -74,7 +75,6 @@ def analyze_edital(df, column_name):
 def check_all_files_busca(paths, result):
 
     for file_name in paths:
-        # print(file_name)
         result['busca'].append(analyze_busca(file_name))
 
     return result
@@ -93,11 +93,12 @@ def get_files(search_term, keywords_search, path_base, job_name, num_matches=100
     return files
 
 def get_df(files, ttype):
-    df = None
+    df_final = pd.DataFrame()
     for key, values in files.items():
-        if key == ttype:
+        if key in ttype:
             df = html_to_csv.load_and_convert_files(paths=values, format_type=key)
-    return df
+            df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
+    return df_final
 
 class Licitacoes:
 
@@ -106,16 +107,17 @@ class Licitacoes:
         self.keywords_check = keywords_check
         self.df = get_df(self.files, ttype)
 
-    def analyze_procedimentos_licitatorios(self, df, keywords): 
+    def analyze_procedimentos_licitatorios(self, df, keyword): 
         """
         Verifica se existe um coluna com a palavra-chave e se cada valor nela é nulo ou não
         """
-        val = { keywords: []}
-        isvalid, column_name = check_df.contains_keyword(df=df, word=keywords)
-        if isvalid:
-            val[keywords] = list(~df[column_name].isna())
-        else:
-            val[keywords] = []
+        val = { keyword: []}
+        if df is not None:
+            isvalid, column_name = check_df.contains_keyword(df=df, word=keyword)
+            if isvalid:
+                val[keyword] = list(~df[column_name].isna())
+                return val
+        val[keyword] = []
         return val
 
     def predict_df(self, keyword_check):
@@ -126,6 +128,10 @@ class Licitacoes:
     def predict_inexibilidade(self):
 
         result = {'inexigibilidade': []}
+
+        if self.df is None:
+            return False, result
+
         if "Número Modalidade" in self.df.columns:
             self.df.drop(columns=["Número Modalidade"],inplace=True)
 
@@ -142,6 +148,10 @@ class Licitacoes:
 
     def predict_dispensa(self):
         result = {'dispensa': []}
+
+        if self.df is None:
+            return False, result
+
         if "Número Modalidade" in self.df.columns:
             self.df.drop(columns=["Número Modalidade"],inplace=True)
 
