@@ -21,7 +21,7 @@ municipios_template2 = [
 "Marilac",
 "Jordânia",
 "São João Evangelista",
-"Bandeira",
+# "Bandeira",
 "Tumiritinga",
 "Santa Efigênia de Minas",
 "Pavão",
@@ -39,5 +39,5 @@ keywords_template2 = {
        'proc_lic_itens': ['n° do processo', 'modalidade', 'objeto', 'situação', 'empresa vencedor'],
        'editais': 'Editais de Licitação e Demais Arquivos'
     },
-    'types': ['bat']
+    'types': ['bat','pdf']
 }
