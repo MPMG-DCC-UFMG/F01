@@ -16,6 +16,9 @@ from utilconst.constant_betha import keywords_betha
 # Template2
 from utilconst.constant_template2 import municipios_template2
 from utilconst.constant_template2 import keywords_template2
+# GRP
+from utilconst.constant_grp import municipios_grp
+from utilconst.constant_grp import keywords_grp
 
 
 # import argparse
@@ -246,6 +249,7 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     # print('bat', len(files['bat']))
     # print('pdf', len(files['pdf']))
     validador = licitacoes.Licitacoes(files, proc_lic_itens[0], ttype=types)
+    # print(len(validador.files['bat']))
 
     # Procedimentos Licitatórios número
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
@@ -272,7 +276,7 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     result_explain = licitacoes.explain(result, proc_lic_itens[4])
     output = add_in_dict(output, 'proc_lic_resultado', isvalid, result_explain)
 
-    # Procedimentos modalidade Inexigibilidade e Dispensa
+    # # Procedimentos modalidade Inexigibilidade e Dispensa
     isvalid_inexigibilidade, result_inexigibilidade = validador.predict_inexibilidade()
     isvalid_dispensa, result_dispensa = validador.predict_dispensa()
     isvalid = isvalid_inexigibilidade and isvalid_dispensa 
@@ -282,12 +286,12 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     result_explain = licitacoes.explain(result, 'inexigibilidade e dispensa')
     output = add_in_dict(output, 'inexigibilidade_e_dispensa', isvalid, result_explain)
 
-    # Disponibilização de Editais
+    # # Disponibilização de Editais
     isvalid, result = validador.predict_editais(editais)
     result_explain=licitacoes.explain(result, 'editais')
     output = add_in_dict(output, 'editais', isvalid, result_explain)
 
-    # Permite Busca
+    # # Permite Busca
     isvalid, result = validador.predict_busca()
     result_explain=licitacoes.explain(result, 'busca')
     output = add_in_dict(output, 'busca', isvalid, result_explain)
@@ -414,28 +418,28 @@ def main(jobs,keywords):
 
         print("**",job_name,"**")
 
-    # try:
-        output_licitacoes = output_licitacoes = pipeline_licitacoes(
-            keywords, num_matches, job_name)
-        output_licitacoes['cidade'] = job_name
-        # output_requisitos_sitios = pipeline_requisitos_sitios(
-        #     keywords, path_base, num_matches, job_name)
-        output = {
-                    '43': output_licitacoes['proc_lic_numero']['predict'],
-                    '44': output_licitacoes['proc_lic_modalidade']['predict'],
-                    '45': output_licitacoes['proc_lic_objeto']['predict'],
-                    '46': output_licitacoes['proc_lic_status']['predict'],
-                    '47': output_licitacoes['proc_lic_resultado']['predict'],
-                    '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
-                    '49': output_licitacoes['editais']['predict'],
-                    '50': output_licitacoes['busca']['predict'],
-                }
-        print(output)
-        with open('results/' + job_name + '.json' , 'w') as fp:
-            json.dump(output, fp)
-    # except:
-        # print("erro",job_name )
+        try:
+            output_licitacoes = output_licitacoes = pipeline_licitacoes(
+                keywords, num_matches, job_name)
+            output_licitacoes['cidade'] = job_name
+            # output_requisitos_sitios = pipeline_requisitos_sitios(
+            #     keywords, path_base, num_matches, job_name)
+            output = {
+                        '43': output_licitacoes['proc_lic_numero']['predict'],
+                        '44': output_licitacoes['proc_lic_modalidade']['predict'],
+                        '45': output_licitacoes['proc_lic_objeto']['predict'],
+                        '46': output_licitacoes['proc_lic_status']['predict'],
+                        '47': output_licitacoes['proc_lic_resultado']['predict'],
+                        '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
+                        '49': output_licitacoes['editais']['predict'],
+                        '50': output_licitacoes['busca']['predict'],
+                    }
+            print(output)
+            # with open('results/' + job_name + '.json' , 'w') as fp:
+            #     json.dump(output, fp)
 
+        except:
+            print("erro",job_name )
         # df = pd.DataFrame(output).T
         # df_all = pd.concat([df_all, df])
         # df_all.to_csv('output_licitacoes.csv', index=False)
@@ -443,4 +447,5 @@ def main(jobs,keywords):
 
 
 # main(municipios_PT, keywords_PT)
-main(municipios_template2, keywords_template2)
+# main(municipios_template2, keywords_template2)
+main(municipios_grp, keywords_grp)

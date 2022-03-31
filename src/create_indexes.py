@@ -1,9 +1,11 @@
 import yaml
-# from utilconst import municipios_simplanweb
-# from utilconst.constant_sintese import municipios_sintese
-# from utilconst.constant_pt import municipios_PT
-# from utilconst.constant_betha import municipios_betha
+from utilconst.constant_simplanweb import municipios_simplanweb
+from utilconst.constant_sintese import municipios_sintese
+from utilconst.constant_pt import municipios_PT
+from utilconst.constant_betha import municipios_betha
 from utilconst.constant_template2 import municipios_template2
+from utilconst.constant_grp import municipios_grp
+
 
 from pathlib import Path
 import os
@@ -13,8 +15,8 @@ import time
 
 TIME_OUT = 300
 
-# MUNICIPIOS = municipios_simplanweb + municipios_sintese + municipios_PT + municipios_betha + municipios_template2
-MUNICIPIOS = municipios_template2
+# MUNICIPIOS = municipios_simplanweb + municipios_sintese + municipios_PT + municipios_betha + municipios_template2 + municipios_grp
+MUNICIPIOS = municipios_grp
 
 # MP
 HOME = Path("/home/ufmg.amedeiros")
@@ -84,8 +86,8 @@ for municipio in MUNICIPIOS:
 
 
     print('Run crawler')
-    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop 1'])
-    # process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop 1'])
+    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1'])
+    # process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop', '1'])
 
     try:
         outs, errs = process.communicate(timeout=TIME_OUT)

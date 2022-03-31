@@ -1,4 +1,6 @@
+import string
 from bs4 import BeautifulSoup
+from numpy import NaN
 import pandas as pd
 import os
 import codecs
@@ -124,9 +126,14 @@ def load_and_convert_files(paths, format_type):
             if ('Unnamed' in ' '.join(tabela.columns.values)):
                 tabela.columns = tabela.loc[0].values
                 tabela.drop(0 , inplace=True)
-            # print("******",i)
-            # print(tabela)
-            # print(tabela.columns)
+            
+            aux = 0
+
+            #  Para Template GRP, que começava com um cabeçalho de colunas  
+            while(type(tabela.columns[0]) is not str):
+                tabela.columns = tabela.iloc[aux].values
+                aux += 1
+
             list_csv.append(tabela)
         df = concat_lists(list_csv)
     

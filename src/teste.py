@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import chardet
 import codecs
 import os
-import schedule
 import time
 
 
@@ -34,13 +33,8 @@ path2 = '/home/asafe/Downloads/abc.html'
 
 # print(source)
 
-def job():
-    print("tentando...")
-
-schedule.every(4).seconds.do(job)
-
-print('Running crawler')
-
-while True:
-    schedule.run_pending()
-    # time.sleep(1)
+import shlex, subprocess
+command_line = input()
+# /bin/vikings -input eggs.txt -output "spam spam.txt" -cmd "echo '$MONEY'"
+args = shlex.split(command_line)
+print(args)
