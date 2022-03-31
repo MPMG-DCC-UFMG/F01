@@ -5,5 +5,11 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 ## Geral
 
 ## Coleta
+| TEMPLATE | TAG | Problema/Questão | Decisão | Observações |
+| - | - | - | - | - |
+| - | - | - | - | - |
 
 ## Validação
+| TEMPLATE | TAG | Problema/Questão | Decisão | Observações |
+| - | - | - | - | - |
+| - | - | - | - | - |
