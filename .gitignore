@@ -7,3 +7,5 @@ data/
 /src/ff
 f01/
 docs/_build
+docs/doctrees
+

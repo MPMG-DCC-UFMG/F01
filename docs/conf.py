@@ -39,7 +39,9 @@ for mod_name in MOCK_MODULES:
 import sphinx_rtd_theme
 extensions = [
     'sphinx_rtd_theme',
-    'sphinx.ext.autodoc'
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.githubpages',
 ]
 html_theme = "sphinx_rtd_theme"
 
