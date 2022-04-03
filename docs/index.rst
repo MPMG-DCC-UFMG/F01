@@ -7,22 +7,28 @@ Bem-vindo(a) à Documentação da F01
 ===============================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Sobre o Projeto
+
+   Decisões de Projeto
 
 .. toctree::
    :maxdepth: 1
    :caption: Coleta
 
+   FAQ - Coletas
+
 
 .. toctree::
    :maxdepth: 1
    :caption: Validação
+   
+   FAQ - Validação
 
    concursos
 
 
-Indices and tables
+Índices e Tabelas
 ==================
 
 * :ref:`genindex`
