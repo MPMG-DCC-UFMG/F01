@@ -4,13 +4,16 @@
    contain the root `toctree` directive.
 
 Bem-vindo(a) à Documentação da F01
-===============================
+==================================
 
 .. toctree::
    :maxdepth: 1
    :caption: Sobre o Projeto
 
    Decisões de Projeto
+   modules
+   
+.. note:: Para mais informações, consulte.
 
 .. toctree::
    :maxdepth: 1
@@ -24,8 +27,8 @@ Bem-vindo(a) à Documentação da F01
    :caption: Validação
    
    FAQ - Validação
+   classifiers
 
-   concursos
 
 
 Índices e Tabelas

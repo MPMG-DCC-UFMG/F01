@@ -9,4 +9,5 @@ f01/
 docs/_build
 docs/doctrees
 
-
+bkp/
+*.bkp

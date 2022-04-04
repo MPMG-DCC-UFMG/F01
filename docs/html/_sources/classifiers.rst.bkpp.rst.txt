@@ -1,0 +1,53 @@
+classifiers package
+===================
+
+Submodules
+----------
+
+classifiers.concursos module
+----------------------------
+
+.. automodule:: classifiers.concursos
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+classifiers.constant module
+---------------------------
+
+.. automodule:: classifiers.constant
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+classifiers.diaria\_viagem module
+---------------------------------
+
+.. automodule:: classifiers.diaria_viagem
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+classifiers.info\_institucionais module
+---------------------------------------
+
+.. automodule:: classifiers.info_institucionais
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+classifiers.licitacoes module
+-----------------------------
+
+.. automodule:: classifiers.licitacoes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: classifiers
+   :members:
+   :undoc-members:
+   :show-inheritance:
