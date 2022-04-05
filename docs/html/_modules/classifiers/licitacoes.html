@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>classifiers.licitacoes &mdash; documentação F01 0.1</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> F01
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Sobre o Projeto</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Decis%C3%B5es%20de%20Projeto.html">Decisões de Projeto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">classifiers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Coleta</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ%20-%20Coletas.html">Coletas - FAQ</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Validação</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ%20-%20Valida%C3%A7%C3%A3o.html">Validação - FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../classifiers.html">classifiers package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">F01</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Código do módulo</a> &raquo;</li>
+      <li>classifiers.licitacoes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fonte para classifiers.licitacoes</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="c1">#sys.path.insert(0, &#39;/home/cinthia/F01/src&#39;)</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;../&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">indexing</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">html_to_csv</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">path_functions</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">check_df</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">read</span>
+
+<div class="viewcode-block" id="analyze_inexibilidade"><a class="viewcode-back" href="../../classifiers.html#classifiers.licitacoes.analyze_inexibilidade">[documentos]</a><span class="k">def</span> <span class="nf">analyze_inexibilidade</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verifica se existem licitações cuja modelidade é inexibilidade</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;inexigibilidade&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">column_name</span><span class="p">],</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="analyze_dispensa"><a class="viewcode-back" href="../../classifiers.html#classifiers.licitacoes.analyze_dispensa">[documentos]</a><span class="k">def</span> <span class="nf">analyze_dispensa</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verifica se existem licitações cuja modelidade é dispensa</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;dispensa&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">column_name</span><span class="p">],</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="analyze_resultado"><a class="viewcode-back" href="../../classifiers.html#classifiers.licitacoes.analyze_resultado">[documentos]</a><span class="k">def</span> <span class="nf">analyze_resultado</span> <span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verifica se na coluna resultado há algum arquivo com nome associado a resultado</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="analyze_busca"><a class="viewcode-back" href="../../classifiers.html#classifiers.licitacoes.analyze_busca">[documentos]</a><span class="k">def</span> <span class="nf">analyze_busca</span><span class="p">(</span><span class="n">format_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verifica se os documentos html possuem o campo &quot;Filtrar Pesquisa&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">soup</span> <span class="o">=</span> <span class="n">read</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">format_path</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;filtrar\s*pesquisa|filtrar|pesquisar&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+    
+    <span class="k">except</span> <span class="ne">TypeError</span> <span class="ow">or</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+        
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="analyze_edital"><a class="viewcode-back" href="../../classifiers.html#classifiers.licitacoes.analyze_edital">[documentos]</a><span class="k">def</span> <span class="nf">analyze_edital</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Verifica se na coluna Editais há algum arquivo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<span class="k">def</span> <span class="nf">check_all_files_busca</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">[</span><span class="s1">&#39;busca&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">analyze_busca</span><span class="p">(</span><span class="n">file_name</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">get_files</span><span class="p">(</span><span class="n">search_term</span><span class="p">,</span> <span class="n">keywords_search</span><span class="p">,</span> <span class="n">path_base</span><span class="p">,</span> <span class="n">job_name</span><span class="p">,</span> <span class="n">num_matches</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">filter_word</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;licitacao&#39;</span><span class="p">,</span><span class="s1">&#39;licitacoes&#39;</span><span class="p">]):</span>
+
+    <span class="c1">#Search</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">indexing</span><span class="o">.</span><span class="n">get_files</span><span class="p">(</span>
+        <span class="n">search_term</span><span class="p">,</span> <span class="n">keywords_search</span><span class="p">,</span> <span class="n">num_matches</span><span class="p">,</span>
+        <span class="n">job_name</span><span class="p">,</span> <span class="n">path_base</span><span class="p">)</span>
+
+    <span class="n">files</span> <span class="o">=</span> <span class="n">path_functions</span><span class="o">.</span><span class="n">filter_paths</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">filter_word</span><span class="p">)</span>
+
+    <span class="n">files</span> <span class="o">=</span> <span class="n">path_functions</span><span class="o">.</span><span class="n">agg_paths_by_type2</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">files</span>
+
+<span class="k">def</span> <span class="nf">get_df</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">ttype</span><span class="p">):</span>
+    <span class="n">df_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ttype</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">html_to_csv</span><span class="o">.</span><span class="n">load_and_convert_files</span><span class="p">(</span><span class="n">paths</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">format_type</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">df_final</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">df_final</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_final</span>
+
+<span class="k">class</span> <span class="nc">Licitacoes</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">keywords_check</span><span class="p">,</span> <span class="n">ttype</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">files</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">keywords_check</span> <span class="o">=</span> <span class="n">keywords_check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">get_df</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">,</span> <span class="n">ttype</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">analyze_procedimentos_licitatorios</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">keyword</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verifica se existe um coluna com a palavra-chave e se cada valor nela é nulo ou não</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="p">{</span> <span class="n">keyword</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">isvalid</span><span class="p">,</span> <span class="n">column_name</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">contains_keyword</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="n">keyword</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isvalid</span><span class="p">:</span>
+                <span class="n">val</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">())</span>
+                <span class="k">return</span> <span class="n">val</span>
+        <span class="n">val</span><span class="p">[</span><span class="n">keyword</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">predict_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword_check</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">analyze_procedimentos_licitatorios</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">keyword_check</span><span class="p">)</span>
+        <span class="n">isvalid</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">infos_isvalid</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">keyword_check</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">isvalid</span><span class="p">,</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">predict_inexibilidade</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;inexigibilidade&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">result</span>
+
+        <span class="k">if</span> <span class="s2">&quot;Número Modalidade&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Número Modalidade&quot;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#Analyze</span>
+        <span class="n">isvalid</span><span class="p">,</span> <span class="n">column_modalidade</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">contains_keyword</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;modalidade&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;inexigibilidade&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">analyze_inexibilidade</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">column_modalidade</span><span class="p">))</span>
+
+        <span class="c1">#Check</span>
+        <span class="n">isvalid</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">infos_isvalid</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;inexigibilidade&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            
+        <span class="k">return</span> <span class="n">isvalid</span><span class="p">,</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">predict_dispensa</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dispensa&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">result</span>
+
+        <span class="k">if</span> <span class="s2">&quot;Número Modalidade&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Número Modalidade&quot;</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#Analyze</span>
+        <span class="n">isvalid</span><span class="p">,</span> <span class="n">column_modalidade</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">contains_keyword</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;modalidade&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;dispensa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">analyze_dispensa</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">column_modalidade</span><span class="p">))</span>
+
+        <span class="c1">#Check</span>
+        <span class="n">isvalid</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">infos_isvalid</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;dispensa&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">isvalid</span><span class="p">,</span> <span class="n">result</span>
+
+
+    <span class="k">def</span> <span class="nf">predict_resultado</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword_check</span><span class="p">):</span> 
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;resultado&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="c1">#Analyze</span>
+        <span class="n">isvalid</span><span class="p">,</span> <span class="n">column_modalidade</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">contains_keyword</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="n">keyword_check</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">isvalid</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;resultado&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">analyze_resultado</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">column_modalidade</span><span class="p">))</span>
+                
+        <span class="c1">#Check</span>
+        <span class="n">isvalid</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">infos_isvalid</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;resultado&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">isvalid</span><span class="p">,</span> <span class="n">result</span>
+
+
+    <span class="k">def</span> <span class="nf">predict_editais</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword_check</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;editais&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="c1">#Analyze</span>
+        <span class="n">isvalid</span><span class="p">,</span> <span class="n">column_edital</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">contains_keyword</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="n">keyword_check</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">isvalid</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s1">&#39;editais&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">analyze_edital</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">,</span> <span class="n">column_edital</span><span class="p">))</span>
+
+        <span class="c1"># print(self.df[&#39;Editais de Licitação e Demais Arquivos&#39;])</span>
+        <span class="c1">#Check</span>
+        <span class="n">isvalid</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">infos_isvalid</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;editais&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">isvalid</span><span class="p">,</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">predict_busca</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+
+        <span class="n">html_files</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;html&#39;</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;busca&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+        <span class="c1">#Analyze</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">check_all_files_busca</span><span class="p">(</span><span class="n">html_files</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="c1">#Check</span>
+        <span class="n">isvalid</span> <span class="o">=</span> <span class="n">check_df</span><span class="o">.</span><span class="n">infos_isvalid</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">column_name</span><span class="o">=</span><span class="s1">&#39;busca&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">isvalid</span><span class="p">,</span> <span class="n">result</span>
+
+<span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;Explain - Quantidade de entradas analizadas: </span><span class="si">{}</span><span class="se">\n\t</span><span class="s2">Quantidade de entradas válidas: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+         <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]),</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, F01 Team.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

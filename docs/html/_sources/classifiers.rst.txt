@@ -4,5 +4,11 @@ classifiers package
 Module contents
 ---------------
 
-.. currentmodule:: concursos
-.. autofunction:: analyze_proc_lici
+
+classifiers.licitacoes module
+-----------------------------
+
+.. automodule:: classifiers.licitacoes
+   :members:
+   :undoc-members:
+   :show-inheritance:

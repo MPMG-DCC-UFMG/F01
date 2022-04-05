@@ -1,7 +1,0 @@
-Concursos 
----------
-
-Este módulo é responsável pela validação da *tag* concursos. 
-
-.. automodule:: concursos
-   :members:

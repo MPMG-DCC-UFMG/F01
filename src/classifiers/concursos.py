@@ -93,7 +93,7 @@ def check_all_files_busca(paths, path_base, result):
     return result
 
 
-def validate (path_base):
+def main (path_base):
 
     search_term=constant.CONCURSO_PUBLICO
     keywords = constant.CONCURSO_PUBLICO_KEYWORDS
@@ -142,7 +142,6 @@ def validate (path_base):
     print(explain(result, 'explain'))
 
 
-if __name__ == "__main__": 
-    #local onde está o dump
-    path_base = "C:\\Users\\ritar"
-    validate (path_base)
+#local onde está o dump
+path_base = "C:\\Users\\ritar"
+main (path_base)

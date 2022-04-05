@@ -1,3 +1,8 @@
-classifiers
-===========
+Módulos
+=======
 
+classifiers.licitacoes module
+-----------------------------
+
+.. automodule:: classifiers.licitacoes
+   :show-inheritance:
