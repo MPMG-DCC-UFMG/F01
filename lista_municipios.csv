@@ -1,0 +1,854 @@
+id,nome,api
+3100104,Abadia dos Dourados,abadia_dos_dourados
+3100203,Abaeté,abaete
+3100302,Abre Campo,abre_campo
+3100401,Acaiaca,acaiaca
+3100500,Açucena,acucena
+3100609,Água Boa,agua_boa
+3100708,Água Comprida,agua_comprida
+3100807,Aguanil,aguanil
+3100906,Águas Formosas,aguas_formosas
+3101003,Águas Vermelhas,aguas_vermelhas
+3101102,Aimorés,aimores
+3101201,Aiuruoca,aiuruoca
+3101300,Alagoa,alagoa
+3101409,Albertina,albertina
+3101508,Além Paraíba,alem_paraiba
+3101607,Alfenas,alfenas
+3101631,Alfredo Vasconcelos,alfredo_vasconcelos
+3101706,Almenara,almenara
+3101805,Alpercata,alpercata
+3101904,Alpinópolis,alpinopolis
+3102001,Alterosa,alterosa
+3102050,Alto Caparaó,alto_caparao
+3153509,Alto Jequitibá,alto_jequitiba
+3102100,Alto Rio Doce,alto_rio_doce
+3102209,Alvarenga,alvarenga
+3102308,Alvinópolis,alvinopolis
+3102407,Alvorada de Minas,alvorada_de_minas
+3102506,Amparo do Serra,amparo_do_serra
+3102605,Andradas,andradas
+3102803,Andrelândia,andrelandia
+3102852,Angelândia,angelandia
+3102902,Antônio Carlos,antonio_carlos
+3103009,Antônio Dias,antonio_dias
+3103108,Antônio Prado de Minas,antonio_prado_de_minas
+3103207,Araçaí,aracai
+3103306,Aracitaba,aracitaba
+3103405,Araçuaí,aracuai
+3103504,Araguari,araguari
+3103603,Arantina,arantina
+3103702,Araponga,araponga
+3103751,Araporã,arapora
+3103801,Arapuá,arapua
+3103900,Araújos,araujos
+3104007,Araxá,araxa
+3104106,Arceburgo,arceburgo
+3104205,Arcos,arcos
+3104304,Areado,areado
+3104403,Argirita,argirita
+3104452,Aricanduva,aricanduva
+3104502,Arinos,arinos
+3104601,Astolfo Dutra,astolfo_dutra
+3104700,Ataléia,ataleia
+3104809,Augusto de Lima,augusto_de_lima
+3104908,Baependi,baependi
+3105004,Baldim,baldim
+3105103,Bambuí,bambui
+3105202,Bandeira,bandeira
+3105301,Bandeira do Sul,bandeira_do_sul
+3105400,Barão de Cocais,barao_de_cocais
+3105509,Barão de Monte Alto,barao_de_monte_alto
+3105608,Barbacena,barbacena
+3105707,Barra Longa,barra_longa
+3105905,Barroso,barroso
+3106002,Bela Vista de Minas,bela_vista_de_minas
+3106101,Belmiro Braga,belmiro_braga
+3106200,Belo Horizonte,belo_horizonte
+3106309,Belo Oriente,belo_oriente
+3106408,Belo Vale,belo_vale
+3106507,Berilo,berilo
+3106655,Berizal,berizal
+3106606,Bertópolis,bertopolis
+3106705,Betim,betim
+3106804,Bias Fortes,bias_fortes
+3106903,Bicas,bicas
+3107000,Biquinhas,biquinhas
+3107109,Boa Esperança,boa_esperanca
+3107208,Bocaina de Minas,bocaina_de_minas
+3107307,Bocaiúva,bocaiuva
+3107406,Bom Despacho,bom_despacho
+3107505,Bom Jardim de Minas,bom_jardim_de_minas
+3107604,Bom Jesus da Penha,bom_jesus_da_penha
+3107703,Bom Jesus do Amparo,bom_jesus_do_amparo
+3107802,Bom Jesus do Galho,bom_jesus_do_galho
+3107901,Bom Repouso,bom_repouso
+3108008,Bom Sucesso,bom_sucesso
+3108107,Bonfim,bonfim
+3108206,Bonfinópolis de Minas,bonfinopolis_de_minas
+3108255,Bonito de Minas,bonito_de_minas
+3108305,Borda da Mata,borda_da_mata
+3108404,Botelhos,botelhos
+3108503,Botumirim,botumirim
+3108701,Brás Pires,bras_pires
+3108552,Brasilândia de Minas,brasilandia_de_minas
+3108602,Brasília de Minas,brasilia_de_minas
+3108800,Braúnas,braunas
+3108909,Brazópolis,brazopolis
+3109006,Brumadinho,brumadinho
+3109105,Bueno Brandão,bueno_brandao
+3109204,Buenópolis,buenopolis
+3109253,Bugre,bugre
+3109303,Buritis,buritis
+3109402,Buritizeiro,buritizeiro
+3109451,Cabeceira Grande,cabeceira_grande
+3109501,Cabo Verde,cabo_verde
+3109600,Cachoeira da Prata,cachoeira_da_prata
+3109709,Cachoeira de Minas,cachoeira_de_minas
+3102704,Cachoeira de Pajeú,cachoeira_de_pajeu
+3109808,Cachoeira Dourada,cachoeira_dourada
+3109907,Caetanópolis,caetanopolis
+3110004,Caeté,caete
+3110103,Caiana,caiana
+3110202,Cajuri,cajuri
+3110301,Caldas,caldas
+3110400,Camacho,camacho
+3110509,Camanducaia,camanducaia
+3110608,Cambuí,cambui
+3110707,Cambuquira,cambuquira
+3110806,Campanário,campanario
+3110905,Campanha,campanha
+3111002,Campestre,campestre
+3111101,Campina Verde,campina_verde
+3111150,Campo Azul,campo_azul
+3111200,Campo Belo,campo_belo
+3111309,Campo do Meio,campo_do_meio
+3111408,Campo Florido,campo_florido
+3111507,Campos Altos,campos_altos
+3111606,Campos Gerais,campos_gerais
+3111903,Cana Verde,cana_verde
+3111705,Canaã,canaa
+3111804,Canápolis,canapolis
+3112000,Candeias,candeias
+3112059,Cantagalo,cantagalo
+3112109,Caparaó,caparao
+3112208,Capela Nova,capela_nova
+3112307,Capelinha,capelinha
+3112406,Capetinga,capetinga
+3112505,Capim Branco,capim_branco
+3112604,Capinópolis,capinopolis
+3112653,Capitão Andrade,capitao_andrade
+3112703,Capitão Enéas,capitao_eneas
+3112802,Capitólio,capitolio
+3112901,Caputira,caputira
+3113008,Caraí,carai
+3113107,Caranaíba,caranaiba
+3113206,Carandaí,carandai
+3113305,Carangola,carangola
+3113404,Caratinga,caratinga
+3113503,Carbonita,carbonita
+3113602,Careaçu,careacu
+3113701,Carlos Chagas,carlos_chagas
+3113800,Carmésia,carmesia
+3113909,Carmo da Cachoeira,carmo_da_cachoeira
+3114006,Carmo da Mata,carmo_da_mata
+3114105,Carmo de Minas,carmo_de_minas
+3114204,Carmo do Cajuru,carmo_do_cajuru
+3114303,Carmo do Paranaíba,carmo_do_paranaiba
+3114402,Carmo do Rio Claro,carmo_do_rio_claro
+3114501,Carmópolis de Minas,carmopolis_de_minas
+3114550,Carneirinho,carneirinho
+3114600,Carrancas,carrancas
+3114709,Carvalhópolis,carvalhopolis
+3114808,Carvalhos,carvalhos
+3114907,Casa Grande,casa_grande
+3115003,Cascalho Rico,cascalho_rico
+3115102,Cássia,cassia
+3115300,Cataguases,cataguases
+3115359,Catas Altas,catas_altas
+3115409,Catas Altas da Noruega,catas_altas_da_noruega
+3115458,Catuji,catuji
+3115474,Catuti,catuti
+3115508,Caxambu,caxambu
+3115607,Cedro do Abaeté,cedro_do_abaete
+3115706,Central de Minas,central_de_minas
+3115805,Centralina,centralina
+3115904,Chácara,chacara
+3116001,Chalé,chale
+3116100,Chapada do Norte,chapada_do_norte
+3116159,Chapada Gaúcha,chapada_gaucha
+3116209,Chiador,chiador
+3116308,Cipotânea,cipotanea
+3116407,Claraval,claraval
+3116506,Claro dos Poções,claro_dos_pocões
+3116605,Cláudio,claudio
+3116704,Coimbra,coimbra
+3116803,Coluna,coluna
+3116902,Comendador Gomes,comendador_gomes
+3117009,Comercinho,comercinho
+3117108,Conceição da Aparecida,conceicao_da_aparecida
+3115201,Conceição da Barra de Minas,conceicao_da_barra_de_minas
+3117306,Conceição das Alagoas,conceicao_das_alagoas
+3117207,Conceição das Pedras,conceicao_das_pedras
+3117405,Conceição de Ipanema,conceicao_de_ipanema
+3117504,Conceição do Mato Dentro,conceicao_do_mato_dentro
+3117603,Conceição do Pará,conceicao_do_para
+3117702,Conceição do Rio Verde,conceicao_do_rio_verde
+3117801,Conceição dos Ouros,conceicao_dos_ouros
+3117836,Cônego Marinho,conego_marinho
+3117876,Confins,confins
+3117900,Congonhal,congonhal
+3118007,Congonhas,congonhas
+3118106,Congonhas do Norte,congonhas_do_norte
+3118205,Conquista,conquista
+3118304,Conselheiro Lafaiete,conselheiro_lafaiete
+3118403,Conselheiro Pena,conselheiro_pena
+3118502,Consolação,consolacao
+3118601,Contagem,contagem
+3118700,Coqueiral,coqueiral
+3118809,Coração de Jesus,coracao_de_jesus
+3118908,Cordisburgo,cordisburgo
+3119005,Cordislândia,cordislandia
+3119104,Corinto,corinto
+3119203,Coroaci,coroaci
+3119302,Coromandel,coromandel
+3119401,Coronel Fabriciano,coronel_fabriciano
+3119500,Coronel Murta,coronel_murta
+3119609,Coronel Pacheco,coronel_pacheco
+3119708,Coronel Xavier Chaves,coronel_xavier_chaves
+3119807,Córrego Danta,corrego_danta
+3119906,Córrego do Bom Jesus,corrego_do_bom_jesus
+3119955,Córrego Fundo,corrego_fundo
+3120003,Córrego Novo,corrego_novo
+3120102,Couto de Magalhães de Minas,couto_de_magalhaes_de_minas
+3120151,Crisólita,crisolita
+3120201,Cristais,cristais
+3120300,Cristália,cristalia
+3120409,Cristiano Otoni,cristiano_otoni
+3120508,Cristina,cristina
+3120607,Crucilândia,crucilandia
+3120706,Cruzeiro da Fortaleza,cruzeiro_da_fortaleza
+3120805,Cruzília,cruzilia
+3120839,Cuparaque,cuparaque
+3120870,Curral de Dentro,curral_de_dentro
+3120904,Curvelo,curvelo
+3121001,Datas,datas
+3121100,Delfim Moreira,delfim_moreira
+3121209,Delfinópolis,delfinopolis
+3121258,Delta,delta
+3121308,Descoberto,descoberto
+3121407,Desterro de Entre Rios,desterro_de_entre_rios
+3121506,Desterro do Melo,desterro_do_melo
+3121605,Diamantina,diamantina
+3121704,Diogo de Vasconcelos,diogo_de_vasconcelos
+3121803,Dionísio,dionisio
+3121902,Divinésia,divinesia
+3122009,Divino,divino
+3122108,Divino das Laranjeiras,divino_das_laranjeiras
+3122207,Divinolândia de Minas,divinolandia_de_minas
+3122306,Divinópolis,divinopolis
+3122355,Divisa Alegre,divisa_alegre
+3122405,Divisa Nova,divisa_nova
+3122454,Divisópolis,divisopolis
+3122470,Dom Bosco,dom_bosco
+3122504,Dom Cavati,dom_cavati
+3122603,Dom Joaquim,dom_joaquim
+3122702,Dom Silvério,dom_silverio
+3122801,Dom Viçoso,dom_vicoso
+3122900,Dona Euzébia,dona_euzebia
+3123007,Dores de Campos,dores_de_campos
+3123106,Dores de Guanhães,dores_de_guanhaes
+3123205,Dores do Indaiá,dores_do_indaia
+3123304,Dores do Turvo,dores_do_turvo
+3123403,Doresópolis,doresopolis
+3123502,Douradoquara,douradoquara
+3123528,Durandé,durande
+3123601,Elói Mendes,eloi_mendes
+3123700,Engenheiro Caldas,engenheiro_caldas
+3123809,Engenheiro Navarro,engenheiro_navarro
+3123858,Entre Folhas,entre_folhas
+3123908,Entre Rios de Minas,entre_rios_de_minas
+3124005,Ervália,ervalia
+3124104,Esmeraldas,esmeraldas
+3124203,Espera Feliz,espera_feliz
+3124302,Espinosa,espinosa
+3124401,Espírito Santo do Dourado,espirito_santo_do_dourado
+3124500,Estiva,estiva
+3124609,Estrela Dalva,estrela_dalva
+3124708,Estrela do Indaiá,estrela_do_indaia
+3124807,Estrela do Sul,estrela_do_sul
+3124906,Eugenópolis,eugenopolis
+3125002,Ewbank da Câmara,ewbank_da_camara
+3125101,Extrema,extrema
+3125200,Fama,fama
+3125309,Faria Lemos,faria_lemos
+3125408,Felício dos Santos,felicio_dos_santos
+3125606,Felisburgo,felisburgo
+3125705,Felixlândia,felixlandia
+3125804,Fernandes Tourinho,fernandes_tourinho
+3125903,Ferros,ferros
+3125952,Fervedouro,fervedouro
+3126000,Florestal,florestal
+3126109,Formiga,formiga
+3126208,Formoso,formoso
+3126307,Fortaleza de Minas,fortaleza_de_minas
+3126406,Fortuna de Minas,fortuna_de_minas
+3126505,Francisco Badaró,francisco_badaro
+3126604,Francisco Dumont,francisco_dumont
+3126703,Francisco Sá,francisco_sa
+3126752,Franciscópolis,franciscopolis
+3126802,Frei Gaspar,frei_gaspar
+3126901,Frei Inocêncio,frei_inocencio
+3126950,Frei Lagonegro,frei_lagonegro
+3127008,Fronteira,fronteira
+3127057,Fronteira dos Vales,fronteira_dos_vales
+3127073,Fruta de Leite,fruta_de_leite
+3127107,Frutal,frutal
+3127206,Funilândia,funilandia
+3127305,Galiléia,galileia
+3127339,Gameleiras,gameleiras
+3127354,Glaucilândia,glaucilandia
+3127370,Goiabeira,goiabeira
+3127388,Goianá,goiana
+3127404,Gonçalves,goncalves
+3127503,Gonzaga,gonzaga
+3127602,Gouveia,gouveia
+3127701,Governador Valadares,governador_valadares
+3127800,Grão Mogol,grao_mogol
+3127909,Grupiara,grupiara
+3128006,Guanhães,guanhaes
+3128105,Guapé,guape
+3128204,Guaraciaba,guaraciaba
+3128253,Guaraciama,guaraciama
+3128303,Guaranésia,guaranesia
+3128402,Guarani,guarani
+3128501,Guarará,guarara
+3128600,Guarda-Mor,guarda-mor
+3128709,Guaxupé,guaxupe
+3128808,Guidoval,guidoval
+3128907,Guimarânia,guimarania
+3129004,Guiricema,guiricema
+3129103,Gurinhatã,gurinhata
+3129202,Heliodora,heliodora
+3129301,Iapu,iapu
+3129400,Ibertioga,ibertioga
+3129509,Ibiá,ibia
+3129608,Ibiaí,ibiai
+3129657,Ibiracatu,ibiracatu
+3129707,Ibiraci,ibiraci
+3129806,Ibirité,ibirite
+3129905,Ibitiúra de Minas,ibitiura_de_minas
+3130002,Ibituruna,ibituruna
+3130051,Icaraí de Minas,icarai_de_minas
+3130101,Igarapé,igarape
+3130200,Igaratinga,igaratinga
+3130309,Iguatama,iguatama
+3130408,Ijaci,ijaci
+3130507,Ilicínea,ilicinea
+3130556,Imbé de Minas,imbe_de_minas
+3130606,Inconfidentes,inconfidentes
+3130655,Indaiabira,indaiabira
+3130705,Indianópolis,indianopolis
+3130804,Ingaí,ingai
+3130903,Inhapim,inhapim
+3131000,Inhaúma,inhauma
+3131109,Inimutaba,inimutaba
+3131158,Ipaba,ipaba
+3131208,Ipanema,ipanema
+3131307,Ipatinga,ipatinga
+3131406,Ipiaçu,ipiacu
+3131505,Ipuiúna,ipuiuna
+3131604,Iraí de Minas,irai_de_minas
+3131703,Itabira,itabira
+3131802,Itabirinha,itabirinha
+3131901,Itabirito,itabirito
+3132008,Itacambira,itacambira
+3132107,Itacarambi,itacarambi
+3132206,Itaguara,itaguara
+3132305,Itaipé,itaipe
+3132404,Itajubá,itajuba
+3132503,Itamarandiba,itamarandiba
+3132602,Itamarati de Minas,itamarati_de_minas
+3132701,Itambacuri,itambacuri
+3132800,Itambé do Mato Dentro,itambe_do_mato_dentro
+3132909,Itamogi,itamogi
+3133006,Itamonte,itamonte
+3133105,Itanhandu,itanhandu
+3133204,Itanhomi,itanhomi
+3133303,Itaobim,itaobim
+3133402,Itapagipe,itapagipe
+3133501,Itapecerica,itapecerica
+3133600,Itapeva,itapeva
+3133709,Itatiaiuçu,itatiaiucu
+3133758,Itaú de Minas,itau_de_minas
+3133808,Itaúna,itauna
+3133907,Itaverava,itaverava
+3134004,Itinga,itinga
+3134103,Itueta,itueta
+3134202,Ituiutaba,ituiutaba
+3134301,Itumirim,itumirim
+3134400,Iturama,iturama
+3134509,Itutinga,itutinga
+3134608,Jaboticatubas,jaboticatubas
+3134707,Jacinto,jacinto
+3134806,Jacuí,jacui
+3134905,Jacutinga,jacutinga
+3135001,Jaguaraçu,jaguaracu
+3135050,Jaíba,jaiba
+3135076,Jampruca,jampruca
+3135100,Janaúba,janauba
+3135209,Januária,januaria
+3135308,Japaraíba,japaraiba
+3135357,Japonvar,japonvar
+3135407,Jeceaba,jeceaba
+3135456,Jenipapo de Minas,jenipapo_de_minas
+3135506,Jequeri,jequeri
+3135605,Jequitaí,jequitai
+3135704,Jequitibá,jequitiba
+3135803,Jequitinhonha,jequitinhonha
+3135902,Jesuânia,jesuania
+3136009,Joaíma,joaima
+3136108,Joanésia,joanesia
+3136207,João Monlevade,joao_monlevade
+3136306,João Pinheiro,joao_pinheiro
+3136405,Joaquim Felício,joaquim_felicio
+3136504,Jordânia,jordania
+3136520,José Gonçalves de Minas,jose_goncalves_de_minas
+3136553,José Raydan,jose_raydan
+3136579,Josenópolis,josenopolis
+3136652,Juatuba,juatuba
+3136702,Juiz de Fora,juiz_de_fora
+3136801,Juramento,juramento
+3136900,Juruaia,juruaia
+3136959,Juvenília,juvenilia
+3137007,Ladainha,ladainha
+3137106,Lagamar,lagamar
+3137205,Lagoa da Prata,lagoa_da_prata
+3137304,Lagoa dos Patos,lagoa_dos_patos
+3137403,Lagoa Dourada,lagoa_dourada
+3137502,Lagoa Formosa,lagoa_formosa
+3137536,Lagoa Grande,lagoa_grande
+3137601,Lagoa Santa,lagoa_santa
+3137700,Lajinha,lajinha
+3137809,Lambari,lambari
+3137908,Lamim,lamim
+3138005,Laranjal,laranjal
+3138104,Lassance,lassance
+3138203,Lavras,lavras
+3138302,Leandro Ferreira,leandro_ferreira
+3138351,Leme do Prado,leme_do_prado
+3138401,Leopoldina,leopoldina
+3138500,Liberdade,liberdade
+3138609,Lima Duarte,lima_duarte
+3138625,Limeira do Oeste,limeira_do_oeste
+3138658,Lontra,lontra
+3138674,Luisburgo,luisburgo
+3138682,Luislândia,luislandia
+3138708,Luminárias,luminarias
+3138807,Luz,luz
+3138906,Machacalis,machacalis
+3139003,Machado,machado
+3139102,Madre de Deus de Minas,madre_de_deus_de_minas
+3139201,Malacacheta,malacacheta
+3139250,Mamonas,mamonas
+3139300,Manga,manga
+3139409,Manhuaçu,manhuacu
+3139508,Manhumirim,manhumirim
+3139607,Mantena,mantena
+3139805,Mar de Espanha,mar_de_espanha
+3139706,Maravilhas,maravilhas
+3139904,Maria da Fé,maria_da_fe
+3140001,Mariana,mariana
+3140100,Marilac,marilac
+3140159,Mário Campos,mario_campos
+3140209,Maripá de Minas,maripa_de_minas
+3140308,Marliéria,marlieria
+3140407,Marmelópolis,marmelopolis
+3140506,Martinho Campos,martinho_campos
+3140530,Martins Soares,martins_soares
+3140555,Mata Verde,mata_verde
+3140605,Materlândia,materlandia
+3140704,Mateus Leme,mateus_leme
+3171501,Mathias Lobato,mathias_lobato
+3140803,Matias Barbosa,matias_barbosa
+3140852,Matias Cardoso,matias_cardoso
+3140902,Matipó,matipo
+3141009,Mato Verde,mato_verde
+3141108,Matozinhos,matozinhos
+3141207,Matutina,matutina
+3141306,Medeiros,medeiros
+3141405,Medina,medina
+3141504,Mendes Pimentel,mendes_pimentel
+3141603,Mercês,merces
+3141702,Mesquita,mesquita
+3141801,Minas Novas,minas_novas
+3141900,Minduri,minduri
+3142007,Mirabela,mirabela
+3142106,Miradouro,miradouro
+3142205,Miraí,mirai
+3142254,Miravânia,miravania
+3142304,Moeda,moeda
+3142403,Moema,moema
+3142502,Monjolos,monjolos
+3142601,Monsenhor Paulo,monsenhor_paulo
+3142700,Montalvânia,montalvania
+3142809,Monte Alegre de Minas,monte_alegre_de_minas
+3142908,Monte Azul,monte_azul
+3143005,Monte Belo,monte_belo
+3143104,Monte Carmelo,monte_carmelo
+3143153,Monte Formoso,monte_formoso
+3143203,Monte Santo de Minas,monte_santo_de_minas
+3143401,Monte Sião,monte_siao
+3143302,Montes Claros,montes_claros
+3143450,Montezuma,montezuma
+3143500,Morada Nova de Minas,morada_nova_de_minas
+3143609,Morro da Garça,morro_da_garca
+3143708,Morro do Pilar,morro_do_pilar
+3143807,Munhoz,munhoz
+3143906,Muriaé,muriae
+3144003,Mutum,mutum
+3144102,Muzambinho,muzambinho
+3144201,Nacip Raydan,nacip_raydan
+3144300,Nanuque,nanuque
+3144359,Naque,naque
+3144375,Natalândia,natalandia
+3144409,Natércia,natercia
+3144508,Nazareno,nazareno
+3144607,Nepomuceno,nepomuceno
+3144656,Ninheira,ninheira
+3144672,Nova Belém,nova_belem
+3144706,Nova Era,nova_era
+3144805,Nova Lima,nova_lima
+3144904,Nova Módica,nova_modica
+3145000,Nova Ponte,nova_ponte
+3145059,Nova Porteirinha,nova_porteirinha
+3145109,Nova Resende,nova_resende
+3145208,Nova Serrana,nova_serrana
+3136603,Nova União,nova_uniao
+3145307,Novo Cruzeiro,novo_cruzeiro
+3145356,Novo Oriente de Minas,novo_oriente_de_minas
+3145372,Novorizonte,novorizonte
+3145406,Olaria,olaria
+3145455,Olhos-d'Água,olhos-d'agua
+3145505,Olímpio Noronha,olimpio_noronha
+3145604,Oliveira,oliveira
+3145703,Oliveira Fortes,oliveira_fortes
+3145802,Onça de Pitangui,onca_de_pitangui
+3145851,Oratórios,oratorios
+3145877,Orizânia,orizania
+3145901,Ouro Branco,ouro_branco
+3146008,Ouro Fino,ouro_fino
+3146107,Ouro Preto,ouro_preto
+3146206,Ouro Verde de Minas,ouro_verde_de_minas
+3146255,Padre Carvalho,padre_carvalho
+3146305,Padre Paraíso,padre_paraiso
+3146552,Pai Pedro,pai_pedro
+3146404,Paineiras,paineiras
+3146503,Pains,pains
+3146602,Paiva,paiva
+3146701,Palma,palma
+3146750,Palmópolis,palmopolis
+3146909,Papagaios,papagaios
+3147105,Pará de Minas,para_de_minas
+3147006,Paracatu,paracatu
+3147204,Paraguaçu,paraguacu
+3147303,Paraisópolis,paraisopolis
+3147402,Paraopeba,paraopeba
+3147600,Passa Quatro,passa_quatro
+3147709,Passa Tempo,passa_tempo
+3147808,Passa Vinte,passa_vinte
+3147501,Passabém,passabem
+3147907,Passos,passos
+3147956,Patis,patis
+3148004,Patos de Minas,patos_de_minas
+3148103,Patrocínio,patrocinio
+3148202,Patrocínio do Muriaé,patrocinio_do_muriae
+3148301,Paula Cândido,paula_candido
+3148400,Paulistas,paulistas
+3148509,Pavão,pavao
+3148608,Peçanha,pecanha
+3148707,Pedra Azul,pedra_azul
+3148756,Pedra Bonita,pedra_bonita
+3148806,Pedra do Anta,pedra_do_anta
+3148905,Pedra do Indaiá,pedra_do_indaia
+3149002,Pedra Dourada,pedra_dourada
+3149101,Pedralva,pedralva
+3149150,Pedras de Maria da Cruz,pedras_de_maria_da_cruz
+3149200,Pedrinópolis,pedrinopolis
+3149309,Pedro Leopoldo,pedro_leopoldo
+3149408,Pedro Teixeira,pedro_teixeira
+3149507,Pequeri,pequeri
+3149606,Pequi,pequi
+3149705,Perdigão,perdigao
+3149804,Perdizes,perdizes
+3149903,Perdões,perdões
+3149952,Periquito,periquito
+3150000,Pescador,pescador
+3150109,Piau,piau
+3150158,Piedade de Caratinga,piedade_de_caratinga
+3150208,Piedade de Ponte Nova,piedade_de_ponte_nova
+3150307,Piedade do Rio Grande,piedade_do_rio_grande
+3150406,Piedade dos Gerais,piedade_dos_gerais
+3150505,Pimenta,pimenta
+3150539,Pingo-d'Água,pingo-d'agua
+3150570,Pintópolis,pintopolis
+3150604,Piracema,piracema
+3150703,Pirajuba,pirajuba
+3150802,Piranga,piranga
+3150901,Piranguçu,pirangucu
+3151008,Piranguinho,piranguinho
+3151107,Pirapetinga,pirapetinga
+3151206,Pirapora,pirapora
+3151305,Piraúba,pirauba
+3151404,Pitangui,pitangui
+3151503,Piumhi,piumhi
+3151602,Planura,planura
+3151701,Poço Fundo,poco_fundo
+3151800,Poços de Caldas,pocos_de_caldas
+3151909,Pocrane,pocrane
+3152006,Pompéu,pompeu
+3152105,Ponte Nova,ponte_nova
+3152131,Ponto Chique,ponto_chique
+3152170,Ponto dos Volantes,ponto_dos_volantes
+3152204,Porteirinha,porteirinha
+3152303,Porto Firme,porto_firme
+3152402,Poté,pote
+3152501,Pouso Alegre,pouso_alegre
+3152600,Pouso Alto,pouso_alto
+3152709,Prados,prados
+3152808,Prata,prata
+3152907,Pratápolis,pratapolis
+3153004,Pratinha,pratinha
+3153103,Presidente Bernardes,presidente_bernardes
+3153202,Presidente Juscelino,presidente_juscelino
+3153301,Presidente Kubitschek,presidente_kubitschek
+3153400,Presidente Olegário,presidente_olegario
+3153608,Prudente de Morais,prudente_de_morais
+3153707,Quartel Geral,quartel_geral
+3153806,Queluzito,queluzito
+3153905,Raposos,raposos
+3154002,Raul Soares,raul_soares
+3154101,Recreio,recreio
+3154150,Reduto,reduto
+3154200,Resende Costa,resende_costa
+3154309,Resplendor,resplendor
+3154408,Ressaquinha,ressaquinha
+3154457,Riachinho,riachinho
+3154507,Riacho dos Machados,riacho_dos_machados
+3154606,Ribeirão das Neves,ribeirao_das_neves
+3154705,Ribeirão Vermelho,ribeirao_vermelho
+3154804,Rio Acima,rio_acima
+3154903,Rio Casca,rio_casca
+3155108,Rio do Prado,rio_do_prado
+3155009,Rio Doce,rio_doce
+3155207,Rio Espera,rio_espera
+3155306,Rio Manso,rio_manso
+3155405,Rio Novo,rio_novo
+3155504,Rio Paranaíba,rio_paranaiba
+3155603,Rio Pardo de Minas,rio_pardo_de_minas
+3155702,Rio Piracicaba,rio_piracicaba
+3155801,Rio Pomba,rio_pomba
+3155900,Rio Preto,rio_preto
+3156007,Rio Vermelho,rio_vermelho
+3156106,Ritápolis,ritapolis
+3156205,Rochedo de Minas,rochedo_de_minas
+3156304,Rodeiro,rodeiro
+3156403,Romaria,romaria
+3156452,Rosário da Limeira,rosario_da_limeira
+3156502,Rubelita,rubelita
+3156601,Rubim,rubim
+3156700,Sabará,sabara
+3156809,Sabinópolis,sabinopolis
+3156908,Sacramento,sacramento
+3157005,Salinas,salinas
+3157104,Salto da Divisa,salto_da_divisa
+3157203,Santa Bárbara,santa_barbara
+3157252,Santa Bárbara do Leste,santa_barbara_do_leste
+3157278,Santa Bárbara do Monte Verde,santa_barbara_do_monte_verde
+3157302,Santa Bárbara do Tugúrio,santa_barbara_do_tugurio
+3157336,Santa Cruz de Minas,santa_cruz_de_minas
+3157377,Santa Cruz de Salinas,santa_cruz_de_salinas
+3157401,Santa Cruz do Escalvado,santa_cruz_do_escalvado
+3157500,Santa Efigênia de Minas,santa_efigenia_de_minas
+3157609,Santa Fé de Minas,santa_fe_de_minas
+3157658,Santa Helena de Minas,santa_helena_de_minas
+3157708,Santa Juliana,santa_juliana
+3157807,Santa Luzia,santa_luzia
+3157906,Santa Margarida,santa_margarida
+3158003,Santa Maria de Itabira,santa_maria_de_itabira
+3158102,Santa Maria do Salto,santa_maria_do_salto
+3158201,Santa Maria do Suaçuí,santa_maria_do_suacui
+3159209,Santa Rita de Caldas,santa_rita_de_caldas
+3159407,Santa Rita de Ibitipoca,santa_rita_de_ibitipoca
+3159308,Santa Rita de Jacutinga,santa_rita_de_jacutinga
+3159357,Santa Rita de Minas,santa_rita_de_minas
+3159506,Santa Rita do Itueto,santa_rita_do_itueto
+3159605,Santa Rita do Sapucaí,santa_rita_do_sapucai
+3159704,Santa Rosa da Serra,santa_rosa_da_serra
+3159803,Santa Vitória,santa_vitoria
+3158300,Santana da Vargem,santana_da_vargem
+3158409,Santana de Cataguases,santana_de_cataguases
+3158508,Santana de Pirapama,santana_de_pirapama
+3158607,Santana do Deserto,santana_do_deserto
+3158706,Santana do Garambéu,santana_do_garambeu
+3158805,Santana do Jacaré,santana_do_jacare
+3158904,Santana do Manhuaçu,santana_do_manhuacu
+3158953,Santana do Paraíso,santana_do_paraiso
+3159001,Santana do Riacho,santana_do_riacho
+3159100,Santana dos Montes,santana_dos_montes
+3159902,Santo Antônio do Amparo,santo_antonio_do_amparo
+3160009,Santo Antônio do Aventureiro,santo_antonio_do_aventureiro
+3160108,Santo Antônio do Grama,santo_antonio_do_grama
+3160207,Santo Antônio do Itambé,santo_antonio_do_itambe
+3160306,Santo Antônio do Jacinto,santo_antonio_do_jacinto
+3160405,Santo Antônio do Monte,santo_antonio_do_monte
+3160454,Santo Antônio do Retiro,santo_antonio_do_retiro
+3160504,Santo Antônio do Rio Abaixo,santo_antonio_do_rio_abaixo
+3160603,Santo Hipólito,santo_hipolito
+3160702,Santos Dumont,santos_dumont
+3160801,São Bento Abade,sao_bento_abade
+3160900,São Brás do Suaçuí,sao_bras_do_suacui
+3160959,São Domingos das Dores,sao_domingos_das_dores
+3161007,São Domingos do Prata,sao_domingos_do_prata
+3161056,São Félix de Minas,sao_felix_de_minas
+3161106,São Francisco,sao_francisco
+3161205,São Francisco de Paula,sao_francisco_de_paula
+3161304,São Francisco de Sales,sao_francisco_de_sales
+3161403,São Francisco do Glória,sao_francisco_do_gloria
+3161502,São Geraldo,sao_geraldo
+3161601,São Geraldo da Piedade,sao_geraldo_da_piedade
+3161650,São Geraldo do Baixio,sao_geraldo_do_baixio
+3161700,São Gonçalo do Abaeté,sao_goncalo_do_abaete
+3161809,São Gonçalo do Pará,sao_goncalo_do_para
+3161908,São Gonçalo do Rio Abaixo,sao_goncalo_do_rio_abaixo
+3125507,São Gonçalo do Rio Preto,sao_goncalo_do_rio_preto
+3162005,São Gonçalo do Sapucaí,sao_goncalo_do_sapucai
+3162104,São Gotardo,sao_gotardo
+3162203,São João Batista do Glória,sao_joao_batista_do_gloria
+3162252,São João da Lagoa,sao_joao_da_lagoa
+3162302,São João da Mata,sao_joao_da_mata
+3162401,São João da Ponte,sao_joao_da_ponte
+3162450,São João das Missões,sao_joao_das_missões
+3162500,São João del Rei,sao_joao_del_rei
+3162559,São João do Manhuaçu,sao_joao_do_manhuacu
+3162575,São João do Manteninha,sao_joao_do_manteninha
+3162609,São João do Oriente,sao_joao_do_oriente
+3162658,São João do Pacuí,sao_joao_do_pacui
+3162708,São João do Paraíso,sao_joao_do_paraiso
+3162807,São João Evangelista,sao_joao_evangelista
+3162906,São João Nepomuceno,sao_joao_nepomuceno
+3162922,São Joaquim de Bicas,sao_joaquim_de_bicas
+3162948,São José da Barra,sao_jose_da_barra
+3162955,São José da Lapa,sao_jose_da_lapa
+3163003,São José da Safira,sao_jose_da_safira
+3163102,São José da Varginha,sao_jose_da_varginha
+3163201,São José do Alegre,sao_jose_do_alegre
+3163300,São José do Divino,sao_jose_do_divino
+3163409,São José do Goiabal,sao_jose_do_goiabal
+3163508,São José do Jacuri,sao_jose_do_jacuri
+3163607,São José do Mantimento,sao_jose_do_mantimento
+3163706,São Lourenço,sao_lourenco
+3163805,São Miguel do Anta,sao_miguel_do_anta
+3163904,São Pedro da União,sao_pedro_da_uniao
+3164100,São Pedro do Suaçuí,sao_pedro_do_suacui
+3164001,São Pedro dos Ferros,sao_pedro_dos_ferros
+3164209,São Romão,sao_romao
+3164308,São Roque de Minas,sao_roque_de_minas
+3164407,São Sebastião da Bela Vista,sao_sebastiao_da_bela_vista
+3164431,São Sebastião da Vargem Alegre,sao_sebastiao_da_vargem_alegre
+3164472,São Sebastião do Anta,sao_sebastiao_do_anta
+3164506,São Sebastião do Maranhão,sao_sebastiao_do_maranhao
+3164605,São Sebastião do Oeste,sao_sebastiao_do_oeste
+3164704,São Sebastião do Paraíso,sao_sebastiao_do_paraiso
+3164803,São Sebastião do Rio Preto,sao_sebastiao_do_rio_preto
+3164902,São Sebastião do Rio Verde,sao_sebastiao_do_rio_verde
+3165008,São Tiago,sao_tiago
+3165107,São Tomás de Aquino,sao_tomas_de_aquino
+3165206,São Tomé das Letras,sao_tome_das_letras
+3165305,São Vicente de Minas,sao_vicente_de_minas
+3165404,Sapucaí-Mirim,sapucai-mirim
+3165503,Sardoá,sardoa
+3165537,Sarzedo,sarzedo
+3165560,Sem-Peixe,sem-peixe
+3165578,Senador Amaral,senador_amaral
+3165602,Senador Cortes,senador_cortes
+3165701,Senador Firmino,senador_firmino
+3165800,Senador José Bento,senador_jose_bento
+3165909,Senador Modestino Gonçalves,senador_modestino_goncalves
+3166006,Senhora de Oliveira,senhora_de_oliveira
+3166105,Senhora do Porto,senhora_do_porto
+3166204,Senhora dos Remédios,senhora_dos_remedios
+3166303,Sericita,sericita
+3166402,Seritinga,seritinga
+3166501,Serra Azul de Minas,serra_azul_de_minas
+3166600,Serra da Saudade,serra_da_saudade
+3166808,Serra do Salitre,serra_do_salitre
+3166709,Serra dos Aimorés,serra_dos_aimores
+3166907,Serrania,serrania
+3166956,Serranópolis de Minas,serranopolis_de_minas
+3167004,Serranos,serranos
+3167103,Serro,serro
+3167202,Sete Lagoas,sete_lagoas
+3165552,Setubinha,setubinha
+3167301,Silveirânia,silveirania
+3167400,Silvianópolis,silvianopolis
+3167509,Simão Pereira,simao_pereira
+3167608,Simonésia,simonesia
+3167707,Sobrália,sobralia
+3167806,Soledade de Minas,soledade_de_minas
+3167905,Tabuleiro,tabuleiro
+3168002,Taiobeiras,taiobeiras
+3168051,Taparuba,taparuba
+3168101,Tapira,tapira
+3168200,Tapiraí,tapirai
+3168309,Taquaraçu de Minas,taquaracu_de_minas
+3168408,Tarumirim,tarumirim
+3168507,Teixeiras,teixeiras
+3168606,Teófilo Otoni,teofilo_otoni
+3168705,Timóteo,timoteo
+3168804,Tiradentes,tiradentes
+3168903,Tiros,tiros
+3169000,Tocantins,tocantins
+3169059,Tocos do Moji,tocos_do_moji
+3169109,Toledo,toledo
+3169208,Tombos,tombos
+3169307,Três Corações,tres_coracões
+3169356,Três Marias,tres_marias
+3169406,Três Pontas,tres_pontas
+3169505,Tumiritinga,tumiritinga
+3169604,Tupaciguara,tupaciguara
+3169703,Turmalina,turmalina
+3169802,Turvolândia,turvolandia
+3169901,Ubá,uba
+3170008,Ubaí,ubai
+3170057,Ubaporanga,ubaporanga
+3170107,Uberaba,uberaba
+3170206,Uberlândia,uberlandia
+3170305,Umburatiba,umburatiba
+3170404,Unaí,unai
+3170438,União de Minas,uniao_de_minas
+3170479,Uruana de Minas,uruana_de_minas
+3170503,Urucânia,urucania
+3170529,Urucuia,urucuia
+3170578,Vargem Alegre,vargem_alegre
+3170602,Vargem Bonita,vargem_bonita
+3170651,Vargem Grande do Rio Pardo,vargem_grande_do_rio_pardo
+3170701,Varginha,varginha
+3170750,Varjão de Minas,varjao_de_minas
+3170800,Várzea da Palma,varzea_da_palma
+3170909,Varzelândia,varzelandia
+3171006,Vazante,vazante
+3171030,Verdelândia,verdelandia
+3171071,Veredinha,veredinha
+3171105,Veríssimo,verissimo
+3171154,Vermelho Novo,vermelho_novo
+3171204,Vespasiano,vespasiano
+3171303,Viçosa,vicosa
+3171402,Vieiras,vieiras
+3171600,Virgem da Lapa,virgem_da_lapa
+3171709,Virgínia,virginia
+3171808,Virginópolis,virginopolis
+3171907,Virgolândia,virgolandia
+3172004,Visconde do Rio Branco,visconde_do_rio_branco
+3172103,Volta Grande,volta_grande
+3172202,Wenceslau Braz,wenceslau_braz
