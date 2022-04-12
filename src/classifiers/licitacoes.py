@@ -79,19 +79,6 @@ def check_all_files_busca(paths, result):
 
     return result
 
-def get_files(search_term, keywords_search, path_base, job_name, num_matches=100, filter_word=['licitacao','licitacoes']):
-
-    #Search
-    files = indexing.get_files(
-        search_term, keywords_search, num_matches,
-        job_name, path_base)
-
-    files = path_functions.filter_paths(files, filter_word)
-
-    files = path_functions.agg_paths_by_type2(files)
-
-    return files
-
 def get_df(files, ttype):
     df_final = pd.DataFrame()
     for key, values in files.items():
