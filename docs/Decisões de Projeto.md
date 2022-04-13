@@ -5,15 +5,14 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 ## Geral
 
 ## Coleta
-| TEMPLATE | TAG | Problema/Questão | Decisão | Observações |
-|----------|-----|------------------|---------|-------------|
-| Siplanweb | Obras Públicas | Após consultar uma amostra de 13 dos 61 municípios, não foram encontrados dados relativos especificamente aos itens de Obras Públicas. | Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas. | Os dados mais próximos encontrados das exigências da checklist estão na aba de Empenhos, filtrando a pesquisa por Elemento = Obras e instalações. No entanto, as informações encontradas muitas vezes não cumprem os itens exigidos.|
-| - | - | - | - | - |
-| - | - | - | - | - |
+### Siplanweb / Obras Públicas
+* **Problema:** Após consultar uma amostra de 13 dos 61 municípios, não foram encontrados dados relativos especificamente aos itens de Obras Públicas.
+* **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
+* **Observações:** Os dados mais próximos encontrados das exigências da checklist estão na aba de Empenhos, filtrando a pesquisa por Elemento = Obras e instalações. No entanto, as informações encontradas muitas vezes não cumprem os itens exigidos.
 
 
 ## Validação
-| TEMPLATE | TAG | Problema/Questão | Decisão | Observações |
-|----------|-----|------------------|---------|-------------|
-| - | - | - | - | - |
-| - | - | - | - | - |
+### Template / Tag / Subtag
+* **Problema:**
+* **Decisão:** 
+* **Observações:**
