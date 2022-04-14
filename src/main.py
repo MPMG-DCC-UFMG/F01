@@ -27,27 +27,24 @@ from utilconst.constant_grp import keywords_grp
 # parser = argparse.ArgumentParser()
 # parser.add_argument("job")
 # args = parser.parse_args()
-#sys.path.insert(1, './classifiers')
-
-# sys.path.insert(0, '/home/cinthia/F01/src/classifiers')
 
 # from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
 # from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
 
-from classifiers.acesso_a_informacao import requisitos_sitios
-from classifiers.acesso_a_informacao import informacoes
-from classifiers.acesso_a_informacao import base_dados
-# from classifiers.acesso_a_informacao import divulgacao_atendimentos
+from validadores.acesso_a_informacao import requisitos_sitios
+from validadores.acesso_a_informacao import informacoes
+from validadores.acesso_a_informacao import base_dados
+# from validadores.acesso_a_informacao import divulgacao_atendimentos
 
-from classifiers.despesas import empenhos
-from classifiers.despesas import pagamentos
-from classifiers.despesas import consulta_favorecido
-from classifiers.despesas import gerar_relatorio
-from classifiers.despesas import relatorios
+from validadores.despesas import empenhos
+from validadores.despesas import pagamentos
+from validadores.despesas import consulta_favorecido
+from validadores.despesas import gerar_relatorio
+from validadores.despesas import relatorios
 
-from classifiers import licitacoes 
-from classifiers import adespesas 
+from validadores import licitacoes 
+from validadores import adespesas 
 
 
 path_base = '/home/asafe'
@@ -258,32 +255,32 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     files = path_functions.agg_paths_by_type(files)
     # print('bat', len(files['bat']))
     # print('pdf', len(files['pdf']))
-    validador = licitacoes.Licitacoes(files, proc_lic_itens[0], ttype=types)
+    validador = licitacoes.ValidadorLicitacoes(files, proc_lic_itens[0], ttype=types)
     # print(len(validador.files['bat']))
 
     # Procedimentos Licitatórios número
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
-    result_explain = licitacoes.explain(result, proc_lic_itens[0])
+    result_explain = validador.explain(result, proc_lic_itens[0])
     output = add_in_dict(output, 'proc_lic_numero', isvalid, result_explain)
     
     # Procedimentos Licitatórios modalidade
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[1])
-    result_explain = licitacoes.explain(result, proc_lic_itens[1])
+    result_explain = validador.explain(result, proc_lic_itens[1])
     output = add_in_dict(output, 'proc_lic_modalidade', isvalid, result_explain)
 
     # Procedimentos Licitatórios objeto
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[2])
-    result_explain = licitacoes.explain(result, proc_lic_itens[2])
+    result_explain = validador.explain(result, proc_lic_itens[2])
     output = add_in_dict(output, 'proc_lic_objeto', isvalid, result_explain)
 
     # Procedimentos Licitatórios status
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[3])
-    result_explain = licitacoes.explain(result, proc_lic_itens[3])
+    result_explain = validador.explain(result, proc_lic_itens[3])
     output = add_in_dict(output, 'proc_lic_status', isvalid, result_explain)
 
     # Procedimentos Licitatórios resultado
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[4])
-    result_explain = licitacoes.explain(result, proc_lic_itens[4])
+    result_explain = validador.explain(result, proc_lic_itens[4])
     output = add_in_dict(output, 'proc_lic_resultado', isvalid, result_explain)
 
     # # Procedimentos modalidade Inexigibilidade e Dispensa
@@ -293,17 +290,17 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     result = result_inexigibilidade['inexigibilidade']
     result.extend(result_dispensa['dispensa'])
     result = {'inexigibilidade e dispensa': result} 
-    result_explain = licitacoes.explain(result, 'inexigibilidade e dispensa')
+    result_explain = validador.explain(result, 'inexigibilidade e dispensa')
     output = add_in_dict(output, 'inexigibilidade_e_dispensa', isvalid, result_explain)
 
     # # Disponibilização de Editais
     isvalid, result = validador.predict_editais(editais)
-    result_explain=licitacoes.explain(result, 'editais')
+    result_explain=validador.explain(result, 'editais')
     output = add_in_dict(output, 'editais', isvalid, result_explain)
 
     # # Permite Busca
     isvalid, result = validador.predict_busca()
-    result_explain=licitacoes.explain(result, 'busca')
+    result_explain=validador.explain(result, 'busca')
     output = add_in_dict(output, 'busca', isvalid, result_explain)
 
     return output

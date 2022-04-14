@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 import codecs
 import re
-from classifiers import constant
+from validadores import constant
 from os import walk
 import pandas as pd
 from utils import indexing

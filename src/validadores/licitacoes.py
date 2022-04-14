@@ -3,15 +3,10 @@ import re
 import os
 import sys
 import pandas as pd
-#sys.path.insert(0, '/home/cinthia/F01/src')
 
-sys.path.insert(0, '../')
-
-from utils import indexing
-from utils import html_to_csv
-from utils import path_functions
-from utils import check_df
-from utils import read
+# sys.path.insert(0, '../')
+from utils import indexing, html_to_csv, path_functions, check_df, read
+from .base import Validador
 
 def analyze_inexibilidade (value, column_name):
     """
@@ -87,7 +82,7 @@ def get_df(files, ttype):
             df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
     return df_final
 
-class Licitacoes:
+class Licitacoes(Validador):
 
     def __init__(self, files, keywords_check, ttype):
         self.files = files
@@ -191,9 +186,23 @@ class Licitacoes:
         
         return isvalid, result
 
-def explain(df, column_name):
+    #TODO 2 df's: explain e da classe
+    def explain(self, df, column_name):
+        """
+        Informa a quantidade de entradas analisadas e válidas.
 
-    result = "Explain - Quantidade de entradas analizadas: {}\n\tQuantidade de entradas válidas: {}\n".format(
-         len(df[column_name]), sum(df[column_name]))
+        Parameters
+        ----------
+        df : dataframe resultante da validação
+        column_name : str
+            
+        Returns
+        -------
+        str
+            uma string resumindo o resultado da validação.            
+        """
 
-    return result
+        result = "Explain - Quantidade de entradas analizadas: {}\n\tQuantidade de entradas válidas: {}\n".format(
+            len(df[column_name]), sum(df[column_name]))
+
+        return result
