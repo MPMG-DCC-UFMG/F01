@@ -11,7 +11,6 @@ from utils import read
 
 sys.path.insert(1, '../')
 
-
 # def list_to_text(soup):
 #     type = []
 #     text = []
@@ -126,13 +125,12 @@ def check_all_values_of_column(df, valor, typee='valor'):
 
 class Empenhos:
 
-    def __init__(self, files, keywords_check, ttype):
+    def __init__(self, files, ttype):
 
         files = path_functions.filter_paths(files, words=['empenhos'])
         files = path_functions.agg_paths_by_type(files)
         self.files = files
 
-        self.keywords_check = keywords_check
         self.df = get_df(self.files, ttype)
 
     # Número

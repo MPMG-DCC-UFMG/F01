@@ -52,7 +52,7 @@ def pipeline_despesas(keywords, num_matches, job_name):
 
     # Subtag - Empenhos
     keywords_empenhos = keywords['empenhos']
-    validador_empenhos = empenhos.Empenhos(files, keywords_check="", ttype=['html','bat'])
+    validador_empenhos = empenhos.Empenhos(files, ttype=['html','bat'])
 
     # Item - Empenhos - Número
     keyword_numero = keywords_empenhos['numero']
