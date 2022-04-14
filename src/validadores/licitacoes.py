@@ -82,7 +82,7 @@ def get_df(files, ttype):
             df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
     return df_final
 
-class Licitacoes(Validador):
+class ValidadorLicitacoes(Validador):
 
     def __init__(self, files, keywords_check, ttype):
         self.files = files

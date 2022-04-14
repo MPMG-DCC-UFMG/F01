@@ -1,5 +1,5 @@
 import unittest
-from validadores.licitacoes import Licitacoes
+from validadores.licitacoes import ValidadorLicitacoes
 import pandas as pd
 
 # To execute this test file:
@@ -9,7 +9,7 @@ class TestLicitacoes(unittest.TestCase):
 
     def test_explain(self):
 
-        validador = Licitacoes({}, None, None)
+        validador = ValidadorLicitacoes({}, None, None)
         col_name = 'n'
         df = pd.DataFrame({col_name:[1,2,3]})
         
