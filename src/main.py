@@ -7,6 +7,9 @@ import sys
 from utils import indexing
 from utils import path_functions
 
+# Siplanweb
+from utilconst.constant_siplanweb import municipios_siplanweb
+from utilconst.constant_siplanweb import keywords_siplanweb
 # PT
 from utilconst.constant_pt import municipios_PT
 from utilconst.constant_pt import keywords_PT
@@ -19,7 +22,6 @@ from utilconst.constant_template2 import keywords_template2
 # GRP
 from utilconst.constant_grp import municipios_grp
 from utilconst.constant_grp import keywords_grp
-
 
 # import argparse
 # parser = argparse.ArgumentParser()
@@ -45,10 +47,17 @@ from classifiers.despesas import gerar_relatorio
 from classifiers.despesas import relatorios
 
 from classifiers import licitacoes 
+from classifiers import adespesas 
+
 
 path_base = '/home/asafe'
 num_matches = 1000
 
+def save_json(job_name, result):
+    with open('results/' + job_name + '.json', 'w') as json_file:
+        json.dump(result, json_file, 
+                            indent=4,  
+                            separators=(',',': '))
 
 def add_in_dict(output, item, isvalid, result_explain):
     output[item]['predict'] = isvalid
@@ -216,6 +225,7 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
 
     return output
 
+
 def pipeline_licitacoes(keywords, num_matches, job_name):
 
     try:
@@ -245,7 +255,7 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
         job_name, keywords_search=keywords_to_search)
     
     files = path_functions.filter_paths(files, words=['licitacao','licitacoes'])
-    files = path_functions.agg_paths_by_type2(files)
+    files = path_functions.agg_paths_by_type(files)
     # print('bat', len(files['bat']))
     # print('pdf', len(files['pdf']))
     validador = licitacoes.Licitacoes(files, proc_lic_itens[0], ttype=types)
@@ -297,6 +307,7 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     output = add_in_dict(output, 'busca', isvalid, result_explain)
 
     return output
+
 
 def pipeline_empenhos(path_base, job_name, verbose=False):
 
@@ -418,34 +429,50 @@ def main(jobs,keywords):
 
         print("**",job_name,"**")
 
-        try:
-            output_licitacoes = output_licitacoes = pipeline_licitacoes(
-                keywords, num_matches, job_name)
-            output_licitacoes['cidade'] = job_name
-            # output_requisitos_sitios = pipeline_requisitos_sitios(
-            #     keywords, path_base, num_matches, job_name)
-            output = {
-                        '43': output_licitacoes['proc_lic_numero']['predict'],
-                        '44': output_licitacoes['proc_lic_modalidade']['predict'],
-                        '45': output_licitacoes['proc_lic_objeto']['predict'],
-                        '46': output_licitacoes['proc_lic_status']['predict'],
-                        '47': output_licitacoes['proc_lic_resultado']['predict'],
-                        '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
-                        '49': output_licitacoes['editais']['predict'],
-                        '50': output_licitacoes['busca']['predict'],
-                    }
-            print(output)
-            # with open('results/' + job_name + '.json' , 'w') as fp:
-            #     json.dump(output, fp)
+        output_empenhos = pipeline_empenhos(path_base, job_name)
+        # print(output_empenhos)
 
-        except:
-            print("erro",job_name )
+
+
+        # output_licitacoes = pipeline_licitacoes(keywords, num_matches, job_name)
+        # output_licitacoes['cidade'] = job_name
+        # print(output_licitacoes)
+
+        # try:
+        #     output_licitacoes = pipeline_licitacoes(keywords, num_matches, job_name)
+        #     output_licitacoes['cidade'] = job_name
+
+        #     output = {
+        #                 '43': output_licitacoes['proc_lic_numero']['predict'],
+        #                 '44': output_licitacoes['proc_lic_modalidade']['predict'],
+        #                 '45': output_licitacoes['proc_lic_objeto']['predict'],
+        #                 '46': output_licitacoes['proc_lic_status']['predict'],
+        #                 '47': output_licitacoes['proc_lic_resultado']['predict'],
+        #                 '48': output_licitacoes['inexigibilidade_e_dispensa']['predict'],
+        #                 '49': output_licitacoes['editais']['predict'],
+        #                 '50': output_licitacoes['busca']['predict'],
+        #             }
+        #     print(output)
+        #     # with open('results/' + job_name + '.json' , 'w') as fp:
+        #     #     json.dump(output, fp)
+
+        # except:
+        #     print("erro",job_name )
+            
         # df = pd.DataFrame(output).T
         # df_all = pd.concat([df_all, df])
         # df_all.to_csv('output_licitacoes.csv', index=False)
 
+        ""
 
 
 # main(municipios_PT, keywords_PT)
 # main(municipios_template2, keywords_template2)
-main(municipios_grp, keywords_grp)
+# main(municipios_grp, keywords_grp)
+# main(municipios_siplanweb, keywords_siplanweb)
+
+jobs = municipios_siplanweb
+keywords = keywords_siplanweb
+
+for job_name in jobs:
+    pipeline_despesas(keywords['despesas'], num_matches, job_name)

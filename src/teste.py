@@ -33,8 +33,22 @@ path2 = '/home/asafe/Downloads/abc.html'
 
 # print(source)
 
-import shlex, subprocess
-command_line = input()
-# /bin/vikings -input eggs.txt -output "spam spam.txt" -cmd "echo '$MONEY'"
-args = shlex.split(command_line)
-print(args)
+# import shlex, subprocess
+# command_line = input()
+# # /bin/vikings -input eggs.txt -output "spam spam.txt" -cmd "echo '$MONEY'"
+# args = shlex.split(command_line)
+# print(args)
+
+class Despesas:
+    def __init__(self, files):
+        self.files = files
+
+class Empenhos(Despesas):
+
+    def __init__(self, files, keywords_check):
+        self.keywords_check = keywords_check
+
+Empenhos(files="asd",keywords_check="s")
+
+print("opa")
+print(Empenhos.files)

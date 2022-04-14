@@ -4,27 +4,6 @@ import codecs
 
 def agg_paths_by_type(paths):
 
-    files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[]}
-
-    for path in paths:
-
-        suffix = path[1]
-
-        if suffix == "xls":
-            files['xls'].append(path)
-        elif suffix == 'csv':
-            files['csv'].append(path)
-        elif (suffix == "html") or (suffix == 'xml'):
-            files['html'].append(path)
-        elif (suffix == "pdf"):
-            files['pdf'].append(path)
-        elif (suffix == "doc") or (suffix == 'docx'):
-            files['doc'].append(path)
-
-    return files
-
-def agg_paths_by_type2(paths):
-
     files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[], 'bat':[]}
 
     for path in paths:

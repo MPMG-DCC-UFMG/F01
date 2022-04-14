@@ -8,6 +8,7 @@ elastic-transport==8.0.1
 elasticsearch==7.17.1
 elasticsearch-dsl==7.4.0
 Flask==2.0.3
+html5lib==1.1
 importlib-metadata==4.11.2
 itsdangerous==2.1.0
 Jinja2==3.0.3
@@ -24,5 +25,6 @@ tabula==1.0.5
 tabula-py==2.3.0
 typing_extensions==4.1.1
 urllib3==1.26.8
+webencodings==0.5.1
 Werkzeug==2.0.3
 zipp==3.7.0

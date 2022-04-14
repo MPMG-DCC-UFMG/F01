@@ -9,13 +9,37 @@ warnings.filterwarnings("ignore")
 
 
 def format_values(df, column_name):
+    """
+    Format a column of a dataframe 
+        - R\$ to ''
+        - '.' to ''
+        - ',' to point
+        - Converting non-digits to 0
+
+    Parameters
+    ----------
+    df : dataframe
+        Data to be formated
+    column_name : string
+        what is the dataframe column that should be formatted
+        
+    Returns
+    -------
+    Boolean
+        formatted dataframe
+    """
     
     df[column_name] = df[column_name].astype(str)
+
     df[column_name] = df[column_name].str.replace("R\$", '')
     df[column_name] = df[column_name].str.replace(".", '')
     df[column_name] = df[column_name].str.replace(",", '.')
+
+    # Converting non-digits to 0
+    df[column_name] = df[column_name].str.replace(r"\D*", '0')
+
     df[column_name] = df[column_name].astype(float)
-    
+
     return df
 
 def isvalid(data):
