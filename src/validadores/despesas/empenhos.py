@@ -97,7 +97,7 @@ class Empenhos:
 
     # Valor
     def predict_valor(self, keyword_check):
-        # Cheking valor  # Cheking data
+        # Cheking valor
         result, isvalid = check_all_values_of_column(self.df, keyword_check, typee='valor')
         return isvalid, result
 

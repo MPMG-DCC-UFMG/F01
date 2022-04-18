@@ -79,6 +79,17 @@ keywords_siplanweb = {
                     'favorecido': 'Fornecedor',
                     'descricao': 'Elemento'
                 },
+        'pagamentos': {
+                    'search_term': 'Pago',
+                    'keywords_to_search': ['Número','Ano', 'Emissão', 'CNPJ', 'CPF', 'Tipo', 'Saldo'],
+                    'num_matches': 1000,
+                    'types': ['bat'],
+                    'valor': 'Val. Pago',
+                    'data': 'Emissão',
+                    'favorecido': 'Fornecedor',
+                    'empenho_de_referencia': 'n'
+                },
+        
     },
 
     'licitacoes': {

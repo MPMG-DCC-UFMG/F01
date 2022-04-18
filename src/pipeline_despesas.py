@@ -1,6 +1,7 @@
 from utils import indexing
 from utils import path_functions
 from validadores.despesas import empenhos
+from validadores.despesas import pagamentos
 
 # Siplanweb
 from utilconst.constant_siplanweb import municipios_siplanweb
@@ -48,11 +49,11 @@ def pipeline_despesas(keywords, num_matches, job_name):
     files = indexing.get_files(search_term, num_matches, job_name, keywords_search=keywords_to_search)
 
     # Filter /despesas
-    files = path_functions.filter_paths(files, words=['despesas'])
+    files_empenhos = path_functions.filter_paths(files, words=['empenhos'])
 
     # Subtag - Empenhos
     keywords_empenhos = keywords['empenhos']
-    validador_empenhos = empenhos.Empenhos(files, ttype=['html','bat'])
+    validador_empenhos = empenhos.Empenhos(files_empenhos, ttype=['html','bat'])
 
     # Item - Empenhos - Número
     keyword_numero = keywords_empenhos['numero']
@@ -84,6 +85,13 @@ def pipeline_despesas(keywords, num_matches, job_name):
     explain = validador_empenhos.explain(result, keyword_descricao, 'a descrição')
     output = add_in_dict(output, 'empenhos_descricao', isvalid, explain)
 
+    
+    # Subtag - Empenhos
+    keywords_pagamentos = keywords['pagamentos']
+    validador_pagamentos = pagamentos.ValidadorPagamentos(job_name, keywords_pagamentos)
+    output_pagamentos = validador_pagamentos.predict()
+
+
     """
     REFATORAR
     """
@@ -99,12 +107,18 @@ def pipeline_despesas(keywords, num_matches, job_name):
     REFATORAR
     """    
     
-    result['27'] = output['empenhos_numero']['predict']
-    result['28'] = output['empenhos_valor']['predict']
-    result['29'] = output['empenhos_data']['predict']
-    result['30'] = output['empenhos_favorecido']['predict']
-    result['31'] = output['empenhos_descricao']['predict']
+    result['26'] = output['empenhos_numero']['predict']
+    result['27'] = output['empenhos_valor']['predict']
+    result['28'] = output['empenhos_data']['predict']
+    result['29'] = output['empenhos_favorecido']['predict']
+    result['30'] = output['empenhos_descricao']['predict']
 
+    result['31'] = output_pagamentos['pagamentos_valor']['predict']
+    result['32'] = output_pagamentos['pagamentos_data']['predict']
+    result['32'] = output_pagamentos['pagamentos_favorecido']['predict']
+    result['33'] = output_pagamentos['pagamentos_empenho_de_referencia']['predict']
+
+    print(result)
     save_json(job_name, result)
 
 

@@ -2,234 +2,211 @@
 
 from utils import indexing
 import pandas as pd
+from utils import html_to_csv
 import numpy as np
-import sys
 from utils import checker
 from utils import path_functions
 import pandas as pd
 import numpy as np
-import warnings
-from utils import read
+from ..base import Validador
 
-sys.path.insert(1, '../')
+# def list_to_text(soup):
 
-PAGAMENTOS = {
-    'valor' : ['Liquidado', 'Pago', 'Valor Empenhado', 'Valor Liquidado', 'Valor Pago', 'Empenhado no período (R$)', 'Pago no período (R$)'],
-    'data' : ['ano'],
-    'favorecido' : ['Favorecido', 'Credor'],
-    'empenho_referencia' : ['Número', 'Empenho', 'Empenho/ Processo']
-}
-
-warnings.filterwarnings('ignore')
-
-def list_to_text(soup):
-
-    type = []
-    text = []
-    try:
-        for i in soup.find('div', { 'id' : 'detalhes' }).findAll('li'):
-            info = i.get_text().split(': ')
+#     type = []
+#     text = []
+#     try:
+#         for i in soup.find('div', { 'id' : 'detalhes' }).findAll('li'):
+#             info = i.get_text().split(': ')
         
-            if len(info) == 2:
-                type.append(info[0].lower().replace('\n', ''))
-                text.append(info[1])
-            elif len(info) == 1:
-                type.append(info[0].lower().replace('\n', ''))
-                text.append('')
+#             if len(info) == 2:
+#                 type.append(info[0].lower().replace('\n', ''))
+#                 text.append(info[1])
+#             elif len(info) == 1:
+#                 type.append(info[0].lower().replace('\n', ''))
+#                 text.append('')
 
-        df = pd.DataFrame([text], columns=type)
+#         df = pd.DataFrame([text], columns=type)
 
-    except AttributeError:
-        df = pd.DataFrame()
-        pass
+#     except AttributeError:
+#         df = pd.DataFrame()
+#         pass
 
-    return df
+#     return df
 
-def convert_html_table(soup):
-    type = 'None'
-    try:
-        # Deleting <tfoot> element 
-        if soup.tfoot:
-            soup.tfoot.extract()
-        df = pd.read_html(str(soup.table))[0]
-        type = 'table'
-    except ValueError:
-        df = list_to_text(soup)
-        type = 'list'
+# def convert_html_table(soup):
+#     type = 'None'
+#     try:
+#         # Deleting <tfoot> element 
+#         if soup.tfoot:
+#             soup.tfoot.extract()
+#         df = pd.read_html(str(soup.table))[0]
+#         type = 'table'
+#     except ValueError:
+#         df = list_to_text(soup)
+#         type = 'list'
     
-    return df, type
+#     return df, type
 
-def convert_to_df(all_files):
+# def convert_to_df(all_files):
 
+#     """
+#     Recebe arquivos html, concatena as tabelas e retorna em um dataframe
+#     """
+
+#     list_df = []
+#     for file in all_files:
+
+#         soup = read.read_html(file)
+#         df, _ = convert_html_table(soup)
+#         list_df.append(df)
+
+#     df = pd.DataFrame()
+#     if(len(list_df)):
+#         df = pd.concat(list_df)
+#         df = df.drop_duplicates()
+
+#     return df
+
+
+def get_df(files, ttype):
+    df_final = pd.DataFrame()
+    for key, values in files.items():
+        if key in ttype:
+            df = html_to_csv.load_and_convert_files(paths=values, format_type=key)
+            df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
+    return df_final
+
+
+def add_in_dict(output, item, isvalid, result_explain):
+    output[item]['predict'] = isvalid
+    output[item]['explain'] = result_explain
+    return output
+
+def check_all_values_of_column(df, valor, typee='valor'):
     """
-    Recebe arquivos html, concatena as tabelas e retorna em um dataframe
+    Checked if a column of a dataframe has more of half of values valid.
+
+    Parameters
+    ----------
+    df : dataframe
+        value to be verified
+    valor : 
+    type  : 'valor', 'data' or 'ano'
+        
+    Returns
+    -------
+    Boolean
+        If value is valid, return true else false.
     """
+    
+    if typee == 'valor':
+        vfunc = np.vectorize(checker.check_value)
+    if typee == 'data':
+            vfunc = np.vectorize(checker.check_date)
+    if typee == 'ano':
+        vfunc = np.vectorize(checker.check_year)
+    if typee == 'text':
+        vfunc = np.vectorize(checker.check_description)
 
-    list_df = []
-    for file in all_files:
-
-        soup = read.read_html(file)
-        df, _ = convert_html_table(soup)
-        list_df.append(df)
-
-    df = pd.DataFrame()
-    if(len(list_df)):
-        df = pd.concat(list_df)
-        df = df.drop_duplicates()
-
-    return df
-
-def check_all_values(df, columns_name):
-
-    """
-    Checa se uma taxa determinada (0 ... 1.0) de valores em uma coluna de um dataframe contem valores válidos,
-    """
-
-    vfunc = np.vectorize(checker.check_value)
     valid = []
-    
     df['isvalid'] = False    
-    for valor in columns_name:
-        if valor in df.columns:
+
+    if not len(df):
+        return df, False
+
+    if valor in df.columns:
+        if typee == 'valor':
             if df[valor].dtypes != float:
                 df = checker.format_values(df, valor)
-            df['isvalid'] =  vfunc(df[valor])
-            valid.append(df['isvalid'].sum())
+        df['isvalid'] =  vfunc(df[valor])
+        valid.append(df['isvalid'].sum())
 
     isvalid = False
     for c in valid:
         if c > (len(df.index)/2):
             isvalid = True
+
     return df, isvalid
 
-def check_all_description(df, columns_name):
+class ValidadorPagamentos(Validador):
 
-    vfunc = np.vectorize(checker.check_description)
-    valid = []
-    
-    df['isvalid'] = False
-    for i in columns_name:
-        if i in df.columns:
-            df['isvalid'] =  vfunc(df[i])
-            valid.append(df['isvalid'].all())
-            
-    return df, any(valid)
-    
-def check_all_year(df, column='Ano'):
-    
-    vfunc = np.vectorize(checker.check_year)
-    df['isvalid'] =  vfunc(df[column])
-    
-    return df, df['isvalid'].all()
+    def __init__(self, job_name, keywords):
 
-def predict_valor(search_term = 'Pagamentos',
-    keywords=['Pagamentos', 'despesa', 'empenhado', 'valor'],
-    filter_words=['despesas', 'empenhos', 'pagamentos'] , path_base='/home', num_matches = 1000, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+        #Serch files
+        self.keywords = keywords
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
+        files = path_functions.filter_paths(files, words=['pagamentos'])
+        files = path_functions.agg_paths_by_type(files)
 
-    result = convert_to_df(html_files)
-    
-    # Cheking valor
-    result, isvalid = check_all_values(result, columns_name=PAGAMENTOS['valor'])
+        self.files = files
 
-    if verbose:
-        print('\nPredict Valor:', isvalid)
-        
-    return isvalid, result
+        ttype = keywords['types']
+        self.df = get_df(self.files, ttype)
 
-def predict_data(search_term = 'Pagamentos',
-    keywords=['Pagamentos', 'despesa', 'empenhado', 'pago'],
-    filter_words=['despesas', 'empenhos', 'pagamentos'] , path_base='/home', num_matches = 1000, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+    # Valor
+    def predict_valor(self, keyword_check):
+        result, isvalid = check_all_values_of_column(self.df, keyword_check, typee='valor')
+        return isvalid, result
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+    # Data
+    def predict_data(self, keyword_check):
+        result, isvalid = check_all_values_of_column(self.df, keyword_check, typee='data')
+        return isvalid, result
 
-    result = convert_to_df(html_files)
+    # Favorecido
+    def predict_favorecido(self, keyword_check):
+        result, isvalid = check_all_values_of_column(self.df, keyword_check, typee='text')
+        return isvalid, result
 
-    # Cheking Data
-    if 'Data' in result.columns:
-        vfunc = np.vectorize(checker.check_date)
-        result['isvalid'] = vfunc(result['Data'])
-        isvalid = result['isvalid'].all()
+    # Empenho de referencia
+    def predict_empenho_referencia(self, keyword_check):
+        result, isvalid = check_all_values_of_column(self.df, keyword_check, typee='text')
+        return isvalid, result
 
-    elif 'Ano' in result.columns:
-        result, isvalid = check_all_year(result, column='Ano')
+    def predict(self):
 
-    elif 'Data do pagamento' in result.columns:
-        vfunc = np.vectorize(checker.check_date)
-        result['isvalid'] = vfunc(result['Data do pagamentos'])
-        isvalid = result['isvalid'].all()
-    else:
-        result['isvalid'] = False
-        isvalid = False
+        output = {
+            'pagamentos_valor': {},
+            'pagamentos_data': {},
+            'pagamentos_favorecido': {},
+            'pagamentos_empenho_de_referencia': {},
+        }
 
-    if verbose:
-        print('\nPredict Data:', isvalid)
-    
-    return isvalid, result
+        # Valor
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['valor'], typee='text')
+        explain = self.explain(result, self.keywords['valor'], 'a descrição')
+        output = add_in_dict(output, 'pagamentos_valor', isvalid, explain)
 
-def predict_favorecido(search_term = 'Pagamentos',
-    keywords=['Pagamentos', 'despesa', 'empenhado', 'favorecido', 'credor'],
-    filter_words=['despesas', 'empenhos', 'pagamentos'] , path_base='/home', num_matches = 100, job_name = '', verbose=False):
+        # Data
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['data'], typee='text')
+        explain = self.explain(result, self.keywords['data'], 'a descrição')
+        output = add_in_dict(output, 'pagamentos_data', isvalid, explain)
 
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+        # Favorecido
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['favorecido'], typee='text')
+        explain = self.explain(result, self.keywords['favorecido'], 'a descrição')
+        output = add_in_dict(output, 'pagamentos_favorecido', isvalid, explain)
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+        # Empenho de referencia
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['empenho_de_referencia'], typee='text')
+        explain = self.explain(result, self.keywords['empenho_de_referencia'], 'a descrição')
+        output = add_in_dict(output, 'pagamentos_empenho_de_referencia', isvalid, explain)
 
-    if verbose:
-        print('\nPredict Favorecido:')
+        return output
 
-    result = convert_to_df(html_files)
+    def explain(self, result, column_name, description):
 
-    # Cheking Descricao
-    result, isvalid = check_all_description(result, columns_name=PAGAMENTOS['favorecido'])
-    
-    return isvalid, result
+            try:
+                result = f"""
+                Quantidade de entradas encontradas e analizadas: {len(result[column_name])} 
+                Quantidade de entradas que possuem {description} do empenho válido: {sum(result['isvalid'])}
+                """
 
+            except KeyError:
+                result = f"""
+                Quantidade de entradas encontradas e analizadas: {0} 
+                Quantidade de entradas que possuem {description} do empenho válido: {sum(result['isvalid'])}
+                """
 
-def predict_empenho_referencia(search_term = 'Pagamentos',
-    keywords=['Empenhos', 'Pagamentos', 'despesa', 'empenhado', 'favorecido', 'valor'],
-    filter_words=['despesas', 'empenhos', 'pagamentos'] , path_base='/home', num_matches = 100, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
-
-    html_files = path_functions.filter_paths(html_files, filter_words)
-
-    result = convert_to_df(html_files)
-
-    # Cheking Descricao
-    result, isvalid = check_all_description(result, columns_name=PAGAMENTOS['empenho_referencia'])
-
-    if verbose:
-        print('\nPredict Empenho de Referência:', isvalid)
-    
-    return isvalid, result
-
-
-def explain(isvalid, result, column_name, elemento, verbose=False):
-
-    print(isvalid)
-    result = "Explain - Quantidade de entradas analizadas: {} . Quantidade de entradas que possuem o item '{}' válido: {}".format(
-        len(result[column_name]), elemento, sum(result[column_name]))
-
-    if verbose:
-        print('\n \t Predict -', isvalid)
-        print('\t', result)
-
-    return result
+            return result
