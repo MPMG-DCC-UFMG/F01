@@ -7,7 +7,7 @@ from utils import path_functions
 import sys
 sys.path.insert(1, '../')
 
-from classifiers import constant
+from validadores import constant
 from os import walk
 
 

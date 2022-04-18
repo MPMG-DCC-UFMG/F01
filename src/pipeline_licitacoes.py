@@ -1,12 +1,12 @@
 from utils import indexing
 from utils import path_functions
-from classifiers.despesas import empenhos
+from validadores.despesas import empenhos
 
 # Siplanweb
 from utilconst.constant_siplanweb import municipios_siplanweb
 from utilconst.constant_siplanweb import keywords_siplanweb
 
-from classifiers import licitacoes 
+from validadores import licitacoes 
 
 
 """
@@ -62,32 +62,32 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     files = path_functions.agg_paths_by_type(files)
     # print('bat', len(files['bat']))
     # print('pdf', len(files['pdf']))
-    validador = licitacoes.Licitacoes(files, proc_lic_itens[0], ttype=types)
+    validador = licitacoes.ValidadorLicitacoes(files, proc_lic_itens[0], ttype=types)
     # print(len(validador.files['bat']))
 
     # Procedimentos Licitatórios número
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
-    result_explain = licitacoes.explain(result, proc_lic_itens[0])
+    result_explain = validador.explain(result, proc_lic_itens[0])
     output = add_in_dict(output, 'proc_lic_numero', isvalid, result_explain)
     
     # Procedimentos Licitatórios modalidade
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[1])
-    result_explain = licitacoes.explain(result, proc_lic_itens[1])
+    result_explain = validador.explain(result, proc_lic_itens[1])
     output = add_in_dict(output, 'proc_lic_modalidade', isvalid, result_explain)
 
     # Procedimentos Licitatórios objeto
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[2])
-    result_explain = licitacoes.explain(result, proc_lic_itens[2])
+    result_explain = validador.explain(result, proc_lic_itens[2])
     output = add_in_dict(output, 'proc_lic_objeto', isvalid, result_explain)
 
     # Procedimentos Licitatórios status
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[3])
-    result_explain = licitacoes.explain(result, proc_lic_itens[3])
+    result_explain = validador.explain(result, proc_lic_itens[3])
     output = add_in_dict(output, 'proc_lic_status', isvalid, result_explain)
 
     # Procedimentos Licitatórios resultado
     isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[4])
-    result_explain = licitacoes.explain(result, proc_lic_itens[4])
+    result_explain = validador.explain(result, proc_lic_itens[4])
     output = add_in_dict(output, 'proc_lic_resultado', isvalid, result_explain)
 
     # # Procedimentos modalidade Inexigibilidade e Dispensa
@@ -97,17 +97,17 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     result = result_inexigibilidade['inexigibilidade']
     result.extend(result_dispensa['dispensa'])
     result = {'inexigibilidade e dispensa': result} 
-    result_explain = licitacoes.explain(result, 'inexigibilidade e dispensa')
+    result_explain = validador.explain(result, 'inexigibilidade e dispensa')
     output = add_in_dict(output, 'inexigibilidade_e_dispensa', isvalid, result_explain)
 
     # # Disponibilização de Editais
     isvalid, result = validador.predict_editais(editais)
-    result_explain=licitacoes.explain(result, 'editais')
+    result_explain=validador.explain(result, 'editais')
     output = add_in_dict(output, 'editais', isvalid, result_explain)
 
     # # Permite Busca
     isvalid, result = validador.predict_busca()
-    result_explain=licitacoes.explain(result, 'busca')
+    result_explain=validador.explain(result, 'busca')
     output = add_in_dict(output, 'busca', isvalid, result_explain)
 
     """

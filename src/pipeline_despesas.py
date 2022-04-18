@@ -1,6 +1,6 @@
 from utils import indexing
 from utils import path_functions
-from classifiers.despesas import empenhos
+from validadores.despesas import empenhos
 
 # Siplanweb
 from utilconst.constant_siplanweb import municipios_siplanweb

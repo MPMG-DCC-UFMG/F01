@@ -11,50 +11,6 @@ from utils import read
 
 sys.path.insert(1, '../')
 
-# def list_to_text(soup):
-#     type = []
-#     text = []
-#     try:
-#         for i in soup.find('div', { 'id' : 'detalhes' }).findAll('li'):
-#             info = i.get_text().split(': ')
-#             if len(info) == 2:
-#                 type.append(info[0].lower().replace('\n', ''))
-#                 text.append(info[1])
-#             elif len(info) == 1:
-#                 type.append(info[0].lower().replace('\n', ''))
-#                 text.append('')
-#         df = pd.DataFrame([text], columns=type)
-#     except AttributeError:
-#         df = pd.DataFrame()
-#         pass
-#     return df
-
-# def convert_html_table(soup):
-#     type = 'None'
-#     try:
-#         # Deleting <tfoot> element 
-#         if soup.tfoot:
-#             soup.tfoot.extract()
-#         df = pd.read_html(str(soup.table))[0]
-#         type = 'table'
-#     except ValueError:
-#         df = list_to_text(soup)
-#         type = 'list'
-    
-#     return df, type
-
-# def convert(all_files):
-#     list_df = []
-#     for file in all_files:
-#         soup = read.read_html(file)
-#         df, _ = convert_html_table(soup)
-#         list_df.append(df)
-#     df = pd.DataFrame()
-#     if(len(list_df)):
-#         df = pd.concat(list_df)
-#         df = df.drop_duplicates()
-#     return df
-
 from itertools import count
 import pandas as pd
 from utils import html_to_csv
@@ -86,7 +42,7 @@ def check_all_values_of_column(df, valor, typee='valor'):
     df : dataframe
         value to be verified
     valor : 
-    typee : 'valor', 'data' or 'ano'
+    type  : 'valor', 'data' or 'ano'
         
     Returns
     -------
