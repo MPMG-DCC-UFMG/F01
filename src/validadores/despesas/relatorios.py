@@ -1,143 +1,144 @@
 from utils import indexing
 from utils import check_df
+from ..base import Validador
 from utils import path_functions
-import pandas as pd
 from utils.search_html import analyze_html
 
-# Link de acesso ao Plano Plurianual do município
-def predict_plano_plurianual(search_term = 'Plano Plurianual PPA',
-    keywords=['PPA', 'Plano Plurianual', 'PPA Lei'],
-    filter_words=['despesas','orçamento','plano_plurianual','PPA','leis_orcamentarias'], 
-    path_base='/home', num_matches = 300, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
-    # pdf_files = indexing.get_files_to_valid(
-    #     search_term, keywords, num_matches,
-    #     job_name, path_base, 'pdf')
+class ValidadorRelatorios(Validador):
 
-    # html_files = path_functions.filter_paths(html_files, filter_words)
-    # pdf_files = path_functions.filter_paths(pdf_files, filter_words)
-    if verbose:
-        print('\nPredict Plano Plurianual:')
-        print(html_files)
+    def __init__(self, job_name, keywords):
+        self.job_name = job_name
+        self.keywords = keywords
 
-    # Analyze 
-    result = analyze_html(html_files, keyword_to_search=keywords)
-    # result_pdf = analyze_pdf (path_base, pdf_files, keyword_to_search=keywords, page_limit=4, verbose=verbose)
-    # df = pd.concat([result, result_pdf])
+    # Link de acesso ao Plano Plurianual do município
+    def predict_plano_plurianual(self,keywords):
+        
+        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
+        files = path_functions.agg_paths_by_type(files)
+        files = files['html']
 
-    #Check result 
-    isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
-    return isvalid, result
+        # Analyze 
+        result = analyze_html(files, keyword_to_search=keywords['keyword_check'])
+        #Check result 
+        isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
+        return isvalid, result
 
-# Link de acesso à Lei de Diretrizes Orçamentarias do município
-def predict_lei_diretrizes_orcamentarias(search_term = 'Diretrizes orçamentárias LDO',
-    keywords=['Diretrizes orçamentárias', 'metas fiscais', 'lei diretrizes orçamentárias', 'LDO'],
-    filter_words=['despesas', 'orçamento', 'LDO', 'leis_orcamentarias'] , path_base='/home', num_matches = 300, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+    def explain_plano_plurianual(self, result):
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+        result_explain = ("Opção de visualizar ou baixar Plano Plurianual do município foi encontrado em {} arquivos".format((len(result.query('matches > 1')))))
+        return result_explain
 
-    if verbose:
-        print('\nPredict Lei de Diretrizes Orçamentaria:')
-        print(html_files)
+    # Link de acesso à Lei de Diretrizes Orçamentarias do município
+    def predict_lei_diretrizes_orcamentarias(self,keywords):
+        
+        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
+        files = path_functions.agg_paths_by_type(files)
+        files = files['html']
 
-    # Analyze 
-    result = analyze_html(html_files, keyword_to_search=keywords)
+        # Analyze 
+        result = analyze_html(files, keyword_to_search=keywords['keyword_check'])
+        #Check result 
+        isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
+        return isvalid, result
 
-    #Check result 
-    isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
-    return isvalid, result
-    
-# Link de acesso à Lei Orçamentária Anual do município
-def predict_lei_orcamentaria_anual(search_term = 'Lei orçamentária anual LOA',
-    keywords=['LOA', 'LOA Lei', 'Lei orçamentária anual', 'orçamentária anual'],
-    filter_words=['despesas', 'orçamento', 'LOA', 'leis_orcamentarias'] , path_base='/home', num_matches = 300, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+    def explain_lei_diretrizes_orcamentarias(self, result):
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+        result_explain = ("Opção de visualizar ou baixar a Lei de Diretrizes Orçamentarias foi encontrado em {} arquivos".format((len(result.query('matches > 1')))))
+        return result_explain
 
-    if verbose:
-        print('\nPredict Lei Orçamentária Anual:')
-        print(html_files)
+    # Link de acesso à Lei Orçamentária Anual do município
+    def predict_lei_orcamentaria_anual(self,keywords):
+        
+        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
+        files = path_functions.agg_paths_by_type(files)
+        files = files['html']
+        print(files)
 
-    # Analyze 
-    result = analyze_html(html_files, keyword_to_search=keywords)
+        # Analyze 
+        result = analyze_html(files, keyword_to_search=keywords['keyword_check'])
+        #Check result 
+        isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
+        print(result)
+        return isvalid, result
 
-    #Check result 
-    isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
-    return isvalid, result
+    def explain_lei_orcamentaria_anual(self, result):
+
+        result_explain = ("Opção de visualizar ou baixar a Lei de Orcamentaria Anul foi encontrado em {} arquivos".format((len(result.query('matches > 1')))))
+        return result_explain
 
 
-# Apresentação do balanço anual, com as respectivas demonstrações contábeis
-def predict_balanco_demonstracoes(search_term = 'Balanço anual Demonstrações Contábeis',
-    keywords=['Balanço anual', 'Demonstrações Contábeis', 'Balancete da Despesa', 'Balanço Orçamentário de Despesas', ' Balanço Patrimonial'],
-    filter_words=['despesas', 'orçamento', 'balanço', 'prestacao_de_contas', 'relatorios_de_gestao_fiscal', 'contas_publicas'],
-    path_base='/home', num_matches = 300, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+    # Apresentação do balanço anual, com as respectivas demonstrações contábeis
+    def predict_balanco_demonstracoes(self,keywords):
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
+        files = path_functions.agg_paths_by_type(files)
+        files = files['html']
 
-    if verbose:
-        print('\nPredict Balanço anual e demonstrações contábeis:')
-        print(html_files)
+        # Analyze 
+        result = analyze_html(files, keyword_to_search=keywords['keyword_check'])
+        
+        #Check result 
+        isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
 
-    # Analyze 
-    result = analyze_html(html_files, keyword_to_search=keywords)
+        return isvalid, result
 
-    #Check result 
-    isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
-    return isvalid, result
+    # Relatórios da execução orçamentária e gestão fiscal
+    def predict_execucao_orcamentaria_gestao_fiscal(self,keywords):
 
-# Relatórios da execução orçamentária e gestão fiscal
-def predict_execucao_orcamentaria_gestao_fiscal(search_term = 'Relatórios execução orçamentária gestão fiscal',
-    keywords=['execução orçamentária', 'gestão fiscal', 'execução orçamentaria', 'prestacao_de_contas', 'relatorios de gestao fiscal'],
-    filter_words=['despesas', 'orçamento', 'balanço', 'prestacao_de_contas', 'relatorios_de_gestao_fiscal', 'contas_publicas'],
-    path_base='/home', num_matches = 300, job_name = '', verbose=False):
-    
-    #Search all files using keywords
-    html_files = indexing.get_files_to_valid(
-        search_term, keywords, num_matches,
-        job_name, path_base)
+        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
+        files = path_functions.agg_paths_by_type(files)
+        files = files['html']
 
-    html_files = path_functions.filter_paths(html_files, filter_words)
+        # Analyze 
+        result = analyze_html(files, keyword_to_search=keywords['keyword_check'])
+        
+        #Check result 
+        isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
 
-    if verbose:
-        print('\nPredict Relatórios da execução orçamentária e gestão fiscal:')
-        print(html_files)
+        return isvalid, result
 
-    # Analyze 
-    result = analyze_html(html_files, keyword_to_search=keywords)
+    def predict(self):
+        resultados_relatorios = {
+              'plano_plurianual': {},
+              'lei_diretrizes_orcamentarias': {},
+              'lei_orcamentaria_anual': {},
+              'balanco_demonstracoes': {},
+              'execucao_orcamentaria_gestao_fiscal': {}
+              }
 
-    #Check result 
-    isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
-    print(result)
-    return isvalid, result
+        isvalid, result = self.predict_plano_plurianual(keywords=self.keywords['plano_plurianual'])
+        result_explain = self.explain_plano_plurianual(result)
+        resultados_relatorios['plano_plurianual']['predict'] = isvalid
+        resultados_relatorios['plano_plurianual']['explain'] = result_explain
 
-def explain(isvalid, df_result, column_name, elemento, verbose=False):
+        isvalid, result = self.predict_lei_diretrizes_orcamentarias(keywords=self.keywords['lei_diretrizes_orcamentarias'])
+        result_explain = self.explain_lei_diretrizes_orcamentarias(result)
+        resultados_relatorios['lei_diretrizes_orcamentarias']['predict'] = isvalid
+        resultados_relatorios['lei_diretrizes_orcamentarias']['explain'] = result_explain
 
-    result = f"Explain - Quantidade de entradas analizadas: {len(df_result[column_name])}. Quantidade de entradas que possuem referência ao item '{elemento}' válido: {sum(df_result[column_name] > 0)}"""
+        # isvalid, result = self.predict_lei_orcamentaria_anual(keywords=self.keywords['lei_orcamentaria_anual'])
+        # result_explain = self.explain_lei_orcamentaria_anual(result)
+        # resultados_relatorios['lei_orcamentaria_anual']['predict'] = isvalid
+        # resultados_relatorios['lei_orcamentaria_anual']['explain'] = result_explain
 
-    if verbose:
-        print('\n \t Predict -', isvalid)
-        print('\t', result)
+        # isvalid, result = self.predict_balanco_demonstracoes(keywords=self.keywords['balanco_demonstracoes'])
+        # result_explain = self.explain_balanco_demonstracoes()
+        # resultados_relatorios['balanco_demonstracoes']['predict'] = isvalid
+        # resultados_relatorios['balanco_demonstracoes']['explain'] = result_explain
 
-    return result
+        # isvalid, result = self.predict_execucao_orcamentaria_gestao_fiscal(keywords=self.keywords['execucao_orcamentaria_gestao_fiscal'])
+        # result_explain = self.explain()
+        # resultados_relatorios['gerar_relatorios']['predict'] = isvalid
+        # resultados_relatorios['gerar_relatorios']['explain'] = result_explain
 
+        return resultados_relatorios
 
+    def explain(self, result):
+
+        return result
 

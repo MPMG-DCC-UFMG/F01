@@ -1,3 +1,6 @@
+import numpy as np
+from utils import checker
+
 def contains_keyword(df, word):
     """
     Verifica se um dataframe possui uma coluna cujo nome contém uma palavra-chave especifica
@@ -40,4 +43,50 @@ def files_isvalid(df, column_name, threshold=0):
             return True
     return False
 
+def check_all_values_of_column(df, keyword_check, typee='valor'):
+    """
+    Chaca se uma coluna de um dataframe pelo menos metade dos seus valores validos.
+
+    Parameters
+    ----------
+    df : dataframe 
+        Dataframe a ser verificado
+    keyword_check : string 
+        Coluna a ser verificada
+    type  : 'valor', 'data' or 'ano' 
+        Qual é o tipo do dado da coluna
+        
+    Returns
+    -------
+    Boolean
+        Se é verdade que pelo menos metade dos valores são validos, retorna true ou false.
+    """
     
+    if typee == 'valor':
+        vfunc = np.vectorize(checker.check_value)
+    if typee == 'data':
+            vfunc = np.vectorize(checker.check_date)
+    if typee == 'ano':
+        vfunc = np.vectorize(checker.check_year)
+    if typee == 'text':
+        vfunc = np.vectorize(checker.check_description)
+
+    valid = []
+    df['isvalid'] = False    
+
+    if not len(df):
+        return df, False
+
+    if keyword_check in df.columns:
+        if typee == 'valor':
+            if df[keyword_check].dtypes != float:
+                df = checker.format_values(df, keyword_check)
+        df['isvalid'] =  vfunc(df[keyword_check])
+        valid.append(df['isvalid'].sum())
+
+    isvalid = False
+    for c in valid:
+        if c > (len(df.index)/2):
+            isvalid = True
+
+    return df, isvalid

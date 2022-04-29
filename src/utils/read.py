@@ -3,8 +3,6 @@ import chardet
 import codecs
 
 def read_html(path):
-
-
     try:
         file = codecs.open(path, 'r', 'utf-8', errors='ignore')
         soup = BeautifulSoup(file, features="lxml",from_encoding="utf-8")

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Validador(ABC):
     """
     Validador base de todos validadores do projeto.

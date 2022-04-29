@@ -1,8 +1,7 @@
-import os
-from utils.indexing import remove_index
 import json
-import pandas as pd
-import sys
+import pipeline_despesas
+from validadores import licitacoes
+from utils.indexing import remove_index
 
 from utils import indexing
 from utils import path_functions
@@ -37,14 +36,7 @@ from validadores.acesso_a_informacao import informacoes
 from validadores.acesso_a_informacao import base_dados
 # from validadores.acesso_a_informacao import divulgacao_atendimentos
 
-from validadores.despesas import empenhos
-from validadores.despesas import pagamentos
-from validadores.despesas import consulta_favorecido
-from validadores.despesas import gerar_relatorio
 from validadores.despesas import relatorios
-
-from validadores import licitacoes 
-from validadores import adespesas 
 
 
 path_base = '/home/asafe'
@@ -57,6 +49,22 @@ def save_json(job_name, result):
                             separators=(',',': '))
 
 def add_in_dict(output, item, isvalid, result_explain):
+    """
+        Responsável por adicionar dicionário o resuiltado da validação
+        
+        Parameters
+        ----------
+
+        output : dicionário com cada chave sendo um item a ser validado
+        item : nome da chave referente ao item
+        isvalid : resultado do predict
+        result_explain: resultado do explain
+            
+        Returns
+        -------
+        output
+            o dicionário com o predict e o explain adicionado.        
+    """
     output[item]['predict'] = isvalid
     output[item]['explain'] = result_explain
     return output
@@ -219,7 +227,6 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
     output = add_in_dict(output, 'pedidos_atendidos', isvalid_atendidos, result_explain_atendidos)
     output = add_in_dict(output, 'pedidos_indeferidos', isvalid_indeferidos, result_explain_indeferidos)
 
-
     return output
 
 
@@ -306,127 +313,13 @@ def pipeline_licitacoes(keywords, num_matches, job_name):
     return output
 
 
-def pipeline_empenhos(path_base, job_name, verbose=False):
+def main(jobs, keywords):
 
-    output = {'Empenhos - Número': {},
-              'Empenhos - Valor': {},
-              'Empenhos - Data': {},
-              'Empenhos - Favorecido': {},
-              'Empenhos - Descrição': {},
-              }
-
-    isvalid, result = empenhos.predict_numero(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Número', verbose=verbose)
-    output = add_in_dict(output, 'Empenhos - Número', isvalid, result_explain)
-
-    isvalid, result = empenhos.predict_valor(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Valor', verbose=verbose)
-    output = add_in_dict(output, 'Empenhos - Valor', isvalid, result_explain)
-
-    isvalid, result = empenhos.predict_data(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Data', verbose=verbose)
-    output = add_in_dict(output, 'Empenhos - Data', isvalid, result_explain)
-
-    isvalid, result = empenhos.predict_favorecido(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Favorecido', verbose=verbose)
-    output = add_in_dict(output, 'Empenhos - Favorecido', isvalid, result_explain)
-
-    isvalid, result = empenhos.predict_descricao(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = empenhos.explain(isvalid, result, column_name='isvalid', elemento='Descrição', verbose=verbose)
-    output = add_in_dict(output, 'Empenhos - Descrição', isvalid, result_explain)
-
-    return output
-
-def pipeline_pagamentos(path_base, job_name, verbose=False):
-
-    output = {'Pagamentos - Valor': {},
-              'Pagamentos - Data': {},
-              'Pagamentos - Favorecido': {},
-              'Pagamentos - Empenho de referência': {},
-              }
-
-    isvalid, result = pagamentos.predict_valor(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Valor', verbose=verbose)
-    output = add_in_dict(output, 'Pagamentos - Valor', isvalid, result_explain)
-
-    isvalid, result = pagamentos.predict_data(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Data', verbose=verbose)
-    output = add_in_dict(output, 'Pagamentos - Data', isvalid, result_explain)
-
-    isvalid, result = pagamentos.predict_favorecido(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Favorecido', verbose=verbose)
-    output = add_in_dict(output, 'Pagamentos - Favorecido', isvalid, result_explain)
-
-    isvalid, result = pagamentos.predict_empenho_referencia(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = pagamentos.explain(isvalid, result, column_name='isvalid', elemento='Empenho de referência', verbose=verbose)
-    output = add_in_dict(output, 'Pagamentos - Empenho de referência', isvalid, result_explain)
-
-    return output
-
-def pipeline_consulta_por_favorecido(path_base, job_name, verbose=False):
-
-    output = {
-              'Possibilita consulta de empenhos ou pagamentos por favorecido': {},
-              }
-    
-    isvalid, result = consulta_favorecido.predict_favorecido(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = consulta_favorecido.explain(isvalid, result, column_name='matches', elemento='Plano Plurianual', verbose=verbose)
-    output = add_in_dict(output, list(output.keys())[0], isvalid, result_explain)
-
-    return output
-
-def pipeline_formato_aberto(path_base, job_name, verbose=False):
-
-    output = {
-              'Permite gerar relatório da consulta de empenhos ou de pagamentos em formato aberto': {},
-              }
-
-    isvalid, result = gerar_relatorio.predict_relatorio(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = gerar_relatorio.explain(isvalid, result, column_name='matches', elemento='Relatório em formato aberto', verbose=verbose)
-    output = add_in_dict(output, list(output.keys())[0], isvalid, result_explain)
-
-    return output
-
-def pipeline_relatorios(path_base, job_name, verbose=False):
-
-    output = {
-              'Link de acesso ao Plano Plurianual do município': {},
-              'Link de acesso à Lei de Diretrizes Orçamentaria do município': {},
-              'Link de acesso à Lei Orçamentária Anual do município': {},
-              'Apresentação do balanço anual, com as respectivas demonstrações contábeis': {},
-              'Relatórios da execução orçamentária e gestão fiscal': {}
-              }
-
-    isvalid, result = relatorios.predict_plano_plurianual(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Plano Plurianual', verbose=verbose)
-    output = add_in_dict(output, 'Link de acesso ao Plano Plurianual do município', isvalid, result_explain)
-
-    isvalid, result = relatorios.predict_lei_diretrizes_orcamentarias(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Lei de Diretrizes Orçamentaria', verbose=verbose)
-    output = add_in_dict(output, 'Link de acesso à Lei de Diretrizes Orçamentaria do município', isvalid, result_explain)
-
-    isvalid, result = relatorios.predict_lei_orcamentaria_anual(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Lei Orçamentária Anual', verbose=verbose)
-    output = add_in_dict(output, 'Link de acesso à Lei Orçamentária Anual do município', isvalid, result_explain)
-
-    isvalid, result = relatorios.predict_balanco_demonstracoes(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Balanço anual e demonstrações contábeis', verbose=verbose)
-    output = add_in_dict(output, 'Apresentação do balanço anual, com as respectivas demonstrações contábeis', isvalid, result_explain)
-
-    isvalid, result = relatorios.predict_execucao_orcamentaria_gestao_fiscal(path_base = path_base, job_name=job_name, verbose=verbose)
-    result_explain = relatorios.explain(isvalid, result, column_name='matches', elemento='Relatórios da execução orçamentária e gestão fiscal', verbose=verbose)
-    output = add_in_dict(output, 'Relatórios da execução orçamentária e gestão fiscal', isvalid, result_explain)
-
-    return output
-
-def main(jobs,keywords):
-
-    df_all = pd.DataFrame()
     for job_name in jobs:
 
         print("**",job_name,"**")
+        pipeline_despesas(keywords['despesas'], job_name)
 
-        output_empenhos = pipeline_empenhos(path_base, job_name)
         # print(output_empenhos)
 
 
@@ -460,16 +353,10 @@ def main(jobs,keywords):
         # df_all = pd.concat([df_all, df])
         # df_all.to_csv('output_licitacoes.csv', index=False)
 
-        ""
-
 
 # main(municipios_PT, keywords_PT)
 # main(municipios_template2, keywords_template2)
 # main(municipios_grp, keywords_grp)
-# main(municipios_siplanweb, keywords_siplanweb)
+main(municipios_siplanweb, keywords_siplanweb)
 
-jobs = municipios_siplanweb
-keywords = keywords_siplanweb
 
-for job_name in jobs:
-    pipeline_despesas(keywords['despesas'], num_matches, job_name)
