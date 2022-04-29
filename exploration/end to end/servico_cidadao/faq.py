@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import codecs
 import re
-import constant
+import utilconst.constant as constant
 from os import walk
 
 #Tag item exists

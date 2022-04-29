@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import pandas as pd
-import constant
+import utilconst.constant as constant
 import re
 import os
 import numpy as np

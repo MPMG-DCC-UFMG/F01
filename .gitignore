@@ -5,6 +5,7 @@ __pycache__/
 config/
 data/
 /src/ff
+/src/teste
 f01/
 docs/_build
 docs/doctrees

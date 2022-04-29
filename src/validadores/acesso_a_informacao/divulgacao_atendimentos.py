@@ -1,4 +1,4 @@
-import constant
+import utilconst.constant as constant
 from utils import indexing
 from utils import check_df
 from utils.analyze_pdf import remove_noise

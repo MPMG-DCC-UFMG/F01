@@ -6,7 +6,7 @@ import datetime
 from utils import table_to_csv
 from utils.preprocess import format_values
 from utils import checker
-import constant
+import utilconst.constant as constant
 
 import warnings
 warnings.filterwarnings("ignore")

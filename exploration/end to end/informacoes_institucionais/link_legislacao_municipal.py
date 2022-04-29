@@ -1,7 +1,7 @@
 import codecs
 import os
 import requests
-import constant
+import utilconst.constant as constant
 from bs4 import BeautifulSoup
 
 def explain(title, url):

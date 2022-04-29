@@ -1,4 +1,4 @@
-import os, re, codecs, sys, constant
+import os, re, codecs, sys, utilconst.constant as constant
 sys.path.insert(1, '../')
 
 from bs4 import BeautifulSoup

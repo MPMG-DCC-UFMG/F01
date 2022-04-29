@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import codecs
-import constant
+import utilconst.constant as constant
 
 items = {
     'URL_TRANSPARENCIA_MG' : False

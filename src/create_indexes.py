@@ -13,24 +13,24 @@ import json
 import subprocess
 import time
 
-TIME_OUT = 300
+TIME_OUT = 3000
 
 # MUNICIPIOS = municipios_siplanweb + municipios_sintese + municipios_PT + municipios_betha + municipios_template2 + municipios_grp
 MUNICIPIOS = municipios_siplanweb
 
 # MP
-HOME = Path("/home/ufmg.amedeiros")
+# HOME = Path("/home/ufmg.amedeiros")
 
 # Localmente
-# HOME = Path.home()
+HOME = Path.home()
 
 for municipio in MUNICIPIOS:
 
     config = {
         'name': municipio,
         'fs': 
-            {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
-            # {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
+            # {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
+            {'url': '/home/asafe/GitHub/Coleta_F01/' + municipio, 
             'update_rate': '15m', 
             'excludes': ['*/screenshots*', '*/log*'], 
             'json_support': False, 
@@ -86,8 +86,8 @@ for municipio in MUNICIPIOS:
 
 
     print('Run crawler')
-    process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1'])
-    # process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop', '1'])
+    # process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1'])
+    process = subprocess.Popen(["/home/asafe/Desktop/SearchEngine/fscrawler-es7-2.8-SNAPSHOT/bin/fscrawler", municipio, '--loop', '1', '--restart'])
 
     try:
         outs, errs = process.communicate(timeout=TIME_OUT)

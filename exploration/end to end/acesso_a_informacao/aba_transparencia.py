@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import codecs
 import re
-import constant
+import utilconst.constant as constant
 
 items = {
     'URL_PORTAL' : False,

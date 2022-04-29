@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import codecs
-import constant
+import utilconst.constant as constant
 import re
 from os import walk
 

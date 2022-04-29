@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 import codecs
-import constant
+import utilconst.constant as constant
 from os import walk
 
 def get_all_filenames_in_dir(dir):

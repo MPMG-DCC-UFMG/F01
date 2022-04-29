@@ -1,4 +1,4 @@
-import sys, constant, unidecode
+import sys, utilconst.constant as constant, unidecode
 import pandas as pd
 
 sys.path.insert(1, '../')

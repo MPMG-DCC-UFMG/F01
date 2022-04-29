@@ -1,4 +1,4 @@
-import os, sys, requests, codecs, constant, unidecode, re, math
+import os, sys, requests, codecs, utilconst.constant as constant, unidecode, re, math
 import pandas as pd
 sys.path.insert(1, '../')
 

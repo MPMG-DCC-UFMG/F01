@@ -1,7 +1,7 @@
 import codecs
 import os
 import sys
-import constant
+import utilconst.constant as constant
 from bs4 import BeautifulSoup
 
 est_org_dict = {

@@ -1,5 +1,5 @@
 import codecs
-import constant
+import utilconst.constant as constant
 from bs4 import BeautifulSoup
 import re
 
