@@ -1,21 +1,13 @@
-import json
+from utils import salvar_resultado
 from validadores.despesas import empenhos
 from validadores.despesas import pagamentos
-from validadores.despesas import consulta_favorecido
-from validadores.despesas import gerar_relatorio
 from validadores.despesas import relatorios
+from validadores.despesas import gerar_relatorio
+from validadores.despesas import consulta_favorecido
 
 # Siplanweb
-from utilconst.constant_siplanweb import municipios_siplanweb
 from utilconst.constant_siplanweb import keywords_siplanweb
-
-
-def save_json(job_name, result):
-    with open('results/' + job_name + '.json', 'w') as json_file:
-        json.dump(result, json_file, 
-                            indent=4,  
-                            separators=(',',': '))
-
+from utilconst.constant_siplanweb import municipios_siplanweb
 
 def pipeline_despesas(keywords, job_name):
 
@@ -39,11 +31,7 @@ def pipeline_despesas(keywords, job_name):
     validador_relatorios = relatorios.ValidadorRelatorios(job_name, keywords['relatorios'])
     output_relatorios = validador_relatorios.predict()
 
-    try:
-        with open('results/' + job_name + '.json') as fp:
-            result = json.load(fp)
-    except:
-        result = {}
+    result = salvar_resultado.abrir_existente(job_name)
 
     result['27'] = output_empenhos['numero']['predict']
     result['28'] = output_empenhos['valor']['predict']
@@ -57,14 +45,9 @@ def pipeline_despesas(keywords, job_name):
     result['35'] = output_pagamentos['empenho_de_referencia']['predict']
 
     result['36'] = output_consulta_favorecido['consulta_favorecido']['predict']   
-    result['37'] = output_gerar_relatorios['gerar_relatorios']['predict']    
+    result['37'] = output_gerar_relatorios['gerar_relatorios']['predict']
 
-    print(result['27'],result['28'],result['29'],result['30'],result['31'])
-    print(result['32'],result['33'],result['34'],result['35'])
-    print(result['36'])
-    print(result['37'])
-    save_json(job_name, result)
-
+    salvar_resultado.save_dict_in_json(job_name, result)
 
 jobs = municipios_siplanweb
 keywords = keywords_siplanweb
