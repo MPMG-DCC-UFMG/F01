@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
 from utils import path_functions
-import os
-
-# !pip install elasticsearch_dsl
 
 es = Elasticsearch('127.0.0.1', port=8055)
 
@@ -27,9 +23,8 @@ def request_search(search_term, keywords_search=[], num_matches= 10, job_name='i
          }
       }
    )
-   
+   # print(response)
    result = [ (hit['_source'].get('file').get('filesize'), hit['_score'], hit['_source'].get('path').get('real')) for hit in response['hits']['hits']]
-
    return result
 
 def get_files_to_valid(

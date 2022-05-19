@@ -1,27 +1,12 @@
 from utils import indexing
 from utils import path_functions
+from utils import salvar_resultado
 
 # Siplanweb
-from utilconst.constant_siplanweb import municipios_siplanweb
 from utilconst.constant_siplanweb import keywords_siplanweb
+from utilconst.constant_siplanweb import municipios_siplanweb
 
 from validadores import licitacoes 
-
-
-"""
-SAIR DAQUI
-"""
-import json
-
-def save_json(job_name, result):
-    with open('results/' + job_name + '.json', 'w') as json_file:
-        json.dump(result, json_file, 
-                            indent=4,  
-                            separators=(',',': '))
-
-"""
-SAIR DAQUI
-"""
 
 num_matches = 1000
 
@@ -114,18 +99,8 @@ def pipeline_licitacoes(keywords, job_name):
     output['busca']['predict'] = isvalid
     output['busca']['explain'] = result_explain
 
-    """
-    REFATORAR
-    """
-    try:
-        with open('results/' + job_name + '.json') as fp:
-            result = json.load(fp)
-    except:
-        result = {}
+    result = salvar_resultado.abrir_existente(job_name)
     
-    """
-    REFATORAR
-    """
     # Processos licitatórios
     result['43'] = output['proc_lic_numero']['predict']
     result['44'] = output['proc_lic_modalidade']['predict']
@@ -143,7 +118,7 @@ def pipeline_licitacoes(keywords, job_name):
     result['50'] = output['busca']['predict']
 
     print(result)
-    save_json(job_name, result)
+    salvar_resultado.save_dict_in_json(job_name, result)
 
 
 jobs = municipios_siplanweb

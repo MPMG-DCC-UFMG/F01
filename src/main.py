@@ -26,7 +26,7 @@ from utilconst.constant_grp import keywords_grp
 # from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
 
-from validadores.acesso_a_informacao import requisitos_sitios
+from validadores.acesso_a_informacao import requisitos_exigidos
 from validadores.acesso_a_informacao import informacoes
 from validadores.acesso_a_informacao import base_dados
 # from validadores.acesso_a_informacao import divulgacao_atendimentos
@@ -98,11 +98,11 @@ def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbo
     search_term = keywords['search_engine']['search_term']
     keywords_to_search = keywords['search_engine']['keywords']
 
-    isvalid, result = requisitos_sitios.predict_search_engine(
+    isvalid, result = requisitos_exigidos.predict_search_engine(
         search_term=search_term, keywords=keywords_to_search,
         job_name=job_name, path_base=path_base,
             verbose=verbose)
-    result_explain = requisitos_sitios.explain(
+    result_explain = requisitos_exigidos.explain(
         result, column_name='matches', elemento='Possui ferramenta de pesquisa', verbose=verbose)
 
     output = add_in_dict(output, 'search_engine', isvalid, result_explain)
@@ -111,11 +111,11 @@ def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbo
     search_term = keywords['export_reports']['search_term']
     keywords_to_search = keywords['export_reports']['keywords']
 
-    isvalid, result = requisitos_sitios.predict_export_reports(
+    isvalid, result = requisitos_exigidos.predict_export_reports(
         search_term=search_term, keywords=keywords_to_search,
         job_name=job_name, path_base=path_base, 
             verbose=verbose)
-    result_explain  = requisitos_sitios.explain(
+    result_explain  = requisitos_exigidos.explain(
         result, column_name='matches', elemento='Permite exportar relatórios', verbose=verbose)
 
     output = add_in_dict(output, 'export_reports', isvalid, result_explain)
@@ -124,11 +124,11 @@ def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbo
     search_term = keywords['update_infos']['search_term']
     keywords_to_search = keywords['update_infos']['keywords']
 
-    isvalid, result = requisitos_sitios.predict_update_infos(
+    isvalid, result = requisitos_exigidos.predict_update_infos(
         search_term=search_term, keywords=keywords_to_search,
         job_name=job_name, path_base=path_base, 
         verbose=verbose)
-    result_explain = requisitos_sitios.explain(
+    result_explain = requisitos_exigidos.explain(
         result, column_name='matches', elemento='Mantém as informações atualizadas', verbose=verbose)
 
     output = add_in_dict(output, 'update_infos', isvalid, result_explain)
@@ -137,11 +137,11 @@ def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbo
     search_term = keywords['accessibility']['search_term']
     keywords_to_search = keywords['accessibility']['keywords']
 
-    isvalid, result = requisitos_sitios.predict_accessibility (
+    isvalid, result = requisitos_exigidos.predict_accessibility (
         search_term=search_term, keywords=keywords_to_search,
         job_name=job_name, path_base=path_base, 
         verbose=verbose)
-    result_explain = requisitos_sitios.explain(
+    result_explain = requisitos_exigidos.explain(
         result, column_name='matches', elemento='Possui mecanismos de acessibilidade', verbose=verbose)
 
     output = add_in_dict(output, 'accessibility', isvalid, result_explain)
@@ -150,11 +150,11 @@ def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbo
     search_term = keywords['address']['search_term']
     keywords_to_search = keywords['address']['keywords']
 
-    isvalid, result = requisitos_sitios.predict_address(
+    isvalid, result = requisitos_exigidos.predict_address(
         search_term=search_term, keywords=keywords_to_search,
         job_name=job_name, path_base=path_base, 
             verbose=verbose)
-    result_explain = requisitos_sitios.explain(
+    result_explain = requisitos_exigidos.explain(
         result, column_name='matches', elemento='Disponibiliza Endereço', verbose=verbose)
 
     result.to_csv('test.csv', index=False)

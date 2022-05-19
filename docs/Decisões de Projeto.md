@@ -10,6 +10,15 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
 * **Observações:** Os dados mais próximos encontrados das exigências da checklist estão na aba de Empenhos, filtrando a pesquisa por Elemento = Obras e instalações. No entanto, as informações encontradas muitas vezes não cumprem os itens exigidos.
 
+### ADPM / Obras Públicas
+* **Problema:** Após consultar uma amostra de 10 dos 21 municípios, não foram encontrados dados relativos especificamente aos itens de Obras Públicas.
+* **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
+* **Observações:** Os dados mais próximos dessa tag estão localizados em documentos relacionados a tag de despesas. No entando, não é possível filtrar apenas as informações relacionadas à Obras Públicas.
+* 
+* ### ADPM / Concursos Públicos
+* **Problema:** Após consultar uma amostra de 8 dos 21 municípios, não foram encontrados dados relativos especificamente aos itens de Concursos Públicos.
+* **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
+* **Observações:** Não foram encontrados dados nem mesmo próximos aos espeificados pela tag.
 
 ## Validação
 ### Template / Tag / Subtag
