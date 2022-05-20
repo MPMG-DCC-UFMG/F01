@@ -71,35 +71,35 @@ keywords_siplanweb = {
     'acesso_a_informacoes':{
         'requisitos_exigidos':{
             'busca':{
-                'search_term': 'Municipal de Guarani',
+                'search_term': 'Municipal de',
                 'keywords_to_search': ['BUSCA DO SITE','busca', 'Busca', 'campo_busca', 'buscar' 'Ir para página', 'painel_buscar','palavra-chave', 'search'],
                 'num_matches': 1000,
                 'types': ['html'],
                 'keyword_check': ['Busque']
             },
             'exportar_relatorios':{
-                'search_term': 'Municipal de Guarani',
+                'search_term': 'Municipal de',
                 'keywords_to_search': ['pdf', 'xml', 'csv', 'xls', 'download', 'baixar', 'export', 'exportar'],
                 'num_matches': 1000,
                 'types': ['html'],
                 'keyword_check': ['pdf', 'xml', 'csv', 'xls', 'download', 'baixar', 'export', 'exportar']
             },
             'info_atualizadas':{
-                'search_term': 'Municipal de Guarani',
+                'search_term': 'Municipal de',
                 'keywords_to_search': ['Portal atualizado em', 'atualizado', 'update'],
                 'num_matches': 1000,
                 'types': ['html'],
                 'keyword_check': ['Exercício 2022']
             },
             'contato':{
-                'search_term': 'Municipal de Guarani',
+                'search_term': 'Municipal de',
                 'keywords_to_search': ['Fale com a Prefeitura', 'informações', 'Ouvidoria', 'Telefone', 'Endereço', 'Email'],
                 'num_matches': 1000,
                 'types': ['html'],
                 'keyword_check': ['Fale Conosco', 'Cep', 'Tel', 'Endereço', 'E-mail', 'Fax']
             },
             'acessibilidade':{
-                'search_term': 'Municipal de Guarani',
+                'search_term': 'Municipal de',
                 'keywords_to_search': ['Acessibilidade', 'decreto nº 7.724', 'acessibilidade na divulgação das informações',
                                         'opção de contraste', 'trabalhar com leitores de páginas'],
                 'num_matches': 1000,
@@ -108,6 +108,25 @@ keywords_siplanweb = {
             },
         },
     },
+
+    'despesas_com_diarias':{
+        'despesas_com_diarias':{
+            'search_term': 'Municipal de',
+            'keywords_to_search': ['Beneficiário', 'Cargo/Função', 'Valor Concedido',
+                                    'Período de Afastamento', 'Motivo da Diária', 'Quantidade de Diária'],
+            'num_matches': 1000,
+            'types': ['bat'],
+            'nome': 'Beneficiário', 
+            'cargo_funcao': 'Cargo/Função',
+            'valores_recebidos': 'Valor Concedido',
+            'periodo_da_viagem': 'Período de Afastamento',
+            'destino_da_viagem': 'N/A',
+            'motivo_da_viagem': 'Motivo da Diária',
+            'numero_de_diarias': 'Quantidade de Diária'
+            
+        },
+    },
+
 
     'despesas': {
        'empenhos': {

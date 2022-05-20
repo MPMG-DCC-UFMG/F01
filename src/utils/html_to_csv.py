@@ -123,9 +123,10 @@ def load_and_convert_files(paths, format_type):
         list_csv = []
         for i in  paths:
             tabela = pd.read_csv(i)
-            if ('Unnamed' in ' '.join(tabela.columns.values)):
-                tabela.columns = tabela.loc[0].values
-                tabela.drop(0 , inplace=True)
+            # print(tabela.columns.values)
+            # if ('Unnamed' in ' '.join(tabela.columns.values)):
+            #     tabela.columns = tabela.loc[0].values
+            #     tabela.drop(0 , inplace=True)
             
             aux = 0
 
