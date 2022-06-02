@@ -117,7 +117,6 @@ def pipeline_licitacoes(keywords, job_name):
     # Resultados das licitações 
     result['50'] = output['busca']['predict']
 
-    print(result)
     salvar_resultado.save_dict_in_json(job_name, result)
 
 

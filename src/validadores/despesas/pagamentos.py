@@ -1,7 +1,7 @@
 # Empenhos
 
 from utils import indexing
-from utils.csv_to_df import get_df
+from utils.file_to_df import get_df
 from utils.check_df import check_all_values_of_column
 from utils import path_functions
 from ..base import Validador

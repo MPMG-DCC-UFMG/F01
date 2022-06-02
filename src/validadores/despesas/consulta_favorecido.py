@@ -2,7 +2,7 @@ from utils import indexing
 from utils import check_df
 from ..base import Validador
 from utils import path_functions
-from utils.csv_to_df import get_df
+from utils.file_to_df import get_df
 from utils.search_html import analyze_html
 
 class ValidadorConsultaFavorecido(Validador):

@@ -1,14 +1,10 @@
-import string
 from bs4 import BeautifulSoup
-from numpy import NaN
 import pandas as pd
-import os
 import codecs
 import tabula
 from utils import read
 
 def read_content(path, folder, file):
-
     try:
         file = codecs.open("{}/{}/{}".format(path, folder, file), 'r', 'utf-8')
         soup = BeautifulSoup(file, features="lxml")
@@ -17,7 +13,6 @@ def read_content(path, folder, file):
         soup = BeautifulSoup(file, features="lxml")
     
     return soup
-
 
 def list_to_text(soup):
 
@@ -40,63 +35,72 @@ def list_to_text(soup):
 
     return df
 
+
 def convert_html(soup):
-    type = 'None'
+    """
+    Converte todas as tabelas de um html em um df, concatenando lista de df em um único df.
+         
+    Parameters
+    ----------
+    soup : bs4.BeautifulSoup
+        Html a ser convertido
+        
+    Returns
+    -------
+    Dataframe
+        Um único df concatenado.
+    """
+
     try:
-        df = pd.read_html(str(soup.table))[0]
-        type = 'table'
+        list_dfs = [pd.read_html(str(table))[0] for table in soup.find_all('table')]
+        df = concat_lists(list_dfs)
     except ValueError:  
         df = list_to_text(soup)
-        type = 'list'
 
-    return df, type
-
-def convert(all_files, path, folder):
-
-    list_df = []
-    for file in all_files:
-        soup = read_content(path, folder, file)
-        df = convert_html(soup)
-        list_df.append(df)
-    df = pd.concat(list_df)
-    df = df.drop_duplicates()
-    
     return df
 
-def convert_one_file(path):
-    soup = read.read_html(path)
-    # soup = BeautifulSoup(open(path), features="lxml")
-    df, type = convert_html(soup)
-    return df, type   
-
-def one_list_to_csv (format_path):
+def one_html_to_csv (format_path):
     """
-    Convert um elemento 'li' do html para um dataframe.
+    Convert um elemento do html para um dataframe.
     """
     try: 
 
-        df, type = convert_one_file(format_path)
-        if type == 'list' or type == 'table':
-            return df
+        soup = read.read_html(format_path)
+        df = convert_html(soup)
+        return df
         
     except ValueError:
         pass
 
     return pd.DataFrame()
 
-def all_lists_to_csv(paths):
+# def all_lists_to_csv(paths):
 
-    list_df = []
-    for file_name in paths:
-        new_df = one_list_to_csv(file_name)
-        if(not new_df.empty):
-            list_df.append(new_df)
-    if (len(list_df)):              
-        return pd.concat(list_df)
-    else: 
-        return pd.DataFrame()
+#     list_df = []
+#     for file_name in paths:
+#         print(file_name)
+#         new_df = one_html_to_csv(file_name)
+#         if(not new_df.empty):
+#             list_df.append(new_df)
+#     if (len(list_df)):              
+#         return pd.concat(list_df)
+#     else: 
+#         return pd.DataFrame()
 
 def concat_lists(files):
+    """
+    Concatena uma lista de df em um único df
+         
+    Parameters
+    ----------
+    files : list
+        Dataframes a serem concatenados
+        
+    Returns
+    -------
+    Dataframe
+        Um único df concatenado.
+    """
     if len(files) == 0:
         df = pd.DataFrame()
     elif len(files) == 1:
@@ -108,7 +112,15 @@ def concat_lists(files):
 def load_and_convert_files(paths, format_type):
 
     if format_type == 'html':
-        df = all_lists_to_csv(paths)
+        list_df = []
+        for file_name in paths:
+            new_df = one_html_to_csv(file_name)
+            if(not new_df.empty):
+                list_df.append(new_df)
+        if len(list_df) == 0:
+            df = pd.DataFrame()
+        else:
+            df = pd.concat(list_df)
 
     elif format_type == 'csv':
 
@@ -123,10 +135,6 @@ def load_and_convert_files(paths, format_type):
         list_csv = []
         for i in  paths:
             tabela = pd.read_csv(i)
-            # print(tabela.columns.values)
-            # if ('Unnamed' in ' '.join(tabela.columns.values)):
-            #     tabela.columns = tabela.loc[0].values
-            #     tabela.drop(0 , inplace=True)
             
             aux = 0
 

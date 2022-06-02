@@ -1,43 +1,67 @@
+# from pipeline_despesas import pipeline_despesas
 import json
-from validadores import licitacoes
-from utils.indexing import remove_index
+from pipeline_receitas import pipeline_receitas
+from utils.path_functions import format_city_names
 
-from utils import indexing
-from utils import path_functions
+def main(template):
 
-# Siplanweb
-from utilconst.constant_siplanweb import municipios_siplanweb
-from utilconst.constant_siplanweb import keywords_siplanweb
-# PT
-from utilconst.constant_pt import municipios_PT
-from utilconst.constant_pt import keywords_PT
-# Betha
-from utilconst.constant_betha import municipios_betha
-from utilconst.constant_betha import keywords_betha
-# Template2
-from utilconst.constant_template2 import municipios_template2
-from utilconst.constant_template2 import keywords_template2
-# GRP
-from utilconst.constant_grp import municipios_grp
-from utilconst.constant_grp import keywords_grp
+    try:
+        with open(f"src/parametros_templates/{template}.json") as fp:
+            parametros = json.load(fp)
+    except:
+        print(f"Erro ao abrir parametro {template}")
+        return
+
+    municipios = format_city_names(parametros['municipios'])
+
+    for municipio in municipios:
+        # if (municipio == 'guarani'):
+        print(municipio)
+        pipeline_receitas(parametros['keywords']['receitas'], municipio)
 
 
+if __name__ == '__main__':
+
+    template = 'constant_siplanweb'
+
+    main(template)
+
+
+
+
+# # PT
+# from utilconst.constant_pt import municipios_PT
+# from utilconst.constant_pt import keywords_PT
+# # Betha
+# from utilconst.constant_betha import municipios_betha
+# from utilconst.constant_betha import keywords_betha
+# # Template2
+# from utilconst.constant_template2 import municipios_template2
+# from utilconst.constant_template2 import keywords_template2
+# # GRP
+# from utilconst.constant_grp import municipios_grp
+# from utilconst.constant_grp import keywords_grp
+
+# from utils.indexing import remove_index
 # from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
+# from validadores import licitacoes
+
+
 # from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
 # from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
 
-from validadores.acesso_a_informacao import requisitos_exigidos
-from validadores.acesso_a_informacao import informacoes
-from validadores.acesso_a_informacao import base_dados
+# from validadores.acesso_a_informacao import requisitos_exigidos
+# from validadores.acesso_a_informacao import informacoes
+# from validadores.acesso_a_informacao import base_dados
+
 # from validadores.acesso_a_informacao import divulgacao_atendimentos
 
-from validadores.despesas import relatorios
+# from validadores.despesas import relatorios
 
 path_base = '/home/asafe'
 num_matches = 1000
 
-
-def pipeline_informacoes(keywords, path_base, num_matches, job_name):
+def pipeline_informacoes(path_base, job_name):
 
     output = {'link_portal': {},
               'text_expl': {},
@@ -196,14 +220,6 @@ def pipeline_divulgacao_atendimentos(keywords, path_base, num_matches, job_name,
     output = add_in_dict(output, 'pedidos_indeferidos', isvalid_indeferidos, result_explain_indeferidos)
 
     return output
-
-
-
-# def main(jobs, keywords):
-#     for job_name in jobs:
-#         print("**",job_name,"**")
-#         pipeline_despesas(keywords['despesas'], job_name)
-
 
 # main(municipios_PT, keywords_PT)
 # main(municipios_template2, keywords_template2)

@@ -13,7 +13,7 @@ import json
 import subprocess
 import time
 
-TIME_OUT = 300
+TIME_OUT = 350
 
 # MUNICIPIOS = municipios_siplanweb + municipios_sintese + municipios_PT + municipios_betha + municipios_template2 + municipios_grp
 MUNICIPIOS = municipios_siplanweb
