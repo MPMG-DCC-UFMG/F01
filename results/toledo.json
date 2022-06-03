@@ -12,7 +12,7 @@
     "48": false,
     "49": false,
     "50": true,
-    "26": true,
+    "26": false,
     "32": true,
     "33": false,
     "34": true,
@@ -30,5 +30,7 @@
     "114": false,
     "115": false,
     "116": false,
-    "117": false
+    "117": false,
+    "24": true,
+    "25": true
 }
