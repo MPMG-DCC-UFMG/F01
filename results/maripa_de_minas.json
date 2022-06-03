@@ -22,7 +22,21 @@
     "115": false,
     "116": true,
     "117": true,
+<<<<<<< HEAD
     "24": true,
     "25": true,
     "26": false
+=======
+    "24": false,
+    "25": false,
+    "26": false,
+    "43": false,
+    "44": false,
+    "45": false,
+    "46": false,
+    "47": false,
+    "48": false,
+    "49": false,
+    "50": false
+>>>>>>> bd9c8df9a090e7a32d7a855e6e9b2c29406b4d8c
 }
