@@ -17,7 +17,7 @@ def main(template):
 
     for municipio in municipios:
         if (municipio == 'guarani'):
-            print(municipio)
+            # print(municipio)
         # pipeline_receitas(parametros['keywords']['receitas'], municipio)
             pipeline_licitacoes(parametros['keywords']['licitacoes'], municipio)
 
