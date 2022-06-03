@@ -1,6 +1,7 @@
 # from pipeline_despesas import pipeline_despesas
 import json
 from pipeline_receitas import pipeline_receitas
+from pipeline_licitacoes import pipeline_licitacoes
 from utils.path_functions import format_city_names
 
 def main(template):
@@ -15,9 +16,10 @@ def main(template):
     municipios = format_city_names(parametros['municipios'])
 
     for municipio in municipios:
-        # if (municipio == 'guarani'):
-        print(municipio)
-        pipeline_receitas(parametros['keywords']['receitas'], municipio)
+        if (municipio == 'guarani'):
+            print(municipio)
+        # pipeline_receitas(parametros['keywords']['receitas'], municipio)
+            pipeline_licitacoes(parametros['keywords']['licitacoes'], municipio)
 
 
 if __name__ == '__main__':

@@ -2,14 +2,9 @@ from utils import indexing
 from utils import path_functions
 from utils import salvar_resultado
 
-# Siplanweb
-from utilconst.constant_siplanweb import keywords_siplanweb
-from utilconst.constant_siplanweb import municipios_siplanweb
-
 from validadores import licitacoes 
 
-num_matches = 1000
-
+num_matches = 1000 
 
 def pipeline_licitacoes(keywords, job_name):
 
@@ -18,10 +13,10 @@ def pipeline_licitacoes(keywords, job_name):
     except KeyError:
         types = 'html'
 
-    search_term = keywords['licitacoes']['search_term']
-    keywords_to_search = keywords['licitacoes']['keywords']
-    proc_lic_itens = keywords['licitacoes']['proc_lic_itens']
-    editais = keywords['licitacoes']['editais']
+    search_term = keywords['search_term']
+    keywords_to_search = keywords['keywords']
+    proc_lic_itens = keywords['proc_lic_itens']
+    editais = keywords['editais']
 
     output = {
             'proc_lic_numero': {},
@@ -99,6 +94,8 @@ def pipeline_licitacoes(keywords, job_name):
     output['busca']['predict'] = isvalid
     output['busca']['explain'] = result_explain
 
+    print(output)
+
     result = salvar_resultado.abrir_existente(job_name)
     
     # Processos licitatórios
@@ -118,10 +115,3 @@ def pipeline_licitacoes(keywords, job_name):
     result['50'] = output['busca']['predict']
 
     salvar_resultado.save_dict_in_json(job_name, result)
-
-
-jobs = municipios_siplanweb
-keywords = keywords_siplanweb
-
-# for job_name in jobs:
-#     pipeline_licitacoes(keywords, job_name)
