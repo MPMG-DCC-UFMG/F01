@@ -3,7 +3,6 @@ from utils import path_functions
 from utils import path_functions
 from utils.file_to_df import get_df
 from utils.check_df import check_all_values_of_column
-
 class ValidadorDadosDasReceitas:
 
     def __init__(self, job_name, keywords):
@@ -55,7 +54,6 @@ class ValidadorDadosDasReceitas:
         result_explain = self.explain(result, self.keywords['classificacao'], 'a classificação')
         resultados_dados_das_receitas['classificacao']['predict'] = isvalid
         resultados_dados_das_receitas['classificacao']['explain'] = result_explain
-
 
         return resultados_dados_das_receitas
         

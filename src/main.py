@@ -16,10 +16,10 @@ def main(template):
     municipios = format_city_names(parametros['municipios'])
 
     for municipio in municipios:
-        # if (municipio == 'guarani'):
+        if (municipio == 'guarani'):
             print(municipio)
-        # pipeline_receitas(parametros['keywords']['receitas'], municipio)
-            pipeline_licitacoes(parametros['keywords']['licitacoes'], municipio)
+            pipeline_receitas(parametros['keywords']['receitas'], municipio)
+        #     pipeline_licitacoes(parametros['keywords']['licitacoes'], municipio)
 
 
 if __name__ == '__main__':
