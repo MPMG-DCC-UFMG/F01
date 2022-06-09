@@ -10,7 +10,7 @@ class ValidadorProcessosLicitatorios:
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['receitas'])
+        files = path_functions.filter_paths(files, words=['licitacao'])
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
 
@@ -47,32 +47,32 @@ class ValidadorProcessosLicitatorios:
         # Número
         isvalid, result = self.predict_numero()
         result_explain = self.explain(result, self.keywords['numero'], 'o número')
-        resultados['previsao']['predict'] = isvalid
-        resultados['previsao']['explain'] = result_explain
+        resultados['numero']['predict'] = isvalid
+        resultados['numero']['explain'] = result_explain
 
         # Modalidade
         isvalid, result = self.predict_modalidade()
         result_explain = self.explain(result, self.keywords['numero'], 'a modalidade')
-        resultados['previsao']['predict'] = isvalid
-        resultados['previsao']['explain'] = result_explain
+        resultados['modalidade']['predict'] = isvalid
+        resultados['modalidade']['explain'] = result_explain
 
         # O objeto
         isvalid, result = self.predict_objeto()
         result_explain = self.explain(result, self.keywords['objeto'], 'o objeto')
-        resultados['previsao']['predict'] = isvalid
-        resultados['previsao']['explain'] = result_explain
+        resultados['objeto']['predict'] = isvalid
+        resultados['objeto']['explain'] = result_explain
 
-        # Statis
+        # Status
         isvalid, result = self.predict_status()
         result_explain = self.explain(result, self.keywords['status'], 'o status')
-        resultados['previsao']['predict'] = isvalid
-        resultados['previsao']['explain'] = result_explain
+        resultados['status']['predict'] = isvalid
+        resultados['status']['explain'] = result_explain
 
         # Resultado
         isvalid, result = self.predict_resultado()
         result_explain = self.explain(result, self.keywords['resultado'], 'o resultado')
-        resultados['previsao']['predict'] = isvalid
-        resultados['previsao']['explain'] = result_explain
+        resultados['resultado']['predict'] = isvalid
+        resultados['resultado']['explain'] = result_explain
 
         return resultados
         

@@ -1,6 +1,4 @@
-from utils.path_functions import format_city_names
-
-municipios_grp = [
+[
     "Carneirinho",
     "Conquista",
     "Caxambu",
@@ -29,15 +27,3 @@ municipios_grp = [
     "Unaí",
     "Divinópolis"
 ]
-
-municipios_grp = format_city_names(municipios_grp)
-
-keywords_grp = {
-    'licitacoes': {
-       'search_term': 'Licitatórios',
-       'keywords': ['objeto', 'modalidade', 'situação'],
-       'proc_lic_itens': ['processo', 'modalidade', 'objeto', 'situação', 'empresa vencedor'],
-       'editais': 'Editais de Licitação e Demais Arquivos'
-    },
-    'types': ['bat']
-}

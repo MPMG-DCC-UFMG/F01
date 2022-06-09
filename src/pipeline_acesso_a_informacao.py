@@ -1,4 +1,4 @@
-from utils import salvar_resultado
+from utils import handle_files
 from validadores.acesso_a_informacao.requisitos_exigidos import ValidadorRequisitosExigidos
 
 # Siplanweb
@@ -11,7 +11,7 @@ def pipeline_acesso_a_infomacao(keywords, job_name):
     validador_requisitos_exigidos = ValidadorRequisitosExigidos(job_name, keywords['requisitos_exigidos'])
     output_requisitos_exigidos = validador_requisitos_exigidos.predict()
 
-    result = salvar_resultado.abrir_existente(job_name)
+    result = handle_files.abrir_existente(job_name)
 
     result['8'] = output_requisitos_exigidos['busca']['predict']  
     result['9'] = output_requisitos_exigidos['busca']['predict'] 
@@ -19,7 +19,7 @@ def pipeline_acesso_a_infomacao(keywords, job_name):
     result['11'] = output_requisitos_exigidos['busca']['predict'] 
     result['12'] = output_requisitos_exigidos['busca']['predict'] 
 
-    salvar_resultado.save_dict_in_json(job_name, result)
+    handle_files.save_dict_in_json(job_name, result)
 
 jobs = municipios_siplanweb
 keywords = keywords_siplanweb

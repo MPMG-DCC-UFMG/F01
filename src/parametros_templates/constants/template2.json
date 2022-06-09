@@ -1,0 +1,9 @@
+{
+    "licitacoes": {
+       "search_term": "Modalidade Objeto Item Quantidade Licitações",
+       "keywords": ["objeto"],
+       "proc_lic_itens": ["n° do processo", "modalidade", "objeto", "situação", "empresa vencedor"],
+       "editais": "Editais de Licitação e Demais Arquivos"
+    },
+    "types": ["bat","pdf"]
+}

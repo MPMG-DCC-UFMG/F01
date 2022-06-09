@@ -1,4 +1,4 @@
-from utils import salvar_resultado
+from utils import handle_files
 from validadores.despesas import empenhos
 from validadores.despesas import pagamentos
 from validadores.despesas import relatorios
@@ -31,7 +31,7 @@ def pipeline_despesas(keywords, job_name):
     validador_relatorios = relatorios.ValidadorRelatorios(job_name, keywords['relatorios'])
     output_relatorios = validador_relatorios.predict()
 
-    result = salvar_resultado.abrir_existente(job_name)
+    result = handle_files.abrir_existente(job_name)
 
     result['27'] = output_empenhos['numero']['predict']
     result['28'] = output_empenhos['valor']['predict']
@@ -47,7 +47,7 @@ def pipeline_despesas(keywords, job_name):
     result['36'] = output_consulta_favorecido['consulta_favorecido']['predict']   
     result['37'] = output_gerar_relatorios['gerar_relatorios']['predict']
 
-    salvar_resultado.save_dict_in_json(job_name, result)
+    handle_files.save_dict_in_json(job_name, result)
 
 jobs = municipios_siplanweb
 keywords = keywords_siplanweb

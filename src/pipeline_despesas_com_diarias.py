@@ -1,4 +1,4 @@
-from utils import salvar_resultado
+from utils import handle_files
 from validadores.despesas_com_diarias.despesas_com_diarias import ValidadorDespesasComDiarias
 
 # Siplanweb
@@ -11,7 +11,7 @@ def pipeline_despesas_com_diarias(keywords, job_name):
     validador_despesas_com_diarias = ValidadorDespesasComDiarias(job_name, keywords['despesas_com_diarias'])
     output_despesas_com_diarias = validador_despesas_com_diarias.predict()
 
-    result = salvar_resultado.abrir_existente(job_name)
+    result = handle_files.abrir_existente(job_name)
 
     result['111'] = output_despesas_com_diarias['nome']['predict']  
     result['112'] = output_despesas_com_diarias['cargo_funcao']['predict']  
@@ -22,7 +22,7 @@ def pipeline_despesas_com_diarias(keywords, job_name):
     result['117'] = output_despesas_com_diarias['numero_de_diarias']['predict']
 
 
-    salvar_resultado.save_dict_in_json(job_name, result)
+    handle_files.save_dict_in_json(job_name, result)
     print(result['111'], result['112'], result['113'],result['114'],result['115'],result['116'], result['117'])
 
 jobs = municipios_siplanweb

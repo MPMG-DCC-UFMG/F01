@@ -27,6 +27,13 @@ def get_tags_title (soup):
     title_class =  [tag.get('title') for tag in soup.find_all() if tag.get('title') != None]
     return title_class
 
+def get_aria_labels (soup):
+
+    #Get all tags and return a list with all aria_labels
+
+    aria_labels =  [tag.get('aria-label') for tag in soup.find_all() if tag.get('aria-label') != None]
+    return aria_labels
+
 def search_tags_address(tags):
     address = [i for i in tags if ("endereco" in i) or ("address" in i)]
     return address
@@ -79,6 +86,28 @@ def analyze_botoes(soup, keyword_to_search):
         num_matches += count_matches (title, keyword_to_search)
     return num_matches
 
+def analyze_aria_label(soup, keyword_to_search):
+    """
+    Retorna a quantidade de vezes que uma determinada palavra está presente em atributo aria_label.
+
+    Parameters
+    ----------
+    soup: html
+        String a ser verificada
+    keyword_to_search: string
+        Palavra a ser procurada nos "aria_label"s
+        
+    Returns
+    -------
+    int
+        Número de vezes que a keyword_to_search foi encontrada.
+    """
+    num_matches = 0
+    titles = get_aria_labels(soup)
+    for title in titles:
+        num_matches += count_matches (title, keyword_to_search)
+    return num_matches
+
 def analyze_placeholders(soup, keyword_to_search):
     """
     Retorna a quantidade de vezes que uma determinada palavra está presente em algum placeholder html.
@@ -108,7 +137,7 @@ def analyze_html(html_files, keyword_to_search):
 
     """
     Checa quantas ocorrências existem em cada arquivo em: palavras no texto html, 
-    no título de alguma tag ou placeholder.
+    no título de alguma tag, placeholder ou aria-label.
 
     Parameters
     ----------
@@ -152,6 +181,9 @@ def analyze_html(html_files, keyword_to_search):
 
                 # Em algum placeholder
                 num_matches_keyword += analyze_placeholders (soup, keyword)
+
+                # Em algum aria-label
+                num_matches_keyword += analyze_aria_label (soup, keyword)
 
                 if num_matches_keyword:
                     words.append(keyword)
