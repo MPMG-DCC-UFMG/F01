@@ -14,9 +14,9 @@ def main(template):
     for municipio in municipios:
         if (municipio == 'guarani'):
             print(municipio)
-            pipeline_receitas(parametros['receitas'], municipio)
-            pipeline_licitacoes(parametros['licitacoes'], municipio)
-            # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
+            # pipeline_receitas(parametros['receitas'], municipio)
+            # pipeline_licitacoes(parametros['licitacoes'], municipio)
+            pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
 
 
 if __name__ == '__main__':

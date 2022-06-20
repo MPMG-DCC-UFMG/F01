@@ -62,7 +62,7 @@ def informacao_dois_pontos_para_df(soup):
             for texto in textos_da_tag:
                 if ":" in repr(texto):
                     key_value = element.getText().strip().split(":")
-                    if (len(key_value) is 2):
+                    if (len(key_value) == 2):
                         key = key_value[0]
                         value = key_value[1]
                         if value != '':
