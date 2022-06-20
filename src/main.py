@@ -1,6 +1,7 @@
 # from pipeline_despesas import pipeline_despesas
 from pipeline_receitas import pipeline_receitas
 from pipeline_licitacoes import pipeline_licitacoes
+# from utils.indexing import remove_index
 from pipeline_terceiro_setor import pipeline_terceiro_setor
 
 from utils.handle_files import get_municipios_do_template
@@ -24,8 +25,6 @@ if __name__ == '__main__':
     main(template)
 
 
-
-# from utils.indexing import remove_index
 # from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
 # from validadores import licitacoes
 
