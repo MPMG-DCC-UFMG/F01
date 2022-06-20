@@ -12,7 +12,6 @@ def main(template):
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
-        if (municipio == 'guarani'):
             print(municipio)
             # pipeline_receitas(parametros['receitas'], municipio)
             # pipeline_licitacoes(parametros['licitacoes'], municipio)
