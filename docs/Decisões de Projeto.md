@@ -18,7 +18,12 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 ### ADPM / Concursos Públicos
 * **Problema:** Após consultar uma amostra de 8 dos 21 municípios, não foram encontrados dados relativos especificamente aos itens de Concursos Públicos.
 * **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
-* **Observações:** Não foram encontrados dados nem mesmo próximos aos espeificados pela tag.
+* **Observações:** Não foram encontrados dados nem mesmo próximos aos especificados pela tag.
+
+### ADPM / Servidores
+* **Problema:** Após consultar uma amostra de 8 dos 21 municípios, a coleta de Servidores não se mostrou possível devido a problemas de instabilidade da seção relacionada aos dados relativos a tag em questão. Tal instabilidade reflete em erros de tempo limite excedido nas tentativas de coleta.
+* **Decisão:** Foi concluído que não é possível realizar a coleta dos dados relativos a tag Servidores para o template ADPM.
+* **Observações:** Tanto a estratégia de coleta estática quanto dinâmica encontraram o mesmo problema durante a execução.
 
 ## Validação
 ### Template / Tag / Subtag
