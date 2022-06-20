@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import bs4
 import pandas as pd
 import codecs
 import tabula
@@ -35,14 +36,52 @@ def list_to_text(soup):
 
     return df
 
-
-def convert_html(soup):
+def informacao_dois_pontos_para_df(soup):
     """
-    Converte todas as tabelas de um html em um df, concatenando lista de df em um único df.
+    Converte as informações separadas por dois pontos de um html em um Dataframe.
          
     Parameters
     ----------
-    soup : bs4.BeautifulSoup
+    soup: bs4.BeautifulSoup
+        Html a ser convertido
+        
+    Returns
+    -------
+    Dataframe
+        Um df.
+    """
+
+    body = soup.body
+    body.script.clear()
+
+    df_= {}
+
+    for element in body.next_elements:
+
+            textos_da_tag = [text for text in element.stripped_strings]    
+            for texto in textos_da_tag:
+                if ":" in repr(texto):
+                    key_value = element.getText().strip().split(":")
+                    if (len(key_value) is 2):
+                        key = key_value[0]
+                        value = key_value[1]
+                        if value != '':
+                            df_[key] = value
+
+
+    df = pd.DataFrame(df_,index=[0])
+
+    return df
+
+
+def convert_html(soup):
+    """
+    Converte todas as tabelas em um Dataframe, caso não exista uma tabela na página 
+    busca pelas informações separadas por dois pontos de um html.
+         
+    Parameters
+    ----------
+    soup: bs4.BeautifulSoup
         Html a ser convertido
         
     Returns
@@ -51,11 +90,19 @@ def convert_html(soup):
         Um único df concatenado.
     """
 
-    try:
-        list_dfs = [pd.read_html(str(table))[0] for table in soup.find_all('table')]
-        df = concat_lists(list_dfs)
-    except ValueError:  
-        df = list_to_text(soup)
+
+    list_dfs = [pd.read_html(str(table))[0] for table in soup.find_all('table')]
+
+    df_from_li = list_to_text(soup)
+    if (not df_from_li.empty):
+        list_dfs.append(df_from_li)
+
+    if len(list_dfs) == 0:
+        df_dois_pontos = informacao_dois_pontos_para_df(soup)
+        if (not df_dois_pontos.empty):
+            list_dfs.append(df_dois_pontos)
+
+    df = concat_lists(list_dfs)
 
     return df
 
@@ -63,14 +110,14 @@ def one_html_to_csv (format_path):
     """
     Convert um elemento do html para um dataframe.
     """
-    try: 
+    # try: 
 
-        soup = read.read_html(format_path)
-        df = convert_html(soup)
-        return df
+    soup = read.read_html(format_path)
+    df = convert_html(soup)
+    return df
         
-    except ValueError:
-        pass
+    # except ValueError:
+    #     pass
 
     return pd.DataFrame()
 

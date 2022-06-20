@@ -45,7 +45,7 @@ def files_isvalid(df, column_name, threshold=0):
 
 def check_all_values_of_column(df, keyword_check, typee='valor'):
     """
-    Checa se uma coluna de um dataframe pelo menos metade dos seus valores validos.
+    Checa se uma coluna de um dataframe contém valores validos.
 
     Parameters
     ----------
@@ -59,7 +59,7 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
     Returns
     -------
     Boolean
-        Se é verdade que pelo menos metade dos valores são validos, retorna true ou false.
+        Se é verdade que existe algum valor válido na coluna, retorna true ou false.
     """
     
     if typee == 'valor':
@@ -86,7 +86,7 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
 
     isvalid = False
     for c in valid:
-        if c > (len(df.index)/2):
+        if c > (2):
             isvalid = True
 
     return df, isvalid

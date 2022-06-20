@@ -1,6 +1,8 @@
 # from pipeline_despesas import pipeline_despesas
 from pipeline_receitas import pipeline_receitas
 from pipeline_licitacoes import pipeline_licitacoes
+from pipeline_terceiro_setor import pipeline_terceiro_setor
+
 from utils.handle_files import get_municipios_do_template
 from utils.handle_files import get_keywords_do_template
 
@@ -12,8 +14,9 @@ def main(template):
     for municipio in municipios:
         if (municipio == 'guarani'):
             print(municipio)
-            # pipeline_receitas(parametros['keywords']['receitas'], municipio)
-            pipeline_licitacoes(parametros['keywords']['licitacoes'], municipio)
+            pipeline_receitas(parametros['receitas'], municipio)
+            pipeline_licitacoes(parametros['licitacoes'], municipio)
+            # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
 
 
 if __name__ == '__main__':

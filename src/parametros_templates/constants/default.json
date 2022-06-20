@@ -1,5 +1,6 @@
 
 { 
+	"keywords": {
     "acesso_a_informacoes":{
         "requisitos_exigidos":{
             "busca":{
@@ -50,11 +51,11 @@
             "types": ["bat"],
             "nome": "Beneficiário", 
             "cargo_funcao": "Cargo/Função",
-            "valores_recebidos": "Valor Concedido",
-            "periodo_da_viagem": "Período de Afastamento",
-            "destino_da_viagem": "N/A",
-            "motivo_da_viagem": "Motivo da Diária",
-            "numero_de_diarias": "Quantidade de Diária"
+            "valores_recebidos": "ralor recebido",
+            "periodo_da_viagem": "período",
+            "destino_da_viagem": "destino",
+            "motivo_da_viagem": "motivo da diária",
+            "numero_de_diarias": "número de diárias"
             
         }
     },
@@ -65,9 +66,9 @@
             "keywords_to_search": ["Contas Receita", "Nome da receita", "Previsto", "Arrecadado"],
             "num_matches": 1000,
             "types": ["html"],
-            "previsao": "Previsto", 
-            "arrecadacao": "Arrecadado",
-            "classificacao": "Classificação"
+            "previsao": "previsto", 
+            "arrecadacao": "arrecadado",
+            "classificacao": "classificação"
         }
     },
 
@@ -81,8 +82,8 @@
             "numero": "Empenho", 
             "valor": "Vr. Empenhado",
             "data": "Data inicial",
-            "favorecido": "Fornecedor",
-            "descricao": "Elemento"
+            "favorecido": "favorecido",
+            "descricao": "descrição"
         },
         "pagamentos": {
             "search_term": "Pago",
@@ -178,22 +179,26 @@
             "search_term": "Licitações licitação Tomada Modalidade Objeto",
             "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
             "num_matches": 1000,
-            "resultados": "Visualizar processo"
+            "resultados": "resultados"
         }
     },
+    "types": ["html","bat"]
+	},
 
     "terceiro_setor": {
         "dados_de_parcerias": {
-             "search_term": "Convênio Aditivos",
-             "keywords_to_search": ["Data da Assinatura", "Data Assinatura", "Concedente", "Vr. do Convênio", "Núm. Aditivo"],
+             "search_term": "a",
+             "keywords_to_search": ["teste"],
              "num_matches": 1000,
              "types": ["html"],
-             "data_de_celebracao": "Data da Assinatura", 
-             "objeto": "Objeto",
-             "conveniados": "Concedente",
-             "aditivos": "Número do aditivo"
+             "data_de_celebração": "data de celebração", 
+             "objeto": "objeto",
+             "conveniados": "conveniados",
+             "aditivos": "aditivos",
+             "resultado": "resultado"
          }
     }
-}
 
     
+
+}
