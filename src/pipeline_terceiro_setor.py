@@ -17,7 +17,7 @@ def pipeline_terceiro_setor(keywords, job_name):
     result = handle_files.abrir_existente(job_name)
     
     # Dados de Parcerias
-    result['43'] = output_dados_de_parceria['data_de_celebração']['predict']
+    result['43'] = output_dados_de_parceria['data_de_celebracao']['predict']
     result['44'] = output_dados_de_parceria['objeto']['predict']
     result['45'] = output_dados_de_parceria['conveniados']['predict']
     result['46'] = output_dados_de_parceria['aditivos']['predict']
