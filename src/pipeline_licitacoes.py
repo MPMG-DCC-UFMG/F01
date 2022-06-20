@@ -22,6 +22,13 @@ def pipeline_licitacoes(keywords, job_name):
     validador_resultado_das_licitacoes = resultado_das_licitacoes.ValidadorResultadosDasLicitacoes(job_name, keywords['resultado_das_licitacoes'])
     output_resultado_das_licitacoes = validador_resultado_das_licitacoes.predict()
 
+    print('Licitações:',  output_processos_licitatorios['numero']['predict'], 
+                        output_processos_licitatorios['modalidade']['predict'], 
+                        output_processos_licitatorios['objeto']['predict'], 
+                        output_processos_licitatorios['status']['predict'], 
+                        output_processos_licitatorios['resultado']['predict'])    
+
+
     result = handle_files.abrir_existente(job_name)
     
     # Processos licitatórios
@@ -37,7 +44,8 @@ def pipeline_licitacoes(keywords, job_name):
     # Editais
     result['49'] = output_editais['editais']['predict']
 
-    # # Resultados das licitações 
-    result['50'] = output_resultado_das_licitacoes['busca']['predict']
+    # Resultados das licitações 
+    result['50'] = output_resultado_das_licitacoes['resultados_das_licitacoes']['predict']
+
 
     handle_files.save_dict_in_json(job_name, result)

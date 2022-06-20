@@ -85,9 +85,13 @@ def check_value(value):
     
     isnumber = isinstance(value, (int, float))
     
-    if not isnumber:
+    if isnumber:
+        return value != 0
+
+    else:
         try: 
             converted = float(value)
+            print(converted)
             
             if converted == 0:
                 return "Invalid Number"
@@ -97,7 +101,6 @@ def check_value(value):
         except ValueError:
             return False
     
-    return isnumber 
 
 
 def search_splitter(string):

@@ -17,6 +17,9 @@ HOME = Path.home()
 
 for municipio in MUNICIPIOS:
 
+    if (municipio != 'piau'):
+        continue
+
     config = {
         'name': municipio,
         'fs': 

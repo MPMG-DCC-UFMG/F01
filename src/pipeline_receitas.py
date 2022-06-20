@@ -8,7 +8,8 @@ def pipeline_receitas(keywords, job_name):
     output_dados_das_receitas = validador_dados_das_receitas.predict()
 
     result = handle_files.abrir_existente(job_name)
-    print(output_dados_das_receitas['previsao']['predict'], output_dados_das_receitas['arrecadacao']['predict'], output_dados_das_receitas['classificacao']['predict'])    
+
+    print('Receitas:',output_dados_das_receitas['previsao']['predict'], output_dados_das_receitas['arrecadacao']['predict'], output_dados_das_receitas['classificacao']['predict'])    
 
     result['24'] = output_dados_das_receitas['previsao']['predict']
     result['25'] = output_dados_das_receitas['arrecadacao']['predict']
