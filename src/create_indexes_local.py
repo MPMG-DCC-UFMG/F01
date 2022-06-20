@@ -1,11 +1,5 @@
 import yaml
-from utilconst.constant_siplanweb import municipios_siplanweb
-from utilconst.constant_sintese import municipios_sintese
-from utilconst.constant_pt import municipios_PT
-from utilconst.constant_betha import municipios_betha
-from utilconst.constant_template2 import municipios_template2
-from utilconst.constant_grp import municipios_grp
-
+from utils.handle_files import get_municipios_do_template
 
 from pathlib import Path
 import os
@@ -13,10 +7,10 @@ import json
 import subprocess
 import time
 
-TIME_OUT = 350
+TEMPLATE = "siplanweb"
 
-# MUNICIPIOS = municipios_siplanweb + municipios_sintese + municipios_PT + municipios_betha + municipios_template2 + municipios_grp
-MUNICIPIOS = municipios_siplanweb
+MUNICIPIOS = get_municipios_do_template(TEMPLATE)
+TIME_OUT = 350
 
 # Localmente
 HOME = Path.home()

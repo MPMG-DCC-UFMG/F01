@@ -1,117 +1,43 @@
-from utils import indexing
-from utils import path_functions
-from utils import salvar_resultado
-
-from validadores import licitacoes 
-
-num_matches = 1000 
+from utils import handle_files
+from validadores.licitacoes import processos_licitatorios
+from validadores.licitacoes import registro_dos_procedimentos
+from validadores.licitacoes import editais
+from validadores.licitacoes import resultado_das_licitacoes
 
 def pipeline_licitacoes(keywords, job_name):
 
-    try:
-        types = keywords['types']
-    except KeyError:
-        types = 'html'
+    # Subtag - Processos Licitatorios
+    validador_processos_licitatorios = processos_licitatorios.ValidadorProcessosLicitatorios(job_name, keywords['processos_licitatorios'])
+    output_processos_licitatorios = validador_processos_licitatorios.predict()
 
-    search_term = keywords['search_term']
-    keywords_to_search = keywords['keywords']
-    proc_lic_itens = keywords['proc_lic_itens']
-    editais = keywords['editais']
+    # Subtag - Registro dos procedimentos
+    validador_registro_dos_procedimentos = registro_dos_procedimentos.ValidadorRegistroDosProcedimentos(job_name, keywords['registro_dos_procedimentos'])
+    output_registro_dos_procedimentos = validador_registro_dos_procedimentos.predict()
 
-    output = {
-            'proc_lic_numero': {},
-            'proc_lic_modalidade': {},
-            'proc_lic_objeto': {},
-            'proc_lic_status': {},
-            'proc_lic_resultado': {},
-            'inexigibilidade_e_dispensa': {},
-            'editais': {},
-            'busca': {}
-            }
+    # Subtag Editais
+    validador_editais = editais.ValidadorEditais(job_name, keywords['editais'])
+    output_editais = validador_editais.predict()
 
-    #Search
-    files = indexing.get_files(
-        search_term, num_matches,
-        job_name, keywords_search=keywords_to_search)
-    
-    files = path_functions.filter_paths(files, words=['licitacao','licitacoes'])
-    files = path_functions.agg_paths_by_type(files)
-    # print('bat', len(files['bat']))
-    # print('pdf', len(files['pdf']))
-    validador = licitacoes.ValidadorLicitacoes(files, proc_lic_itens[0], ttype=types)
-    # print(len(validador.files['bat']))
+    # Resultados das licitações
+    validador_resultado_das_licitacoes = resultado_das_licitacoes.ValidadorResultadosDasLicitacoes(job_name, keywords['resultado_das_licitacoes'])
+    output_resultado_das_licitacoes = validador_resultado_das_licitacoes.predict()
 
-    # Procedimentos Licitatórios número
-    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[0])
-    result_explain = validador.explain(result, proc_lic_itens[0])
-    output['proc_lic_numero']['predict'] = isvalid
-    output['proc_lic_numero']['explain'] = result_explain
-    
-    # Procedimentos Licitatórios modalidade
-    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[1])
-    result_explain = validador.explain(result, proc_lic_itens[1])
-    output['proc_lic_modalidade']['predict'] = isvalid
-    output['proc_lic_modalidade']['explain'] = result_explain
-
-    # Procedimentos Licitatórios objeto
-    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[2])
-    result_explain = validador.explain(result, proc_lic_itens[2])
-    output['proc_lic_objeto']['predict'] = isvalid
-    output['proc_lic_objeto']['explain'] = result_explain
-
-    # Procedimentos Licitatórios status
-    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[3])
-    result_explain = validador.explain(result, proc_lic_itens[3])
-    output['proc_lic_status']['predict'] = isvalid
-    output['proc_lic_status']['explain'] = result_explain
-
-    # Procedimentos Licitatórios resultado
-    isvalid, result = validador.predict_df(keyword_check=proc_lic_itens[4])
-    result_explain = validador.explain(result, proc_lic_itens[4])
-    output['proc_lic_resultado']['predict'] = isvalid
-    output['proc_lic_resultado']['explain'] = result_explain
-
-    # Procedimentos modalidade Inexigibilidade e Dispensa
-    isvalid_inexigibilidade, result_inexigibilidade = validador.predict_inexibilidade()
-    isvalid_dispensa, result_dispensa = validador.predict_dispensa()
-    isvalid = isvalid_inexigibilidade and isvalid_dispensa 
-    result = result_inexigibilidade['inexigibilidade']
-    result.extend(result_dispensa['dispensa'])
-    result = {'inexigibilidade e dispensa': result} 
-    result_explain = validador.explain(result, 'inexigibilidade e dispensa')
-    output['inexigibilidade_e_dispensa']['predict'] = isvalid
-    output['inexigibilidade_e_dispensa']['explain'] = result_explain
-
-    # Disponibilização de Editais
-    isvalid, result = validador.predict_editais(editais)
-    result_explain=validador.explain(result, 'editais')
-    output['editais']['predict'] = isvalid
-    output['editais']['explain'] = result_explain
-
-    # Permite Busca
-    isvalid, result = validador.predict_busca()
-    result_explain=validador.explain(result, 'busca')
-    output['busca']['predict'] = isvalid
-    output['busca']['explain'] = result_explain
-
-    print(output)
-
-    result = salvar_resultado.abrir_existente(job_name)
+    result = handle_files.abrir_existente(job_name)
     
     # Processos licitatórios
-    result['43'] = output['proc_lic_numero']['predict']
-    result['44'] = output['proc_lic_modalidade']['predict']
-    result['45'] = output['proc_lic_objeto']['predict']
-    result['46'] = output['proc_lic_status']['predict']
-    result['47'] = output['proc_lic_resultado']['predict']
+    result['43'] = output_processos_licitatorios['numero']['predict']
+    result['44'] = output_processos_licitatorios['modalidade']['predict']
+    result['45'] = output_processos_licitatorios['objeto']['predict']
+    result['46'] = output_processos_licitatorios['status']['predict']
+    result['47'] = output_processos_licitatorios['resultado']['predict']
 
     # Registro dos procedimentos
-    result['48'] = output['inexigibilidade_e_dispensa']['predict']
+    result['48'] = output_registro_dos_procedimentos['inexigibilidade_e_dispensa']['predict']
 
     # Editais
-    result['49'] = output['editais']['predict']
+    result['49'] = output_editais['editais']['predict']
 
-    # Resultados das licitações 
-    result['50'] = output['busca']['predict']
+    # # Resultados das licitações 
+    result['50'] = output_resultado_das_licitacoes['busca']['predict']
 
-    salvar_resultado.save_dict_in_json(job_name, result)
+    handle_files.save_dict_in_json(job_name, result)

@@ -1,6 +1,4 @@
-from utils.path_functions import format_city_names
-
-municipios_sintese = [
+[
     "Ibiaí",
     "Presidente Kubitschek",
     "Turmalina",
@@ -88,29 +86,5 @@ municipios_sintese = [
     "São João do Pacuí",
     "Manga",
     "Montezuma",
-    "Itacarambi",
+    "Itacarambi"
 ]
-
-['presidente_kubitschek',
-        'engenheiro_navarro',
-        'chapada_gaucha',
-        'mamonas',
-        'guaraciama',
-        'pai_pedro',
-        'varzea_da_palma',
-        'virgem_da_lapa',
-        'curral_de_dentro',
-        'monte_azul',
-        'santana_do_riacho']
-
-municipios_sintese = format_city_names(municipios_sintese)
-# print(municipios_sintese)
-
-keywords_template = {
-    'licitacoes': {
-       'search_term': 'Licitações licitação Tomada Modalidade Objeto',
-       'keywords': ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-       'proc_lic_itens': ['número', 'modalidade', 'objeto', 'status', 'resultado']
-    },
-    'types': ['html','pdf']
-}
