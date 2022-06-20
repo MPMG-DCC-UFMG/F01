@@ -15,7 +15,7 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
 * **Observações:** Os dados mais próximos dessa tag estão localizados em documentos relacionados a tag de despesas. No entando, não é possível filtrar apenas as informações relacionadas à Obras Públicas.
 * 
-* ### ADPM / Concursos Públicos
+### ADPM / Concursos Públicos
 * **Problema:** Após consultar uma amostra de 8 dos 21 municípios, não foram encontrados dados relativos especificamente aos itens de Concursos Públicos.
 * **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
 * **Observações:** Não foram encontrados dados nem mesmo próximos aos espeificados pela tag.
