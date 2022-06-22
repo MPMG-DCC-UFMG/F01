@@ -25,6 +25,11 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Decisão:** Foi concluído que não é possível realizar a coleta dos dados relativos a tag Servidores para o template ADPM.
 * **Observações:** Tanto a estratégia de coleta estática quanto dinâmica encontraram o mesmo problema durante a execução.
 
+### ADPM / Informações Institucionais do Município
+* **Problema:** Após consultar uma amostra de 10 dos 21 municípios, não foram encontrados dados relativos especificamente aos itens de Informações Institucionais.
+* **Decisão:** Foi concluído que o template não apresenta dados dessa tag e portanto as coletas não serão realizadas.
+* **Observações:** Não foram encontrados dados nem mesmo próximos aos especificados pela tag.
+
 ## Validação
 ### Template / Tag / Subtag
 * **Problema:**
