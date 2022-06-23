@@ -61,7 +61,6 @@ def abrir_existente(job_name):
     return result
 
 def save_dict_in_json(job_name, result):
-    return
     with open('results/' + job_name + '.json', 'w') as json_file:
         json.dump(result, json_file, 
                             indent=4,  
