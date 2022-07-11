@@ -1,10 +1,10 @@
 from utils import handle_files
-from validadores.contratos.link_de_acesso import DadosDosContratos
+from validadores.informacoes_institucionais.link_de_acesso import ValidadorLinkDeAcesso
 
-def pipeline_contratos(keywords, job_name):
+def pipeline_informacoes_institucionais(keywords, job_name):
 
     # Subtag - Link de Acesso
-    validador_link_de_acesso = DadosDosContratos(job_name, keywords['link_de_acesso'])
+    validador_link_de_acesso = ValidadorLinkDeAcesso(job_name, keywords['link_de_acesso'])
     output_link_de_acesso = validador_link_de_acesso.predict()
 
     result = handle_files.abrir_existente(job_name)

@@ -3,20 +3,29 @@ from pipeline_receitas import pipeline_receitas
 from pipeline_licitacoes import pipeline_licitacoes
 # from utils.indexing import remove_index
 from pipeline_terceiro_setor import pipeline_terceiro_setor
+# from pipeline_servidores import pipeline_servidores
+from pipeline_informacoes_institucionais import pipeline_informacoes_institucionais
 
 from utils.handle_files import get_municipios_do_template
 from utils.handle_files import get_keywords_do_template
 
-def main(template):
+import re
+
+def main(template): 
 
     parametros = get_keywords_do_template(template)
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
             print(municipio)
+
+            pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
             # pipeline_receitas(parametros['receitas'], municipio)
             # pipeline_licitacoes(parametros['licitacoes'], municipio)
-            pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
+            # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
+
+            # Em dev
+            # pipeline_servidores(parametros['terceiro_setor'], municipio)
 
 
 if __name__ == '__main__':

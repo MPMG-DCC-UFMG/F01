@@ -15,12 +15,13 @@ def contains_keyword(df, word):
             column_name = column_name.lower()
         except AttributeError:
             continue
-        finder = column_name.find(word)
+        finder = column_name.find(word.lower())
         if finder != -1:
             return True, df.columns[i]
     
         i +=1
         
+    print("the: ",word)
     return False, word
 
 def infos_isvalid(df, column_name, threshold=0): 
@@ -53,7 +54,7 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
         Dataframe a ser verificado
     keyword_check : string 
         Coluna a ser verificada
-    type  : 'valor', 'data' or 'ano' 
+    type  : 'valor', 'data', 'ano' or text
         Qual é o tipo do dado da coluna
         
     Returns

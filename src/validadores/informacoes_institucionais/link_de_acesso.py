@@ -33,6 +33,18 @@ class ValidadorLinkDeAcesso:
         df['leis_'] =  vfunc(df[keyword], "lei" )
         result['leis'] = df['leis_'].sum()
 
+        vfunc = np.vectorize(checker.check_keyword)
+        df['decretos_'] =  vfunc(df[keyword],"decretos")
+        result['decretos'] = df['decretos_'].sum()
+
+        vfunc = np.vectorize(checker.check_keyword)
+        df['portarias_'] =  vfunc(df[keyword],"portarias")
+        result['portarias'] = df['portarias_'].sum()
+
+        vfunc = np.vectorize(checker.check_keyword)
+        df['resolucoes_'] =  vfunc(df[keyword],"resoluções")
+        result['resolucoes'] = df['resolucoes_'].sum()
+
         # Caso existam leis, decretos, portarias ou resolucoes retorna TRUE
         return (any([item[1] for item in result.items()])), result
     

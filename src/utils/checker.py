@@ -212,3 +212,21 @@ def check_description(description):
     """
     
     return isvalid(description)
+
+def check_keyword(value, keyword):
+    """
+    Chega se uma dada palavra chave aparece em uma string.
+    Parameters
+    ----------
+    keyword : string
+        String a ser encontrada
+    value : string
+        String a ser examinada.
+        
+    Returns
+    -------
+    Boolean
+        Se encontrar retorna true else false.
+    """
+    value = str(value)
+    return re.match(keyword, value, re.IGNORECASE) != None
