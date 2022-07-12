@@ -52,7 +52,7 @@ class ValidadorProcessosLicitatorios:
 
         # Modalidade
         isvalid, result = self.predict_modalidade()
-        result_explain = self.explain(result, self.keywords['numero'], 'a modalidade')
+        result_explain = self.explain(result, self.keywords['modalidade'], 'a modalidade')
         resultados['modalidade']['predict'] = isvalid
         resultados['modalidade']['explain'] = result_explain
 

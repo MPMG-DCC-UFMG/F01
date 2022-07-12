@@ -57,10 +57,10 @@
 
     "despesas_com_diarias":{
         "despesas_com_diarias":{
-            "search_term": "Municipal de",
+            "search_term": "Municipal de Diária",
             "keywords_to_search": ["Beneficiário", "Cargo/Função", "Valor Concedido",
                                     "Período de Afastamento", "Motivo da Diária", "Quantidade de Diária"],
-            "num_matches": 1000,
+            "num_matches": 10000,
             "types": ["bat"],
             "nome": "Beneficiário", 
             "cargo_funcao": "Cargo/Função",
@@ -195,6 +195,22 @@
             "resultados": "Visualizar processo"
         }
     },
+
+    "contratos": {
+        "dados_dos_contratos": {
+             "search_term": "contrato contratos",
+             "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
+             "num_matches": 1000,
+             "types": ["bat", "html"],
+             "objeto": "Objeto do contrato", 
+             "valor": "Valor",
+             "favorecido": "signatário",
+             "numero_ano_do_contrato": "Ano do contrato",
+             "vigencia": "Vigência final",
+             "licitacao_de_origem": ""
+        }
+    },
+
 
     "terceiro_setor": {
         "dados_de_parcerias": {

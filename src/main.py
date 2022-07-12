@@ -1,9 +1,11 @@
-# from pipeline_despesas import pipeline_despesas
-from pipeline_receitas import pipeline_receitas
-from pipeline_licitacoes import pipeline_licitacoes
 # from utils.indexing import remove_index
+from pipeline_receitas import pipeline_receitas 
+# from pipeline_despesas import pipeline_despesas
+from pipeline_licitacoes import pipeline_licitacoes
+from pipeline_contratos import pipeline_contratos
 from pipeline_terceiro_setor import pipeline_terceiro_setor
 # from pipeline_servidores import pipeline_servidores
+from pipeline_despesas_com_diarias import pipeline_despesas_com_diarias
 from pipeline_informacoes_institucionais import pipeline_informacoes_institucionais
 
 from utils.handle_files import get_municipios_do_template
@@ -17,9 +19,10 @@ def main(template):
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
-            print(municipio)
-
-            pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
+                print(municipio)
+            # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
+                # pipeline_contratos(parametros['contratos'], municipio)
+                pipeline_despesas_com_diarias(parametros['despesas_com_diarias'], municipio)
             # pipeline_receitas(parametros['receitas'], municipio)
             # pipeline_licitacoes(parametros['licitacoes'], municipio)
             # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)

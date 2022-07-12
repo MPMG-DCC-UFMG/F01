@@ -1,10 +1,6 @@
 from utils import handle_files
 from validadores.despesas_com_diarias.despesas_com_diarias import ValidadorDespesasComDiarias
 
-# Siplanweb
-from utilconst.constant_siplanweb import keywords_siplanweb
-from utilconst.constant_siplanweb import municipios_siplanweb
-
 def pipeline_despesas_com_diarias(keywords, job_name):
 
     # Subtag - Requisitos Exigios
@@ -24,10 +20,3 @@ def pipeline_despesas_com_diarias(keywords, job_name):
 
     handle_files.save_dict_in_json(job_name, result)
     print(result['111'], result['112'], result['113'],result['114'],result['115'],result['116'], result['117'])
-
-jobs = municipios_siplanweb
-keywords = keywords_siplanweb
-
-for job_name in jobs:
-    print(f"** {job_name} **")
-    pipeline_despesas_com_diarias(keywords['despesas_com_diarias'], job_name)
