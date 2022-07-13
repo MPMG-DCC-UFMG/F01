@@ -6,6 +6,12 @@ import json
 from enum import Enum
 app = Flask(__name__)
 
+
+df = pd.read_csv("../lista_municipios.csv")
+df.set_index('id', inplace = True)
+PATH_RESULTS_BASE = '/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/F01/results/'
+# PATH_RESULTS_BASE = '../results/'
+
 class Resposta(Enum):
     OK                       = 1  # Encontrado item no site
     ITEM_NAO_DISPONIVEL      = 2  # Erro genérico: não coletado
@@ -19,6 +25,7 @@ class Resposta(Enum):
 def open_file(municipio):
 
     # consulta por id do municipio
+    print(municipio)
     try:
         id = int(municipio)
         try:
@@ -40,6 +47,8 @@ def open_file(municipio):
 
 @app.route('/<municipio>', methods=['GET'])
 def getAllItens(municipio):
+    print(municipio, "aaa")
+
 
     if municipio != "favicon.ico":
         obj = open_file(municipio)
@@ -57,10 +66,4 @@ def getItem(municipio, item):
     else:
         return jsonify(str(Resposta.ITEM_NAO_DISPONIVEL))
 
-
-PATH_RESULTS_BASE = '/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/F01/results/'
-# PATH_RESULTS_BASE = '../results/'
-
 app.run(debug=True)
-df = pd.read_csv("../lista_municipios.csv")
-df.set_index('id', inplace = True)
