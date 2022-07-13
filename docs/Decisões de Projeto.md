@@ -31,9 +31,9 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Observações:** Não foram encontrados dados nem mesmo próximos aos especificados pela tag.
 
 ### ABO / Obras Públicas
-* **Problema:** Após consultar uma amostra de 10 dos 21 municípios, a coleta de Obras Públicas não se mostrou possível pois os dados requeridos não puderam ser acessados pelos portais de transparência dos municípios. O portal "GeoObras", que contém as informações em questão, não é carregado quando clica-se no link presente nos portais. O erro aparenta estar atrelado ao link inserido no código-fonte da página, visto que, quando acessado por fora do portal de transparência, o site GeoObras é carregado com sucesso.
+* **Problema:** Após consultar uma amostra de 10 dos 21 municípios, a coleta de Obras Públicas não se mostrou possível pois os dados requeridos não puderam ser acessados pelos portais de transparência dos municípios. O portal "GeoObras", que contém as informações em questão, não é carregado quando clica-se no link presente nos portais.
 * **Decisão:** Foi concluído que não é possível realizar a coleta dos dados relativos a tag Obras Públicas para o template ABO.
-* **Observações:** A tag <a> que redirecionaria o usuário ao site GeoObras parece conter um link com protocolo HTTP diferente do que o site usa.
+* **Observações:** A tag <a> que redirecionaria o usuário ao site GeoObras parece conter um link com protocolo HTTP diferente do usado pelo site.
 
 ## Validação
 ### Template / Tag / Subtag
