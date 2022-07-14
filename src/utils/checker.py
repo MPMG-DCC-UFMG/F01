@@ -59,8 +59,7 @@ def isvalid(data):
     Boolean
         If value is valid, return true else false.
     """
-    
-    if data != '' and data != np.nan and data != None:
+    if data != '' and data != np.nan and data != None and data is not np.nan:
         return True
     
     return False
@@ -91,7 +90,6 @@ def check_value(value):
     else:
         try: 
             converted = float(value)
-            print(converted)
             
             if converted == 0:
                 return "Invalid Number"

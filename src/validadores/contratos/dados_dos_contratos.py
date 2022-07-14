@@ -1,69 +1,92 @@
-import numpy as np
 from utils import indexing
 from utils import path_functions
-from utils import checker
-from utils.check_df import contains_keyword
+from utils import path_functions
 from utils.file_to_df import get_df
+from utils.check_df import check_all_values_of_column
 
-class ValidadorLinkDeAcesso:
+class ValidadorDadosDosContratos:
 
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['informacoes_institucionais'])
+        files = path_functions.filter_paths(files, words=['contratos'])
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
 
-    def predict_link_de_acesso(self):
-        result = {
-            'leis':0,
-            'decretos': 0,
-            'portarias': 0,
-            'resolucoes': 0
-        }
+    def predict_objeto(self):
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['objeto'], typee='text')
+        return isvalid, result
 
-        df = self.df.copy()
-
-        contem, keyword = contains_keyword(df, self.keywords['link_de_acesso'])
-        if (not contem):
-            return False, result
-
-        vfunc = np.vectorize(checker.check_keyword)
-        df['leis_'] =  vfunc(df[keyword], "lei" )
-        result['leis'] = df['leis_'].sum()
-
-        # Caso existam leis, decretos, portarias ou resolucoes retorna TRUE
-        return (any([item[1] for item in result.items()])), result
+    def predict_valor(self):
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['valor'], typee='valor')
+        return isvalid, result
     
-    def explain_link_de_acesso(self, result):
-        result = f"""Quantidade de entradas de leis encontradas: {result['leis']}.
-        Quantidade de entradas de decretos encontradas: {result['decretos']}.
-        Quantidade de entradas de portarias encontradas: {result['portarias']}.
-        Quantidade de entradas de resoluções encontradas: {result['resolucoes']}.
-        """
-        return result
-
+    def predict_favorecido(self):
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['favorecido'], typee='text')
+        return isvalid, result
+    
+    def predict_numero_ano_do_contrato(self):
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['numero_ano_do_contrato'], typee='text')
+        return isvalid, result
+    
+    def predict_vigencia(self):
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['vigencia'], typee='text')
+        return isvalid, result
+    
+    def predict_licitacao_de_origem(self):
+        result, isvalid = check_all_values_of_column(self.df, self.keywords['licitacao_de_origem'], typee='text')
+        return isvalid, result
+    
     def predict(self):
 
         resultados = {
-            'link_de_acesso': {},
+            'objeto': {},
+            'valor': {},
+            'favorecido': {},
+            'numero_ano_do_contrato': {},
+            'vigencia': {},
+            'licitacao_de_origem': {},
         }
 
-        # Link de acesso legislação
-        isvalid, result = self.predict_link_de_acesso()
-        result_explain = self.explain_link_de_acesso(result)
-        resultados['link_de_acesso']['predict'] = isvalid
-        resultados['link_de_acesso']['explain'] = result_explain
+        # Objeto
+        isvalid, result = self.predict_objeto()
+        result_explain = self.explain(result, 'objeto')
+        resultados['objeto']['predict'] = isvalid
+        resultados['objeto']['explain'] = result_explain
+
+        # Valor
+        isvalid, result = self.predict_valor()
+        result_explain = self.explain(result, 'valor')
+        resultados['valor']['predict'] = isvalid
+        resultados['valor']['explain'] = result_explain
+
+        # Favorecido
+        isvalid, result = self.predict_favorecido()
+        result_explain = self.explain(result, 'favorecido')
+        resultados['favorecido']['predict'] = isvalid
+        resultados['favorecido']['explain'] = result_explain
+
+        # Número/Ano do contrato
+        isvalid, result = self.predict_numero_ano_do_contrato()
+        result_explain = self.explain(result, 'numero ou ano do contrato')
+        resultados['numero_ano_do_contrato']['predict'] = isvalid
+        resultados['numero_ano_do_contrato']['explain'] = result_explain
+
+        # Vigência
+        isvalid, result = self.predict_vigencia()
+        result_explain = self.explain(result, 'vigência')
+        resultados['vigencia']['predict'] = isvalid
+        resultados['vigencia']['explain'] = result_explain
+
+        # Licitação de origem
+        isvalid, result = self.predict_licitacao_de_origem()
+        result_explain = self.explain(result, 'licitação de origem')
+        resultados['licitacao_de_origem']['predict'] = isvalid
+        resultados['licitacao_de_origem']['explain'] = result_explain
 
         return resultados
-
+        
     def explain(self, result, description):
-        try:
-            numero_de_entradas = len(result)
-        except KeyError:
-            numero_de_entradas = 0
-
-        result = f"""Quantidade de entradas encontradas e analizadas: {numero_de_entradas}.
-        Quantidade de entradas que possuem o campo {description} válido: {sum(result['isvalid'])}"""
-        return "result"
+        result = f"""Quantidade de entradas encontradas e analizadas que possuem o campo {description} do contrato válido: {sum(result['isvalid'])}"""
+        return result

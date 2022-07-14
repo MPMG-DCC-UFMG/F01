@@ -200,16 +200,33 @@
         "dados_dos_contratos": {
              "search_term": "contrato contratos",
              "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
-             "num_matches": 1000,
+             "num_matches": 5000,
              "types": ["bat", "html"],
              "objeto": "Objeto do contrato", 
              "valor": "Valor",
-             "favorecido": "signatário",
+             "favorecido": "Signatário do contratante",
              "numero_ano_do_contrato": "Ano do contrato",
              "vigencia": "Vigência final",
              "licitacao_de_origem": ""
+        },
+
+        "conteudo_integral": {
+                "search_term": "contrato contratos",
+                "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
+                "num_matches": 5000,
+                "types": ["html"],
+                "keyword_check": ["Dados do contrato", "Visualizar detalhamento do Contrato"]
+        },
+
+        "gerar_relatorio": {
+            "search_term": "contrato contratos",
+            "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
+            "num_matches": 5000,
+            "types": ["html"],
+            "keyword_check": ["Gerar PDF","Gerar Excel","Gerar CSV", "Copiar Dados"]
         }
     },
+
 
 
     "terceiro_setor": {

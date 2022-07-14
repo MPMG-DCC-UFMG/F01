@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import bs4
+import re
 import pandas as pd
 import codecs
 import tabula
@@ -61,7 +62,9 @@ def informacao_dois_pontos_para_df(soup):
             textos_da_tag = [text for text in element.stripped_strings]    
             for texto in textos_da_tag:
                 if ":" in repr(texto):
-                    key_value = element.getText().strip().split(":")
+                    key_value = element.getText().strip()
+                    key_value = re.split(';|:|\n', key_value)
+                    # print(key_value)
                     if (len(key_value) == 2):
                         key = key_value[0]
                         value = key_value[1]
@@ -76,8 +79,10 @@ def informacao_dois_pontos_para_df(soup):
 
 def convert_html(soup):
     """
-    Converte todas as tabelas em um Dataframe, caso não exista uma tabela na página 
-    busca pelas informações separadas por dois pontos de um html.
+    Converte todas as tabelas de um hmtl em um Dataframe, 
+    Além das tags 'table' também transforma as informaçõs separadas 
+    por dois pontos, exemplo: Em "Número do contrato: 412" uma coluna
+    no dataframe será "Número do contrato", e com uma entrada, "412"
          
     Parameters
     ----------
@@ -87,7 +92,7 @@ def convert_html(soup):
     Returns
     -------
     Dataframe
-        Um único df concatenado.
+        Um único dataframe.
     """
 
 
@@ -97,10 +102,9 @@ def convert_html(soup):
     if (not df_from_li.empty):
         list_dfs.append(df_from_li)
 
-    if len(list_dfs) == 0:
-        df_dois_pontos = informacao_dois_pontos_para_df(soup)
-        if (not df_dois_pontos.empty):
-            list_dfs.append(df_dois_pontos)
+    df_dois_pontos = informacao_dois_pontos_para_df(soup)
+    if (not df_dois_pontos.empty):
+        list_dfs.append(df_dois_pontos)
 
     df = concat_lists(list_dfs)
 
@@ -110,16 +114,10 @@ def one_html_to_csv (format_path):
     """
     Convert um elemento do html para um dataframe.
     """
-    # try: 
 
     soup = read.read_html(format_path)
     df = convert_html(soup)
     return df
-        
-    # except ValueError:
-    #     pass
-
-    return pd.DataFrame()
 
 # def all_lists_to_csv(paths):
 
@@ -157,29 +155,41 @@ def concat_lists(files):
     return df
 
 def load_and_convert_files(paths, format_type):
+    """
+    Converte uma lista de arquivos de um tipo em uma tabela (dataframe)
+         
+    Parameters
+    ----------
+    paths : list of strings
+        Lista de arquivos a serem convertidos em uma tabela
+        
+    Returns
+    -------
+    Dataframe
+        Um único df com todas as tabela desses arquivos.
+    """
+
 
     if format_type == 'html':
-        list_df = []
+        list_to_concat = []
+        df = pd.DataFrame()
         for file_name in paths:
             new_df = one_html_to_csv(file_name)
-            if(not new_df.empty):
-                list_df.append(new_df)
-        if len(list_df) == 0:
-            df = pd.DataFrame()
-        else:
-            df = pd.concat(list_df)
+            list_to_concat.append(new_df)
+        if len(list_to_concat) != 0:
+            df = pd.concat(list_to_concat)
 
     elif format_type == 'csv':
 
-        list_csv = []
+        list_to_concat = []
         for i in  paths:
-            list_csv.append(pd.read_csv(i))
+            list_to_concat.append(pd.read_csv(i))
 
-        df = concat_lists(list_csv)
+        df = concat_lists(list_to_concat)
     
     elif format_type == 'bat':
 
-        list_csv = []
+        list_to_concat = []
         for i in  paths:
             tabela = pd.read_csv(i)
             
@@ -190,15 +200,15 @@ def load_and_convert_files(paths, format_type):
                 tabela.columns = tabela.iloc[aux].values
                 aux += 1
 
-            list_csv.append(tabela)
-        df = concat_lists(list_csv)
+            list_to_concat.append(tabela)
+        df = concat_lists(list_to_concat)
     
     elif format_type == 'doc':
 
-        list_csv = []
+        list_to_concat = []
         for i in  paths:
-            list_csv.append(pd.read_csv(i))
-        df = concat_lists(list_csv)
+            list_to_concat.append(pd.read_csv(i))
+        df = concat_lists(list_to_concat)
 
     elif format_type == 'xls':
 
@@ -236,8 +246,11 @@ def load_and_convert_files(paths, format_type):
 
                 break
                 
-
-        df = concat_lists(list_dfs)
     
+        df = concat_lists(list_dfs)
+
+    else:
+        df = pd.DataFrame()
+
     df = df.drop_duplicates()
     return df

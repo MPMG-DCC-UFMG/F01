@@ -14,18 +14,20 @@ from utils.handle_files import get_keywords_do_template
 import re
 
 def main(template): 
+    print("Rodando validadores:")
 
     parametros = get_keywords_do_template(template)
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
+            if municipio == "paula_candido":
                 print(municipio)
-            # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
-                # pipeline_contratos(parametros['contratos'], municipio)
-                pipeline_despesas_com_diarias(parametros['despesas_com_diarias'], municipio)
-            # pipeline_receitas(parametros['receitas'], municipio)
-            # pipeline_licitacoes(parametros['licitacoes'], municipio)
-            # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
+                # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
+                pipeline_contratos(parametros['contratos'], municipio)
+                # pipeline_despesas_com_diarias(parametros['despesas_com_diarias'], municipio)
+                # pipeline_receitas(parametros['receitas'], municipio)
+                # pipeline_licitacoes(parametros['licitacoes'], municipio)
+                # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
 
             # Em dev
             # pipeline_servidores(parametros['terceiro_setor'], municipio)
@@ -33,6 +35,7 @@ def main(template):
 
 if __name__ == '__main__':
 
+    # template = 'sintese'
     template = 'siplanweb'
     main(template)
 

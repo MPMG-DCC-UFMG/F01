@@ -10,7 +10,7 @@ def pipeline_informacoes_institucionais(keywords, job_name):
     result = handle_files.abrir_existente(job_name)
     # print(output_link_de_acesso)
     
-    # Dados de Parcerias
+    # Link de acesso
     result['22'] = output_link_de_acesso['link_de_acesso']['predict']
 
     handle_files.save_dict_in_json(job_name, result)

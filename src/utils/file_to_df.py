@@ -8,4 +8,5 @@ def get_df(files, ttype):
         if key in ttype:
             df = html_to_csv.load_and_convert_files(paths=values, format_type=key)
             df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
+            df_final = df_final.drop_duplicates()
     return df_final
