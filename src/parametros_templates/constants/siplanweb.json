@@ -219,8 +219,10 @@
         },
 
         "gerar_relatorio": {
-            "search_term": "contrato contratos",
-            "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
+            "search_term_contratos": "contrato contratos",
+            "keywords_to_search_contratos": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
+            "search_term_licitacoes": "Licitações licitação Tomada Modalidade Objeto",
+            "keywords_to_search_licitacoes": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
             "num_matches": 5000,
             "types": ["html"],
             "keyword_check": ["Gerar PDF","Gerar Excel","Gerar CSV", "Copiar Dados"]

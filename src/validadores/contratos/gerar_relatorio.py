@@ -1,8 +1,10 @@
 
 from utils import indexing
 from utils import check_df
+from itertools import chain
 from ..base import Validador
 from utils import path_functions
+from collections import defaultdict
 from utils.search_html import analyze_html
 
 # Permite gerar relatório da consulta de empenhos ou de pagamentos em formato aberto	
@@ -11,9 +13,20 @@ class ValidadorGerarRelatorio(Validador):
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['contratos'])
-        files = path_functions.agg_paths_by_type(files)
+
+        # Relatórios de contratos
+        files_contratos = indexing.get_files(keywords['search_term_contratos'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search_contratos'])
+        files_contratos = path_functions.filter_paths(files_contratos, words=['contratos'])
+        files_contratos = path_functions.agg_paths_by_type(files_contratos)
+
+        # Relatórios de licitações
+        files_licitacoes = indexing.get_files(keywords['search_term_licitacoes'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search_licitacoes'])
+        files_licitacoes = path_functions.filter_paths(files_licitacoes, words=['licitacao'])
+        files_licitacoes = path_functions.agg_paths_by_type(files_licitacoes)
+
+        files = defaultdict(list)
+        for k, v in chain(files_contratos.items(), files_licitacoes.items()):
+            files[k].extend(v)
         self.files = files
 
     def predict_relatorio(self, keyword_check):
