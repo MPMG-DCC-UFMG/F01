@@ -7,7 +7,8 @@ import json
 import subprocess
 import time
 
-TEMPLATE = "siplanweb"
+# TEMPLATE = "siplanweb"
+TEMPLATE = "sintese"
 
 MUNICIPIOS = get_municipios_do_template(TEMPLATE)
 TIME_OUT = 600

@@ -1,5 +1,5 @@
-# from utils import handle_files
-# from validadores.servidores.dados_dos_servidores import ValidadorDadosDosServidores
+from utils import handle_files
+from validadores.servidores.dados_dos_servidores import ValidadorDadosDosServidores
 # from validadores.servidores.registro_da_remuneracao import ValidadorRegistroDaRemuneracao
 # from validadores.servidores.registro_por_lotacao import ValidadorRegistroPorLotacao
 # from validadores.servidores.auxilios import ValidadorAuxilios
@@ -8,12 +8,12 @@
 # from validadores.servidores.relatorio_mensal import ValidadorRelatorioMensal
 # from validadores.servidores.dados_de_remuneracao import ValidadorDadosDeRemuneracao
 
-# def pipeline_servidores(keywords, job_name):
+def pipeline_servidores(keywords, job_name):
 
-#     # Subtag - Dados dos Servidores
-#     validador_dados_dos_servidores = ValidadorDadosDosServidores(job_name, keywords['dados_dos_servidores'])
-#     output_dados_dos_servidores = validador_dados_dos_servidores.predict()
-
+    # Subtag - Dados dos Servidores
+    validador_dados_dos_servidores = ValidadorDadosDosServidores(job_name, keywords['dados_dos_servidores'])
+    output_dados_dos_servidores = validador_dados_dos_servidores.predict()
+    print(output_dados_dos_servidores)
 #     # Registro da remuneração
 #     validador_registro_da_remuneracao = ValidadorRegistroDaRemuneracao(job_name, keywords['registro_da_remuneracao'])
 #     output_registro_da_remuneracao = validador_registro_da_remuneracao.predict()
@@ -39,11 +39,11 @@
 #     output_relatorio_mensal = validador_relatorio_mensal.predict()
 
 
-#     result = handle_files.abrir_existente(job_name)
+    result = handle_files.abrir_existente(job_name)
 
-#     result['78'] = output_dados_dos_servidores['nome']['predict']
-#     result['79'] = output_dados_dos_servidores['cargo_funcao']['predict']
-#     result['80'] = output_dados_dos_servidores['remuneracao']['predict']
+    result['78'] = output_dados_dos_servidores['nome']['predict']
+    result['79'] = output_dados_dos_servidores['cargo_funcao']['predict']
+    result['80'] = output_dados_dos_servidores['remuneracao']['predict']
 #     result['81'] = output_registro_da_remuneracao['agentes_politicos']['predict']
 #     result['82'] = output_registro_da_remuneracao['contratados_temporariamente']['predict']
 #     result['83'] = output_registro_da_remuneracao['efetivos_eou_empregados_publicos']['predict']
@@ -81,4 +81,4 @@
 #     result['109'] = output_dados_de_remuneracao['conveniados']['predict']
 #     result['110'] = output_dados_de_remuneracao['aditivos']['predict']
 
-#     # handle_files.save_dict_in_json(job_name, result)
+    handle_files.save_dict_in_json(job_name, result)

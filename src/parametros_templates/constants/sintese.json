@@ -4,5 +4,17 @@
        "keywords": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
        "proc_lic_itens": ["número", "modalidade", "objeto", "status", "resultado"]
     },
-    "types": ["html","pdf"]
+    "types": ["html","pdf"],
+
+    "servidores": {
+      "dados_dos_servidores": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
+         "types": ["html"],
+         "num_matches": 10000,
+         "nome": "Servidor",
+         "cargo_funcao": "Cargo/Funçao",
+         "remuneracao":"Valor Bruto"
+      }
+    }
 }
