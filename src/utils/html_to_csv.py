@@ -96,7 +96,13 @@ def convert_html(soup):
     """
 
 
-    list_dfs = [pd.read_html(str(table))[0] for table in soup.find_all('table')]
+    list_dfs = []
+    for table in soup.find_all('table'):
+        try:
+            list_dfs.append(pd.read_html(str(table))[0])
+        except ValueError:
+            pass
+    # list_dfs = [pd.read_html(str(table))[0] for table in soup.find_all('table')]
 
     df_from_li = list_to_text(soup)
     if (not df_from_li.empty):

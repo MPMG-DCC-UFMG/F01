@@ -13,6 +13,7 @@ class ValidadorDadosDosServidores:
         files = path_functions.filter_paths(files, words=['servidores_publicos'])
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
+        # print(self.df)
 
     def predict_nome(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
