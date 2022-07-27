@@ -59,6 +59,8 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
         
     Returns
     -------
+    Dataframe
+        Dataframe original com uma columa "isvalid" com true ou false para cada entrada analisada.
     Boolean
         Se é verdade que existe algum valor válido na coluna, retorna true ou false.
     """
@@ -91,3 +93,38 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
             isvalid = True
 
     return df, isvalid
+
+import re
+def search_in_column(df, column_name, keywords):
+    """
+    Checa se uma coluna de um dataframe contém os valores procurados.
+
+    Parameters
+    ----------
+    df : dataframe 
+        Dataframe a ser verificado
+    column_name : string 
+        Coluna a ser verificada
+    keywords  : string ou lista de string
+        Palavras que se estiverem presentes validam uma entrada
+        
+    Returns
+    -------
+    Dataframe
+        Dataframe original com uma columa "isvalid" com true ou false para cada entrada analisada.
+    """
+    df['isvalid'] = False
+    if column_name in df.columns:
+
+        if type(keywords) is str:
+            vfunc = np.vectorize(checker.check_keyword)
+            df['isvalid'] =  vfunc(df[column_name], keywords)
+
+        elif type(keywords) is list:
+            isvalid = []
+            for value in df[column_name]:
+                match = checker.check_any_keyword(value, keywords)
+                isvalid.append(match)
+            df['isvalid'] =  isvalid
+
+    return df

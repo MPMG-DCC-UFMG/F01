@@ -101,6 +101,7 @@ def convert_html(soup):
         try:
             list_dfs.append(pd.read_html(str(table))[0])
         except ValueError:
+            print("Erro ao converter tabela")
             pass
     # list_dfs = [pd.read_html(str(table))[0] for table in soup.find_all('table')]
 

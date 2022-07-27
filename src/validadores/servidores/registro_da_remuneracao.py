@@ -3,59 +3,72 @@ from utils import indexing
 from utils import path_functions
 from utils.file_to_df import get_df
 from utils.check_df import check_all_values_of_column
+from utils.check_df import search_in_column
 
-class ValidadorRegistroDaRemuneração:
+class ValidadorRegistroDaRemuneracao:
 
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['servidores_publicos','servidores_publicos'])
+        files = path_functions.filter_paths(files, words=['servidores_publicos','servidores'])
         self.files = path_functions.agg_paths_by_type(files)
-        print(self.files)
         self.df = get_df(self.files, keywords['types'])
+        # print(self.df)
 
-    def predict_nome(self):
-        result, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
+    def predict_agentes_politicos(self):
+        keywords = ["prefeito", "secretário municipal"]
+        result = search_in_column(self.df, self.keywords['agentes_politicos'], keywords)
+
+        isvalid = any(result['isvalid'])
         return isvalid, result
 
-    def predict_cargo_funcao(self):
-        result, isvalid = check_all_values_of_column(self.df, self.keywords['cargo_funcao'], typee='text')
+    def predict_contratados_temporariamente(self):
+        keywords = ["temporário", "temporariamente"]
+        result = search_in_column(self.df, self.keywords['contratados_temporariamente'], keywords)
+
+        isvalid = any(result['isvalid'])
         return isvalid, result
     
-    def predict_remuneracao(self):
-        result, isvalid = check_all_values_of_column(self.df, self.keywords['remuneracao'], typee='text')
+    def predict_servidores_efetivos_ou_empregados_publicos(self):
+        keywords = ["efetivo", "empregado público"]
+        result = search_in_column(self.df, self.keywords['servidores_efetivos_ou_empregados_publicos'], keywords)
+
+        isvalid = any(result['isvalid'])
         return isvalid, result
 
     
     def predict(self):
 
         resultados = {
-            'nome': {},
-            'cargo_funcao': {},
-            'remuneracao': {},
+            'agentes_politicos': {},
+            'contratados_temporariamente': {},
+            'servidores_efetivos_ou_empregados_publicos': {},
         }
 
-        # Nome
-        isvalid, result = self.predict_nome()
-        result_explain = self.explain(result, 'nome')
-        resultados['nome']['predict'] = isvalid
-        resultados['nome']['explain'] = result_explain
+        # Agentes políticos
+        isvalid, result = self.predict_agentes_politicos()
+        result_explain = self.explain(result, 'agentes políticos')
+        resultados['agentes_politicos']['predict'] = isvalid
+        resultados['agentes_politicos']['explain'] = result_explain
 
-        # Cargo/Função
-        isvalid, result = self.predict_cargo_funcao()
-        result_explain = self.explain(result, 'cargo / função')
-        resultados['cargo_funcao']['predict'] = isvalid
-        resultados['cargo_funcao']['explain'] = result_explain
+        # # Contratados temporariamente
+        isvalid, result = self.predict_contratados_temporariamente()
+        result_explain = self.explain(result, 'contratados temporariamente')
+        resultados['contratados_temporariamente']['predict'] = isvalid
+        resultados['contratados_temporariamente']['explain'] = result_explain
 
-        # Remuneração
-        isvalid, result = self.predict_remuneracao()
-        result_explain = self.explain(result, 'remuneracao')
-        resultados['remuneracao']['predict'] = isvalid
-        resultados['remuneracao']['explain'] = result_explain
+        # # Servidores efetivos ou empregados públicos
+        isvalid, result = self.predict_servidores_efetivos_ou_empregados_publicos()
+        result_explain = self.explain(result, 'servidores efetivos ou empregados publicos')
+        resultados['servidores_efetivos_ou_empregados_publicos']['predict'] = isvalid
+        resultados['servidores_efetivos_ou_empregados_publicos']['explain'] = result_explain
 
         return resultados
         
     def explain(self, result, description):
-        result = f"""Quantidade de entradas encontradas e analizadas que possuem o campo {description} do contrato válido: {sum(result['isvalid'])}"""
-        return result
+        try:
+            result = f"""Quantidade de registros de {description} encontrados: {sum(result['isvalid'])}"""
+            return result
+        except KeyError:
+            return "Não encontrado"

@@ -15,6 +15,15 @@
          "nome": "Servidor",
          "cargo_funcao": "Cargo/Funçao",
          "remuneracao":"Valor Bruto"
+      },
+      "registro_da_remuneracao": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
+         "types": ["html"],
+         "num_matches": 10000,
+         "agentes_politicos": "Cargo",
+         "contratados_temporariamente": "Vínculo",
+         "servidores_efetivos_ou_empregados_publicos":"Vínculo"
       }
     }
 }

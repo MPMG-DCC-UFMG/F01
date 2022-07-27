@@ -1,3 +1,4 @@
+from distutils.log import error
 import yaml
 from utils.handle_files import get_municipios_do_template
 
@@ -7,8 +8,21 @@ import json
 import subprocess
 import time
 
-# TEMPLATE = "siplanweb"
-TEMPLATE = "sintese"
+# TEMPLATES = "siplanweb", "sintese"
+
+print("Digite o número do template: ")
+print('siplanweb - 1')
+print('sintese   - 2')
+TEMPLATE = input()
+if TEMPLATE == '1':
+    TEMPLATE = 'siplanweb'
+elif TEMPLATE == '2':
+    TEMPLATE = 'sintese'
+else: 
+    print('Template inválido')
+    exit()
+
+print(f"Execurando fscrawler para o template {TEMPLATE}")
 
 MUNICIPIOS = get_municipios_do_template(TEMPLATE)
 TIME_OUT = 600
@@ -92,5 +106,3 @@ for municipio in MUNICIPIOS:
         f = open(status)
         data = json.load(f)
         print("status:", data)
-
-    

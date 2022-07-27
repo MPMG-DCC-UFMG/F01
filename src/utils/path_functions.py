@@ -95,8 +95,8 @@ def get_url(path_base, filename):
 
 
 def format_city_names(municipipos):
-    ori = "ãâáíẽéêóôçú "
-    rep  = "aaaioeeoocu_"
+    ori = "ãâáíẽéêóôõçú "
+    rep  = "aaaioeeooocu_"
     result = []
     for municipio in municipipos:
         new = municipio.lower()

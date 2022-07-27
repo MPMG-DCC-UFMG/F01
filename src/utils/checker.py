@@ -216,15 +216,34 @@ def check_keyword(value, keyword):
     Chega se uma dada palavra chave aparece em uma string.
     Parameters
     ----------
-    keyword : string
-        String a ser encontrada
     value : string
         String a ser examinada.
+    keyword : string
+        String a ser encontrada
         
     Returns
     -------
     Boolean
-        Se encontrar retorna true else false.
+        Se encontrar retorna true se não false.
     """
     value = str(value)
-    return re.match(keyword, value, re.IGNORECASE) != None
+    return re.search(keyword, value, re.IGNORECASE) != None
+
+
+def check_any_keyword(value, keywords):
+    """
+    Chega se uma alguma palavra chave aparece em uma string.
+    Parameters
+    ----------
+    value : string
+        String a ser examinada.
+    keywords : list of string
+        Lista de strings a serem encontradas
+        
+    Returns
+    -------
+    Boolean
+        Se encontrar retorna true se não false.
+    """
+    value = str(value)
+    return any([re.search(k, value, re.IGNORECASE) != None for k in keywords])
