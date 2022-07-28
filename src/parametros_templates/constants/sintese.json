@@ -50,7 +50,13 @@
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "aposentadoria"],
          "types": ["html"],
          "num_matches": 10000,
-         "ITEM": "xxx"
+         "aposentadoria": "Vínculo",
+         "nome": "Servidor",
+         "cargo": "Cargo/Funçao",
+         "remuneracao": "Valor Bruto",
+         "abate_teto": "Teto",
+         "remuneracao_sem_abate_teto": "Remuneração sem teto",
+         "tipo_de_vinculo": "Vínculo"
       },
       "proventos_de_pensao": {
          "search_term": "servidor folha",

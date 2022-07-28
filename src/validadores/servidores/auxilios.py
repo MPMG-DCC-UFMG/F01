@@ -42,3 +42,8 @@ class ValidadorAuxilios:
             return result
         except KeyError:
             return "Não encontrado"
+
+
+
+# vantagens pecuniárias
+# indenizações, gratificações e adicionais.
