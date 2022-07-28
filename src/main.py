@@ -18,7 +18,7 @@ def main(template):
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
-            # if municipio == "setubinha":
+            # if municipio == "ibiai":
                 print(municipio)
                 # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
                 # pipeline_contratos(parametros['contratos'], municipio)

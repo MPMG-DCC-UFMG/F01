@@ -24,6 +24,54 @@
          "agentes_politicos": "Cargo",
          "contratados_temporariamente": "Vínculo",
          "servidores_efetivos_ou_empregados_publicos":"Vínculo"
+      },
+      "registro_por_lotacao": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
+         "types": ["html"],
+         "num_matches": 10000,
+         "lotacao": "Local",
+         "matricula": "Matricula",
+         "nome": "Servidor",
+         "cargo_funcao": "Cargo/Funçao",
+         "remuneracao": "Valor Bruto",
+         "abate_teto": "Teto",
+         "tipo_de_vinculo": "Vínculo"
+      },
+      "auxilios": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "auxílios"],
+         "types": ["html"],
+         "num_matches": 10000,
+         "ITEM": "xxx"
+      },
+      "proventos_de_aposentadoria": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "aposentadoria"],
+         "types": ["html"],
+         "num_matches": 10000,
+         "ITEM": "xxx"
+      },
+      "proventos_de_pensao": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "pensão"],
+         "types": ["html"],
+         "num_matches": 10000,
+         "ITEM": "xxx"
+      },
+      "relatorio_mensal": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo"],
+         "types": ["html"],
+         "num_matches": 10000,
+         "ITEM": "xxx"
+      },
+      "dados_de_remuneracao": {
+         "search_term": "servidor folha",
+         "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo"],
+         "types": ["html"],
+         "num_matches": 10000,
+         "ITEM": "xxx"
       }
     }
 }
