@@ -63,7 +63,13 @@
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "pensão"],
          "types": ["html"],
          "num_matches": 10000,
-         "ITEM": "xxx"
+         "pensao": "Vínculo",
+         "nome": "Servidor",
+         "cargo": "Cargo/Funçao",
+         "remuneracao": "Valor Bruto",
+         "abate_teto": "Teto",
+         "remuneracao_sem_abate_teto": "Remuneração sem teto",
+         "tipo_de_vinculo": "Vínculo"
       },
       "relatorio_mensal": {
          "search_term": "servidor folha",
