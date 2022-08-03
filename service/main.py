@@ -19,6 +19,7 @@ class Resposta(Enum):
 # Aplicacao
 app = Flask(__name__)
 df = pd.read_csv("../lista_municipios.csv")
+
 df.set_index('id', inplace = True)
 PATH_RESULTS_BASE = '/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/F01/results/'
 # PATH_RESULTS_BASE = '../results/'
