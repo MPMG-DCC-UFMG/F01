@@ -1,9 +1,12 @@
 
+import re
+from utils import check_df
 from utils import indexing
 from utils import path_functions
 from utils.file_to_df import get_df
-from utils.check_df import check_all_values_of_column
+from utils.search_html import analyze_html
 from utils.check_df import search_in_column
+from utils.check_df import check_all_values_of_column
 
 class ValidadorRelatorioMensal:
 
@@ -16,29 +19,32 @@ class ValidadorRelatorioMensal:
         self.df = get_df(self.files, keywords['types'])
         # print(self.df)
 
-    def predict_agentes_politicos(self):
-        result = self.df
-        result['isvalid'] = False
-        return False, result
+    def predict_relatorio_mensal(self):
+        
+        files = self.files['html']
 
+        result = analyze_html(files, keyword_to_search=self.keywords['necessary_term'])
+        isvalid = check_df.files_isvalid(result, column_name='matches', threshold=len(self.keywords['necessary_term']))
+
+        return isvalid, result
     
     def predict(self):
 
         resultados = {
-            'agentes_politicos': {},
+            'relatorio_mensal': {},
         }
 
-        # Agentes políticos
-        isvalid, result = self.predict_agentes_politicos()
-        result_explain = self.explain(result, 'agentes políticos')
-        resultados['agentes_politicos']['predict'] = isvalid
-        resultados['agentes_politicos']['explain'] = result_explain
+        # Relatório mensal da despesa com pessoal
+        isvalid, result = self.predict_relatorio_mensal()
+        result_explain = self.explain(isvalid, self.keywords['explain'])
+        resultados['relatorio_mensal']['predict'] = isvalid
+        resultados['relatorio_mensal']['explain'] = result_explain
 
         return resultados
         
-    def explain(self, result, description):
-        try:
-            result = f"""Quantidade de registros de {description} encontrados: {sum(result['isvalid'])}"""
-            return result
-        except KeyError:
-            return "Não encontrado"
+    def explain(self, isvalid, description):
+
+        if isvalid:
+            return "É " + description
+        else:
+            return "Não é " + description

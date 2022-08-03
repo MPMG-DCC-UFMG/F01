@@ -136,8 +136,12 @@ def analyze_placeholders(soup, keyword_to_search):
 def analyze_html(html_files, keyword_to_search):
 
     """
-    Checa quantas ocorrências existem em cada arquivo em: palavras no texto html, 
-    no título de alguma tag, placeholder ou aria-label.
+    Checa se existem ocorrências de termos:
+    * no texto html;
+    * no título de alguma tag;
+    * placeholder;
+    * aria-label;
+    de cada arquivo html.
 
     Parameters
     ----------
@@ -190,7 +194,7 @@ def analyze_html(html_files, keyword_to_search):
 
                 num_matches += num_matches_keyword
 
-        matches.append(num_matches)
+        matches.append(len(words))
         words_matches.append(words)
 
     result = pd.DataFrame({'files': html_files, 'matches': matches, 'words':words_matches})

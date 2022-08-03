@@ -36,11 +36,11 @@ def infos_isvalid(df, column_name, threshold=0):
 
 def files_isvalid(df, column_name, threshold=0): 
     """
-    Verifica se a quantidade de arquivos válidos em um arquivo é maior que um valor de threshold.
+    Verifica se a quantidade de arquivos válidos em um arquivo é maior (igual) que um valor de threshold.
     """
     
     for i in df[column_name]:
-        if i > threshold:
+        if i >= threshold:
             return True
     return False
 

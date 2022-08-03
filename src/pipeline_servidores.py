@@ -40,16 +40,16 @@ def pipeline_servidores(keywords, job_name):
     # print(output_proventos_de_aposentadoria)
 
     # Proventos de pensão
-    validador_proventos_de_pensao = ValidadorProventosDePensao(job_name, keywords['proventos_de_pensao'])
-    output_proventos_de_pensao = validador_proventos_de_pensao.predict()
-    print("output_proventos_de_pensao:")
-    print(output_proventos_de_pensao)
+    # validador_proventos_de_pensao = ValidadorProventosDePensao(job_name, keywords['proventos_de_pensao'])
+    # output_proventos_de_pensao = validador_proventos_de_pensao.predict()
+    # print("output_proventos_de_pensao:")
+    # print(output_proventos_de_pensao)
     
     # Relatório mensal
-    # validador_relatorio_mensal = ValidadorRelatorioMensal(job_name, keywords['relatorio_mensal'])
-    # output_relatorio_mensal = validador_relatorio_mensal.predict()
-    # print("output_relatorio_mensal:")
-    # print(output_relatorio_mensal)
+    validador_relatorio_mensal = ValidadorRelatorioMensal(job_name, keywords['relatorio_mensal'])
+    output_relatorio_mensal = validador_relatorio_mensal.predict()
+    print("output_relatorio_mensal:")
+    print(output_relatorio_mensal)
     
     # Dados de remuneração
     # validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords['dados_de_remuneracao'])
@@ -83,15 +83,15 @@ def pipeline_servidores(keywords, job_name):
     # result['98'] = output_proventos_de_aposentadoria['abate_teto']['predict']
     # result['99'] = output_proventos_de_aposentadoria['remuneracao_retirando_o_abate_teto']['predict']
     # result['100'] = output_proventos_de_aposentadoria['tipo_de_vinculo']['predict']
-    result['101'] = output_proventos_de_pensao['nome']['predict']
-    result['102'] = output_proventos_de_pensao['cargo']['predict']
-    result['103'] = output_proventos_de_pensao['remuneracao']['predict']
-    result['104'] = output_proventos_de_pensao['abate_teto']['predict']
-    result['105'] = output_proventos_de_pensao['abate_teto']['predict']
-    result['106'] = output_proventos_de_pensao['tipo_de_vinculo']['predict']
+    # result['101'] = output_proventos_de_pensao['nome']['predict']
+    # result['102'] = output_proventos_de_pensao['cargo']['predict']
+    # result['103'] = output_proventos_de_pensao['remuneracao']['predict']
+    # result['104'] = output_proventos_de_pensao['abate_teto']['predict']
+    # result['105'] = output_proventos_de_pensao['abate_teto']['predict']
+    # result['106'] = output_proventos_de_pensao['tipo_de_vinculo']['predict']
 
 
-#     result['107'] = output_relatorio_mensal['despesa_com_pessoal']['predict']
+    result['107'] = output_relatorio_mensal['relatorio_mensal']['predict']
 
 #     # Dados de remuneração
 #     validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords[''])

@@ -76,7 +76,8 @@
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo"],
          "types": ["html"],
          "num_matches": 10000,
-         "ITEM": "xxx"
+         "necessary_term": ["mês", "csv"],
+         "explain": "possível pesquisar por mês e gerar um relatório csv, pdf ou txt dos resultados da consulta"
       },
       "dados_de_remuneracao": {
          "search_term": "servidor folha",
