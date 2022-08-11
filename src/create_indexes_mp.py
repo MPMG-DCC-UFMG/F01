@@ -1,6 +1,7 @@
-from distutils.log import error
 import yaml
+import numpy as np
 from utils.handle_files import get_municipios_do_template
+from utils.compactar import extrair_arquivos
 
 from pathlib import Path
 import os
@@ -8,17 +9,23 @@ import json
 import subprocess
 import time
 
-# TEMPLATES = "siplanweb", "sintese"
+TEMPLATES = ["siplanweb", "sintese", "abo"]
 
 print("Digite o número do template: ")
-print('siplanweb - 1')
-print('sintese   - 2')
-TEMPLATE = input()
-if TEMPLATE == '1':
-    TEMPLATE = 'siplanweb'
-elif TEMPLATE == '2':
-    TEMPLATE = 'sintese'
-else: 
+count = 0
+for template in TEMPLATES:
+    count += 1
+    print(template + ' - ' + str(count) )
+
+# ENTRAR COM NUMERO
+number = input()
+
+try:
+    if (int(number) >= 1 and int(number) <= len(TEMPLATES)):
+        TEMPLATE = TEMPLATES[int(number) - 1]
+    else:
+        raise ValueError 
+except ValueError:
     print('Template inválido')
     exit()
 
@@ -31,6 +38,11 @@ TIME_OUT = 600
 HOME = Path("/home/ufmg.amedeiros")
 
 for municipio in MUNICIPIOS:
+
+    # Descompacta os arquivos .rar (colocar no mesmo diretório, e mantem o .rar original)
+    data_lake = Path("/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/")
+    diretorio_municipio = data_lake / municipio
+    extrair_arquivos(diretorio_municipio)
 
     config = {
         'name': municipio,

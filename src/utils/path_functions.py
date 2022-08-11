@@ -105,3 +105,25 @@ def format_city_names(municipipos):
                 new = new.replace(ori[i],rep[i])
         result.append(new)
     return result
+
+def list_files(diretorio):
+    """
+    Fornece a lista de caminhos absolutos para todos os arquvos em um diretório.
+
+    Parameters
+    ----------
+    diretorio: pathlib.PosixPath 
+        Diretório que sera analisado
+        
+    Returns
+    -------
+    paths: List of string
+       Lista de caminhos absolutos para todos os arquivos em um diretório.
+    """
+    paths = []
+    
+    for p, _, files in os.walk(diretorio):
+        for file_ in files:
+            paths.append(os.path.join(p, file_))
+
+    return paths
