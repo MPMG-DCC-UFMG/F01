@@ -7,7 +7,7 @@ import json
 import subprocess
 import time
 
-TEMPLATE = "siplanweb"
+TEMPLATE = "teste"
 
 MUNICIPIOS = get_municipios_do_template(TEMPLATE)
 TIME_OUT = 350
@@ -16,9 +16,10 @@ TIME_OUT = 350
 HOME = Path.home()
 
 for municipio in MUNICIPIOS:
+    print(municipio)
 
-    if (municipio != 'piau'):
-        continue
+    # if (municipio != 'piau'):
+    #     continue
 
     config = {
         'name': municipio,
@@ -46,7 +47,7 @@ for municipio in MUNICIPIOS:
             'follow_symlinks': False},
         'elasticsearch': 
             {'nodes': 
-                [{'url': 'http://127.0.0.1:8055'}], 
+                [{'url': 'http://127.0.0.1:9200'}], 
                 'bulk_size': 100, 
                 'flush_interval': '5s', 
                 'byte_size': '10mb', 

@@ -1,0 +1,259 @@
+{% extends 'layouts/base.html'%}
+
+{% block title %}
+Sistema - F01
+{% endblock title %}
+
+{% block navbarleft %}
+<h3>Home</h3>
+{% endblock navbarleft %}
+
+
+{% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
+                    <h5 class="text-white op-7 mb-2">Visão geral do projeto</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+
+                    <a href="{{url_for('empresa.cadastrar')}}" class="btn btn-default  btn-round mr-2"><span
+                            class="btn-label mr-2"> <i class="fa fa-plus-circle"></i></span>Template</a>
+                    <a href="{{url_for('municipio.cadastrar')}}" class="btn btn-white btn-round mr-2"><span
+                            class="btn-label mr-2"> <i class="fa fa-plus-circle"></i></span>município</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row mt--2">
+            <div class="col-md-6">
+                <div class="card full-height">
+                    <div class="card-body">
+                        <div class="card-title">Estatisticas Gerais</div>
+                        <div class="card-category">Informações diárias das do sistema</div>
+                        <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div id="circles-1"></div>
+                                <h6 class="fw-bold mt-3 mb-0">Municípios</h6>
+                            </div>
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div id="circles-2"></div>
+                                <h6 class="fw-bold mt-3 mb-0">Templates</h6>
+                            </div>
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div id="circles-3"></div>
+                                <h6 class="fw-bold mt-3 mb-0">Outra coisa</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card full-height">
+                    <div class="card-body">
+                        <div class="card-title">Itens validados</div>
+                        <div class="card-category"></div>
+                        <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div>
+                                    <h3 class="fw-bold text-uppercase mt-4 op-8">Total</h3>
+                                    <h1 class="fw-bold"> adasd</h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Templates</h4>
+                        </div>
+                        <p class="card-category">
+                            Todos a serem cobertos:</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive table-hover table-sales">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <!-- <th scope="col">ID</th> -->
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Número de municípios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for empresa in empresas %}
+                                    <tr>
+                                        <!-- <th scope="row">{{empresa.id}}</th> -->
+                                        <th><a
+                                                href="{{url_for('empresa.perfil',_id_empresa=empresa.id)}}">{{empresa.nome}}</a>
+                                        </th>
+                                        <td>{{empresa.municipios|length}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Municípios</h4>
+                        </div>
+                        <p class="card-category">
+                            Todos a serem validados:</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive table-hover table-sales">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Template</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for municipio in municipios[municipios|length-1:(municipios|length-11):-1] %}
+                                    <tr>
+                                        <th scope="row">{{municipio.id}}</th>
+                                        <td><a href="{{url_for('municipio.perfil',_id=municipio.id)}}">{{municipio.nome}}</a>
+                                        </td>
+                                        {% if municipio.empresa|length == 0 %}
+                                        <td>-</td>
+                                        {% endif %}
+                                        {% if municipio.empresa|length > 0 %}
+                                        {% for empresa in municipio.empresa %}
+                                        <td>{{empresa.nome}}</td>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </tr>
+
+                                    {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+
+<script>
+    var n_empresas = '{{n_empresas}}';
+    var n_cidadaos = '{{n_cidadaos}}';
+    Circles.create({
+        id: 'circles-1',
+        radius: 45,
+        value: 100,
+        maxValue: 100,
+        width: 7,
+        text: n_cidadaos,
+        colors: ['#f1f1f1', '#33b0b5'],
+        duration: 500,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+    Circles.create({
+        id: 'circles-2',
+        radius: 45,
+        value: 100,
+        maxValue: 100,
+        width: 7,
+        text: n_empresas,
+        colors: ['#f1f1f1', '#aae0e3'],
+        duration: 100,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+    var media = '{{media}}';
+    Circles.create({
+        id: 'circles-3',
+        radius: 45,
+        value: media,
+        maxValue: 10,
+        width: 7,
+        text: media,
+        colors: ['#f1f1f1', '#ffa534'],
+        duration: 700,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+    var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+    var mytotalIncomeChart = new Chart(totalIncomeChart, {
+        type: 'bar',
+        data: {
+            labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+            datasets: [{
+                label: "Total Income",
+                backgroundColor: '#e3e3e3',
+                borderColor: 'rgb(23, 125, 255)',
+                data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 1],
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        display: false //this will remove only the label
+                    },
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                }]
+            },
+        }
+    });
+</script>
+
+{% endblock javascripts %}

@@ -1,0 +1,188 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Perfil - {{municipio.nome}}
+{% endblock title %}
+
+{% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">{{municipio.nome}}
+
+                        <!-- <div class="avatar avatar-xl">
+                            <img src="/static/fotos/{{municipio.foto}}" alt="..." class="avatar-img rounded-circle ml-3">
+                        </div> -->
+                    </h2>
+                    <h5 class="text-white op-7 mb-2">Visão geral</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+                    {% if municipio.empresa|length == 0 %}
+                    <a href="{{url_for('municipio.atribuir_empresa', _id=municipio.id)}}"
+                        class="btn btn-white  btn-round mr-2"><span class="btn-label mr-2"> <i
+                                class="fa fa-plus-circle"></i></span>Template</a>
+                    {% endif %}
+                    <a href="{{url_for('municipio.index')}}" class="btn btn-default  btn-round mr-2"><span
+                            class="btn-label mr-1"><i class="fas fa-users"></i></span> Municípios</a>
+                    
+                    <a href="{{url_for('municipio.editar_municipio',_id=municipio.id)}}"
+                            class="btn btn-info btn-border btn-round">
+                            <span class="btn-label">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            Editar
+                    </a>
+
+                    <a href="{{url_for('municipio.excluir_municipio',_id=municipio.id)}}" class="btn btn-danger btn-round">
+                        <span class="btn-label mr-1"><i class="fas fa-trash"></i></span>Excluir </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row mt--2">
+            <div class="col-md-8">
+                <div class="card full-height">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-head-row">
+                                <div class="card-title">Coletas:</div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <label for="nome">Servidores:</label>
+                                <h5 class="displayIB" id="nome">asdas</h5>
+                                <br>
+                                <label for="felicidade"> Licitações:</label>
+                                <h5 class="displayIB" id="nome">asdas</h5>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Estatísticas do município</div>
+                        <div class="card-category"></div>
+                        <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div id="circles-1"></div>
+                                <h6 class="fw-bold mt-3 mb-0">Itens coletados</h6>
+                            </div>
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div id="circles-2"></div>
+                                <h6 class="fw-bold mt-3 mb-0">Itens validados</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% if municipio.empresa|length %}
+        <div class=" row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Template</h4>
+                            <div class="card-tools">
+                                {% for empresa in municipio.empresa %}
+                                <a href="{{url_for('municipio.remover_empresa',_id_cidadao=municipio.id,_id_empresa=empresa.id)}}"
+                                    class="btn btn-danger btn-round btn-border">
+                                    <span class="btn-label mr-2"><i class="fas fa-trash"></i></span>Remover do
+                                    template</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <p class="card-category">
+                            {{municipio.nome}} faz parte do 
+                            {% for empresa in municipio.empresa %}
+                                <a href="{{url_for('empresa.perfil',_id_empresa=empresa.id)}}">{{empresa.nome}}</a>
+                            {% endfor %}
+                        </p>
+                    </div>
+
+                    <!-- CASO TENHA MAIS DE UM TEMPLATE POR MUNICIPIO -->
+                    <!-- <div class="card-body">
+                        <div class="table-responsive table-hover table-sales">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Total de municipios</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for empresa in municipio.empresa %}
+                                    <tr>
+                                        <td><a
+                                                href="{{url_for('empresa.perfil',_id_empresa=empresa.id)}}">{{empresa.nome}}</a>
+                                        </td>
+                                        <td>{{empresa.tipo}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if municipio.empresa|length == 0 %}
+        <a class="btn btn-primary btn-lg btn-block"
+            href="{{url_for('municipio.atribuir_empresa', _id=municipio.id)}}">Atribuir
+            Template</a>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+<script>
+    var itens_coletados = '{{municipio.itens_coletados}}';
+    Circles.create({
+        id: 'circles-1',
+        radius: 45,
+        value: itens_coletados,
+        maxValue: 10,
+        width: 7,
+        text: itens_coletados,
+        colors: ['#f1f1f1', '#33b0b5'],
+        duration: 10,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+    var itens_validados = '{{municipio.itens_validados}}';
+    Circles.create({
+        id: 'circles-2',
+        radius: 45,
+        value: itens_validados,
+        maxValue: 10,
+        width: 7,
+        text: itens_validados,
+        colors: ['#f1f1f1', '#33b0b5'],
+        duration: 10,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+</script>
+
+{% endblock javascripts %}
