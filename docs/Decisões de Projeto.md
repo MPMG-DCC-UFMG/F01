@@ -35,6 +35,11 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Decisão:** Foi concluído que não é possível realizar a coleta dos dados relativos a tag Obras Públicas para o template ABO.
 * **Observações:** A tag <a> que redirecionaria o usuário ao site GeoObras parece conter um link com protocolo HTTP diferente do usado pelo site.
 
+### PT / Geral
+* **Problema:** Foi constatado que o link inicialmente atribuído ao portal da transparência de Conceição da Aparecida na verdade corresponde ao portal de outro município do template PT. Esse fato possivelmente teve relação com uma inclusão equivocada do município de Conceição da Aparecida no cluster do template. Além disso, foi observado que os municípios de Camacho, Itaverava e Santana de Cataguases, que inicialmente não foram associados a nenhum template, possuem portais da transparência com a estrutura do template PT.
+* **Decisão:** Foi excluída a participação do município de Conceição da Aparecida no template PT e feita a inclusão dos municípios de Camacho, Itaverava e Santana de Cataguases no mesmo template.
+* **Observações:** Foi necessário exluir as coletas de Conceição da Aparecida já realizadas no template PT e aplicar os coletores já desenvolvidos nos município de Camacho, Itaverava e Santana de Cataguases.
+
 ## Validação
 ### Template / Tag / Subtag
 * **Problema:**
