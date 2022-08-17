@@ -45,3 +45,8 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Problema:**
 * **Decisão:** 
 * **Observações:**
+  
+### ABO / Concursos públicos / Dados do Concurso
+* **Problema:** Foi notado que a maior parte dos municípios não constava dados de concursos públicos, e aqueles com dados para criar o validador não possuiuam uma clara referência ao item "Atos de nomeação", apenas a "Resultado" considerado como a presente "Lista de Aprovados".
+* **Decisão:** Foi considerado que a "Lista de Aprovados" é o resultado do concurso e que a "Atos de nomeação" poderia ser um documento presente na aba documentos.
+* **Observações:** Para o item "Atos de nomeação" o tipo do documento teria que conter a palabra "nomeação" na coluna Tipo do Documento. Embora não encontrado um caso exemplo, também não foi encontrado algo referente a "Atos de nomeação".
