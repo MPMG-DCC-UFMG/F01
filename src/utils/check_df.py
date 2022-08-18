@@ -89,7 +89,7 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
 
     isvalid = False
     for c in valid:
-        if c > (2):
+        if c >= (1):
             isvalid = True
 
     return df, isvalid

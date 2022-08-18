@@ -36,25 +36,36 @@ path2 = '/home/asafe/Downloads/abc.html'
 # args = shlex.split(command_line)
 # print(args)
 
-class Despesas:
-    def __init__(self, files):
-        self.files = files
+# class Despesas:
+#     def __init__(self, files):
+#         self.files = files
 
-class Empenhos(Despesas):
+# class Empenhos(Despesas):
 
-    def __init__(self, files, keywords_check):
-        self.keywords_check = keywords_check
+#     def __init__(self, files, keywords_check):
+#         self.keywords_check = keywords_check
 
 # Empenhos(files="asd",keywords_check="s")
 
 # print("opa")
 # print(Empenhos.files)
 
-string  = """
-<table cellspacing="0" class="table table-bordered table-sm dataTable no-footer" role="grid" style="margin-left: 0px; width: 637px;" width="100%"><thead>
-<tr role="row"><th aria-controls="gridReceita" aria-label="Mês: Ordenar colunas de forma ascendente" class="sorting" colspan="1" rowspan="1" style="width: 81.8px;" tabindex="0">Mês</th><th aria-controls="gridReceita" aria-label="Receita: Ordenar colunas de forma descendente" aria-sort="ascending" class="sorting_asc" colspan="1" rowspan="1" style="width: 148.8px;" tabindex="0">Receita</th><th aria-controls="gridReceita" aria-label="Nome da Receita: Ordenar colunas de forma ascendente" class="sorting" colspan="1" rowspan="1" style="width: 100.8px;" tabindex="0">Nome da Receita</th><th aria-controls="gridReceita" aria-label="Previsto: Ordenar colunas de forma ascendente" class="text-right sorting" colspan="1" rowspan="1" style="width: 86.8px;" tabindex="0">Previsto</th><th aria-controls="gridReceita" aria-label="Arrecadado: Ordenar colunas de forma ascendente" class="text-right sorting" colspan="1" rowspan="1" style="width: 90.8px;" tabindex="0">Arrecadado</th><th aria-controls="gridReceita" aria-label="Acumulado: Ordenar colunas de forma ascendente" class="text-right sorting" colspan="1" rowspan="1" style="width: 0px; display: none;" tabindex="0">Acumulado</th></tr>
-</thead></table>
-"""
+# string  = """
+# <table cellspacing="0" class="table table-bordered table-sm dataTable no-footer" role="grid" style="margin-left: 0px; width: 637px;" width="100%"><thead>
+# <tr role="row"><th aria-controls="gridReceita" aria-label="Mês: Ordenar colunas de forma ascendente" class="sorting" colspan="1" rowspan="1" style="width: 81.8px;" tabindex="0">Mês</th><th aria-controls="gridReceita" aria-label="Receita: Ordenar colunas de forma descendente" aria-sort="ascending" class="sorting_asc" colspan="1" rowspan="1" style="width: 148.8px;" tabindex="0">Receita</th><th aria-controls="gridReceita" aria-label="Nome da Receita: Ordenar colunas de forma ascendente" class="sorting" colspan="1" rowspan="1" style="width: 100.8px;" tabindex="0">Nome da Receita</th><th aria-controls="gridReceita" aria-label="Previsto: Ordenar colunas de forma ascendente" class="text-right sorting" colspan="1" rowspan="1" style="width: 86.8px;" tabindex="0">Previsto</th><th aria-controls="gridReceita" aria-label="Arrecadado: Ordenar colunas de forma ascendente" class="text-right sorting" colspan="1" rowspan="1" style="width: 90.8px;" tabindex="0">Arrecadado</th><th aria-controls="gridReceita" aria-label="Acumulado: Ordenar colunas de forma ascendente" class="text-right sorting" colspan="1" rowspan="1" style="width: 0px; display: none;" tabindex="0">Acumulado</th></tr>
+# </thead></table>
+# """
 
-x = pd.read_html(string)
-print(x)
+# x = pd.read_html(string)
+# print(x)
+
+
+
+from rarfile import RarFile  
+file_name = '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/passa_quatro/orcamento/data/files/546079fd-ceed-4760-baa9-83eaaa961806'
+
+with RarFile(file_name) as file:
+
+  for f in file.infolist():
+
+    print(f.filename)

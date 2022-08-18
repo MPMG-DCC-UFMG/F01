@@ -1,7 +1,7 @@
 import yaml
 import numpy as np
 from utils.handle_files import get_municipios_do_template
-from utils.compactar import extrair_arquivos
+from utils.compressao import extrair_arquivos
 
 from pathlib import Path
 import os

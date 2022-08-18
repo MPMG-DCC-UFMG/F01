@@ -1,0 +1,28 @@
+{
+    "concursos_publicos":{
+        "dados_do_concurso":{
+            "search_term": "concurso",
+            "keywords_to_search": ["Edital", "Fase", "Data da Realização", "Detalhe do Concurso"],
+            "num_matches": 10000,
+            "types": ["html"],
+            "status": "Fase",
+            "resultado": "Classificação",
+            "atos_de_nomeacao": "Tipo do Documento"
+        },
+        "copia_do_edital":{
+            "search_term": "concurso",
+            "keywords_to_search": ["Edital", "Fase", "Data da Realização"],
+            "num_matches": 10000,
+            "types": ["html"],
+            "copia_do_edital":"Tipo do Documento"
+        },
+        "divulgacao_dos_recursos_e_respectivas_decisoes":{
+            "search_term": "concurso",
+            "keywords_to_search": ["Edital", "Fase", "Data da Realização"],
+            "num_matches": 10000,
+            "types": ["html"],
+            "column": "Tipo do Documento",
+            "value": "PARECER"
+        }
+    }
+}
