@@ -1,10 +1,39 @@
 {
+
     "licitacoes": {
-       "search_term": "Licitações licitação Tomada Modalidade Objeto",
-       "keywords": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-       "proc_lic_itens": ["número", "modalidade", "objeto", "status", "resultado"]
-    },
-    "types": ["html","pdf"],
+      "processos_licitatorios": {
+           "search_term": "Licitações licitação Tomada Modalidade Objeto",
+           "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
+           "num_matches": 1000,
+           "types": ["pdf"],
+           "numero": "Número Processo", 
+           "modalidade": "Modalidade",
+           "objeto": "Objeto",
+           "status": "status",
+           "resultado": "Aprovado"
+       },
+       "registro_dos_procedimentos": {
+           "search_term": "Licitações licitação Tomada Modalidade Objeto",
+           "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
+           "num_matches": 1000,
+           "types": ["bat"],
+           "coluna_modalidade": "Modalidade",
+           "ordem":"Ordenar colunas de forma"
+       },
+       "editais": {
+           "search_term": "Licitações licitação Tomada Modalidade Objeto",
+           "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
+           "num_matches": 1000,
+           "types": ["bat"],
+           "edital": "Editais de Licitação e Demais Arquivos"
+       },
+       "resultado_das_licitacoes": {
+           "search_term": "Licitações licitação Tomada Modalidade Objeto",
+           "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
+           "num_matches": 1000,
+           "resultados": "Visualizar processo"
+       }
+   },
 
     "servidores": {
       "dados_dos_servidores": {

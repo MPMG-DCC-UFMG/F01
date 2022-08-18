@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import bs4
 import re
 import pandas as pd
 import codecs
@@ -126,19 +125,6 @@ def one_html_to_csv (format_path):
     df = convert_html(soup)
     return df
 
-# def all_lists_to_csv(paths):
-
-#     list_df = []
-#     for file_name in paths:
-#         print(file_name)
-#         new_df = one_html_to_csv(file_name)
-#         if(not new_df.empty):
-#             list_df.append(new_df)
-#     if (len(list_df)):              
-#         return pd.concat(list_df)
-#     else: 
-#         return pd.DataFrame()
-
 def concat_lists(files):
     """
     Concatena uma lista de df em um único df
@@ -233,25 +219,33 @@ def load_and_convert_files(paths, format_type):
         list_dfs = []
         number_pdf = 0
         for i in paths:
+            if not "2eb21eca-8cc1-4655-aae9-23c6b64e3daa.pdf" in i:
+                continue
 
             if number_pdf == 10:
                 break
-            # print(number_pdf, i)
-            lista_tabelas = tabula.read_pdf(i, pages='all')
-            if len(lista_tabelas) > 0:
-                number_pdf += 1
-                
-            for tabela in lista_tabelas:
-                # print(tabela)
-                if ('Unnamed' in ' '.join(tabela.columns.values)):
-                    tabela.columns = tabela.loc[0].values
-                    tabela.drop(0 , inplace=True)
+            print(number_pdf, i)
+            try:
+                lista_tabelas = tabula.read_pdf(i, pages='all')
+                if len(lista_tabelas) > 0:
+                    number_pdf += 1
+                    
+                for tabela in lista_tabelas:
+                    print(type(tabela))
+                    tabela.to_csv("tmpe.csv")
+                    print(tabela)
 
-                    tabela = tabela.loc[:number_entry_each_table]
+                    if ('Unnamed' in ' '.join(tabela.columns.values)):
+                        tabela.columns = tabela.loc[0].values
+                        tabela.drop(0 , inplace=True)
 
-                list_dfs.append(tabela)
+                        tabela = tabela.loc[:number_entry_each_table]
 
-                break
+                    list_dfs.append(tabela)
+                    break
+            except:
+                print(f"Falha em converter o pdf :{i} em dataframe")
+                continue
                 
     
         df = concat_lists(list_dfs)
@@ -261,3 +255,12 @@ def load_and_convert_files(paths, format_type):
 
     df = df.drop_duplicates()
     return df
+
+def get_df(files, ttype):
+    df_final = pd.DataFrame()
+    for key, values in files.items():
+        if key in ttype:
+            df = load_and_convert_files(paths=values, format_type=key)
+            df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
+            df_final = df_final.drop_duplicates()
+    return df_final

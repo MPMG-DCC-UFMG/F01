@@ -3,7 +3,7 @@ from utils import indexing
 from utils import path_functions
 from utils import checker
 from utils.check_df import contains_keyword
-from utils.file_to_df import get_df
+from utils.file_to_dataframe import get_df
 
 class ValidadorLinkDeAcesso:
 

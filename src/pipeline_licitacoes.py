@@ -1,25 +1,26 @@
 from utils import handle_files
-from validadores.licitacoes import processos_licitatorios
-from validadores.licitacoes import registro_dos_procedimentos
-from validadores.licitacoes import editais
-from validadores.licitacoes import resultado_das_licitacoes
+from validadores.licitacoes.processos_licitatorios import ValidadorProcessosLicitatorios
+from validadores.licitacoes.registro_dos_procedimentos import ValidadorRegistroDosProcedimentos
+from validadores.licitacoes.editais import ValidadorEditais
+from validadores.licitacoes.resultado_das_licitacoes import ValidadorResultadosDasLicitacoes
 
 def pipeline_licitacoes(keywords, job_name):
 
     # Subtag - Processos Licitatorios
-    validador_processos_licitatorios = processos_licitatorios.ValidadorProcessosLicitatorios(job_name, keywords['processos_licitatorios'])
+    validador_processos_licitatorios = ValidadorProcessosLicitatorios(job_name, keywords['processos_licitatorios'])
     output_processos_licitatorios = validador_processos_licitatorios.predict()
+    print(output_processos_licitatorios)
 
     # Subtag - Registro dos procedimentos
-    validador_registro_dos_procedimentos = registro_dos_procedimentos.ValidadorRegistroDosProcedimentos(job_name, keywords['registro_dos_procedimentos'])
+    validador_registro_dos_procedimentos = ValidadorRegistroDosProcedimentos(job_name, keywords['registro_dos_procedimentos'])
     output_registro_dos_procedimentos = validador_registro_dos_procedimentos.predict()
 
     # Subtag Editais
-    validador_editais = editais.ValidadorEditais(job_name, keywords['editais'])
+    validador_editais = ValidadorEditais(job_name, keywords['editais'])
     output_editais = validador_editais.predict()
 
     # Resultados das licitações
-    validador_resultado_das_licitacoes = resultado_das_licitacoes.ValidadorResultadosDasLicitacoes(job_name, keywords['resultado_das_licitacoes'])
+    validador_resultado_das_licitacoes = ValidadorResultadosDasLicitacoes(job_name, keywords['resultado_das_licitacoes'])
     output_resultado_das_licitacoes = validador_resultado_das_licitacoes.predict()
 
     print('Licitações:',  output_processos_licitatorios['numero']['predict'], 

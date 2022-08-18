@@ -3,7 +3,7 @@ import re
 from utils import check_df
 from utils import indexing
 from utils import path_functions
-from utils.file_to_df import get_df
+from utils.file_to_dataframe import get_df
 from utils.search_html import analyze_html
 from utils.check_df import search_in_column
 from utils.check_df import check_all_values_of_column

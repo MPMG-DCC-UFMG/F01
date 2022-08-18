@@ -1,7 +1,7 @@
 from utils import indexing
 from utils import path_functions
 from utils import path_functions
-from utils.file_to_df import get_df
+from utils.file_to_dataframe import get_df
 from utils.check_df import check_all_values_of_column
 
 class ValidadorProcessosLicitatorios:
@@ -13,6 +13,8 @@ class ValidadorProcessosLicitatorios:
         files = path_functions.filter_paths(files, words=['licitacao'])
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
+        print(self.df.columns)
+        print(self.df)
 
     def predict_numero(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['numero'], typee='valor')

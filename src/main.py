@@ -20,14 +20,15 @@ def main(template):
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
+            if municipio == "ponto_chique":
             # if municipio == "guanhaes":
                 print(municipio)
                 # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
                 # pipeline_receitas(parametros['receitas'], municipio)
-                # pipeline_licitacoes(parametros['licitacoes'], municipio)
+                pipeline_licitacoes(parametros['licitacoes'], municipio)
                 # pipeline_contratos(parametros['contratos'], municipio)
                 # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
-                pipeline_concursos_publicos(parametros['concursos_publicos'], municipio)
+                # pipeline_concursos_publicos(parametros['concursos_publicos'], municipio)
                 # pipeline_despesas_com_diarias(parametros['despesas_com_diarias'], municipio)
 
             # Em dev
@@ -36,9 +37,9 @@ def main(template):
 
 if __name__ == '__main__':
 
-    # template = 'sintese'
+    template = 'sintese'
     # template = 'siplanweb'
-    template = 'abo'
+    # template = 'abo'
     main(template)
 
 
