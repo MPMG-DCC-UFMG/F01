@@ -6,9 +6,9 @@ from pipeline_contratos import pipeline_contratos
 from pipeline_informacoes_institucionais import pipeline_informacoes_institucionais
 from pipeline_terceiro_setor import pipeline_terceiro_setor
 from pipeline_concursos_publicos import pipeline_concursos_publicos
+from pipeline_obras_publicas import pipeline_obras_publicas
 from pipeline_servidores import pipeline_servidores
 from pipeline_despesas_com_diarias import pipeline_despesas_com_diarias
-
 
 from utils.handle_files import get_municipios_do_template
 from utils.handle_files import get_keywords_do_template
@@ -20,15 +20,17 @@ def main(template):
     municipios = get_municipios_do_template(template)
 
     for municipio in municipios:
-            if municipio == "ponto_chique":
+            # if municipio == "formiga":
+            # if municipio == "ponto_chique":
             # if municipio == "guanhaes":
                 print(municipio)
                 # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
                 # pipeline_receitas(parametros['receitas'], municipio)
-                pipeline_licitacoes(parametros['licitacoes'], municipio)
+                # pipeline_licitacoes(parametros['licitacoes'], municipio)
                 # pipeline_contratos(parametros['contratos'], municipio)
                 # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
                 # pipeline_concursos_publicos(parametros['concursos_publicos'], municipio)
+                pipeline_obras_publicas(parametros['obras_publicas'], municipio)
                 # pipeline_despesas_com_diarias(parametros['despesas_com_diarias'], municipio)
 
             # Em dev
@@ -37,7 +39,8 @@ def main(template):
 
 if __name__ == '__main__':
 
-    template = 'sintese'
+    # template = 'sintese'
+    template = 'betha'
     # template = 'siplanweb'
     # template = 'abo'
     main(template)

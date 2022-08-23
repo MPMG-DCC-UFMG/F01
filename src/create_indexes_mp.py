@@ -9,7 +9,7 @@ import json
 import subprocess
 import time
 
-TEMPLATES = ["siplanweb", "sintese", "abo"]
+TEMPLATES = ["siplanweb", "sintese", "abo", "betha"]
 
 print("Digite o número do template: ")
 count = 0
@@ -42,7 +42,7 @@ for municipio in MUNICIPIOS:
     # Descompacta os arquivos .rar (colocar no mesmo diretório, e mantem o .rar original)
     data_lake = Path("/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/")
     diretorio_municipio = data_lake / municipio
-    extrair_arquivos(diretorio_municipio)
+    # extrair_arquivos(diretorio_municipio)
 
     config = {
         'name': municipio,

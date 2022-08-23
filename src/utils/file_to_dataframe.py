@@ -184,11 +184,10 @@ def load_and_convert_files(paths, format_type):
 
         list_to_concat = []
         for i in  paths:
-            tabela = pd.read_csv(i)
+            tabela = pd.read_csv(i, on_bad_lines='skip')
             
             aux = 0
 
-            #  Para Template GRP, que começava com um cabeçalho de colunas  
             while(type(tabela.columns[0]) is not str):
                 tabela.columns = tabela.iloc[aux].values
                 aux += 1
