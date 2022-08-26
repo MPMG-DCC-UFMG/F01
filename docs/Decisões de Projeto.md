@@ -44,6 +44,10 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Problema:** Foi constatado que o link inicialmente atribuído ao portal da transparência de Conceição da Aparecida na verdade corresponde ao portal de outro município do template PT. Esse fato possivelmente teve relação com uma inclusão equivocada do município de Conceição da Aparecida no cluster do template. Além disso, foi observado que os municípios de Camacho, Itaverava e Santana de Cataguases, que inicialmente não foram associados a nenhum template, possuem portais da transparência com a estrutura do template PT.
 * **Decisão:** Foi excluída a participação do município de Conceição da Aparecida no template PT e feita a inclusão dos municípios de Camacho, Itaverava e Santana de Cataguases no mesmo template.
 * **Observações:** Foi necessário exluir as coletas de Conceição da Aparecida já realizadas no template PT e aplicar os coletores já desenvolvidos nos município de Camacho, Itaverava e Santana de Cataguases.
+  
+### PT / Despesas com Diárias
+* **Problema:** O município de Queluzito não contém a seção de Diárias com Viagens que foi utilizada para coletar os dados do restante dos municípios do template. No entanto, dados relacionados puderam ser encontrados na seção de Despesas de Categoria Econômica DIÁRIAS.
+* **Decisão:** Foi decidida a criação de um coeltor específico para o portal de Queluzito com base nos dados da seção de Despesas.
 
 ## Validação
 ### Template / Tag / Subtag
