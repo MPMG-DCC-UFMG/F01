@@ -31,8 +31,8 @@ Neste documento registramos as principais decisões de projeto realizadas ao lon
 * **Observações:** Não foram encontrados dados nem mesmo próximos aos especificados pela tag.
 
 ### ABO / Despesas / Empenhos e Pagamentos
-* **Problema:** Após verificar o desempenho do coletor em 8 dos 21 municípios, a coleta do Item de Empenhos *Descrição* se monstrou inviável, devido ao provedor do template, ao chegar no nível de profundidade da coleta para adquirir o dado de Descrição, não consegue prover tal informação.
-* **Decisão:** Foi excluído o último nível de profundidade do coletor, coletando somente até uma tela de redirecionamento dos Empenhos do Favorecido.
+* **Problema:** Após verificar o desempenho do coletor em 8 dos 21 municípios, a coleta do Item de Empenhos *Descrição* se monstrou inviável, devido ao provedor do template, ao chegar no nível de profundidade da coleta para adquirir o dado de Descrição, não consegue prover tal informação. Além disso, após determinado tempo de coleta, o template não consegue mais renderizar os dados, retornando um erro que permanece em todos os sites das cidades que utilizam esse template, impossibilitando a coleta por um tempo.
+* **Decisão:** Foi excluído o último nível de profundidade do coletor, coletando somente até uma tela de redirecionamento dos Empenhos do Favorecido. Ademais, foi limitado o número de Empenhos/Pagamentos a serem coletados como **50**.
 * **Observações:** Todos os outros itens irão ser coletados, logo, o campo Descrição é presente de forma correta no site, mas sua coleta é inviável.
 
 ### ABO / Obras Públicas
