@@ -25,7 +25,7 @@ Migrate(app, db)
 from sistema.principal.views import principal
 from sistema.municipio.views import municipio
 from sistema.empresa.views import empresa
-from sistema.api.views import api
+from sistema.api_de_resultados.views import api
 from sistema.coletor.views import coletor
 from sistema.validador.views import validador
 

@@ -43,7 +43,6 @@ def sincronizar():
 
     db.session.commit()
 
-    
     return redirect(url_for('coletor.index'))
 
 

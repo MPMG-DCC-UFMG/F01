@@ -13,7 +13,10 @@ class Municipio(db.Model):
     id_ibge = db.Column(db.Integer, nullable=True)
     nome = db.Column(db.String(30), nullable=False)
     nome_formatado = db.Column(db.String(30), nullable=True)
+    url_site_prefeitura = db.Column(db.String(50), nullable=True)
+    url_portal = db.Column(db.String(50), nullable=True)
 
     empresa = db.relationship("Empresa",
                                  secondary=MunicipioxEmpresa,
                                  back_populates="municipios")
+

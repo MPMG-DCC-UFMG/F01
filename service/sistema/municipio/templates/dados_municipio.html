@@ -35,9 +35,6 @@ Perfil - {{municipio.nome}}
                             </span>
                             Editar
                     </a>
-
-                    <a href="{{url_for('municipio.excluir_municipio',_id=municipio.id)}}" class="btn btn-danger btn-round">
-                        <span class="btn-label mr-1"><i class="fas fa-trash"></i></span>Excluir </a>
                 </div>
             </div>
         </div>
@@ -49,16 +46,19 @@ Perfil - {{municipio.nome}}
                     <div class="card">
                         <div class="card-header">
                             <div class="card-head-row">
-                                <div class="card-title">Coletas:</div>
+                                <div class="card-title">Informações:</div>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="chart-container">
-                                <label for="nome">Servidores:</label>
-                                <h5 class="displayIB" id="nome">asdas</h5>
+                                <label for="nome">id_ibge:</label>
+                                <h5 class="displayIB" id="nome">{{id_ibge}}</h5>
                                 <br>
-                                <label for="felicidade"> Licitações:</label>
-                                <h5 class="displayIB" id="nome">asdas</h5>
+                                <label for="felicidade"> url_site_prefeitura:</label>
+                                <h5 class="displayIB" id="nome">{{url_site_prefeitura}}</h5>
+                                <br>
+                                <label for="felicidade"> url_portal:</label>
+                                <h5 class="displayIB" id="nome">{{url_portal}}</h5>
                                 <br>
                             </div>
                         </div>
