@@ -22,7 +22,7 @@ Perfil - {{empresa.nome}}
                         class="btn btn-white  btn-round mr-2"><span class="btn-label mr-2"> <i
                                 class="fa fa-plus-circle"></i></span>município</a>
 
-                    <a href="{{url_for('principal.index')}}" class="btn btn-default btn-round mr-2"><span
+                    <a href="{{url_for('api_de_integracao.index')}}" class="btn btn-default btn-round mr-2"><span
                             class="btn-label mr-1"><i class="fas fa-building"></i></span> Templates</a>
                     
                     <a href="{{url_for('empresa.editar_empresa',_id_empresa=empresa.id)}}"
@@ -98,8 +98,6 @@ Perfil - {{empresa.nome}}
                                         <td><a href="{{url_for('municipio.perfil',_id=municipio.id)}}">{{municipio.nome}}</a>
                                         </td>
                                         <td>
-                                            <a href="{{url_for('municipio.editar_municipio',_id=municipio.id)}}"><i
-                                                    class="fas fa-edit"></i></a>
                                             <a
                                                 href="{{url_for('empresa.remover',_id_cidadao=municipio.id,_id_empresa=empresa.id)}}"><i
                                                     class="fas fa-user-minus"></i></a>

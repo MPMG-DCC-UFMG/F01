@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, url_for
 from sistema import db
 from sistema.empresa.models import Empresa
 from sistema.municipio.models import Municipio
+from flask import Blueprint, render_template, request, redirect, url_for
 
 empresa = Blueprint('empresa', __name__, template_folder="templates")
+
 
 @empresa.route('/')
 def index():
@@ -38,7 +39,6 @@ def cadastrar():
 
         empresa = Empresa(nome=nome)
         db.session.add(empresa)
-
 
         db.session.commit()
 
@@ -104,7 +104,7 @@ def perfil(_id_empresa):
 
 
 @empresa.route('/associar_cidadao/<int:_id_empresa>',
-                  methods=['POST', 'GET'])
+               methods=['POST', 'GET'])
 def associar_cidadao(_id_empresa):
     empresa = Empresa.query.get_or_404(_id_empresa)
     municipios = Municipio.query.all()
@@ -127,7 +127,7 @@ def associar_cidadao(_id_empresa):
 
 
 @empresa.route('/remover/<int:_id_empresa>/<int:_id_cidadao>',
-                  methods=['POST', 'GET'])
+               methods=['POST', 'GET'])
 def remover(_id_empresa, _id_cidadao):
     empresa = Empresa.query.get_or_404(_id_empresa)
     municipio = Municipio.query.get_or_404(_id_cidadao)

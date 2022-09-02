@@ -1,4 +1,4 @@
-from sistema import app, db
+from sistema import db
 from sistema.municipio.models import MunicipioxEmpresa
 
 class Empresa(db.Model):
