@@ -5,7 +5,7 @@ from sistema.api_de_integracao.manage import procurar_resultado
 from sistema.municipio.manage_municipios import obter_codigo_ibge_pelo_nome
 
 api_de_resultados = Blueprint(
-    'api_de_resultados', __name__, template_folder="templates")
+    'api_de_resultados', __name__)
 
 
 class Resposta(Enum):
@@ -18,12 +18,6 @@ class Resposta(Enum):
 
     def to_dict(self):
         return {'resposta': self.value, 'justificativa': self.name}
-
-
-@api_de_resultados.route('/')
-def index():
-    return render_template("api.html",
-                           segment='api')
 
 
 @api_de_resultados.route('/<municipio>', methods=['GET'])

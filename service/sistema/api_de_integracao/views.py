@@ -7,7 +7,6 @@ from sistema.municipio.models import Municipio
 from sistema.api_de_integracao.manage import salvar_resultado
 from sistema.municipio.manage_municipios import formatar_nome_de_municipio, obter_codigo_ibge_pelo_nome
 
-
 api_de_integracao = Blueprint('api_de_integracao', __name__)
 
 
@@ -16,10 +15,7 @@ def index():
     municipios = Municipio.query.all()
     empresas = Empresa.query.all()
 
-    return render_template("home.html",
-                           municipios=municipios,
-                           empresas=empresas,
-                           segment='index')
+    return jsonify('ok')
 
 
 @api_de_integracao.route('/carregar_resultados', methods=['GET'])
