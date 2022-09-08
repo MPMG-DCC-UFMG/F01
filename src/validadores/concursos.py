@@ -7,9 +7,9 @@ import numpy as np
 import sys
 sys.path.insert(0, '../')
 
-from utils import indexing
-from utils import table_to_csv
-from utils import search_path_in_dump
+from src.validadores.utils import indexing
+from src.validadores.utils import table_to_csv
+from src.validadores.utils import search_path_in_dump
 
 def analyze_proc_lici(df, keywords): 
     """

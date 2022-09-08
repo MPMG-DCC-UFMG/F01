@@ -1,7 +1,7 @@
-from utils import handle_files
-from validadores.concursos_publicos.dados_do_concurso import ValidadorDadosDoConcurso
-from validadores.concursos_publicos.copia_do_edital import ValidadorCopiaDoEdital
-from validadores.concursos_publicos.divulgacao import ValidadorDivulgacaoRecursosDecisoes	
+from src.validadores.utils import handle_files
+from src.validadores.concursos_publicos.dados_do_concurso import ValidadorDadosDoConcurso
+from src.validadores.concursos_publicos.copia_do_edital import ValidadorCopiaDoEdital
+from src.validadores.concursos_publicos.divulgacao import ValidadorDivulgacaoRecursosDecisoes	
 
 def pipeline_concursos_publicos(keywords, job_name):
 

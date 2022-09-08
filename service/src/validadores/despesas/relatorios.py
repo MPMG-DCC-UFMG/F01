@@ -1,8 +1,8 @@
-from utils import indexing
-from utils import check_df
+from src.validadores.utils import indexing
+from src.validadores.utils import check_df
 from ..base import Validador
-from utils import path_functions
-from utils.search_html import analyze_html
+from src.validadores.utils import path_functions
+from src.validadores.utils.search_html import analyze_html
 
 class ValidadorRelatorios(Validador):
 

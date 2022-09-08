@@ -1,5 +1,5 @@
 import unittest
-from validadores.licitacoes import ValidadorLicitacoes
+from src.validadores.licitacoes import ValidadorLicitacoes
 import pandas as pd
 
 # To execute this test file:

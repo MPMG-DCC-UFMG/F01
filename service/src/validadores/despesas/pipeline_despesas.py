@@ -1,9 +1,9 @@
-from utils import handle_files
-from validadores.despesas import empenhos
-from validadores.despesas import pagamentos
-from validadores.despesas import relatorios
-from validadores.despesas import gerar_relatorio
-from validadores.despesas import consulta_favorecido
+from src.validadores.utils import handle_files
+from src.validadores.despesas import empenhos
+from src.validadores.despesas import pagamentos
+from src.validadores.despesas import relatorios
+from src.validadores.despesas import gerar_relatorio
+from src.validadores.despesas import consulta_favorecido
 
 # Siplanweb
 from utilconst.constant_siplanweb import keywords_siplanweb

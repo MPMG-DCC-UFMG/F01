@@ -3,7 +3,7 @@ import re
 import pandas as pd
 import codecs
 import tabula
-from utils import read
+from src.validadores.utils import read
 
 def read_content(path, folder, file):
     try:

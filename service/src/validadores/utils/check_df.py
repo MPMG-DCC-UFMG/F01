@@ -1,5 +1,5 @@
 import numpy as np
-from utils import checker
+from src.validadores.utils import checker
 
 def contains_keyword(df, word):
     """

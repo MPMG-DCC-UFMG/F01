@@ -10,3 +10,12 @@ class Resultado(db.Model):
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
     municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id_ibge'))
     resposta = db.Column(db.String(100), nullable=True)
+
+
+class CodigoResposta(db.Model):
+    __tablename__ = "codigo_resposta"
+
+    id = db.Column(db.Integer, primary_key=True)
+    descricao = db.Column(db.String(100), nullable=True)
+
+

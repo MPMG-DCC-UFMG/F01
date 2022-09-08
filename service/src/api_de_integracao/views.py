@@ -4,7 +4,7 @@ from flask import jsonify
 from src.empresa.models import Empresa
 from flask import Blueprint, render_template
 from src.municipio.models import Municipio
-from src.api_de_integracao.manage import salvar_resultado
+from src.api_de_integracao.manage_resultado import salvar_resultado
 from src.municipio.manage_municipios import formatar_nome_de_municipio, obter_codigo_ibge_pelo_nome
 
 api_de_integracao = Blueprint('api_de_integracao', __name__)

@@ -1,5 +1,5 @@
-from utils import handle_files
-from validadores.informacoes_institucionais.link_de_acesso import ValidadorLinkDeAcesso
+from src.validadores.utils import handle_files
+from src.validadores.informacoes_institucionais.link_de_acesso import ValidadorLinkDeAcesso
 
 def pipeline_informacoes_institucionais(keywords, job_name):
 

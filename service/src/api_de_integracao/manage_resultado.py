@@ -12,7 +12,7 @@ def procurar_resultado(municipio_id, item_id=None):
         return resultado
 
     resultado = Resultado.query.filter_by(
-        municipio_id=municipio_id, item_id=item_id).first().resposta
+        municipio_id=municipio_id, item_id=item_id).first()
     return resultado
 
 

@@ -1,10 +1,8 @@
-from csv import field_size_limit
 import os
 import unittest
-import pandas as pd
 from pathlib import Path
-from utils.path_functions import list_files
-from utils.compressao import extrair_arquivos
+from src.validadores.utils.path_functions import list_files
+from src.validadores.utils.compressao import extrair_arquivos
 
 # To execute this test file:
 # F01/src$ python -m unittest tests.test_utils.test_compressao

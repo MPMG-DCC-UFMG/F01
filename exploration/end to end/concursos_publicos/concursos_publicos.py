@@ -2,7 +2,7 @@ import os, re, codecs, requests, sys, utilconst.constant as constant
 sys.path.insert(1, '../')
 
 from bs4 import BeautifulSoup
-from utils import search_in_home
+from src.validadores.utils import search_in_home
 
 
 home_path = "../../../../Governador Valadares/home/home.html"

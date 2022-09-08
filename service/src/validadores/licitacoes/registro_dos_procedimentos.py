@@ -1,8 +1,8 @@
 import re
-from utils.file_to_dataframe import get_df
-from utils import indexing, path_functions
-from utils.check_df import check_all_values_of_column, contains_keyword, infos_isvalid
-from utils.search_html import analyze_html
+from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils import indexing, path_functions
+from src.validadores.utils.check_df import check_all_values_of_column, contains_keyword, infos_isvalid
+from src.validadores.utils.search_html import analyze_html
 
 def analyze_inexibilidade (value, column_name):
     """

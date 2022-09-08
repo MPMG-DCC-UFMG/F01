@@ -1,13 +1,13 @@
 import utilconst.constant as constant
-from utils import indexing
-from utils import check_df
-from utils.analyze_pdf import remove_noise
-from utils.analyze_pdf import count_matches
-from utils.analyze_pdf import pdf_from_image
-from utils.analyze_pdf import pdf_to_text
-from utils.analyze_pdf import analyze_pdf
+from src.validadores.utils import indexing
+from src.validadores.utils import check_df
+from src.validadores.utils.analyze_pdf import remove_noise
+from src.validadores.utils.analyze_pdf import count_matches
+from src.validadores.utils.analyze_pdf import pdf_from_image
+from src.validadores.utils.analyze_pdf import pdf_to_text
+from src.validadores.utils.analyze_pdf import analyze_pdf
 
-from utils.search_html import analyze_html
+from src.validadores.utils.search_html import analyze_html
 import pandas as pd
 
 #--------------------------------------------------------------------------------------------------------------------------#

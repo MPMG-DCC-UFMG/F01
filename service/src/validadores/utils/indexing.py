@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from elasticsearch import Elasticsearch
-from utils import path_functions
+from src.validadores.utils import path_functions
 
 es = Elasticsearch('127.0.0.1', port=8055)
 

@@ -1,12 +1,12 @@
-from utils import handle_files
-from validadores.servidores.dados_dos_servidores import ValidadorDadosDosServidores
-from validadores.servidores.registro_da_remuneracao import ValidadorRegistroDaRemuneracao
-from validadores.servidores.registro_por_lotacao import ValidadorRegistroPorLotacao
-from validadores.servidores.auxilios import ValidadorAuxilios
-from validadores.servidores.proventos_de_aposentadoria import ValidadorProventosDeAposentadoria
-from validadores.servidores.proventos_de_pensao import ValidadorProventosDePensao
-from validadores.servidores.relatorio_mensal import ValidadorRelatorioMensal
-from validadores.servidores.dados_de_remuneracao import ValidadorDadosDeRemuneracao
+from src.validadores.utils import handle_files
+from src.validadores.servidores.dados_dos_servidores import ValidadorDadosDosServidores
+from src.validadores.servidores.registro_da_remuneracao import ValidadorRegistroDaRemuneracao
+from src.validadores.servidores.registro_por_lotacao import ValidadorRegistroPorLotacao
+from src.validadores.servidores.auxilios import ValidadorAuxilios
+from src.validadores.servidores.proventos_de_aposentadoria import ValidadorProventosDeAposentadoria
+from src.validadores.servidores.proventos_de_pensao import ValidadorProventosDePensao
+from src.validadores.servidores.relatorio_mensal import ValidadorRelatorioMensal
+from src.validadores.servidores.dados_de_remuneracao import ValidadorDadosDeRemuneracao
 
 def pipeline_servidores(keywords, job_name):
 

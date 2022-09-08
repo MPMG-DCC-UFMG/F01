@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
 import codecs, re
 import pandas as pd
-from utils import indexing
-from utils import read
-from utils import path_functions
+from src.validadores.utils import indexing
+from src.validadores.utils import read
+from src.validadores.utils import path_functions
 import sys
 sys.path.insert(1, '../')
 

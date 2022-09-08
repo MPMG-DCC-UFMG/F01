@@ -8,9 +8,9 @@ import datetime
 import sys
 sys.path.insert(1, '../')
 
-from utils import table_to_csv
-from utils.preprocess import format_values
-from utils import checker
+from src.validadores.utils import table_to_csv
+from src.validadores.utils.preprocess import format_values
+from src.validadores.utils import checker
 import utilconst.constant as constant
 
 import warnings

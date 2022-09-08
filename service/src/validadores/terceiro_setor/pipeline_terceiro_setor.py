@@ -1,6 +1,6 @@
-from utils import handle_files
-from validadores.terceiro_setor import dados_de_parcerias
-from validadores.terceiro_setor import repasses
+from src.validadores.utils import handle_files
+from src.validadores.terceiro_setor import dados_de_parcerias
+from src.validadores.terceiro_setor import repasses
 
 def pipeline_terceiro_setor(keywords, job_name):
 

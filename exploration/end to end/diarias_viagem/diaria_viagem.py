@@ -2,7 +2,7 @@ import os, sys, requests, codecs, utilconst.constant as constant, unidecode, re,
 import pandas as pd
 sys.path.insert(1, '../')
 
-from utils import table_to_csv
+from src.validadores.utils import table_to_csv
 from bs4 import BeautifulSoup
 
 checklist_viagens = {

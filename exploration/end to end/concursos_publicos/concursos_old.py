@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 home_path = "../../Governador Valadares/home/home.html"
 file_path = '../../Governador Valadares/downloads/categoria/ConcursoPublico-EditalNo00120190022019e0032019.html'
 
-from utils import indexing
+from src.validadores.utils import indexing
 
 
 def search_keywords_dados_concurso(markup):

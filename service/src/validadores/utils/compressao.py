@@ -5,7 +5,7 @@ from pathlib import Path
 import zipfile 
 import rarfile
 
-from utils.path_functions import list_files
+from src.validadores.utils.path_functions import list_files
 
 def extrair_arquivos(diretorio, path_to_file=None):
     """

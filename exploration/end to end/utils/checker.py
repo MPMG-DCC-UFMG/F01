@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import datetime
 
-from utils.preprocess import format_values
+from src.validadores.utils.preprocess import format_values
 
 import warnings
 warnings.filterwarnings("ignore")

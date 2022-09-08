@@ -1,9 +1,9 @@
 import numpy as np
-from utils import indexing
-from utils import path_functions
-from utils import checker
-from utils.check_df import contains_keyword
-from utils.file_to_dataframe import get_df
+from src.validadores.utils import indexing
+from src.validadores.utils import path_functions
+from src.validadores.utils import checker
+from src.validadores.utils.check_df import contains_keyword
+from src.validadores.utils.file_to_dataframe import get_df
 
 class ValidadorLinkDeAcesso:
 

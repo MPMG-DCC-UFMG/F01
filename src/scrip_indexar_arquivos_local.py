@@ -1,5 +1,5 @@
 import yaml
-from utils.handle_files import get_municipios_do_template
+from src.validadores.utils.handle_files import get_municipios_do_template
 
 from pathlib import Path
 import os

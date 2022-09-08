@@ -1,9 +1,9 @@
 # Empenhos
 
-from utils import indexing
-from utils.file_to_dataframe import get_df
-from utils.check_df import check_all_values_of_column
-from utils import path_functions
+from src.validadores.utils import indexing
+from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils.check_df import check_all_values_of_column
+from src.validadores.utils import path_functions
 from ..base import Validador
 
 class ValidadorPagamentos(Validador):

@@ -1,5 +1,7 @@
+import os
 import json
-from utils.path_functions import format_city_names
+from pathlib import Path
+from src.validadores.utils.path_functions import format_city_names
 
 class ErroAoAbrirArquivo(Exception):
     def __init__(self, message, cause):
@@ -21,7 +23,7 @@ def get_municipios_do_template(template):
         Lista com o nome de cada municipio formatado sem acento e com espaço substituido por "_".
     """
     try:
-        with open(f"src/parametros_templates/municipios/{template}.json") as fp:
+        with open(os.getcwd() + f"/src/empresa/parametros_templates/municipios/{template}.json") as fp:
             list_municipios = json.load(fp)
     except:
         print(f"Erro ao abrir lista de município do template - {template}")
@@ -45,7 +47,7 @@ def get_keywords_do_template(template):
         JSON com os parâmetro do template.
     """
     try:
-        with open(f"src/parametros_templates/constants/{template}.json") as fp:
+        with open(os.getcwd() + f"/src/empresa/parametros_templates/constants/{template}.json") as fp:
             parametros = json.load(fp)
     except FileNotFoundError as e:
         raise ErroAoAbrirArquivo(f"Erro ao abrir parâmetro {template}", e) from None

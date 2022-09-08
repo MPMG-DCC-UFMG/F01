@@ -1,7 +1,7 @@
-from utils import read
+from src.validadores.utils import read
 from abc import ABC, abstractmethod
-from utils.path_functions import get_url
-from utils.search_html import search_links
+from src.validadores.utils.path_functions import get_url
+from src.validadores.utils.search_html import search_links
 
 class Validador(ABC):
     """

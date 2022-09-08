@@ -1,8 +1,8 @@
-from utils import indexing
-from utils import path_functions
-from utils import path_functions
-from utils.check_df import infos_isvalid
-from utils.search_html import analyze_html
+from src.validadores.utils import indexing
+from src.validadores.utils import path_functions
+from src.validadores.utils import path_functions
+from src.validadores.utils.check_df import infos_isvalid
+from src.validadores.utils.search_html import analyze_html
 
 class ValidadorResultadosDasLicitacoes:
 

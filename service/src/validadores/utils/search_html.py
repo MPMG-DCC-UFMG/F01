@@ -1,7 +1,7 @@
 import re
 import itertools
 import pandas as pd
-from utils import read
+from src.validadores.utils import read
 
 def search_links(markup, term):
     """

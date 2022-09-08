@@ -1,5 +1,5 @@
-from utils import handle_files
-from validadores.obras_publicas.dados_para_acompanhamento import ValidadorDadosParaAcompanhamento
+from src.validadores.utils import handle_files
+from src.validadores.obras_publicas.dados_para_acompanhamento import ValidadorDadosParaAcompanhamento
 
 def pipeline_obras_publicas(keywords, job_name):
 

@@ -1,7 +1,7 @@
-from utils import handle_files
-from validadores.contratos.dados_dos_contratos import ValidadorDadosDosContratos
-from validadores.contratos.conteudo_integral import ValidadorConteudoIntegral
-from validadores.contratos.gerar_relatorio import ValidadorGerarRelatorio
+from src.validadores.utils import handle_files
+from src.validadores.contratos.dados_dos_contratos import ValidadorDadosDosContratos
+from src.validadores.contratos.conteudo_integral import ValidadorConteudoIntegral
+from src.validadores.contratos.gerar_relatorio import ValidadorGerarRelatorio
 
 def pipeline_contratos(keywords, job_name):
 
