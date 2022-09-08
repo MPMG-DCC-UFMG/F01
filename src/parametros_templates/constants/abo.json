@@ -1,4 +1,45 @@
 {
+    "acesso_a_informacao": {
+        "informacoes": {
+            "link_portal": {
+                "search_term": "Prefeitura",
+                "keywords_to_search": ["Home", "Menu", "Transparência", "Portal"],
+                "num_matches": 10000
+            },
+            "texto_explicativo":{
+                "search_term": "Lei",
+                "keywords_to_search": ["LAI", "Lei de acesso à informação", "Lei Federal 12.527"],
+                "num_matches": 10000
+            },
+            "legislacao_federal":{
+                "search_term": "Acesso a informao",
+                "keywords_to_search": ["http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm", "LAI", "Lei de acesso à informação", "Lei Federal 12.527"],
+                "num_matches": 10000
+            },
+            "legislacao_estadual":{
+                "search_term": "Acesso a informao",
+                "keywords_to_search": ["https://www.almg.gov.br/consulte/legislacao/completa/completa.html?num=45969&ano=2012&tipo=DEC", "LAI", "Lei de acesso à informação", "Lei Federal 12.527"],
+                "num_matches": 10000
+            },
+            "site_transparencia":{
+                "search_term": "transparencia",
+                "keywords_to_search": ["www.transparencia.mg.gov.br"],
+                "num_matches": 10000
+            },
+            "acesso_ilimitado":{
+                "search_term": "Login",
+                "keywords_to_search": ["login", "necessrio efetuar login", "clique aqui para fazer login", "clique aqui para fazer cadastro", "para baixar necessrio"],
+                "num_matches": 10000
+            },
+            "perguntas_frequentes":{
+                "search_term": "perguntas frequente",
+                "keywords_to_search": ["FAQ", "Perguntas Frequentes"],
+                "num_matches": 10000
+            }
+        },
+        "search_term": "Portal",
+        "keywords": [""]
+     },
     "concursos_publicos":{
         "dados_do_concurso":{
             "search_term": "concurso",

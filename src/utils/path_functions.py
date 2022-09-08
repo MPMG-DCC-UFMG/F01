@@ -1,55 +1,45 @@
 import os
 from pathlib import Path
 import codecs
+from errors import FileDescriptionVazio
 
 def agg_paths_by_type(paths):
 
-    files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[], 'bat':[]}
+    files = {'csv': [], 'xls': [], 'html': [], 'pdf': [], 'doc':[], 'bat':[], 'no_suffix':[]}
 
     for path in paths:
+        
+        try:
+            suffix = Path(path).suffixes[0]
 
-        suffix = Path(path).suffixes[0]
+            if suffix == ".xls":
+                files['xls'].append(path)
+            elif suffix == '.csv':
+                files['csv'].append(path)
+            elif suffix == '.bat':
+                files['bat'].append(path)   
+            elif (suffix == ".html") or (suffix == '.xml'):
+                files['html'].append(path)
+            elif (suffix == ".pdf"):
+                files['pdf'].append(path)
+            elif (suffix == ".doc") or (suffix == '.docx'):
+                files['doc'].append(path)
 
-        if suffix == ".xls":
-            files['xls'].append(path)
-        elif suffix == '.csv':
-            files['csv'].append(path)
-        elif suffix == '.bat':
-            files['bat'].append(path)   
-        elif (suffix == ".html") or (suffix == '.xml'):
-            files['html'].append(path)
-        elif (suffix == ".pdf"):
-            files['pdf'].append(path)
-        elif (suffix == ".doc") or (suffix == '.docx'):
-            files['doc'].append(path)
+        except IndexError:
+            files['no_suffix'].append(path)
 
     return files
 
 
 def format_path(path):
     path = path.split(os.sep)
-    return os.sep.join(path[3: len(path)-1])
+    return os.sep.join(path[: len(path)-1])
     
 def get_extension(path):
     return path.split('.')[-1]
 
 def get_name(path):
     return path.split('/')[-1]
-
-def get_paths(indexes):
-
-    paths = []
-
-    for i in indexes:
-        extensions = get_extension(str(i[2]))
-        path = format_path (str(i[2]))
-        paths.append((path, extensions))
-
-    return paths
-
-def format_path(path):
-    path = path.split(os.sep)
-    return os.sep.join(path[3: len(path)-1])
 
 def filter_paths(paths, words):
     """
@@ -84,14 +74,36 @@ def create_valid_path (html_files, path_base, pattern='/tmp/es/data'):
     return [i.replace(pattern, path_base) for i in html_files]
 
 
-def get_url(path_base, filename):
+def get_url(filename):
+    """
+    Fornece a url do arquivo através do "file_description", descrição dos arquivos coletados.
 
-    file_description = path_base + "/" + format_path(filename) + "/" + 'file_description.jsonl'
-    arquivo = codecs.open(file_description, 'r', 'utf-8').readlines()
-    for line in arquivo:
-        json = eval(line)
-        if (json['file_name'] == get_name(filename)):
-            return json['url']
+    Parameters
+    ----------
+    filename: string
+        Caminho para o arquivo a ser analisado
+        
+    Returns
+    -------
+    url: string
+       Url do arquivo.
+    """
+
+    file_description = format_path(filename) + "/" + 'file_description.jsonl'
+    
+    try:
+        arquivo = codecs.open(file_description, 'r', 'utf-8').readlines()
+        if len(arquivo) == 0:
+            raise FileDescriptionVazio
+
+        for line in arquivo:
+            json = eval(line)
+            if (json['file_name'] == get_name(filename)):
+                return json['url']
+    
+    except FileDescriptionVazio:
+        print(f"Warning: File_description em {file_description} vazio ")
+        return filename
 
 
 def format_city_names(municipipos):

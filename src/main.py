@@ -1,4 +1,5 @@
 # from utils.indexing import remove_index
+from pipeline_acesso_a_informacao import pipeline_acesso_a_informacao
 from pipeline_receitas import pipeline_receitas 
 # from pipeline_despesas import pipeline_despesas
 from pipeline_licitacoes import pipeline_licitacoes
@@ -23,95 +24,31 @@ def main(template):
             # if municipio == "formiga":
             # if municipio == "ponto_chique":
             # if municipio == "guanhaes":
+            if municipio == "muriae":
                 print(municipio)
+                pipeline_acesso_a_informacao(parametros['acesso_a_informacao'], municipio)
                 # pipeline_informacoes_institucionais(parametros['informacoes_institucionais'], municipio)
                 # pipeline_receitas(parametros['receitas'], municipio)
                 # pipeline_licitacoes(parametros['licitacoes'], municipio)
                 # pipeline_contratos(parametros['contratos'], municipio)
                 # pipeline_terceiro_setor(parametros['terceiro_setor'], municipio)
                 # pipeline_concursos_publicos(parametros['concursos_publicos'], municipio)
-                pipeline_obras_publicas(parametros['obras_publicas'], municipio)
+                # pipeline_obras_publicas(parametros['obras_publicas'], municipio)
                 # pipeline_despesas_com_diarias(parametros['despesas_com_diarias'], municipio)
 
             # Em dev
                 # pipeline_servidores(parametros['servidores'], municipio)
 
-
 if __name__ == '__main__':
 
     # template = 'sintese'
-    template = 'betha'
+    # template = 'betha'
     # template = 'siplanweb'
-    # template = 'abo'
+    template = 'abo'
     main(template)
 
 
-# from concursos import predict_copia_edital, explain_copia_edital, predict_recursos, explain_recursos, predict_dados_concurso, explain_dados_concurso
-# from validadores import licitacoes
-
-
-# from diaria_viagem import predict_diaria_viagem, explain_diaria_viagem
-# from info_institucionais import predict_estrutura_organizacional,explain_estrutura_organizacional,predict_link_legislacao,explain_link_legislacao,predict_unidades_administrativas,explain_unidades_administrativas
-
-# from validadores.acesso_a_informacao import requisitos_exigidos
-# from validadores.acesso_a_informacao import informacoes
-# from validadores.acesso_a_informacao import base_dados
-
-# from validadores.acesso_a_informacao import divulgacao_atendimentos
-
-# from validadores.despesas import relatorios
-
 path_base = '/home/asafe'
-num_matches = 1000
-
-def pipeline_informacoes(path_base, job_name):
-
-    output = {'link_portal': {},
-              'text_expl': {},
-              'legs_federal': {},
-              'legs_estadual': {},
-              'site_transparencia': {},
-              'acesso_ilimitado': {},
-              'faq': {},
-              'new_predict_text_expl': {},
-              }
-
-    # --- Aba denominada “Transparência” no menu principal do sítio eletrônico
-    isvalid, result = informacoes.predict_link_portal(path_base = path_base, job_name=job_name)
-    result_explain  = informacoes.explain_link_portal(result, column_name='matches', elemento='link_portal')
-    output = add_in_dict(output, 'link_portal', isvalid, result_explain)
-
-    #--- Texto padrão explicativo sobre a Lei de Acesso à Informação
-    isvalid, result = informacoes.predict_text_expl(path_base = path_base, job_name=job_name)
-    result_explain  = informacoes.explain(result, column_name='matches', elemento='text_expl', verbose=False)
-    output = add_in_dict(output, 'text_expl', isvalid, result_explain)
-
-    # Link de acesso à leg federal sobre a transp (Lei nº 12.527/2011)
-    isvalid, result = informacoes.predict_legs_federal(path_base = path_base, job_name=job_name)
-    result_explain = informacoes.explain_legs_federal(isvalid, result)
-    output = add_in_dict(output, 'legs_federal', isvalid, result_explain)
-
-    # Link de acesso à leg sobre a transparência (Decreto Estadual nº 45.969/2012)
-    isvalid, result = informacoes.predict_legs_estadual(path_base = path_base, job_name=job_name)
-    result_explain = informacoes.explain_legs_estadual(isvalid, result)
-    output = add_in_dict(output, 'legs_estadual', isvalid, result_explain)
-
-    # Link de acesso ao site da Transparência (www.transparencia.mg.gov.br)
-    isvalid, result = informacoes.predict_site_transparencia(path_base = path_base, job_name=job_name)
-    result_explain = informacoes.explain_site_transparencia(isvalid, result)
-    output = add_in_dict(output, 'site_transparencia', isvalid, result_explain)
-
-    # Acesso ilimitado a todas as informações públicas do sítio eletrônico
-    isvalid, result = informacoes.predict_acesso_ilimitado(path_base = path_base, job_name=job_name)
-    result_explain = informacoes.explain_acesso_ilimitado(isvalid, result, column_name='matches', elemento='login')
-    output = add_in_dict(output, 'acesso_ilimitado', isvalid, result_explain)
-
-    # Link de respostas a perguntas mais frequentes da sociedade.
-    isvalid, result = informacoes.predict_faq(path_base = path_base, job_name=job_name)
-    result_explain = informacoes.explain_faq(isvalid, result)
-    output = add_in_dict(output, 'faq', isvalid, result_explain)
-
-    return output
 
 def pipeline_requisitos_sitios(keywords, path_base, num_matches, job_name, verbose=False):
 

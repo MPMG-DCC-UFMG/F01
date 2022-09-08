@@ -1,6 +1,34 @@
+import re
 import itertools
-from utils import read
 import pandas as pd
+from utils import read
+
+def search_links(markup, term):
+    """
+    Retorna os elementos hrefs que contém certo termo.
+
+    Parameters
+    ----------
+    markup: bs4 soup
+        Html a ser analisado.
+    term: string ou lista de string
+        Link(s) a ser(em) procurado(s).
+        
+    Returns
+    -------
+    int
+        Número de vezes que a keyword_to_search foi encontrada no text.
+    """
+    target = []
+    if type(term) is str:
+        target = [link for link in markup.findAll(href = re.compile(term, re.IGNORECASE))]
+    elif type(term) is list:
+        for single_term in term:
+            target.extend([link for link in markup.findAll(href = re.compile(single_term, re.IGNORECASE))])
+    target = set(target)
+    return target
+
+
 
 def get_tags_id (soup):
 

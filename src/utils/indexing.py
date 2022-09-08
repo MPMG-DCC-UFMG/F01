@@ -27,27 +27,6 @@ def request_search(search_term, keywords_search=[], num_matches= 10, job_name='i
    result = [ (hit['_source'].get('file').get('filesize'), hit['_score'], hit['_source'].get('path').get('real')) for hit in response['hits']['hits']]
    return result
 
-def get_files_to_valid(
-    search_term, keywords_search, num_matches,
-    job_name, path_base, types=None): 
-        
-   #Search
-   result = request_search(
-   search_term=search_term, keywords_search=keywords_search, num_matches=num_matches, job_name=job_name)
-      
-   files = [i[2] for i in result]
-
-   #Aggregate file by type
-   agg_files = path_functions.agg_paths_by_type(files)
-
-   #Return files in specific type
-   if types:
-      filter_files = []
-      for ty in types:
-         filter_files.extend(agg_files.get(ty))
-      return filter_files
-   return files
-
 def get_files(search_term, num_matches,
       job_name, keywords_search): 
         
@@ -59,8 +38,36 @@ def get_files(search_term, num_matches,
 
    return files
 
+def get_files_html(search_term, num_matches, 
+      job_name, keywords_search, filter_in_path): 
+   
+   """
+    Busca arquivos através da função "get_files", opcionalmente filtra os que contém alguma palavra especificada
+    no caminho (path), e retorna as páginas html.
 
+    Parameters
+    ----------
+    search_term: string
+        Parâmetro para o elasticseach. Termo principal pesquisado no elasticsearch.
+    num_matches: int
+         Parâmetro para o elasticseach. Quantidade de resultados que será retornada.
+    job_name: string
+         Parâmetro para o elasticseach. Job elasticsearch que será pesquisado.
+    keywords_search: string
+         Parâmetro para o elasticseach. Termos que auxiliam a classificação das páginas mais semelhantes.
+    filter_in_path: list of string
+         Opcional, filtra os arquivos que o caminho contém alguma palavra nessa lista.
+        
+    Returns
+    -------
+    html_files: list of string
+       Lista dos caminhos para os arquivos.
+    """
 
+   files = get_files(search_term, num_matches, job_name, keywords_search)
+   if filter_in_path:
+      files = path_functions.filter_paths(files, words=filter_in_path)
+   agg_files = path_functions.agg_paths_by_type(files)
 
-
-
+   html_files = agg_files.get('html')
+   return html_files
