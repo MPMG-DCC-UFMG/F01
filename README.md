@@ -16,6 +16,7 @@ A primeira etapa para poder instalar o sistema é realizar o donwload de seu có
 
 Dentro de /service rode o comando:
 
+<!-- export FLASK_ENV=development -->
 ```
 FLASK_APP=main.py flask run
 ```

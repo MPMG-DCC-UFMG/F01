@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Associar município
+{% endblock title %}
+
+{% block content %}
+
+
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">{{empresa.nome}}</h2>
+                    <h5 class="text-white op-7 mb-2">Excluir</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+
+                    <a href="{{url_for('empresa.perfil',_id_empresa=empresa.id)}}" class="btn btn-white btn-round mr-2>
+                        <span class=" btn-label mr-1"><i class="fa fa-reply" aria-hidden="true"></i></span>Voltar </a>
+                    <a href="{{url_for('api_de_integracao.index')}}" class="btn btn-default  btn-round mr-2"><span
+                            class="btn-label mr-1"><i class="fas fa-home"></i></span> Página Inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">
+                                Selecione o município que deseja:
+                            </h4>
+                            <div class="card-tools">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <form method="POST" action="">
+                            <h4>Municípios:</h4>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Felicidade</th>
+                                        <th scope="col">Selecionar:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for municipio in municipios %}
+                                    {% if municipio.empresa|length == 0 %}
+                                    <tr>
+                                        <th scope="row">{{municipio.id}}</th>
+                                        <td for="{{municipio.id}}">{{municipio.nome}}
+                                        </td>
+                                        <td>{{municipio.felicidade}} </td>
+                                        <td>
+                                            <div class="form-check-inline custom-check">
+                                                <input id="{{municipio.id}}" name="municipios" value="{{municipio.id}}"
+                                                    type="radio">
+                                                <label for="{{municipio.id}}"></label>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <input type="submit" value="Associar" class="btn btn-success btn-block">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

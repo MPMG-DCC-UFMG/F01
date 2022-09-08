@@ -1,0 +1,98 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Municípios
+{% endblock title %}
+
+{% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">Municípios</h2>
+                    <h5 class="text-white op-7 mb-2">Visão geral</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+                    <a href="{{url_for('api_de_integracao.index')}}" class="btn btn-default  btn-round mr-2"><span
+                            class="btn-label mr-2"><i class="fas fa-home"></i></span> Página Inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Lista de municípios</h4>
+                        </div>
+                        <p class="card-category">
+                            Todos a serem validados:</p>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive table-hover table-sales">
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Pesquisar:</span>
+                                </div>
+                                <input name="consulta" id="txt_consulta" type="text" class="form-control"
+                                    placeholder="Nome ou ID" aria-label="Pesquisar"
+                                    aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                            </div>
+                            <table id="tabela" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ref</th>
+                                        <th scope="col">ID ibge</th>
+                                        <th scope="col">Nome</th>
+                                        <!-- <th scope="col">Url portal</th> -->
+                                        <th scope="col">Template</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for municipio in municipios %}
+                                    <tr>
+                                        <th scope="row">{{municipio.id}}</th>
+                                        <td>{{municipio.id_ibge}} </td>
+                                        <td><a href="{{url_for('municipio.perfil',_id=municipio.id)}}">{{municipio.nome}}</a>
+                                        </td>
+                                        <!-- <td>{{municipio.url_portal}} </td> -->
+                                        {% if municipio.empresa|length == 0 %}
+                                        <td>-</td>
+                                        {% endif %}
+                                        {% if municipio.empresa|length > 0 %}
+                                        {% for empresa in municipio.empresa %}
+                                        <td>{{empresa.nome}}</td>
+                                        {% endfor %}
+                                        {% endif %}
+
+                                    </tr>
+                                    {% endfor %}
+
+                                    <script>
+                                        $('input#txt_consulta').quicksearch('table#tabela tbody tr'); 
+                                    </script>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

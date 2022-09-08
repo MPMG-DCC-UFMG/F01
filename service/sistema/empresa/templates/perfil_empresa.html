@@ -1,0 +1,147 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Perfil - {{empresa.nome}}
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="content">
+    <div class="panel-header bg-primary-gradient">
+        <div class="page-inner py-5">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+                <div>
+                    <h2 class="text-white pb-2 fw-bold">{{empresa.nome}}</h2>
+                    <h5 class="text-white op-7 mb-2">{{empresa.municipios|length}} municipios associados</h5>
+                </div>
+                <div class="ml-md-auto py-2 py-md-0">
+
+
+                    <a href="{{url_for('empresa.associar_cidadao',_id_empresa=empresa.id)}}"
+                        class="btn btn-white  btn-round mr-2"><span class="btn-label mr-2"> <i
+                                class="fa fa-plus-circle"></i></span>município</a>
+
+                    <a href="{{url_for('api_de_integracao.index')}}" class="btn btn-default btn-round mr-2"><span
+                            class="btn-label mr-1"><i class="fas fa-building"></i></span> Templates</a>
+                    
+                    <a href="{{url_for('empresa.editar_empresa',_id_empresa=empresa.id)}}"
+                        class="btn btn-info btn-border btn-round">
+                        <span class="btn-label">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        Editar
+                    </a>
+                    <a href="{{url_for('empresa.excluir_empresa',_id_empresa=empresa.id)}}"
+                        class="btn btn-danger btn-round">
+                        <span class="btn-label mr-1"><i class="fas fa-trash"></i></span>Excluir </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-inner mt--5">
+        <div class="row mt--2">
+            <!-- <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">Número de municípios:</div>
+                        <div class="card-category"></div>
+                        <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                            <div class="px-2 pb-2 pb-md-0 text-center">
+                                <div id="circles-1"></div>
+                                <h6 class="fw-bold mt-3 mb-0">Quantidade</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="row row-card-no-pd">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <h4 class="card-title">Municípios</h4>
+                            <div class="card-tools">
+                            </div>
+                        </div>
+                        <p class="card-category">
+                            Todos os membros</p>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive table-hover table-sales">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Pesquisar:</span>
+                                </div>
+                                <input name="consulta" id="txt_consulta" type="text" class="form-control"
+                                    placeholder="Nome ou ID" aria-label="Pesquisar"
+                                    aria-describedby="basic-addon1">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                            </div>
+                            <table id="tabela" class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Opções</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for municipio in empresa.municipios %}
+                                    <tr>
+                                        <th scope="row">{{municipio.id}}</th>
+                                        <td><a href="{{url_for('municipio.perfil',_id=municipio.id)}}">{{municipio.nome}}</a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{{url_for('empresa.remover',_id_cidadao=municipio.id,_id_empresa=empresa.id)}}"><i
+                                                    class="fas fa-user-minus"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <script>
+                                        $('input#txt_consulta').quicksearch('table#tabela tbody tr'); 
+                                    </script>
+                                </tbody>
+                            </table>
+                            <a href="{{url_for('empresa.associar_cidadao',_id_empresa=empresa.id)}}"><button
+                                    type="buttom" class="btn btn-primary btn-block mt-4">Associar um município <i
+                                        class="fas fa-user-plus"></i></button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+{% block javascripts %}
+
+<script>
+    var media = '{{media}}';
+    Circles.create({
+        id: 'circles-1',
+        radius: 45,
+        value: media,
+        maxValue: 10,
+        width: 7,
+        text: media,
+        colors: ['#f1f1f1', '#33b0b5'],
+        duration: 10,
+        wrpClass: 'circles-wrp',
+        textClass: 'circles-text',
+        styleWrapper: true,
+        styleText: true
+    })
+
+</script>
+
+{% endblock javascripts %}
