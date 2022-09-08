@@ -1,5 +1,5 @@
-from sistema import db
-from sistema.api_de_integracao.models import Resultado
+from src import db
+from src.api_de_integracao.models import Resultado
 
 
 def procurar_resultado(municipio_id, item_id=None):

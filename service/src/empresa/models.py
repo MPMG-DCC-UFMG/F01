@@ -1,5 +1,5 @@
-from sistema import db
-from sistema.municipio.models import MunicipioxEmpresa
+from src import db
+from src.municipio.models import MunicipioxEmpresa
 
 class Empresa(db.Model):
     __tablename__ = "empresa"

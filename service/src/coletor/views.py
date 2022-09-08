@@ -1,9 +1,9 @@
 import json
-from sistema import db
+from src import db
 from github import Github
-from sistema.empresa.models import Empresa
-from sistema.municipio.models import Municipio
-from sistema.coletor.models import Coletor
+from src.empresa.models import Empresa
+from src.municipio.models import Municipio
+from src.coletor.models import Coletor
 from flask import Blueprint, render_template, request, redirect, url_for
 
 coletor = Blueprint('coletor', __name__, template_folder="templates")

@@ -1,4 +1,4 @@
-from sistema import db
+from src import db
 
 
 class Resultado(db.Model):

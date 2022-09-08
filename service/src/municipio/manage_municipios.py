@@ -1,5 +1,5 @@
-from sistema import db
-from sistema.municipio.models import Municipio
+from src import db
+from src.municipio.models import Municipio
 
 
 def inserir_municipios(nome, nome_formatado, url_site_prefeitura, url_portal, id_ibge):

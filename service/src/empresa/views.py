@@ -1,6 +1,6 @@
-from sistema import db
-from sistema.empresa.models import Empresa
-from sistema.municipio.models import Municipio
+from src import db
+from src.empresa.models import Empresa
+from src.municipio.models import Municipio
 from flask import Blueprint, render_template, request, redirect, url_for
 
 empresa = Blueprint('empresa', __name__, template_folder="templates")

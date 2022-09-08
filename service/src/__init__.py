@@ -18,11 +18,11 @@ Migrate(app, db)
 
 #######################  BLUEPRINTS ##########################
 
-from sistema.api_de_integracao.views import api_de_integracao
-from sistema.municipio.views import municipio
-from sistema.empresa.views import empresa
-from sistema.api_de_resultados.views import api_de_resultados
-from sistema.coletor.views import coletor
+from src.api_de_integracao.views import api_de_integracao
+from src.municipio.views import municipio
+from src.empresa.views import empresa
+from src.api_de_resultados.views import api_de_resultados
+from src.coletor.views import coletor
 
 app.register_blueprint(api_de_integracao)
 app.register_blueprint(api_de_resultados, url_prefix="/api")

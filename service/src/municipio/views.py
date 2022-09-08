@@ -1,11 +1,10 @@
 import os
 import pandas as pd
-import numpy as np
-from sistema.municipio.manage_municipios import formatar_nome_de_municipio
-from sistema import db
-from sistema.municipio import manage_municipios
-from sistema.empresa.models import Empresa
-from sistema.municipio.models import Municipio
+from src.municipio.manage_municipios import formatar_nome_de_municipio
+from src import db
+from src.municipio import manage_municipios
+from src.empresa.models import Empresa
+from src.municipio.models import Municipio
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
 
 municipio = Blueprint('municipio', __name__, template_folder="templates")

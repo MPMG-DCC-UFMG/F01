@@ -1,4 +1,4 @@
-from sistema import app, db
+from src import app, db
 
 class Tag(db.Model):
     __tablename__ = "tag"
