@@ -2,7 +2,7 @@ from utils import indexing
 from utils import path_functions
 from utils import check_df
 from utils.search_html import analyze_html
-from validadores.base import Validador
+from service.src.validadores.base import Validador
 
 # Textos que validam o item: Texto padrão explicativo sobre a Lei de Acesso à Informação --
 LEI_ACESSO_INFORMACAO_CONTEUDO = [
