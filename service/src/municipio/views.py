@@ -1,11 +1,10 @@
 import os
 import pandas as pd
-from src.municipio.manage_municipios import formatar_nome_de_municipio
-from src import db
+from flask import jsonify
 from src.municipio import manage_municipios
-from src.empresa.models import Empresa
 from src.municipio.models import Municipio
-from flask import Blueprint, render_template, request, redirect, url_for, current_app
+from flask import Blueprint, render_template
+from src.api_de_integracao.manage_resultado import formatar_nome
 
 municipio = Blueprint('municipio', __name__, template_folder="templates")
 
@@ -35,9 +34,8 @@ def carregar():
         municipio_com_codigo = df_municipios.loc[nome_do_municipio]
         codigo_ibge_do_municipio = municipio_com_codigo['id']
         codigos_ibge.append(municipio_com_codigo['id']) 
-        print(codigo_ibge_do_municipio)
 
-        nome_formatado = formatar_nome_de_municipio(row['Município']) 
+        nome_formatado = formatar_nome(row['Município']) 
 
         municipio = manage_municipios.inserir_municipios(nome=row['Município'],
                                             nome_formatado=nome_formatado,
@@ -48,35 +46,4 @@ def carregar():
     df['id_ibge'] = codigos_ibge
     df.to_csv(dir_path + '/links_validados.csv', index=False)
 
-    municipios = Municipio.query.all()
-
-    return render_template('municipio.html',
-                           municipios=municipios,
-                           segment='municipio')
-
-
-@municipio.route('/atribuir_empresa/<int:_id>', methods=['POST', 'GET'])
-def atribuir_empresa(_id):
-    municipio = Municipio.query.get_or_404(_id)
-    empresas = Empresa.query.all()
-
-    if request.method == 'POST':
-        id_empresa = request.form['id_empresa']
-        empresa = Empresa.query.get_or_404(id_empresa)
-        municipio.empresa.append(empresa)
-
-        db.session.commit()
-
-        return redirect(url_for('municipio.perfil', _id=municipio.id))
-    return render_template('atribuir_empresa.html',
-                           municipio=municipio,
-                           segment='municipio',
-                           empresas=empresas)
-
-@municipio.route('/perfil/<int:_id>', methods=['GET'])
-def perfil(_id):
-    municipio = Municipio.query.get_or_404(_id)
-
-    return render_template('dados_municipio.html',
-                           segment='municipio',
-                           municipio=municipio)
+    return jsonify('ok')

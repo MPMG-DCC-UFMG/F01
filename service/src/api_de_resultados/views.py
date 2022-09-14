@@ -1,13 +1,10 @@
-from enum import Enum
 from flask import jsonify
-from flask import Blueprint, render_template
-from src.api_de_integracao.manage_resultado import procurar_resultado
-from src.api_de_integracao.manage_cod_resposta import Resposta
+from flask import Blueprint
+from src.api_de_integracao.manage_resultado import procurar_resultado, Resposta
 from src.municipio.manage_municipios import obter_codigo_ibge_pelo_nome
 
 api_de_resultados = Blueprint(
     'api_de_resultados', __name__)
-
 
 
 @api_de_resultados.route('/<municipio>', methods=['GET'])
