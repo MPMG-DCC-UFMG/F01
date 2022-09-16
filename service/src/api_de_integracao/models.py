@@ -9,6 +9,10 @@ class Resultado(db.Model):
     subtag_id = db.Column(db.Integer, db.ForeignKey('subtag.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
     municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id_ibge'))
+
     codigo_resposta = db.Column(db.String(30), nullable=True)
-    descricao = db.Column(db.String(100), nullable=True)
+    #exemplo: OK, BLOQUEADA, NAO_COLETAVEL_TIMEOUT, TRUE, FALSE
+
     justificativa = db.Column(db.String(300), nullable=True)
+    # "Item ainda não validado"
+    # "Validacao informou que o item coletado nao atende aos requisitos"

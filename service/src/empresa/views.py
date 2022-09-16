@@ -9,11 +9,12 @@ from src.api_de_integracao.manage_resultado import formatar_nome
 
 empresa = Blueprint('empresa', __name__, template_folder="templates")
 
+
 @empresa.route('/')
 def index():
-    templates = Empresa.query.all() 
+    templates = Empresa.query.all()
     if len(templates):
-        templates = [template.nome for template in templates]     
+        templates = [template.nome for template in templates]
     # municipios = Municipio.query.all()
 
     print(templates)
@@ -25,7 +26,7 @@ def cadastrar():
 
     Empresa.query.delete()
 
-    #1) Insere os templates unicos do csv 'municipios_clusters
+    # 1) Insere os templates unicos do csv 'municipios_clusters' na tabela de templates
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     df = pd.read_csv(dir_path + '/municipios_clusters.csv')
@@ -40,11 +41,7 @@ def cadastrar():
         db.session.add(empresa)
     db.session.commit()
 
-    empresas = Empresa.query.all()
-    for empresa in empresas:
-        print(empresa.nome)
-
-    #2) Para cada municipio, associa o template.
+    # 2) Para cada municipio, associa o template.
 
     for _, row in df.iterrows():
         nome_do_municipio = row['municipio']
@@ -58,12 +55,7 @@ def cadastrar():
         if (len(municipio.empresa) == 0):
             empresa = Empresa.query.filter_by(nome=nome_da_empresa).all()[0]
             municipio.empresa.append(empresa)
-    
+
     db.session.commit()
 
     return jsonify('ok')
-
-
-
-
-

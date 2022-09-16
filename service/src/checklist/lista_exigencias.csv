@@ -15,7 +15,7 @@ id,tag,sub-tag,info
 14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos
 15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos
 16,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos
-17,Informações institucionais,Estrutura organizacional,
+17,Informações institucionais,Estrutura organizacional,Estrutura organizacional
 18,Informações institucionais,Unidades administrativas,Endereço
 19,Informações institucionais,Unidades administrativas,Telefone
 20,Informações institucionais,Unidades administrativas,Horário de atendimento
@@ -67,7 +67,7 @@ id,tag,sub-tag,info
 66,Concursos Públicos,Dados do Concurso,Status do andamento do processo do concurso
 67,Concursos Públicos,Dados do Concurso,Resultado
 68,Concursos Públicos,Dados do Concurso,Atos de nomeação
-69,Concursos Públicos,Cópia do edital do concurso,
+69,Concursos Públicos,Cópia do edital do concurso,Cópia do edital do concurso
 70,Concursos Públicos,Divulgação,Divulgação dos recursos e respectivas decisões
 71,Obras públicas,Dados para acompanhamento,Objeto
 72,Obras públicas,Dados para acompanhamento,Valor total

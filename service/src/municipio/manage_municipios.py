@@ -20,3 +20,11 @@ def obter_codigo_ibge_pelo_nome(nome_do_municipio):
     id_ibge = Municipio.query.filter_by(
         nome_formatado=nome_do_municipio).first().id_ibge
     return id_ibge
+
+def is_valid_ibge_code(cod_ibge):
+    id_ibge = Municipio.query.filter_by(
+        id_ibge=cod_ibge).first()
+    if id_ibge:
+        return True
+    else:
+        return False
