@@ -4,7 +4,6 @@
       "processos_licitatorios": {
            "search_term": "Licitações licitação Tomada Modalidade Objeto",
            "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-           "num_matches": 1000,
            "types": ["pdf"],
            "numero": "Número Processo", 
            "modalidade": "Modalidade",
@@ -15,7 +14,6 @@
        "registro_dos_procedimentos": {
            "search_term": "Licitações licitação Tomada Modalidade Objeto",
            "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-           "num_matches": 1000,
            "types": ["bat"],
            "coluna_modalidade": "Modalidade",
            "ordem":"Ordenar colunas de forma"
@@ -23,14 +21,12 @@
        "editais": {
            "search_term": "Licitações licitação Tomada Modalidade Objeto",
            "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-           "num_matches": 1000,
            "types": ["bat"],
            "edital": "Editais de Licitação e Demais Arquivos"
        },
        "resultado_das_licitacoes": {
            "search_term": "Licitações licitação Tomada Modalidade Objeto",
            "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-           "num_matches": 1000,
            "resultados": "Visualizar processo"
        }
    },
@@ -40,7 +36,6 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
          "types": ["html"],
-         "num_matches": 10000,
          "nome": "Servidor",
          "cargo_funcao": "Cargo/Funçao",
          "remuneracao":"Valor Bruto"
@@ -49,7 +44,6 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
          "types": ["html"],
-         "num_matches": 10000,
          "agentes_politicos": "Cargo",
          "contratados_temporariamente": "Vínculo",
          "servidores_efetivos_ou_empregados_publicos":"Vínculo"
@@ -58,7 +52,6 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
          "types": ["html"],
-         "num_matches": 10000,
          "lotacao": "Local",
          "matricula": "Matricula",
          "nome": "Servidor",
@@ -71,14 +64,12 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "auxílios"],
          "types": ["html"],
-         "num_matches": 10000,
          "ITEM": "xxx"
       },
       "proventos_de_aposentadoria": {
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "aposentadoria"],
          "types": ["html"],
-         "num_matches": 10000,
          "aposentadoria": "Vínculo",
          "nome": "Servidor",
          "cargo": "Cargo/Funçao",
@@ -91,7 +82,6 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "pensão"],
          "types": ["html"],
-         "num_matches": 10000,
          "pensao": "Vínculo",
          "nome": "Servidor",
          "cargo": "Cargo/Funçao",
@@ -104,7 +94,6 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo"],
          "types": ["html"],
-         "num_matches": 10000,
          "necessary_term": ["mês", "csv"],
          "explain": "possível pesquisar por mês e gerar um relatório csv, pdf ou txt dos resultados da consulta"
       },
@@ -112,7 +101,6 @@
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo"],
          "types": ["html"],
-         "num_matches": 10000,
          "ITEM": "xxx"
       }
     }

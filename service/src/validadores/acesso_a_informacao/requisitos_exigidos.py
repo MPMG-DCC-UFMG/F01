@@ -15,7 +15,7 @@ class ValidadorRequisitosExigidos(Validador):
     def predict_busca(self, keywords):
 
         #Search all files
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['requisitos_exigidos'])
         files = path_functions.agg_paths_by_type(files)
 
@@ -30,7 +30,7 @@ class ValidadorRequisitosExigidos(Validador):
     def predict_exportar_relatorios(self, keywords):
         
         #Search all files
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['requisitos_exigidos'])
         files = path_functions.agg_paths_by_type(files)
         
@@ -45,7 +45,7 @@ class ValidadorRequisitosExigidos(Validador):
     def predict_info_atualizadas(self, keywords):
 
         #Search all files
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['requisitos_exigidos'])
         files = path_functions.agg_paths_by_type(files)
 
@@ -60,7 +60,7 @@ class ValidadorRequisitosExigidos(Validador):
     def predict_contato(self, keywords):
 
         #Search all files
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['requisitos_exigidos'])
         files = path_functions.agg_paths_by_type(files)
 
@@ -75,7 +75,7 @@ class ValidadorRequisitosExigidos(Validador):
     def predict_acessibilidade(self, keywords):
 
         #Search all files
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['requisitos_exigidos'])
         files = path_functions.agg_paths_by_type(files)
 

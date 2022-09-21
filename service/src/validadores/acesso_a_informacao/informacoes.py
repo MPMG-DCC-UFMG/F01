@@ -57,7 +57,7 @@ class ValidadorInformacoes(Validador):
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
-        # files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
+        # files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         # files = path_functions.filter_paths(files, words=['acesso_a_informacao'])
         # self.files = path_functions.agg_paths_by_type(files)
         self.job_name = job_name
@@ -66,7 +66,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_link_portal(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
@@ -96,7 +96,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_texto_explicativo(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
@@ -115,7 +115,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_legislacao_federal(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
@@ -135,7 +135,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_legislacao_estadual(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
@@ -156,7 +156,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_site_transparencia(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
@@ -177,7 +177,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_acesso_ilimitado(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
@@ -199,7 +199,7 @@ class ValidadorInformacoes(Validador):
 
     def predict_perguntas_frequentes(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], keywords['num_matches'], self.job_name,
+        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 

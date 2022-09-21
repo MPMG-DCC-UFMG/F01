@@ -11,7 +11,7 @@ class ValidadorPagamentos(Validador):
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['pagamentos'])
         files = path_functions.agg_paths_by_type(files)
         self.files = files

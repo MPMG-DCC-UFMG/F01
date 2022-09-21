@@ -10,7 +10,6 @@
         "dados_para_acompanhamento":{
             "search_term": "Obras",
             "keywords_to_search": ["Origem recursos", "ituação", "Empresa contratada"],
-            "num_matches": 10000,
             "types": ["html", "bat"],
             "objeto": "Objeto",
             "valor_total": "Valor total (R$)",

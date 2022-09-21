@@ -8,30 +8,6 @@ class ErroAoAbrirArquivo(Exception):
         super(ErroAoAbrirArquivo, self).__init__(message + u', causado por ' + str(cause))
         self.cause = cause
 
-def get_municipios_do_template(template):
-    """
-    Abre o arquivo de municipios de um template e retorna os seus municípios.
-
-    Parameters
-    ----------
-    template: String 
-        Nome do arquivo com os parâmetro do template.
-        
-    Returns
-    -------
-    municipios: List
-        Lista com o nome de cada municipio formatado sem acento e com espaço substituido por "_".
-    """
-    try:
-        with open(os.getcwd() + f"/src/empresa/parametros_templates/municipios/{template}.json") as fp:
-            list_municipios = json.load(fp)
-    except:
-        print(f"Erro ao abrir lista de município do template - {template}")
-        return
-
-    municipios = format_city_names(list_municipios)
-    return municipios
-
 def get_keywords_do_template(template):
     """
     Obtem os parâmetro de um template.

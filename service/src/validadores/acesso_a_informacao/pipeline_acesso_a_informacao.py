@@ -11,7 +11,6 @@ def pipeline_acesso_a_informacao(keywords, job_name):
     # Subtag - Informações
     validador_informacoes = ValidadorInformacoes(job_name, keywords['informacoes'])
     acesso_a_informacao['requisitos_exigidos'] = validador_informacoes.predict()
-    print(acesso_a_informacao)
 
     # Subtag - Requisitos Exigios
     # validador_requisitos_exigidos = ValidadorRequisitosExigidos(job_name, keywords['requisitos_exigidos'])

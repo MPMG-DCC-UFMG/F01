@@ -15,12 +15,12 @@ class ValidadorGerarRelatorio(Validador):
         self.keywords = keywords
 
         # Relatórios de contratos
-        files_contratos = indexing.get_files(keywords['search_term_contratos'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search_contratos'])
+        files_contratos = indexing.get_files(keywords['search_term_contratos'], job_name, keywords_search=keywords['keywords_to_search_contratos'])
         files_contratos = path_functions.filter_paths(files_contratos, words=['contratos'])
         files_contratos = path_functions.agg_paths_by_type(files_contratos)
 
         # Relatórios de licitações
-        files_licitacoes = indexing.get_files(keywords['search_term_licitacoes'], keywords['num_matches'], job_name, keywords_search=keywords['keywords_to_search_licitacoes'])
+        files_licitacoes = indexing.get_files(keywords['search_term_licitacoes'], job_name, keywords_search=keywords['keywords_to_search_licitacoes'])
         files_licitacoes = path_functions.filter_paths(files_licitacoes, words=['licitacao'])
         files_licitacoes = path_functions.agg_paths_by_type(files_licitacoes)
 

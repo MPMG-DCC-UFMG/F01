@@ -13,7 +13,7 @@ class ValidadorRelatorios(Validador):
     # Link de acesso ao Plano Plurianual do município
     def predict_plano_plurianual(self,keywords):
         
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
         files = path_functions.agg_paths_by_type(files)
         files = files['html']
@@ -32,7 +32,7 @@ class ValidadorRelatorios(Validador):
     # Link de acesso à Lei de Diretrizes Orçamentarias do município
     def predict_lei_diretrizes_orcamentarias(self,keywords):
         
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
         files = path_functions.agg_paths_by_type(files)
         files = files['html']
@@ -51,7 +51,7 @@ class ValidadorRelatorios(Validador):
     # Link de acesso à Lei Orçamentária Anual do município
     def predict_lei_orcamentaria_anual(self,keywords):
         
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
         files = path_functions.agg_paths_by_type(files)
         files = files['html']
@@ -73,7 +73,7 @@ class ValidadorRelatorios(Validador):
     # Apresentação do balanço anual, com as respectivas demonstrações contábeis
     def predict_balanco_demonstracoes(self,keywords):
 
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
         files = path_functions.agg_paths_by_type(files)
         files = files['html']
@@ -89,7 +89,7 @@ class ValidadorRelatorios(Validador):
     # Relatórios da execução orçamentária e gestão fiscal
     def predict_execucao_orcamentaria_gestao_fiscal(self,keywords):
 
-        files = indexing.get_files(keywords['search_term'], keywords['num_matches'], self.job_name, keywords_search=keywords['keywords_to_search'])
+        files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
         files = path_functions.agg_paths_by_type(files)
         files = files['html']

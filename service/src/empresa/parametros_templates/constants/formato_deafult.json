@@ -1,0 +1,57 @@
+{
+    "acesso_a_informacao": {
+        "informacoes": {
+            "link_portal": {
+                "search_term": "Prefeitura",
+                "keywords_to_search": ["Home", "Menu", "Transparência", "Portal"]
+            },
+            "texto_explicativo":{
+                "search_term": "Lei",
+                "keywords_to_search": ["LAI", "Lei de acesso à informação", "Lei Federal 12.527"]
+            },
+            "legislacao_federal":{
+                "search_term": "Acesso a informao",
+                "keywords_to_search": ["http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm", "LAI", "Lei de acesso à informação", "Lei Federal 12.527"]
+            },
+            "legislacao_estadual":{
+                "search_term": "Acesso a informao",
+                "keywords_to_search": ["https://www.almg.gov.br/consulte/legislacao/completa/completa.html?num=45969&ano=2012&tipo=DEC", "LAI", "Lei de acesso à informação", "Lei Federal 12.527"]
+            },
+            "site_transparencia":{
+                "search_term": "transparencia",
+                "keywords_to_search": ["www.transparencia.mg.gov.br"]
+            },
+            "acesso_ilimitado":{
+                "search_term": "Login",
+                "keywords_to_search": ["login", "necessrio efetuar login", "clique aqui para fazer login", "clique aqui para fazer cadastro", "para baixar necessrio"]
+            },
+            "perguntas_frequentes":{
+                "search_term": "perguntas frequente",
+                "keywords_to_search": ["FAQ", "Perguntas Frequentes"]
+            }
+        }
+    },
+    "concursos_publicos":{
+        "dados_do_concurso":{
+            "search_term": "concurso",
+            "keywords_to_search": ["Edital", "Fase", "Data da Realização", "Detalhe do Concurso"],
+            "types": ["html"],
+            "status": "Fase",
+            "resultado": "Classificação",
+            "atos_de_nomeacao": "Tipo do Documento"
+        },
+        "copia_do_edital":{
+            "search_term": "concurso",
+            "keywords_to_search": ["Edital", "Fase", "Data da Realização"],
+            "types": ["html"],
+            "copia_do_edital":"Tipo do Documento"
+        },
+        "divulgacao_dos_recursos_e_respectivas_decisoes":{
+            "search_term": "concurso",
+            "keywords_to_search": ["Edital", "Fase", "Data da Realização"],
+            "types": ["html"],
+            "column": "Tipo do Documento",
+            "value": "PARECER"
+        }
+    }
+}

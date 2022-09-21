@@ -7,7 +7,8 @@ es = Elasticsearch('127.0.0.1', port=8055)
 def remove_index (job_name):
    es.indices.delete(index=job_name, ignore=[400, 404])
 
-def request_search(search_term, keywords_search=[], num_matches= 10, job_name='index_gv', verbose=False):
+def request_search(search_term, keywords_search=[], job_name='index_gv', verbose=False):
+   num_matches = 10000
    response = es.search(
    index=job_name, 
    body={
@@ -27,18 +28,18 @@ def request_search(search_term, keywords_search=[], num_matches= 10, job_name='i
    result = [ (hit['_source'].get('file').get('filesize'), hit['_score'], hit['_source'].get('path').get('real')) for hit in response['hits']['hits']]
    return result
 
-def get_files(search_term, num_matches,
+def get_files(search_term,
       job_name, keywords_search): 
         
    #Search
    result = request_search(
-   search_term=search_term, keywords_search=keywords_search, num_matches=num_matches, job_name=job_name)
+   search_term=search_term, keywords_search=keywords_search, job_name=job_name)
       
    files = [i[2] for i in result]
 
    return files
 
-def get_files_html(search_term, num_matches, 
+def get_files_html(search_term, 
       job_name, keywords_search, filter_in_path): 
    
    """
@@ -49,8 +50,6 @@ def get_files_html(search_term, num_matches,
     ----------
     search_term: string
         Parâmetro para o elasticseach. Termo principal pesquisado no elasticsearch.
-    num_matches: int
-         Parâmetro para o elasticseach. Quantidade de resultados que será retornada.
     job_name: string
          Parâmetro para o elasticseach. Job elasticsearch que será pesquisado.
     keywords_search: string
@@ -64,7 +63,7 @@ def get_files_html(search_term, num_matches,
        Lista dos caminhos para os arquivos.
     """
 
-   files = get_files(search_term, num_matches, job_name, keywords_search)
+   files = get_files(search_term, job_name, keywords_search)
    if filter_in_path:
       files = path_functions.filter_paths(files, words=filter_in_path)
    agg_files = path_functions.agg_paths_by_type(files)

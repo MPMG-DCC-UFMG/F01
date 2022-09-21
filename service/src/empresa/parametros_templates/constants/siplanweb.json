@@ -5,28 +5,24 @@
             "busca":{
                 "search_term": "Municipal de",
                 "keywords_to_search": ["BUSCA DO SITE","busca", "Busca", "campo_busca", "buscar", "Ir para página", "painel_buscar","palavra-chave", "search"],
-                "num_matches": 1000,
                 "types": ["html"],
                 "keyword_check": ["Busque"]
             },
             "exportar_relatorios":{
                 "search_term": "Municipal de",
                 "keywords_to_search": ["pdf", "xml", "csv", "xls", "download", "baixar", "export", "exportar"],
-                "num_matches": 1000,
                 "types": ["html"],
                 "keyword_check": ["pdf", "xml", "csv", "xls", "download", "baixar", "export", "exportar"]
             },
             "info_atualizadas":{
                 "search_term": "Municipal de",
                 "keywords_to_search": ["Portal atualizado em", "atualizado", "update"],
-                "num_matches": 1000,
                 "types": ["html"],
                 "keyword_check": ["Exercício 2022"]
             },
             "contato":{
                 "search_term": "Municipal de",
                 "keywords_to_search": ["Fale com a Prefeitura", "informações", "Ouvidoria", "Telefone", "Endereço", "Email"],
-                "num_matches": 1000,
                 "types": ["html"],
                 "keyword_check": ["Fale Conosco", "Cep", "Tel", "Endereço", "E-mail", "Fax"]
             },
@@ -34,7 +30,6 @@
                 "search_term": "Municipal de",
                 "keywords_to_search": ["Acessibilidade", "decreto nº 7.724", "acessibilidade na divulgação das informações",
                                         "opção de contraste", "trabalhar com leitores de páginas"],
-                "num_matches": 1000,
                 "types": ["html"],
                 "keyword_check": ["Acessibilidade", "A -", "A +"]
             }
@@ -48,7 +43,6 @@
         "link_de_acesso":{
             "search_term": "lei leis",
             "keywords_to_search": ["leis", "LEIS E PORTARIAS", "Publicação - Documentos", "portarias"],
-            "num_matches": 10000,
             "types": ["html"],
             "link_de_acesso": "Nome"
         },
@@ -60,7 +54,6 @@
             "search_term": "Municipal de Diária",
             "keywords_to_search": ["Beneficiário", "Cargo/Função", "Valor Concedido",
                                     "Período de Afastamento", "Motivo da Diária", "Quantidade de Diária"],
-            "num_matches": 10000,
             "types": ["bat"],
             "nome": "Beneficiário", 
             "cargo_funcao": "Cargo/Função",
@@ -77,7 +70,6 @@
         "dados_das_receitas":{
             "search_term": "Receita",
             "keywords_to_search": ["Contas Receita", "Nome da receita", "Previsto", "Arrecadado"],
-            "num_matches": 1000,
             "types": ["html"],
             "previsao": "Previsto", 
             "arrecadacao": "Arrecadado",
@@ -90,7 +82,6 @@
        "empenhos": {
             "search_term": "Empenho",
             "keywords_to_search": ["Pagamentos","Empenhos", "despesa", "empenhado", "favorecido", "valor", "credor"],
-            "num_matches": 1000,
             "types": ["bat"],
             "numero": "Empenho", 
             "valor": "Vr. Empenhado",
@@ -101,7 +92,6 @@
         "pagamentos": {
             "search_term": "Pago",
             "keywords_to_search": ["Número","Ano","Emissão","CNPJ","CPF","Tipo","Saldo"],
-            "num_matches": 1000,
             "types": ["bat"],
             "valor": "Val. Pago",
             "data": "Emissão",
@@ -111,14 +101,12 @@
         "consulta_favorecido":{
             "search_term": "despesa",
             "keywords_to_search": ["Empenho","Pagamentos","transparencia","filtrar"],
-            "num_matches": 1000,
             "types": ["html"],
             "keyword_check": ["Fornecedor"]
         },
         "gerar_relatorios":{
             "search_term": "despesa",
             "keywords_to_search": ["Empenho","Pagamentos","transparencia","filtrar"],
-            "num_matches": 500,
             "types": ["html"],
             "keyword_check": ["Gerar PDF","Gerar Excel","Gerar CSV"]
         },
@@ -126,35 +114,30 @@
             "plano_plurianual":{
                 "search_term": "Plurianual PPA",
                 "keywords_to_search": ["PPA", "Plano Plurianual", "PPA Lei"],
-                "num_matches": 500,
                 "types": ["html"],
                 "keyword_check": ["Visualizar Documento","Baixar Documento"]
             },
             "lei_diretrizes_orcamentarias":{
                 "search_term": "Diretrizes orçamentárias LDO",
                 "keywords_to_search": ["Diretrizes orçamentárias", "metas fiscais", "lei diretrizes orçamentárias", "LDO"],
-                "num_matches": 500,
                 "types": ["html"],
                 "keyword_check": ["Visualizar Documento","Baixar Documento"]
             },
             "lei_orcamentaria_anual":{
                 "search_term": "anual L.O.A.",
                 "keywords_to_search": ["LOA", "LOA Lei", "Lei orçamentária anual", "orçamentária anual"],
-                "num_matches": 500,
                 "types": ["html"],
                 "keyword_check": ["Visualizar Documento","Baixar Documento"]
             },
             "balanco_demonstracoes":{
                 "search_term": "Balanço anual Demonstrações Contábeis",
                 "keywords_to_search": ["Balanço anual", "Demonstrações Contábeis", "Balancete da Despesa", "Balanço Orçamentário de Despesas", " Balanço Patrimonial"],
-                "num_matches": 500,
                 "types": ["html"],
                 "keyword_check": ["Visualizar Documento","Baixar Documento"]
             },
             "execucao_orcamentaria_gestao_fiscal":{
                 "search_term": "Relatórios execução orçamentária gestão fiscal",
                 "keywords_to_search": ["execução orçamentária", "gestão fiscal", "execução orçamentaria", "prestacao_de_contas", "relatorios de gestao fiscal"],
-                "num_matches": 500,
                 "types": ["html"],
                 "keyword_check": ["Visualizar Documento","Baixar Documento"]
             }
@@ -165,7 +148,6 @@
        "processos_licitatorios": {
             "search_term": "Licitações licitação Tomada Modalidade Objeto",
             "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-            "num_matches": 1000,
             "types": ["bat"],
             "numero": "Número", 
             "modalidade": "Modalidade",
@@ -176,7 +158,6 @@
         "registro_dos_procedimentos": {
             "search_term": "Licitações licitação Tomada Modalidade Objeto",
             "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-            "num_matches": 1000,
             "types": ["bat"],
             "coluna_modalidade": "Modalidade",
             "ordem":"Ordenar colunas de forma"
@@ -184,14 +165,12 @@
         "editais": {
             "search_term": "Licitações licitação Tomada Modalidade Objeto",
             "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-            "num_matches": 1000,
             "types": ["bat"],
             "edital": "Editais de Licitação e Demais Arquivos"
         },
         "resultado_das_licitacoes": {
             "search_term": "Licitações licitação Tomada Modalidade Objeto",
             "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-            "num_matches": 1000,
             "resultados": "Visualizar processo"
         }
     },
@@ -200,7 +179,6 @@
         "dados_dos_contratos": {
              "search_term": "contrato contratos",
              "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
-             "num_matches": 5000,
              "types": ["bat", "html"],
              "objeto": "Objeto do contrato", 
              "valor": "Valor",
@@ -213,7 +191,6 @@
         "conteudo_integral": {
                 "search_term": "contrato contratos",
                 "keywords_to_search": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
-                "num_matches": 5000,
                 "types": ["html"],
                 "keyword_check": ["Dados do contrato", "Visualizar detalhamento do Contrato"]
         },
@@ -223,7 +200,6 @@
             "keywords_to_search_contratos": ["tipo do contrato", "pagamento", "vigência", "publicação", "procedimento", "signatário", "representante", "contratado", "objeto", "processo" ],
             "search_term_licitacoes": "Licitações licitação Tomada Modalidade Objeto",
             "keywords_to_search_licitacoes": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Resultado Final de Licitação", "Modalidade", "Fundamentação legal", "Status", "Objeto" ],
-            "num_matches": 5000,
             "types": ["html"],
             "keyword_check": ["Gerar PDF","Gerar Excel","Gerar CSV", "Copiar Dados"]
         }
@@ -235,7 +211,6 @@
         "dados_de_parcerias": {
              "search_term": "Convênio Aditivos",
              "keywords_to_search": ["Data da Assinatura", "Data Assinatura", "Concedente", "Vr. do Convênio", "Núm. Aditivo"],
-             "num_matches": 1000,
              "types": ["html"],
              "data_de_celebracao": "Data da Assinatura", 
              "objeto": "Objeto",
