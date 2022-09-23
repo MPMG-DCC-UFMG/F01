@@ -79,7 +79,7 @@ def create_valid_path(html_files, path_base, pattern='/tmp/es/data'):
     return [i.replace(pattern, path_base) for i in html_files]
 
 
-def get_url(filename):
+def get_url(filename, verbose=False):
     """
     Fornece a url do arquivo através do "file_description", descrição dos arquivos coletados.
 
@@ -107,7 +107,8 @@ def get_url(filename):
                 return json['url']
 
     except FileDescriptionVazio:
-        print(f"Warning: File_description em {file_description} vazio ")
+        if verbose:
+            print(f"Warning: File_description em {file_description} vazio ")
         return filename
 
 

@@ -5,6 +5,10 @@ from src.validadores.licitacoes.editais import ValidadorEditais
 from src.validadores.licitacoes.resultado_das_licitacoes import ValidadorResultadosDasLicitacoes
 
 def pipeline_licitacoes(keywords, job_name):
+    try:
+        keywords = keywords['licitacoes']
+    except KeyError:
+        return None
 
     licitacoes = {
         'processos_licitatorios': {},

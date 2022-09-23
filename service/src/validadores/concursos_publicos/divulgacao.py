@@ -30,7 +30,7 @@ class ValidadorDivulgacaoRecursosDecisoes:
 
         # Divulgação dos recursos e respectivas decisões
         isvalid, result = self.predict_divulgacao_dos_recursos_e_respectivas_decisoes()
-        result_explain = self.explain(result, f"\"{self.keywords['column']}\"")
+        result_explain = self.explain(result, f"'{self.keywords['column']}'")
         resultados['divulgacao_dos_recursos_e_respectivas_decisoes']['predict'] = isvalid
         resultados['divulgacao_dos_recursos_e_respectivas_decisoes']['explain'] = result_explain
 

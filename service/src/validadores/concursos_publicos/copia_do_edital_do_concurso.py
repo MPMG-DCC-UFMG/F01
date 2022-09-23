@@ -13,10 +13,10 @@ class ValidadorCopiaDoEdital:
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
 
-    def predict_copia_do_edital(self):
+    def predict_copia_do_edital_do_concurso(self):
 
         keywords = ["edital"]
-        result = search_in_column(self.df, self.keywords['copia_do_edital'], keywords)
+        result = search_in_column(self.df, self.keywords['copia_do_edital_do_concurso'], keywords)
 
         isvalid = any(result['isvalid'])
 
@@ -25,14 +25,14 @@ class ValidadorCopiaDoEdital:
     def predict(self):
 
         resultados = {
-            'copia_do_edital': {}
+            'copia_do_edital_do_concurso': {}
         }
 
         # Copia do edital
-        isvalid, result = self.predict_copia_do_edital()
-        result_explain = self.explain(result, f"\"{self.keywords['copia_do_edital']}\"")
-        resultados['copia_do_edital']['predict'] = isvalid
-        resultados['copia_do_edital']['explain'] = result_explain
+        isvalid, result = self.predict_copia_do_edital_do_concurso()
+        result_explain = self.explain(result, f"\"{self.keywords['copia_do_edital_do_concurso']}\"")
+        resultados['copia_do_edital_do_concurso']['predict'] = isvalid
+        resultados['copia_do_edital_do_concurso']['explain'] = result_explain
 
         return resultados
         

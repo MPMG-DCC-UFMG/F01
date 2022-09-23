@@ -3,6 +3,10 @@ from src.validadores.terceiro_setor import dados_de_parcerias
 from src.validadores.terceiro_setor import repasses
 
 def pipeline_terceiro_setor(keywords, job_name):
+    try:
+        keywords = keywords['terceiro_setor']
+    except KeyError:
+        return None
 
     # Subtag - Dados de Parcerias
     validador_dados_de_parceria = dados_de_parcerias.ValidadorDadosDeParcerias(job_name, keywords['dados_de_parcerias'])

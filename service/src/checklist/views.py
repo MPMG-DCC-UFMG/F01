@@ -6,7 +6,7 @@ from flask import Blueprint
 from flask import Blueprint
 from src.checklist.manage import get_tag_itens
 from src.checklist.models import Tag, Subtag, Item
-from src.api_de_integracao.manage_resultado import formatar_nome
+from src.api_de_integracao.manage import formatar_nome
 
 checklist = Blueprint('checklist', __name__)
 
@@ -55,16 +55,20 @@ def cadastrar_checklist():
         nome_da_tag = formatar_nome(row['tag'])
         nome_da_sub_tag = formatar_nome(row['sub-tag'])
         nome_do_item = formatar_nome(row['info'])
+        try:
+            abreviacao = formatar_nome(row['abreviacao'])
+        except AttributeError:
+            abreviacao = None
 
         tag = Tag.query.filter_by(nome=nome_da_tag).first()
         sub_tag = Subtag.query.filter_by(nome=nome_da_sub_tag).first()
 
         resultado_consulta = Item.query.filter_by(
-            nome=nome_do_item, tag_id=tag.id, subtag_id=sub_tag.id).all()
+            nome=nome_do_item, tag_id=tag.id, subtag_id=sub_tag.id, abreviacao=abreviacao).all()
         if len(resultado_consulta) != 0:
             print(f"Item \"{nome_do_item}\" já cadastrado.")
         else:
-            item = Item(nome=nome_do_item, tag_id=tag.id, subtag_id=sub_tag.id)
+            item = Item(nome=nome_do_item, tag_id=tag.id, subtag_id=sub_tag.id, abreviacao=abreviacao)
             db.session.add(item)
 
     db.session.commit()

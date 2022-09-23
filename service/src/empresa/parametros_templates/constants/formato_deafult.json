@@ -40,11 +40,11 @@
             "resultado": "Classificação",
             "atos_de_nomeacao": "Tipo do Documento"
         },
-        "copia_do_edital":{
+        "copia_do_edital_do_concurso":{
             "search_term": "concurso",
             "keywords_to_search": ["Edital", "Fase", "Data da Realização"],
             "types": ["html"],
-            "copia_do_edital":"Tipo do Documento"
+            "copia_do_edital_do_concurso":"Tipo do Documento"
         },
         "divulgacao_dos_recursos_e_respectivas_decisoes":{
             "search_term": "concurso",

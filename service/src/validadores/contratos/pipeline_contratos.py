@@ -4,6 +4,10 @@ from src.validadores.contratos.conteudo_integral import ValidadorConteudoIntegra
 from src.validadores.contratos.gerar_relatorio import ValidadorGerarRelatorio
 
 def pipeline_contratos(keywords, job_name):
+    try:
+        keywords = keywords['contratos']
+    except KeyError:
+        return None
 
     # Subtag - Dados dos contratos
     validador_dados_dos_contratos = ValidadorDadosDosContratos(job_name, keywords['dados_dos_contratos'])

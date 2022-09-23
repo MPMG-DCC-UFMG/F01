@@ -8,7 +8,13 @@ class ErroAoAbrirArquivo(Exception):
         super(ErroAoAbrirArquivo, self).__init__(message + u', causado por ' + str(cause))
         self.cause = cause
 
+class Parametros():
+    def __init__(self):
+        pass
+
 def get_keywords_do_template(template):
+
+
     """
     Obtem os parâmetro de um template.
 

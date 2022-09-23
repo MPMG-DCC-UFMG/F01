@@ -4,7 +4,7 @@ from flask import jsonify
 from src.municipio import manage_municipios
 from src.municipio.models import Municipio
 from flask import Blueprint, render_template
-from src.api_de_integracao.manage_resultado import formatar_nome
+from src.api_de_integracao.manage import formatar_nome
 
 municipio = Blueprint('municipio', __name__, template_folder="templates")
 

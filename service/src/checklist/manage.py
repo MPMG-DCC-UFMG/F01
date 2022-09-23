@@ -1,4 +1,4 @@
-from src.checklist.models import Tag, Subtag
+from src.checklist.models import Tag, Subtag, Item
 
 
 
@@ -33,8 +33,16 @@ def get_tag_itens(nome_da_tag):
         return None
 
 def get_sub_tag_itens(nome_da_subtag):
-    tag = Subtag.query.filter_by(nome=nome_da_subtag).first()
-    if tag:
-        return tag.itens
+    subtag = Subtag.query.filter_by(nome=nome_da_subtag).first()
+    if subtag:
+        return subtag.itens
     else:
         return None
+
+def get_sub_tag(nome_da_subtag):
+    subtag = Subtag.query.filter_by(nome=nome_da_subtag).first()
+    return subtag
+
+def get_item(subtag_id, nome_do_item):
+    itens = Item.query.filter_by(subtag_id=subtag_id, abreviacao=nome_do_item).first()
+    return itens

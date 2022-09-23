@@ -21,5 +21,6 @@ class Item(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(300), nullable=False)
+    abreviacao = db.Column(db.String(50), nullable=True)
     tag_id = db.Column(db.Integer, db.ForeignKey('tag.id'))
     subtag_id = db.Column(db.Integer, db.ForeignKey('subtag.id'))

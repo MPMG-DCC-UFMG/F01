@@ -1,8 +1,9 @@
 from src.validadores.utils import indexing
-from src.validadores.utils import path_functions
 from src.validadores.utils import check_df
-from src.validadores.utils.search_html import analyze_html
 from src.validadores.base import Validador
+from src.validadores.utils import path_functions
+from src.validadores.utils.search_html import analyze_html
+from src.municipio.manage_municipios import obter_url_portal
 
 # Textos que validam o item: Texto padrão explicativo sobre a Lei de Acesso à Informação --
 LEI_ACESSO_INFORMACAO_CONTEUDO = [
@@ -49,7 +50,8 @@ ACESSO_ILIMITADO = [
     'para baixar necessrio'
 ]
 
-PERGUNTAS_FREQUENTES = ['FAQ', 'Perguntas Frequentes', 'perguntas frequentes', 'Perguntas', 'perguntas']
+PERGUNTAS_FREQUENTES = ['FAQ', 'Perguntas Frequentes',
+                        'perguntas frequentes', 'Perguntas', 'perguntas']
 
 
 class ValidadorInformacoes(Validador):
@@ -57,39 +59,28 @@ class ValidadorInformacoes(Validador):
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
-        # files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        # files = path_functions.filter_paths(files, words=['acesso_a_informacao'])
-        # self.files = path_functions.agg_paths_by_type(files)
         self.job_name = job_name
 
     # 1 - Aba denominada “Transparência” no menu principal
 
     def predict_link_portal(self, keywords):
 
-        html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
+        html_files = indexing.get_files_html(obter_url_portal(self.job_name), self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
 
-        html_files = filter(lambda filename: 'mg.gov.br' in path_functions.get_url(filename)
-                            or path_functions.get_url(filename) == "Url não encontrada", html_files)
-        html_files = list(html_files)
-        print(html_files)
-
-        # Analyze all html files searching keywords
         result = analyze_html(
-            html_files, keyword_to_search=ABA_TRANSPARENCIA[self.job_name])
+            html_files, keyword_to_search=obter_url_portal(self.job_name))
 
-        # n_files = len(result.index)
+        # Check result
+        isvalid = check_df.files_isvalid(
+            result, column_name='matches', threshold=1)
 
-        # #Check result
-        # isvalid = check_df.infos_isvalid(result, column_name='matches', threshold = n_files/2)
+        return isvalid, result
 
-        # return isvalid, result
-        return False, []
-
-    def explain_link_portal(df, column_name, elemento):
-        result = "Explain - Quantidade de arquivos analizados: {} . Quantidade de aquivos que possuem o item '{}': {}".format(
-            len(df[column_name]), elemento, sum(df[column_name]))
+    def explain_link_portal(self, df, column_name):
+        result = "Explain - Quantidade de arquivos analizados: {} . Quantidade de páginas que possuem um link para o portal de transparencia do município: {}".format(
+            len(df[column_name]), sum(df[column_name]))
         return result
 
     # 2 - Texto padrão explicativo sobre a Lei de Acesso à Informação
@@ -103,7 +94,7 @@ class ValidadorInformacoes(Validador):
         result = analyze_html(
             html_files, keyword_to_search=LEI_ACESSO_INFORMACAO_CONTEUDO)
         isvalid = check_df.files_isvalid(
-            result, column_name='matches', threshold=0)
+            result, column_name='matches', threshold=1)
         return isvalid, result
 
     def explain_texto_explicativo(self, df, column_result):
@@ -233,10 +224,11 @@ class ValidadorInformacoes(Validador):
         }
 
         # Aba denominada “Transparência” no menu principal
-        # isvalid, result = self.predict_link_portal(self.keywords['link_portal'])
-        # result_explain  = explain_link_portal(result, column_name='matches', elemento='link_portal')
-        # resultados['link_portal']['predict'] = isvalid
-        # resultados['link_portal']['explain'] = result_explain
+        isvalid, result = self.predict_link_portal(
+            self.keywords['link_portal'])
+        result_explain  = self.explain_link_portal(result, column_name='matches')
+        resultados['link_portal']['predict'] = isvalid
+        resultados['link_portal']['explain'] = result_explain
 
         # 2 - Texto padrão explicativo sobre a Lei de Acesso à Informação
         isvalid, result = self.predict_texto_explicativo(

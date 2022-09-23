@@ -51,7 +51,7 @@ class ValidadorDadosDoConcurso:
 
         # Atos de nomeação
         isvalid, result = self.predict_atos_de_nomeacao()
-        result_explain = self.explain(result, f"nomeação no campo \"{self.keywords['atos_de_nomeacao']}\"")
+        result_explain = self.explain(result, f"nomeação no campo '{self.keywords['atos_de_nomeacao']}'")
         resultados['atos_de_nomeacao']['predict'] = isvalid
         resultados['atos_de_nomeacao']['explain'] = result_explain
 

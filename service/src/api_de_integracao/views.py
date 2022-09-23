@@ -2,11 +2,10 @@ import json
 from github import Github
 from flask import jsonify
 from flask import Blueprint
-from src.checklist.manage import get_sub_tag_itens, get_tag_itens, get_tag_by_name_in_github
-from src.empresa.models import Empresa
 from src.empresa.manage import get_template
 from src.municipio.models import Municipio
-from src.api_de_integracao.manage_resultado import get_resposta_por_erro_de_coleta, is_issue_erro, salvar_resultado, formatar_nome
+from src.checklist.manage import get_sub_tag_itens, get_tag_itens, get_tag_by_name_in_github
+from src.api_de_integracao.manage import get_github_token, get_resposta_por_erro_de_coleta, is_issue_erro, salvar_resultado, formatar_nome
 from src.municipio.manage_municipios import obter_codigo_ibge_pelo_nome
 
 
@@ -47,7 +46,7 @@ def carregarResultados():
 @api_de_integracao.route('/carregar_resultados_github', methods=['GET'])
 def carregarResultadosGithub():
 
-    g = Github("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")
+    g = Github(get_github_token())
     repo = g.get_repo("MPMG-DCC-UFMG/F01")
 
     label_epic = repo.get_label('Epic')
@@ -88,6 +87,7 @@ def carregarResultadosGithub():
         resposta = get_resposta_por_erro_de_coleta(erro_de_coleta)
 
         nome_da_tag = get_tag_by_name_in_github(nome_da_tag)
+        print(issue)
         print(nome_da_tag, sub_tag, erro_de_coleta)
 
         if (sub_tag == None):
@@ -96,9 +96,8 @@ def carregarResultadosGithub():
             itens = get_sub_tag_itens(nome_da_sub_tag)
 
         for municipio in template.municipios:
-            codigo_ibge = obter_codigo_ibge_pelo_nome(municipio.nome_formatado)
             for item in itens:
-                salvar_resultado(municipio_id=codigo_ibge, item_id=item.id,
+                salvar_resultado(municipio_id=municipio.id, item_id=item.id,
                                  codigo_resposta=resposta.get_codigo_resposta(), justificativa=resposta.get_justificativa())
 
     return jsonify('ok')

@@ -3,6 +3,10 @@ from src.validadores.acesso_a_informacao.informacoes import ValidadorInformacoes
 from src.validadores.acesso_a_informacao.requisitos_exigidos import ValidadorRequisitosExigidos
 
 def pipeline_acesso_a_informacao(keywords, job_name):
+    try:
+        keywords = keywords['acesso_a_informacao']
+    except KeyError:
+        return None
 
     acesso_a_informacao = {
         'requisitos_exigidos': {},
@@ -10,7 +14,7 @@ def pipeline_acesso_a_informacao(keywords, job_name):
 
     # Subtag - Informações
     validador_informacoes = ValidadorInformacoes(job_name, keywords['informacoes'])
-    acesso_a_informacao['requisitos_exigidos'] = validador_informacoes.predict()
+    acesso_a_informacao['informacoes'] = validador_informacoes.predict()
 
     # Subtag - Requisitos Exigios
     # validador_requisitos_exigidos = ValidadorRequisitosExigidos(job_name, keywords['requisitos_exigidos'])
