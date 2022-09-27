@@ -75,6 +75,8 @@ A resposta JSON de um item tem dois campos: 'codigo' e 'justificativa'.
 
     - código: MUNICIPIO_NAO_DISPONIVEL, justificativa: "Municipio inválido ou não abordado".
 
+OBS: No caso da resposta ser TRUE ou FALSE a justificativa pode ser diferente apresentando uma explicação sobre a validação do item. 
+
 ### Exemplo:
 
 - Requisição (Município Muriaé, item 7 (Link de respostas a perguntas mais frequentes da sociedade.):
