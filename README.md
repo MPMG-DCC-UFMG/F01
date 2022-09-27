@@ -20,7 +20,7 @@ A porta adotada será a `5013` http://localhost:5013
 
 ## Consultas ao resultado dos validadores
 
-Obs: Os itens estão listados em 'lista_exigencias.csv'
+Obs: Os itens estão listados em ['lista_exigencias.csv'](https://github.com/MPMG-DCC-UFMG/F01/blob/main/service/src/checklist/lista_exigencias.csv)
 
 ### Consulta de todos os itens de um municipio:
 
