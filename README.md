@@ -89,7 +89,7 @@ http://localhost:5013/api/3143906/7 // (Município Muriaé, item 7 (Link de resp
 {
   "7": {
     "codigo_resposta": "TRUE", 
-    "justificativa": "Item validado com sucesso. Explain - Quantidade de arquivos analizados: 5. Quantidade de aquivos que possuem referência a Perguntas Frequentes: 20"
+    "justificativa": "Item validado com sucesso. Explain - Quantidade de arquivos analizados: 5. Quantidade de aquivos que possuem referência a Perguntas Frequentes: 5"
   }
 }
 ```

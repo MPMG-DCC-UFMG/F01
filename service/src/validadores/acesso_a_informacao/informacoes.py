@@ -1,7 +1,6 @@
 from src.validadores.utils import indexing
 from src.validadores.utils import check_df
 from src.validadores.base import Validador
-from src.validadores.utils import path_functions
 from src.validadores.utils.search_html import analyze_html
 from src.municipio.manage_municipios import obter_url_portal
 
@@ -80,7 +79,7 @@ class ValidadorInformacoes(Validador):
 
     def explain_link_portal(self, df, column_name):
         result = "Explain - Quantidade de arquivos analizados: {} . Quantidade de páginas que possuem um link para o portal de transparencia do município: {}".format(
-            len(df[column_name]), sum(df[column_name]))
+            len(df[column_name]), sum(df[column_name] > 0))
         return result
 
     # 2 - Texto padrão explicativo sobre a Lei de Acesso à Informação
@@ -183,7 +182,7 @@ class ValidadorInformacoes(Validador):
             result = "Não foi encontrada referência a fazer login ou cadastro no portal."
         else:
             result = "Explain - Quantidade de arquivos analizados: {}. Quantidade de aquivos que possuem referência fazer login ou cadastro: {}".format(
-                len(df[column_name]), sum(df[column_name]))
+                len(df[column_name]), sum(df[column_name] > 0))
         return result
 
     # 7 - Link de respostas a perguntas mais frequentes da sociedade.
@@ -203,7 +202,7 @@ class ValidadorInformacoes(Validador):
     def explain_perguntas_frequentes(isvalid, df, column_name):
         if isvalid:
             result = "Explain - Quantidade de arquivos analizados: {}. Quantidade de aquivos que possuem referência a Perguntas Frequentes: {}".format(
-                len(df[column_name]), sum(df[column_name]))
+                len(df[column_name]), sum(df[column_name] > 0))
         else:
             result = "Nenhuma referência a Perguntas Frequentes foi encontrada nas páginas"
         return result
