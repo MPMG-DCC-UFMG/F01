@@ -21,7 +21,7 @@ Dentro de /service rode o comando:
 FLASK_APP=main.py flask run
 ```
 
-Por padrão a porta será a `5000` http://localhost:5000
+A porta adotada será a `5013` http://localhost:5013
 
 ## Consultas ao resultado dos validadores
 
