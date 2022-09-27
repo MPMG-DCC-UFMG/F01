@@ -2,6 +2,7 @@ import json
 from github import Github
 from flask import jsonify
 from flask import Blueprint
+from src.api_de_integracao.models import Resultado
 from src.empresa.manage import get_template
 from src.municipio.models import Municipio
 from src.checklist.manage import get_sub_tag_itens, get_tag_itens, get_tag_by_name_in_github
@@ -97,7 +98,6 @@ def carregarResultadosGithub():
 
         for municipio in template.municipios:
             for item in itens:
-                salvar_resultado(municipio_id=municipio.id, item_id=item.id,
-                                 codigo_resposta=resposta.get_codigo_resposta(), justificativa=resposta.get_justificativa())
+                salvar_resultado(municipio_id=municipio.id, item_id=item.id,resposta=resposta)
 
     return jsonify('ok')

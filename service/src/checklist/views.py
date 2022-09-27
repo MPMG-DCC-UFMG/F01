@@ -13,6 +13,9 @@ checklist = Blueprint('checklist', __name__)
 
 @checklist.route('/cadastrar_checklist', methods=['POST', 'GET'])
 def cadastrar_checklist():
+    Tag.query.delete()
+    Subtag.query.delete()
+    Item.query.delete()
 
     # 1) Cadastra as tags, subtags e itens de acordo com a checklist ('lista_exigencias.csv')
 

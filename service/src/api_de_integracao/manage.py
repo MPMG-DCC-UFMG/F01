@@ -45,8 +45,6 @@ def get_resposta_por_erro_de_validacao(erro_de_coleta):
 
 
 def procurar_resultado(municipio_id, item_id=None):
-    print("procurando pelo menos", item_id)
-    print(Resultado.query.filter_by(municipio_id=municipio_id).all())
 
     # Retorna todos os resultados do mesmo município
     if item_id is None:

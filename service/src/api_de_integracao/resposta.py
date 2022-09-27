@@ -16,13 +16,13 @@ class Resposta(Enum):
     TRUE = "Item validado com sucesso"
 
     # Outros erros
-    MUNICIPIO_NAO_DISPONIVEL = "Municipio não abordado"
+    MUNICIPIO_NAO_DISPONIVEL = "Municipio inválido ou não abordado"
 
     def to_dict(self):
         try:
-            return {'codigo': self.name, 'significado': self.value, 'justificativa': self.explain}
+            return {'codigo': self.name, 'justificativa': self.value + ". " + self.explain}
         except AttributeError:
-            return {'codigo': self.name, 'significado': self.value}
+            return {'codigo': self.name, 'justificativa': self.value}
 
     def get_codigo_resposta(self):
         return self.name

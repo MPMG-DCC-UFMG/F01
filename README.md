@@ -30,21 +30,66 @@ Obs: Os itens estão listados em 'lista_exigencias.csv'
 ### Consulta de todos os itens de um municipio:
 
 ```
-http://localhost:5000/{municipio}
+http://localhost:5013/api/{municipio}
 ```
 - Método GET
 
-- Entrada: Parâmetros: Nome ou ID do municipio. Obrigatório, do tipo inteiro (código IBGE) ou string (minúscula e com underlines no lugar de espaços) pelo cabeçalho.
+- Entrada: 
+    ID do municipio (código IBGE).
 
-- Resposta: Formato da resposta `JSON` com cada item (possívelmente de até 1 a 103) `true` ou `false` caso satisfeito, ou não.
+- Resposta: Formato `JSON` com a resposta de todos os itens (possívelmente de 1 até 124).
 
 ### Consulta a um item específico de um municipio:
 
 ```
-http://localhost:5000/{municipio}/{nº_do_item}
+http://localhost:5013/api/{municipio}/{nº_do_item}
 ```
 - Método GET
 
-- Entrada: Parâmetros: Nome ou ID do município seguido pelo número do item. Obrigatório, o id do município (código IBGE) ou string (minúscula e com underlines no lugar de espaços) pelo cabeçalho e o número do item, algum dos listados em  'lista_exigencias.csv'.
+- Entrada - Parâmetros: 
+ 1) ID do municipio (código IBGE)
+ 2) O número do item, algum dos listados em 'lista_exigencias.csv'.
 
-- Resposta: Formato da resposta `JSON` com `true` ou `false` caso satisfeito.
+- Resposta: Formato `JSON` com a resposta do item específico.
+
+
+### Resposta de um item:
+
+A resposta JSON de um item tem dois campos: 'codigo' e 'justificativa'.
+
+    - Códigos respectivos a coleta:
+
+    * código: ISSUE_BLOQUEADA, justificativa: "Issue bloqueada por algum motivo"
+    * código: NAO_COLETAVEL_REDIRECIONADO, justificativa: = "Dados são encontrados somente fora do padrão do template"
+    * código: NAO_COLETAVEL_TIMEOUT, justificativa: = "Dados não coletados devido a erro de Timeout"
+    * código: NAO_LOCALIZADO, justificativa: = "Dados não foram localizados no template"
+    * código: NAO_LOCALIZADO_LINK_INCORRETO, justificativa: = "Dados inacessíveis pelos portais do template"
+
+    - Códigos respectivos a validação:
+
+    * código: ITEM_NAO_DISPONIVEL, justificativa: "Item ainda não validado"
+    * código: FALSE, justificativa: "Validação informou que o item coletado nao atende aos requisitos"
+    * código: TRUE, justificativa: "Item validado com sucesso"
+
+    - Códigos respectivos a outros erros:
+
+   * código: MUNICIPIO_NAO_DISPONIVEL, justificativa: "Municipio inválido ou não abordado"
+
+### Exemplo:
+
+- Requisição:
+
+```
+http://localhost:5013/api/3143906/7 // (Município Muriaé, item 7 (Link de respostas a perguntas mais frequentes da sociedade.))
+```
+
+- Resposta:
+
+```
+{
+  "7": {
+    "codigo_resposta": "TRUE", 
+    "justificativa": "Item validado com sucesso. Explain - Quantidade de arquivos analizados: 5. Quantidade de aquivos que possuem referência a Perguntas Frequentes: 20"
+  }
+}
+```

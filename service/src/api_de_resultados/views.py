@@ -29,14 +29,15 @@ def getAllItens(municipio):
 def getItem(municipio, item_id):
 
     try:
-        municipio_id = int(municipio)
+        codigo_ibge = int(municipio)
     except ValueError:
-        municipio_id = obter_codigo_ibge_pelo_nome(municipio)
+        codigo_ibge = obter_codigo_ibge_pelo_nome(municipio)
 
-    if municipio_id is None:
+    if codigo_ibge is None:
         return jsonify(Resposta.MUNICIPIO_NAO_DISPONIVEL.to_dict())
 
-    resultado = procurar_resultado(municipio_id, item_id)
+    municipio = get_municipio_pelo_codigo_ibge(codigo_ibge)
+    resultado = procurar_resultado(municipio.id, item_id)
     if resultado is None:
         return jsonify(Resposta.ITEM_NAO_DISPONIVEL.to_dict())
     else:
