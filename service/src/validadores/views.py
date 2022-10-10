@@ -16,7 +16,7 @@ def index():
     return jsonify('Validadores.')
 
 
-# templates = ['abo_21', 'sintese', 'betha', 'siplanweb']
+# templates = ['abo_21', 'sintese', 'betha', 'siplanweb', 'pt_45', 'memory_66']
 
 @validadores.route('/<string:nome_do_template>', methods=['POST', 'GET'])
 def rodar_template(nome_do_template):
@@ -26,7 +26,7 @@ def rodar_template(nome_do_template):
 
     for municipio in municipios:
 
-        # if municipio == "muriae": #em testes
+        # if municipio == "porteirinha": #em testes
             print(municipio)
             resultado = pipeline_validadores.todas_tags(parametros, municipio)
 

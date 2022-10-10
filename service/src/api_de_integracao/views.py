@@ -9,6 +9,8 @@ from src.checklist.manage import get_sub_tag_itens, get_tag_itens, get_tag_by_na
 from src.api_de_integracao.manage import get_github_token, get_resposta_por_erro_de_coleta, is_issue_erro, salvar_resultado, formatar_nome
 from src.municipio.manage_municipios import obter_codigo_ibge_pelo_nome
 
+from src.api_de_integracao.scrip_indexar_arquivos_mp import scrip_indexar_arquivos_mp
+
 
 api_de_integracao = Blueprint('api_de_integracao', __name__)
 
@@ -100,4 +102,11 @@ def carregarResultadosGithub():
             for item in itens:
                 salvar_resultado(municipio_id=municipio.id, item_id=item.id,resposta=resposta)
 
+    return jsonify('ok')
+
+# Indexar os arquivos no elasticsearch usando o fscrawler
+@api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
+def indexarArquivos(nome_do_template):
+    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha", "pt_45"]
+    scrip_indexar_arquivos_mp(nome_do_template)
     return jsonify('ok')

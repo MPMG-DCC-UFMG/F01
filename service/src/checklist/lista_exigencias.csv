@@ -15,10 +15,10 @@ id,tag,sub-tag,info,abreviacao
 14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,
 15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,
 16,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,
-17,Informações institucionais,Estrutura organizacional,Estrutura organizacional,
-18,Informações institucionais,Unidades administrativas,Endereço,
-19,Informações institucionais,Unidades administrativas,Telefone,
-20,Informações institucionais,Unidades administrativas,Horário de atendimento,
+17,Informações institucionais,Estrutura organizacional,Estrutura organizacional,estrutura_organizacional
+18,Informações institucionais,Unidades administrativas,Endereço,endereco
+19,Informações institucionais,Unidades administrativas,Telefone,telefone
+20,Informações institucionais,Unidades administrativas,Horário de atendimento,horario_de_atendimento
 21,Informações institucionais,Registro das competências,Registro das competências de cada órgão municipal,
 22,Informações institucionais,Link de acesso,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",
 23,Informações institucionais,Conselhos Municipais,"Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc)",

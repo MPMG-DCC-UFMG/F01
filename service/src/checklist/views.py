@@ -71,6 +71,7 @@ def cadastrar_checklist():
         if len(resultado_consulta) != 0:
             print(f"Item \"{nome_do_item}\" já cadastrado.")
         else:
+            print(f"Item \"{nome_do_item}\" cadastrado.")
             item = Item(nome=nome_do_item, tag_id=tag.id, subtag_id=sub_tag.id, abreviacao=abreviacao)
             db.session.add(item)
 

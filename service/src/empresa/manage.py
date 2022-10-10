@@ -14,3 +14,9 @@ def get_nome_dos_municipios_do_template(nome_do_template):
     municipios = [formatar_nome(municipio.nome) for municipio in template.municipios]
     return municipios
 
+
+def get_nome_dos_municipios_do_template_sem_formatar(nome_do_template):
+    template = Empresa.query.filter_by(nome=nome_do_template).first()
+    municipios = [municipio.nome for municipio in template.municipios]
+    return municipios
+

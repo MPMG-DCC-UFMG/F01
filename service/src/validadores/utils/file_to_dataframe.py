@@ -57,19 +57,42 @@ def informacao_dois_pontos_para_df(soup):
     df_= {}
 
     for element in body.next_elements:
+        textos_da_tag = [text for text in element.stripped_strings]   
+        for texto in textos_da_tag:
+            with open('arq01.txt', 'a') as arquivo:
+                arquivo.write(texto + '\n')
+                arquivo.write('\n')
+            if ":" in repr(texto):
+                key_value = element.getText().strip()
+                key_value = re.split(';|:|\n', key_value)
+                if (len(key_value) == 2):
+                    key = key_value[0]
+                    value = key_value[1]
+                    if value != '':
+                        df_[key] = value
 
-            textos_da_tag = [text for text in element.stripped_strings]    
-            for texto in textos_da_tag:
-                if ":" in repr(texto):
-                    key_value = element.getText().strip()
-                    key_value = re.split(';|:|\n', key_value)
-                    # print(key_value)
-                    if (len(key_value) == 2):
-                        key = key_value[0]
-                        value = key_value[1]
-                        if value != '':
-                            df_[key] = value
 
+    # Caso estejam em tags diferentes
+    # Exemplo:
+    """
+    <b>Endereço: </b>
+    Praça Moisés Ladeia 
+    <br>
+    """
+    next_is_value = 0
+    key = ''
+    for element in body.next_elements:
+        textos_da_tag = [text for text in element.stripped_strings] 
+        if len(textos_da_tag) == 1:
+            if textos_da_tag[0][-1] == ':':
+                key = textos_da_tag[0].replace(":","")
+                next_is_value = 1
+                continue
+
+            if next_is_value == 1:
+                next_is_value = 0
+                value = textos_da_tag[0]
+                df_[key] = value
 
     df = pd.DataFrame(df_,index=[0])
 
@@ -116,15 +139,6 @@ def convert_html(soup):
 
     return df
 
-def one_html_to_csv (format_path):
-    """
-    Convert um elemento do html para um dataframe.
-    """
-
-    soup = read.read_html(format_path)
-    df = convert_html(soup)
-    return df
-
 def concat_lists(files):
     """
     Concatena uma lista de df em um único df
@@ -167,8 +181,10 @@ def load_and_convert_files(paths, format_type):
         list_to_concat = []
         df = pd.DataFrame()
         for file_name in paths:
-            new_df = one_html_to_csv(file_name)
+            soup = read.read_html(file_name)
+            new_df = convert_html(soup)
             list_to_concat.append(new_df)
+        
         if len(list_to_concat) != 0:
             df = pd.concat(list_to_concat)
 
@@ -223,16 +239,16 @@ def load_and_convert_files(paths, format_type):
 
             if number_pdf == 10:
                 break
-            print(number_pdf, i)
+            # print(number_pdf, i)
             try:
                 lista_tabelas = tabula.read_pdf(i, pages='all')
                 if len(lista_tabelas) > 0:
                     number_pdf += 1
                     
                 for tabela in lista_tabelas:
-                    print(type(tabela))
+                    # print(type(tabela))
                     tabela.to_csv("tmpe.csv")
-                    print(tabela)
+                    # print(tabela)
 
                     if ('Unnamed' in ' '.join(tabela.columns.values)):
                         tabela.columns = tabela.loc[0].values

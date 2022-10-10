@@ -6,6 +6,7 @@ from flask import Blueprint
 from src.empresa.models import Empresa
 from src.municipio.models import Municipio
 from src.api_de_integracao.manage import formatar_nome
+from src.empresa.manage import get_nome_dos_municipios_do_template_sem_formatar
 
 empresa = Blueprint('empresa', __name__, template_folder="templates")
 
@@ -59,3 +60,8 @@ def cadastrar():
     db.session.commit()
 
     return jsonify('ok')
+
+
+@empresa.route('/<string:nome_do_template>', methods=['POST', 'GET'])
+def municipios_do_template(nome_do_template):
+    return jsonify(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template))

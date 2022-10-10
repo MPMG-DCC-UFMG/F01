@@ -21,7 +21,6 @@ def contains_keyword(df, word):
     
         i +=1
         
-    print("the: ",word)
     return False, word
 
 def infos_isvalid(df, column_name, threshold=0): 
