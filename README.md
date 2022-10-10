@@ -1,12 +1,7 @@
 # F01
 Processamento dos dados coletados dos portais de transparência dos municípios do Estado de Minas Gerais
 
-Este repositório apresenta códigos dos validadores e da API que disponibiliza os resultados
-
-O repositório está dividido nos seguintes diretórios:
-
-* src: contém implementações dos validaores, referentes as licitações públicas;
-* service: contém o código da API REST JSON que disponibiliza os resultados obtidos para cada município;
+Este repositório apresenta códigos dos validadores e da API REST JSON que disponibiliza os resultados.
 
 
 ## API
@@ -21,11 +16,11 @@ Dentro de /service rode o comando:
 FLASK_APP=main.py flask run
 ```
 
-Por padrão a porta será a `5000` http://localhost:5000
+A porta adotada será a `5013` http://localhost:5013
 
 ## Consultas ao resultado dos validadores
 
-Obs: Os itens estão listados em 'lista_exigencias.csv'
+Obs: Os itens estão listados em ['lista_exigencias.csv'](https://github.com/MPMG-DCC-UFMG/F01/blob/main/service/src/checklist/lista_exigencias.csv)
 
 ### Consulta de todos os itens de um municipio:
 
@@ -57,30 +52,32 @@ http://localhost:5013/api/{municipio}/{nº_do_item}
 
 A resposta JSON de um item tem dois campos: 'codigo' e 'justificativa'.
 
-    - Códigos respectivos a coleta:
+     Códigos respectivos a coleta:
 
-    * código: ISSUE_BLOQUEADA, justificativa: "Issue bloqueada por algum motivo"
-    * código: NAO_COLETAVEL_REDIRECIONADO, justificativa: = "Dados são encontrados somente fora do padrão do template"
-    * código: NAO_COLETAVEL_TIMEOUT, justificativa: = "Dados não coletados devido a erro de Timeout"
-    * código: NAO_LOCALIZADO, justificativa: = "Dados não foram localizados no template"
-    * código: NAO_LOCALIZADO_LINK_INCORRETO, justificativa: = "Dados inacessíveis pelos portais do template"
+    - código: ISSUE_BLOQUEADA, justificativa: "Issue bloqueada por algum motivo";
+    - código: NAO_COLETAVEL_REDIRECIONADO, justificativa: "Dados são encontrados somente fora do padrão do template";
+    - código: NAO_COLETAVEL_TIMEOUT, justificativa: "Dados não coletados devido a erro de Timeout";
+    - código: NAO_LOCALIZADO, justificativa: "Dados não foram localizados no template";
+    - código: NAO_LOCALIZADO_LINK_INCORRETO, justificativa: "Dados inacessíveis pelos portais do template";
 
-    - Códigos respectivos a validação:
+     Códigos respectivos a validação:
 
-    * código: ITEM_NAO_DISPONIVEL, justificativa: "Item ainda não validado"
-    * código: FALSE, justificativa: "Validação informou que o item coletado nao atende aos requisitos"
-    * código: TRUE, justificativa: "Item validado com sucesso"
+    - código: ITEM_NAO_DISPONIVEL, justificativa: "Item ainda não validado";
+    - código: FALSE, justificativa: "Validação informou que o item coletado nao atende aos requisitos";
+    - código: TRUE, justificativa: "Item validado com sucesso";
 
-    - Códigos respectivos a outros erros:
+     Códigos respectivos a outros erros:
 
-   * código: MUNICIPIO_NAO_DISPONIVEL, justificativa: "Municipio inválido ou não abordado"
+    - código: MUNICIPIO_NAO_DISPONIVEL, justificativa: "Municipio inválido ou não abordado".
+
+OBS: No caso da resposta ser TRUE ou FALSE a justificativa pode ser diferente apresentando uma explicação sobre a validação do item. 
 
 ### Exemplo:
 
-- Requisição:
+- Requisição (Município Muriaé, item 7 (Link de respostas a perguntas mais frequentes da sociedade.):
 
 ```
-http://localhost:5013/api/3143906/7 // (Município Muriaé, item 7 (Link de respostas a perguntas mais frequentes da sociedade.))
+http://localhost:5013/api/3143906/7 
 ```
 
 - Resposta:
