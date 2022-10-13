@@ -59,9 +59,6 @@ def informacao_dois_pontos_para_df(soup):
     for element in body.next_elements:
         textos_da_tag = [text for text in element.stripped_strings]   
         for texto in textos_da_tag:
-            with open('arq01.txt', 'a') as arquivo:
-                arquivo.write(texto + '\n')
-                arquivo.write('\n')
             if ":" in repr(texto):
                 key_value = element.getText().strip()
                 key_value = re.split(';|:|\n', key_value)

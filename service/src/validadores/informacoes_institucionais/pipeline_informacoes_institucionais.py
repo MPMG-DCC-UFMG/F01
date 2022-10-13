@@ -29,8 +29,8 @@ def pipeline_informacoes_institucionais(keywords, job_name):
 
 
     # Subtag - Link de Acesso
-    validador_link_de_acesso = ValidadorLinkDeAcesso(job_name, keywords['link_de_acesso'])
-    informacoes_institucionais['link_de_acesso'] = validador_link_de_acesso.predict()
+    # validador_link_de_acesso = ValidadorLinkDeAcesso(job_name, keywords['link_de_acesso'])
+    # informacoes_institucionais['link_de_acesso'] = validador_link_de_acesso.predict()
 
     # Subtag - Conselhos Municipais TODO
 

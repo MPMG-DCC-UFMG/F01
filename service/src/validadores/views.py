@@ -31,6 +31,8 @@ def rodar_template(nome_do_template):
             resultado = pipeline_validadores.todas_tags(parametros, municipio)
 
             municipio = get_municipio(municipio)
+            print("Salvando resultado")
+
             salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 
