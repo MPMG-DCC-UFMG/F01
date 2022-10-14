@@ -4,7 +4,7 @@ Processamento dos dados coletados dos portais de transparência dos municípios 
 Este repositório apresenta códigos dos validadores e da API REST JSON que disponibiliza os resultados.
 
 
-## API
+## API de Consultas aos Resultados dos Validadores
 
 ### Iniciar a API localmente 
 A primeira etapa para poder instalar o sistema é realizar o donwload de seu código-fonte. Para isso, utilize as ferramentas do GitHub para baixar o repositório localmente. Em seguida, é necessário um virtualenv ou uma máquina apenas com Python 3.7+ com requirements descritos em "requirements.txt"
@@ -17,8 +17,6 @@ FLASK_APP=main.py flask run
 ```
 
 A porta adotada será a `5013` http://localhost:5013
-
-## Consultas ao resultado dos validadores
 
 Obs: Os itens estão listados em ['lista_exigencias.csv'](https://github.com/MPMG-DCC-UFMG/F01/blob/main/service/src/checklist/lista_exigencias.csv)
 
@@ -47,32 +45,28 @@ http://localhost:5013/api/{municipio}/{nº_do_item}
 
 - Resposta: Formato `JSON` com a resposta do item específico.
 
+## Resposta de um item
 
-### Resposta de um item:
+A resposta JSON de um item possui dois campos: 'codigo' e 'justificativa', conforme a seguir:
 
-A resposta JSON de um item tem dois campos: 'codigo' e 'justificativa'.
+| codigo | justificativa | contexto |
+| - | - | - |
+| `ISSUE_BLOQUEADA` | "Issue bloqueada por algum motivo" | Coleta |
+| `NAO_COLETAVEL_REDIRECIONADO` | "Dados são encontrados somente fora do padrão do template" | Coleta |
+| `NAO_COLETAVEL_TIMEOUT` | "Dados não coletados devido a erro de Timeout" | Coleta |
+| `NAO_LOCALIZADO` | "Dados não foram localizados no template" | Coleta |
+| `NAO_LOCALIZADO_LINK_INCORRETO` | "Dados inacessíveis pelos portais do template" | Coleta |
+| `MUNICIPIO_NAO_DISPONIVEL` | "Municipio inválido ou não abordado" | API | 
+| `ITEM_NAO_DISPONIVEL` | "Item ainda não validado" | Validação | 
+| `ERRO_VALIDADO` | "Validação informou que o item coletado nao atende aos requisitos" | Validação | 
+| `OK_VALIDADO` | "Item validado com sucesso" | Validação | 
+ 
+ 
+É importante destacar que, no caso da resposta ser `OK_VALIDADO` ou `ERRO_VALIDADO` (respostas da fase de validação) a justificativa poderá variar, apresentando uma explicação específica sobre a validação do item solicitado. 
 
-     Códigos respectivos a coleta:
+Para facilitar o entendimento dos respectivos códigos de resposta, adicionamos a coluna "contexto" à tabela anterior, já que cada resposta é associada à uma fase específica da verificação automática de normativas. Em geral, ou o contexto da resposta refere-se a fase de coleta (não se chegou a fase de validação) ou à fase de validação. Não há campo "contexto" na resposta devolvida.
 
-    - código: ISSUE_BLOQUEADA, justificativa: "Issue bloqueada por algum motivo";
-    - código: NAO_COLETAVEL_REDIRECIONADO, justificativa: "Dados são encontrados somente fora do padrão do template";
-    - código: NAO_COLETAVEL_TIMEOUT, justificativa: "Dados não coletados devido a erro de Timeout";
-    - código: NAO_LOCALIZADO, justificativa: "Dados não foram localizados no template";
-    - código: NAO_LOCALIZADO_LINK_INCORRETO, justificativa: "Dados inacessíveis pelos portais do template";
-
-     Códigos respectivos a validação:
-
-    - código: ITEM_NAO_DISPONIVEL, justificativa: "Item ainda não validado";
-    - código: FALSE, justificativa: "Validação informou que o item coletado nao atende aos requisitos";
-    - código: TRUE, justificativa: "Item validado com sucesso";
-
-     Códigos respectivos a outros erros:
-
-    - código: MUNICIPIO_NAO_DISPONIVEL, justificativa: "Municipio inválido ou não abordado".
-
-OBS: No caso da resposta ser TRUE ou FALSE a justificativa pode ser diferente apresentando uma explicação sobre a validação do item. 
-
-### Exemplo:
+## Exemplo
 
 - Requisição (Município Muriaé, item 7 (Link de respostas a perguntas mais frequentes da sociedade.):
 
