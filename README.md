@@ -45,7 +45,7 @@ http://localhost:5013/api/{municipio}/{nº_do_item}
 
 - Resposta: Formato `JSON` com a resposta do item específico.
 
-## Resposta de um item
+### Resposta de um item:
 
 A resposta JSON de um item possui dois campos: 'codigo' e 'justificativa', conforme a seguir:
 
@@ -79,7 +79,7 @@ http://localhost:5013/api/3143906/7
 ```
 {
   "7": {
-    "codigo_resposta": "TRUE", 
+    "codigo": "OK_VALIDADO", 
     "justificativa": "Item validado com sucesso. Explain - Quantidade de arquivos analizados: 5. Quantidade de aquivos que possuem referência a Perguntas Frequentes: 5"
   }
 }
