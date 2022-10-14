@@ -52,5 +52,12 @@
             "column": "Tipo do Documento",
             "value": "PARECER"
         }
+    },
+    "informacoes_institucionais":{
+        "registro_das_competências":{
+            "search_term": "Insitucionais",
+            "keywords_to_search": ["teste"],
+            "types": ["pdf"]
+        }
     }
 }

@@ -124,9 +124,9 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
                 item = get_item(get_sub_tag(subtag).id, item_apelido)
 
                 if resultado_do_item['predict']:
-                    resposta = Resposta.TRUE
+                    resposta = Resposta.OK_VALIDADO
                 else:
-                    resposta = Resposta.FALSE
+                    resposta = Resposta.ERRO_VALIDADO
                 resposta.set_justificativa(resultado_do_item['explain'])
 
                 salvar_resultado(municipio_id=municipio_id,

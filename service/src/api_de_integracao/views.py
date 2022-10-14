@@ -2,7 +2,6 @@ import json
 from github import Github
 from flask import jsonify
 from flask import Blueprint
-from src.api_de_integracao.models import Resultado
 from src.empresa.manage import get_template
 from src.municipio.models import Municipio
 from src.checklist.manage import get_sub_tag_itens, get_tag_itens, get_tag_by_name_in_github
@@ -11,6 +10,8 @@ from src.municipio.manage_municipios import obter_codigo_ibge_pelo_nome
 
 from src.api_de_integracao.scrip_indexar_arquivos_mp import scrip_indexar_arquivos_mp
 
+from src.api_de_integracao.models import Resultado
+from src.api_de_integracao.resposta import Resposta
 
 api_de_integracao = Blueprint('api_de_integracao', __name__)
 
@@ -110,3 +111,27 @@ def indexarArquivos(nome_do_template):
     # TEMPLATES = ["siplanweb", "sintese", "abo", "betha", "pt_45"]
     scrip_indexar_arquivos_mp(nome_do_template)
     return jsonify('ok')
+
+
+# Mudar de TRUE e FALSE para OK_VALIDADO e ERRO_VALIDADO
+
+@api_de_integracao.route('/ajuste_resultados', methods=['GET'])
+def ajustarResultados():
+
+    todos_true = Resultado.query.filter_by(
+        codigo_resposta="TRUE").all()
+
+    for resultado in todos_true:
+        resposta = Resposta.OK_VALIDADO
+        salvar_resultado(municipio_id=resultado.municipio_id,
+                                 item_id=resultado.item_id, resposta=resposta)
+
+    todos_false = Resultado.query.filter_by(
+        codigo_resposta="FALSE").all()
+
+    for resultado in todos_false:
+        resposta = Resposta.ERRO_VALIDADO
+        salvar_resultado(municipio_id=resultado.municipio_id,
+                                 item_id=resultado.item_id, resposta=resposta)
+
+    return jsonify('ok')    

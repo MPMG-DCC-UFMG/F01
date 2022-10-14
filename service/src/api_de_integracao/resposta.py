@@ -12,8 +12,9 @@ class Resposta(Enum):
 
     # Validação
     ITEM_NAO_DISPONIVEL = "Item ainda não validado"
-    FALSE = "Validação informou que o item coletado nao atende aos requisitos"
-    TRUE = "Item validado com sucesso"
+
+    ERRO_VALIDADO = "Item validado com sucesso"
+    OK_VALIDADO = "Validação informou que o item coletado nao atende aos requisitos"
 
     # Outros erros
     MUNICIPIO_NAO_DISPONIVEL = "Municipio inválido ou não abordado"

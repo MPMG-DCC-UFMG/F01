@@ -1,0 +1,19 @@
+{
+    "informacoes_institucionais":{
+        "estrutura_organizacional":{
+            "search_term": "ESTRUTURA ADMINISTRATIVA",
+            "keywords_to_search": ["PLANEJAMENTO MUNICIPAL"],
+            "types": ["pdf"]
+        },
+        "unidades_administrativas":{
+            "search_term": "setor Setores",
+            "keywords_to_search": ["Subordinação", "Endereço", "Informações"],
+            "types": ["html"],
+            "endereco": "Endereço",
+            "telefone": "Telefone",
+            "horario_de_atendimento": "Horário de Funcionamento"
+        },
+        "registro_das_competências":{}
+    }
+
+}

@@ -30,7 +30,7 @@ class ValidadorEstruturaOrganizacional:
             'estrutura_organizacional': {},
         }
 
-        # Endereço
+        # Estrutura organizacional
         isvalid, result = self.predict_estrutura_organizacional()
         result_explain = self.explain(result)
         resultados['estrutura_organizacional']['predict'] = isvalid
