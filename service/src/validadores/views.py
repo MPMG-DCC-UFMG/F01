@@ -26,11 +26,13 @@ def rodar_template(nome_do_template):
 
     for municipio in municipios:
 
-        # if municipio == "porteirinha": #em testes
+        # if municipio == "salinas": #em testes
             print(municipio)
             resultado = pipeline_validadores.todas_tags(parametros, municipio)
 
             municipio = get_municipio(municipio)
+            print("resultado final")
+            print(resultado)
             print("Salvando resultado")
 
             salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)

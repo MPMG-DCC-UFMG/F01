@@ -116,10 +116,10 @@ id,tag,sub-tag,info,abreviacao
 115,Despesas com diárias,Despesas com diárias,Destino da viagem,
 116,Despesas com diárias,Despesas com diárias,Motivo da viagem,
 117,Despesas com diárias,Despesas com diárias,Número de diárias fornecidas,
-118,Orçamento,Legislação,Lei Orçamentária Anual,
-119,Orçamento,Legislação,Lei de Diretrizes Orçamentárias,
-120,Orçamento,Legislação,Plano Plurianual,
-121,Orçamento,Legislação,Ata / vídeo / informações sobre as audiências públicas obrigatórias,
-122,Orçamento,Execução,Relatórios (quadrimestrais) de gestão fiscal e anexos,
-123,Orçamento,Execução,Relatórios (bimestrais) Resumido da Execução Orçamentária,
-124,Orçamento,Execução,"Prestação anual de contas, parecer prévio do TCE e julgamento pela Câmara de Vereadores"
+118,Orçamento,Legislação,Lei Orçamentária Anual,lei_orcamentaria_anual
+119,Orçamento,Legislação,Lei de Diretrizes Orçamentárias,lei_diretrizes_orcamentarias
+120,Orçamento,Legislação,Plano Plurianual,plano_plurianual
+121,Orçamento,Legislação,Ata / vídeo / informações sobre as audiências públicas obrigatórias,informacoes_audiencias_publicas
+122,Orçamento,Execução,Relatórios (quadrimestrais) de gestão fiscal e anexos,relatorios_quadrimestras_gestao_fiscal
+123,Orçamento,Execução,Relatórios (bimestrais) Resumido da Execução Orçamentária,relatorio_bimestral_da_execucao_orcamentaria
+124,Orçamento,Execução,"Prestação anual de contas, parecer prévio do TCE e julgamento pela Câmara de Vereadores",prestacao_anual_de_contas

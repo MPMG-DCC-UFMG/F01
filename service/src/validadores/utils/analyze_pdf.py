@@ -1,12 +1,11 @@
-import PyPDF2
-import fitz
 import re
-import pandas as pd
 import cv2
-from PIL import Image
-from pdf2image import convert_from_path
+import PyPDF2
 import pytesseract
 import numpy as np
+import pandas as pd
+from PIL import Image
+from pdf2image import convert_from_path
 
 def remove_noise(text):
     text = re.sub('\n', ' ', text)
@@ -30,35 +29,15 @@ def reset_eof_of_pdf_return_stream(pdf_stream_in:list):
     # return the list up to that point
     return pdf_stream_in[:actual_line]
 
-def extract_text_drawing_files(path):
+def pdf_to_text(name_file):
 
-    with fitz.open(path) as doc:
-        pages_text = []
-        for page in doc:
-            pages_text.append(page.get_text())
-
-    return pages_text
-
-def pdf_to_text(name_file, fixed_file, path, drawing=False, verbose=True):
-
-    # with open(name_file, 'rb') as p:
-    #     txt = (p.readlines())
-
-    # txtx = reset_eof_of_pdf_return_stream(txt)
-
-    # with open('{}/{}'.format(path, fixed_file), 'wb') as f:
-    #     f.writelines(txtx)
-      
-    if drawing:
-        content = extract_text_drawing_files(name_file)
-    else: 
+    try:
         pdf_file = PyPDF2.PdfFileReader(name_file)
-        num_pages = pdf_file.getNumPages()
-        pages = get_pages(pdf_file, num_pages)
-        content = extract_text(pages)
-    
-    if verbose:
-        print("Number pages: {}".format(len(content)))
+    except PyPDF2.errors.PdfReadError:
+        return ""
+    num_pages = pdf_file.getNumPages()
+    pages = get_pages(pdf_file, num_pages)
+    content = extract_text(pages)
         
     return " ".join(content)
 
@@ -96,9 +75,6 @@ def pdf_from_image(file, page_limit, verbose=False):
         print(text[:50])
     return text
 
-# path = '/home/cinthia/F01/'
-# path = '/home/asafe/GitHub/Coleta_C01/Para_de_Minas/esic/data/files/'
-# name_file = '2f37e03c3179bb4f1312f2093f6742af.pdf.pdf'
 fixed_file= 'Licitacao_fixed.pdf'
 
 def count_matches (text, keyword_to_search):
@@ -109,24 +85,24 @@ def count_matches (text, keyword_to_search):
 
     return matches
 
-def analyze_pdf(path_base, pdf_files, keyword_to_search, page_limit, verbose=False):
+def analyze_pdf(pdf_files, keyword_to_search, page_limit, verbose=False):
 
     matches = []
 
-    for file in pdf_files:
+    for file_name in pdf_files:
         if verbose:
-            print("Analyzing pdf:", file)
+            print("Analyzing pdf:", file_name)
 
-        content = pdf_to_text(file, fixed_file, path_base, drawing=True, verbose=False)
+        content = pdf_to_text(file_name)
         content = remove_noise(content)
-        # print(path_functions.get_url("/home/asafe", path), count_matches (text, keyword_to_search))
 
         num_matches =  count_matches (content, keyword_to_search)
 
-        # In case you have not found the keywords, we will do the search with OCR
-        if (num_matches == 0):
-            content = pdf_from_image(file, page_limit, verbose)
-            num_matches = count_matches (content, keyword_to_search)
+        # OCR -
+        # # In case you have not found the keywords, we will do the search with OCR
+        # if (num_matches == 0):
+        #     content = pdf_from_image(file_name, page_limit, verbose)
+        #     num_matches = count_matches (content, keyword_to_search)
 
         matches.append(num_matches)
 

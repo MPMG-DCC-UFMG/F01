@@ -21,6 +21,49 @@
             "link_de_acesso": "Nome"
         },
         "conselhos_municipais":{}
+    },
+
+
+    "orcamento":{
+        "legislacao":{
+            "lei_orcamentaria_anual":{
+                "search_term": "Lei orcamentária anual",
+                "keywords_to_search": ["LOA", "Lei orcamentaria anual"],
+                "keyword_check": ["LOA", "Lei Orçamentária Anual"]
+            },
+            "lei_diretrizes_orcamentarias":{
+                "search_term": "Lei de Diretrizes Orçamentárias",
+                "keywords_to_search": ["LDO", "Lei", "diretrizes", "orcamentarias"],
+                "keyword_check": ["LDO", "Lei de Diretrizes Orçamentárias"]
+            },
+            "plano_plurianual":{
+                "search_term": "Plano plurianual",
+                "keywords_to_search": ["Plano plurianual"],
+                "keyword_check": ["Plano plurianual"]
+            },
+            "informacoes_audiencias_publicas":{
+                "search_term": "Audiências",
+                "keywords_to_search": ["Publicas", "Audiências", "Ata"],
+                "keyword_check": ["Audiências Publicas"]
+            }
+        },
+        "execucao":{
+            "relatorios_quadrimestras_gestao_fiscal":{
+                "search_term": "gestão fiscal",
+                "keywords_to_search": ["Relatórios", "gestão fiscal"],
+                "keyword_check": ["quadrimestrais"]
+            },
+            "relatorio_bimestral_da_execucao_orcamentaria":{
+                "search_term": "Execução Orçamentária",
+                "keywords_to_search": ["relatório", "bimestral", "execução", "rrçamentária"],
+                "keyword_check": ["bimestral", "execução orçamentária"]
+            },
+            "prestacao_anual_de_contas":{
+                "search_term": "Prestação anual de contas",
+                "keywords_to_search": ["TCE", "Câmara de Vereadores", "Prestação"],
+                "keyword_check": ["prestação anual", "balanço anual"]
+            }
+        }
     }
 
 }

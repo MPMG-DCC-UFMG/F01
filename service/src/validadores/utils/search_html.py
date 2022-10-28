@@ -199,30 +199,28 @@ def analyze_html(html_files, keyword_to_search):
         words = []
         soup = read.read_html(path)
 
-        if type(keyword_to_search) is list:
+        for keyword in keyword_to_search:
 
-            for keyword in keyword_to_search:
+            num_matches_keyword = 0
 
-                num_matches_keyword = 0
+            # No texto
+            num_matches_keyword += count_matches (soup.getText(), keyword)
 
-                # No texto
-                num_matches_keyword += count_matches (soup.getText(), keyword)
+            # No título de um botão
+            num_matches_keyword += analyze_botoes (soup, keyword)
 
-                # No título de um botão
-                num_matches_keyword += analyze_botoes (soup, keyword)
+            # Em algum placeholder
+            num_matches_keyword += analyze_placeholders (soup, keyword)
 
-                # Em algum placeholder
-                num_matches_keyword += analyze_placeholders (soup, keyword)
+            # Em algum aria-label
+            num_matches_keyword += analyze_aria_label (soup, keyword)
 
-                # Em algum aria-label
-                num_matches_keyword += analyze_aria_label (soup, keyword)
+            if num_matches_keyword:
+                words.append(keyword)
 
-                if num_matches_keyword:
-                    words.append(keyword)
+            num_matches += num_matches_keyword
 
-                num_matches += num_matches_keyword
-
-        matches.append(len(words))
+        matches.append(num_matches)
         words_matches.append(words)
 
     result = pd.DataFrame({'files': html_files, 'matches': matches, 'words':words_matches})

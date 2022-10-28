@@ -108,7 +108,7 @@ def carregarResultadosGithub():
 # Indexar os arquivos no elasticsearch usando o fscrawler
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivos(nome_do_template):
-    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha", "pt_45"]
+    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha", "pt_45", "memory_66"]
     scrip_indexar_arquivos_mp(nome_do_template)
     return jsonify('ok')
 
@@ -119,7 +119,7 @@ def indexarArquivos(nome_do_template):
 def ajustarResultados():
 
     todos_true = Resultado.query.filter_by(
-        codigo_resposta="TRUE").all()
+        codigo_resposta="OK_VALIDADO").all()
 
     for resultado in todos_true:
         resposta = Resposta.OK_VALIDADO
@@ -127,7 +127,7 @@ def ajustarResultados():
                                  item_id=resultado.item_id, resposta=resposta)
 
     todos_false = Resultado.query.filter_by(
-        codigo_resposta="FALSE").all()
+        codigo_resposta="ERRO_VALIDADO").all()
 
     for resultado in todos_false:
         resposta = Resposta.ERRO_VALIDADO
