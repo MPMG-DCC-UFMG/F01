@@ -30,7 +30,7 @@ http://localhost:5013/api/{municipio}
 - Entrada: 
     ID do municipio (código IBGE).
 
-- Resposta: Formato `JSON` com a resposta de todos os itens (possívelmente de 1 até 124).
+- Resposta: Formato `JSON` com a resposta de todos os itens (possívelmente de 1 até 103).
 
 ### Consulta a um item específico de um municipio:
 
