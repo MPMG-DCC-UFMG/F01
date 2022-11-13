@@ -14,9 +14,9 @@
             "horario_de_atendimento": "Horário de Funcionamento"
         },
         "registro_das_competencias":{
-            "search_term": "Competências compete",
-            "keywords_to_search": ["Orgão", "Competências"],
-            "keyword_check": "Clique aqui para ter acesso às competências do Órgão"
+            "search_term": "Termo a ser buscado no Elasticsearch",
+            "keywords_to_search": ["Termos", "auxiliares", "a", "busca"],
+            "keyword_check": "Expressão que se presente no html valida o item"
         }
     }
 

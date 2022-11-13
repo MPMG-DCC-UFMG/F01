@@ -108,7 +108,7 @@ def carregarResultadosGithub():
 # Indexar os arquivos no elasticsearch usando o fscrawler
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivos(nome_do_template):
-    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha", "pt_45", "memory_66"]
+    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha", "pt_45", "memory_66", "template1_22"]
     scrip_indexar_arquivos_mp(nome_do_template)
     return jsonify('ok')
 

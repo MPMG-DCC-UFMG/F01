@@ -3,16 +3,16 @@ from src.validadores.utils import check_df
 from src.validadores.utils import path_functions
 from src.validadores.utils.search_html import analyze_html
 
-class ValidadorRegistroDasCompetencias:
+class ValidadorConselhosMunicipais:
 
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['competencias'])
+        files = path_functions.filter_paths(files, words=['conselhos'])
         self.files = path_functions.agg_paths_by_type(files)
 
-    def predict_registro_das_competencias(self):
+    def predict_conselhos_municipais(self):
         # Analyze 
         result = analyze_html(self.files['html'], keyword_to_search=self.keywords['keyword_check'])
         #Check result 
@@ -30,13 +30,13 @@ class ValidadorRegistroDasCompetencias:
     def predict(self):
 
         resultados = {
-            'registro_das_competencias': {},
+            'conselhos_municipais': {},
         }
 
-        isvalid, result = self.predict_registro_das_competencias()
+        isvalid, result = self.predict_conselhos_municipais()
         result_explain = self.explain(result)
-        resultados['registro_das_competencias']['predict'] = isvalid
-        resultados['registro_das_competencias']['explain'] = result_explain
+        resultados['conselhos_municipais']['predict'] = isvalid
+        resultados['conselhos_municipais']['explain'] = result_explain
 
         return resultados
         

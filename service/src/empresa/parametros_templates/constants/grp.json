@@ -1,9 +1,0 @@
-{
-    "licitacoes": {
-       "search_term": "Licitatórios",
-       "keywords": ["objeto", "modalidade", "situação"],
-       "proc_lic_itens": ["processo", "modalidade", "objeto", "situação", "empresa vencedor"],
-       "editais": "Editais de Licitação e Demais Arquivos"
-    },
-    "types": ["bat"]
-}

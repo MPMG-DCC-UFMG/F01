@@ -1,0 +1,17 @@
+{
+    "licitacoes": {
+       "search_term": "Licitatórios",
+       "keywords": ["objeto", "modalidade", "situação"],
+       "proc_lic_itens": ["processo", "modalidade", "objeto", "situação", "empresa vencedor"],
+       "editais": "Editais de Licitação e Demais Arquivos",
+       "types": ["bat"]
+    },
+    "informacoes_institucionais":{
+        "conselhos_municipais":{
+            "search_term": "Conselho",
+            "keywords_to_search": ["CODEMA", "CMDCA", "Saúde"],
+            "keyword_check": "Conselho municipal"
+        }
+    }
+    
+}
