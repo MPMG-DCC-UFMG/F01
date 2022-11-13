@@ -1,4 +1,5 @@
 import os
+import json 
 from src import db
 import pandas as pd
 from flask import jsonify
@@ -65,3 +66,19 @@ def cadastrar():
 @empresa.route('/<string:nome_do_template>', methods=['POST', 'GET'])
 def municipios_do_template(nome_do_template):
     return jsonify(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template))
+
+
+# Gerar jsons com os nomes de múnicipios de cara template. Usado no gerador de issues
+@empresa.route('/gerar_jsons', methods=['POST', 'GET'])
+def gerar_jsons():
+    templates = Empresa.query.all()
+    if len(templates):
+        templates = [template.nome for template in templates]
+    for nome_do_template in templates:
+        with open(os.getcwd() + f"/src/empresa/municipios/{nome_do_template}.json", "w", encoding = "utf-8") as outfile: 
+            print(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template))
+            json_object = json.dumps(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template), indent = 4, ensure_ascii = False) 
+            outfile.write(json_object) 
+
+    return jsonify('ok') 
+

@@ -1,7 +1,5 @@
 import os
 import json
-from pathlib import Path
-from src.validadores.utils.path_functions import format_city_names
 
 class ErroAoAbrirArquivo(Exception):
     def __init__(self, message, cause):

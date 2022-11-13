@@ -11,6 +11,7 @@ id,tag,sub-tag,info,abreviacao
 10,Acesso à Informação,Requisitos Exigidos,Mantém as informações disponíveis para acesso atualizadas,
 11,Acesso à Informação,Requisitos Exigidos,"Possui local e instruções para fácil acesso do interessado à comunicação com o município, por via eletrônica ou telefônica",
 12,Acesso à Informação,Requisitos Exigidos,Contém medidas que garantem a acessibilidade de conteúdo para pessoas com deficiência,
+<<<<<<< HEAD
 13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,
 14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,
 15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,
@@ -22,6 +23,19 @@ id,tag,sub-tag,info,abreviacao
 21,Informações institucionais,Registro das competências,Registro das competências de cada órgão municipal,registro_das_competencias
 22,Informações institucionais,Link de acesso,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",
 23,Informações institucionais,Conselhos Municipais,"Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc)",conselhos_municipais
+=======
+13,Acesso à Informação,Dados Abertos,Publica na internete relação das bases de dados abertos do município ou do estado,
+14,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,
+15,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,
+16,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,
+17,Informações institucionais,Estrutura Organizacional,Estrutura organizacional,estrutura_organizacional
+18,Informações institucionais,Unidades Administrativas,Endereço,endereco
+19,Informações institucionais,Unidades Administrativas,Telefone,telefone
+20,Informações institucionais,Unidades Administrativas,Horário de atendimento,horario_de_atendimento
+21,Informações institucionais,Registro das Competências,Registro das competências de cada órgão municipal,
+22,Informações institucionais,Leis Municipais,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",
+23,Informações institucionais,Conselhos Municipais,Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc),
+>>>>>>> 820057b01e594f923fd34f20bc5a0db4eb2f3192
 24,Receitas,Dados das receitas,Previsão,
 25,Receitas,Dados das receitas,Arrecadação,
 26,Receitas,Dados das receitas,Classificação,
@@ -41,14 +55,14 @@ id,tag,sub-tag,info,abreviacao
 40,Despesas,Relatórios,Link de acesso à Lei Orçamentária Anual do município,
 41,Despesas,Relatórios,"Apresentação do balanço anual, com as respectivas demonstrações contábeis",
 42,Despesas,Relatórios,Relatórios da execução orçamentária e gestão fiscal,
-43,Licitações,Processos licitatórios,Número/Ano do Edital,
-44,Licitações,Processos licitatórios,Modalidade,
-45,Licitações,Processos licitatórios,Objeto,
-46,Licitações,Processos licitatórios,Situação/Status,
-47,Licitações,Processos licitatórios,Divulgação do resultado da licitação,
-48,Licitações,Registro dos procedimentos,Registro dos procedimentos de inexigibilidade e de dispensa de licitação realizados pela Prefeitura ou pela Câmara Municipal: organizado conforme ordem cronológica e numérica (número do procedimento),
+43,Licitações,Processos Licitatórios,Número/Ano do Edital,
+44,Licitações,Processos Licitatórios,Modalidade,
+45,Licitações,Processos Licitatórios,Objeto,
+46,Licitações,Processos Licitatórios,Situação/Status,
+47,Licitações,Processos Licitatórios,Divulgação do resultado da licitação,
+48,Licitações,Inexigibilidade e Dispensa,Registro dos procedimentos de inexigibilidade e de dispensa de licitação realizados pela Prefeitura ou pela Câmara Municipal: organizado conforme ordem cronológica e numérica (número do procedimento),
 49,Licitações,Editais,Disponibiliza o conteúdo integral dos editais,
-50,Licitações,Resultados das licitações,Possibilita a consulta aos resultados das licitações ocorridas,
+50,Licitações,Resultados de Licitações,Possibilita a consulta aos resultados das licitações ocorridas,
 51,Contratos,Dados dos contratos,Objeto,
 52,Contratos,Dados dos contratos,Valor,
 53,Contratos,Dados dos contratos,Favorecido,
@@ -68,7 +82,7 @@ id,tag,sub-tag,info,abreviacao
 67,Concursos Públicos,Dados do Concurso,Resultado,resultado
 68,Concursos Públicos,Dados do Concurso,Atos de nomeação,atos_de_nomeacao
 69,Concursos Públicos,Cópia do edital do concurso,Cópia do edital do concurso,copia_do_edital_do_concurso
-70,Concursos Públicos,Divulgação,Divulgação dos recursos e respectivas decisões,divulgacao_dos_recursos_e_respectivas_decisoes
+70,Concursos Públicos,Divulgação de Recursos e Decisões,Divulgação dos recursos e respectivas decisões,divulgacao_dos_recursos_e_respectivas_decisoes
 71,Obras públicas,Dados para acompanhamento,Objeto,
 72,Obras públicas,Dados para acompanhamento,Valor total,
 73,Obras públicas,Dados para acompanhamento,Empresa contratada,
@@ -76,50 +90,29 @@ id,tag,sub-tag,info,abreviacao
 75,Obras públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,
 76,Obras públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,
 77,Obras públicas,Dados para acompanhamento,Situação atual da obra,
-78,Servidores Públicos,Dados dos servidores,Nome,
-79,Servidores Públicos,Dados dos servidores,Cargo/Função,
-80,Servidores Públicos,Dados dos servidores,Remuneração,
-81,Servidores Públicos,Registro da remuneração,Registro da remuneração ou subsídio contendo: Agentes políticos,
-82,Servidores Públicos,Registro da remuneração,Registro da remuneração ou subsídio contendo: Contratados temporariamente,
-83,Servidores Públicos,Registro da remuneração,Registro da remuneração ou subsídio contendo: servidores efetivos e/ou empregados públicos,
-84,Servidores Públicos,Registro por lotação,Registro realizado por lotação contendo os seguintes dados: Matricula,
-85,Servidores Públicos,Registro por lotação,Registro realizado por lotação contendo os seguintes dados: Nome,
-86,Servidores Públicos,Registro por lotação,Registro realizado por lotação contendo os seguintes dados: Cargo/Função,
-87,Servidores Públicos,Registro por lotação,Registro realizado por lotação contendo os seguintes dados: Remuneração,
-88,Servidores Públicos,Registro por lotação,Abate teto,
-89,Servidores Públicos,Registro por lotação,Tipo de vínculo,
-90,Servidores Públicos,Auxilios,Verbas indenizatórias,
-91,Servidores Públicos,Auxilios,Ajudas de custos,
-92,Servidores Públicos,Auxilios,Jetons,
-93,Servidores Públicos,Auxilios,Vantagens pecuniárias,
-94,Servidores Públicos,Dispêndios,Exigência direcionada à Câmara Municipal: Registro detalhado dos dispêndios realizados com o recurso “verba de gabinete”,
-95,Servidores Públicos,Proventos de aposentadoria,Nome,
-96,Servidores Públicos,Proventos de aposentadoria,Cargo,
-97,Servidores Públicos,Proventos de aposentadoria,Remuneração,
-98,Servidores Públicos,Proventos de aposentadoria,Abate teto,
-99,Servidores Públicos,Proventos de aposentadoria,Remuneração retirando o abate teto,
-100,Servidores Públicos,Proventos de aposentadoria,Tipo de vínculo,
-101,Servidores Públicos,Proventos de pensão,Nome do servidor,
-102,Servidores Públicos,Proventos de pensão,Cargo,
-103,Servidores Públicos,Proventos de pensão,Remuneração,
-104,Servidores Públicos,Proventos de pensão,Abate teto,
-105,Servidores Públicos,Proventos de pensão,Remuneração retirando o abate teto,
-106,Servidores Públicos,Proventos de pensão,Tipo de vínculo,
-107,Servidores Públicos,Relatório mensal,Relatório mensal da despesa com pessoal,
-108,Servidores Públicos,Dados de remuneração,Planilha consolidada com dados de remuneração de: Agentes políticos,
-109,Servidores Públicos,Dados de remuneração,Planilha consolidada com dados de remuneração de: servidores efetivos e/ou empregados públicos,
-110,Servidores Públicos,Dados de remuneração,Planilha consolidada com dados de remuneração de: Planilha de remuneração permite pesquisa,
-111,Despesas com diárias,Despesas com diárias,Nome do beneficiário,
-112,Despesas com diárias,Despesas com diárias,Cargo/Função,
-113,Despesas com diárias,Despesas com diárias,Valores recebidos,
-114,Despesas com diárias,Despesas com diárias,Período da viagem,
-115,Despesas com diárias,Despesas com diárias,Destino da viagem,
-116,Despesas com diárias,Despesas com diárias,Motivo da viagem,
-117,Despesas com diárias,Despesas com diárias,Número de diárias fornecidas,
-118,Orçamento,Legislação,Lei Orçamentária Anual,lei_orcamentaria_anual
-119,Orçamento,Legislação,Lei de Diretrizes Orçamentárias,lei_diretrizes_orcamentarias
-120,Orçamento,Legislação,Plano Plurianual,plano_plurianual
-121,Orçamento,Legislação,Ata / vídeo / informações sobre as audiências públicas obrigatórias,informacoes_audiencias_publicas
-122,Orçamento,Execução,Relatórios (quadrimestrais) de gestão fiscal e anexos,relatorios_quadrimestras_gestao_fiscal
-123,Orçamento,Execução,Relatórios (bimestrais) Resumido da Execução Orçamentária,relatorio_bimestral_da_execucao_orcamentaria
-124,Orçamento,Execução,"Prestação anual de contas, parecer prévio do TCE e julgamento pela Câmara de Vereadores",prestacao_anual_de_contas
+78,Servidores Públicos,Dados dos Servidores,Nome,
+79,Servidores Públicos,Dados dos Servidores,Cargo/Função,
+80,Servidores Públicos,Dados dos Servidores,Remuneração,
+81,Servidores Públicos,Registro da remuneração,"Registro da remuneração ou subsídio contendo: Agentes políticos, servidores efetivos e/ou empregados públicos",
+82,Servidores Públicos,Registro da remuneração,Registro da remuneração dos contratados temporariamente,
+83,Servidores Públicos,Registro por lotação,"Registro realizado por lotação contendo os seguintes dados: Matricula, Nome, Cargo/Função, Remuneração, Abate teto, Tipo de vínculo",
+84,Servidores Públicos,Dados de Remuneração,"Registro mediante planilha consolidada contendo a remuneração de todos os agentes políticos, servidores efetivos e/ou empregados públicos, bem como a possibilidade de promover pesquisas neste documento",
+85,Servidores Públicos,Auxílios,"Registro detalhado dos auxílios, verbas indenizatórias, ajudas de custos, jetons e quaisquer vantagens pecuniárias",
+86,Servidores Públicos,Dispêndios,Exigência direcionada à Câmara Municipal: Registro detalhado dos dispêndios realizados com o recurso “verba de gabinete”,
+87,Servidores Públicos,Relatórios Despesas com Pessoal,Relatório mensal da despesa com pessoal,
+88,Servidores Públicos,Proventos de Aposentadoria,"Registro dos proventos de aposentadoria realizado por nome, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",
+89,Servidores Públicos,Proventos de Pensão,"Registro dos proventos de pensão realizado por pensionista, nome do servidor, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",
+90,Despesas com diárias,Despesas com diárias,Nome do beneficiário,
+91,Despesas com diárias,Despesas com diárias,Cargo/Função,
+92,Despesas com diárias,Despesas com diárias,Valores recebidos,
+93,Despesas com diárias,Despesas com diárias,Período da viagem,
+94,Despesas com diárias,Despesas com diárias,Destino da viagem,
+95,Despesas com diárias,Despesas com diárias,Motivo da viagem,
+96,Despesas com diárias,Despesas com diárias,Número de diárias fornecidas,
+97,Orçamento,Legislação,Lei Orçamentária Anual,lei_orcamentaria_anual
+98,Orçamento,Legislação,Lei de Diretrizes Orçamentárias,lei_diretrizes_orcamentarias
+99,Orçamento,Legislação,Plano Plurianual,plano_plurianual
+100,Orçamento,Legislação,Ata / vídeo / informações sobre as audiências públicas obrigatórias,informacoes_audiencias_publicas
+101,Orçamento,Execução,Relatórios (quadrimestrais) de gestão fiscal e anexos,relatorios_quadrimestras_gestao_fiscal
+102,Orçamento,Execução,Relatórios (bimestrais) Resumido da Execução Orçamentária,relatorio_bimestral_da_execucao_orcamentaria
+103,Orçamento,Execução,"Prestação anual de contas, parecer prévio do TCE e julgamento pela Câmara de Vereadores",prestacao_anual_de_contas
