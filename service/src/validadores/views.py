@@ -27,7 +27,7 @@ def rodar_template(nome_do_template):
 
     for municipio in municipios:
 
-        if municipio == "santa_juliana": #em testes
+        # if municipio == "muriae": #em testes
             print(municipio)
             resultado = pipeline_validadores.todas_tags(parametros, municipio)
 

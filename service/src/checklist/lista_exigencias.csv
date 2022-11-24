@@ -11,8 +11,7 @@ id,tag,sub-tag,info,abreviacao
 10,Acesso à Informação,Requisitos Exigidos,Mantém as informações disponíveis para acesso atualizadas,
 11,Acesso à Informação,Requisitos Exigidos,"Possui local e instruções para fácil acesso do interessado à comunicação com o município, por via eletrônica ou telefônica",
 12,Acesso à Informação,Requisitos Exigidos,Contém medidas que garantem a acessibilidade de conteúdo para pessoas com deficiência,
-<<<<<<< HEAD
-13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,
+13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
 14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,
 15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,
 16,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,
@@ -23,19 +22,6 @@ id,tag,sub-tag,info,abreviacao
 21,Informações institucionais,Registro das competências,Registro das competências de cada órgão municipal,registro_das_competencias
 22,Informações institucionais,Link de acesso,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",
 23,Informações institucionais,Conselhos Municipais,"Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc)",conselhos_municipais
-=======
-13,Acesso à Informação,Dados Abertos,Publica na internete relação das bases de dados abertos do município ou do estado,
-14,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,
-15,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,
-16,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,
-17,Informações institucionais,Estrutura Organizacional,Estrutura organizacional,estrutura_organizacional
-18,Informações institucionais,Unidades Administrativas,Endereço,endereco
-19,Informações institucionais,Unidades Administrativas,Telefone,telefone
-20,Informações institucionais,Unidades Administrativas,Horário de atendimento,horario_de_atendimento
-21,Informações institucionais,Registro das Competências,Registro das competências de cada órgão municipal,
-22,Informações institucionais,Leis Municipais,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",
-23,Informações institucionais,Conselhos Municipais,Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc),
->>>>>>> 820057b01e594f923fd34f20bc5a0db4eb2f3192
 24,Receitas,Dados das receitas,Previsão,
 25,Receitas,Dados das receitas,Arrecadação,
 26,Receitas,Dados das receitas,Classificação,

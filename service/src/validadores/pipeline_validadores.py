@@ -13,8 +13,8 @@ from src.validadores.orcamento.pipeline_orcamento import pipeline_orcamento
 def todas_tags(parametros, job_name):
 
     resultado = {
-        # 'acesso_a_informacao': pipeline_acesso_a_informacao(parametros, job_name),
-        'informacoes_institucionais': pipeline_informacoes_institucionais(parametros, job_name),
+        'acesso_a_informacao': pipeline_acesso_a_informacao(parametros, job_name),
+        # 'informacoes_institucionais': pipeline_informacoes_institucionais(parametros, job_name),
         # 'receitas': pipeline_receitas(parametros, job_name),
         # 'licitacoes': pipeline_licitacoes(parametros, job_name),
         # 'contratos': pipeline_contratos(parametros, job_name),

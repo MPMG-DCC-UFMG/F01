@@ -28,6 +28,11 @@
                 "search_term": "perguntas frequente",
                 "keywords_to_search": ["FAQ", "Perguntas Frequentes"]
             }
+        },
+        "dados_abertos":{
+            "search_term": "dados abertos",
+            "keywords_to_search": ["dados abertos"],
+            "url_keyword": "dadosabertos"
         }
     },
     "concursos_publicos":{
