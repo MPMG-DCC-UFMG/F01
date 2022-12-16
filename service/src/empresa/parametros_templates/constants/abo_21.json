@@ -33,6 +33,14 @@
             "search_term": "dados abertos",
             "keywords_to_search": ["dados abertos"],
             "url_keyword": "dadosabertos"
+        },
+        "relatorio_estatistico":{
+            "search_term": "Relatório",
+            "keywords_to_search": ["Status", "Tipo da Ocorrência", "Manutenção", "Pedido de informação", "Quantidade"],
+            "quantidade": "Quantidade",
+            "atendidos": "Resolvido",
+            "indeferidos": "Não Resolvido"
+
         }
     },
     "concursos_publicos":{

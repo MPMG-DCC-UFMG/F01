@@ -19,5 +19,15 @@
             "valor_total_pago_ou_percentual": "Execução financeira (%)",
             "situacao_atual": "Situação"
         } 
+    },
+    "terceiro_setor":{
+        "repasses":{
+            "search_term": "Repasse",
+            "keywords_to_search": ["Concedido", "Recebido", "Conta"],
+            "types": ["html"],
+            "origem": "Conta",
+            "valor": "Concedido (R$)",
+            "data": "Mês"
+        }
     }
 }

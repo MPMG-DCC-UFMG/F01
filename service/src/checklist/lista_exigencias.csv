@@ -12,9 +12,9 @@ id,tag,sub-tag,info,abreviacao
 11,Acesso à Informação,Requisitos Exigidos,"Possui local e instruções para fácil acesso do interessado à comunicação com o município, por via eletrônica ou telefônica",
 12,Acesso à Informação,Requisitos Exigidos,Contém medidas que garantem a acessibilidade de conteúdo para pessoas com deficiência,
 13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
-14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,
-15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,
-16,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,
+14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,quantidade
+15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,atendidos
+16,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,indeferidos
 17,Informações institucionais,Estrutura organizacional,Estrutura organizacional,estrutura_organizacional
 18,Informações institucionais,Unidades administrativas,Endereço,endereco
 19,Informações institucionais,Unidades administrativas,Telefone,telefone
@@ -61,9 +61,9 @@ id,tag,sub-tag,info,abreviacao
 60,Terceiro Setor,Dados de Parcerias,Objeto,
 61,Terceiro Setor,Dados de Parcerias,Conveniados,
 62,Terceiro Setor,Dados de Parcerias,Aditivos,
-63,Terceiro Setor,Repasses,Origem,
-64,Terceiro Setor,Repasses,Valor,
-65,Terceiro Setor,Repasses,Data,
+63,Terceiro Setor,Repasses,Origem,origem
+64,Terceiro Setor,Repasses,Valor,valor
+65,Terceiro Setor,Repasses,Data,data
 66,Concursos Públicos,Dados do Concurso,Status do andamento do processo do concurso,status
 67,Concursos Públicos,Dados do Concurso,Resultado,resultado
 68,Concursos Públicos,Dados do Concurso,Atos de nomeação,atos_de_nomeacao
