@@ -16,7 +16,7 @@ Dentro de /service rode o comando:
 FLASK_APP=main.py flask run
 ```
 
-A porta adotada será a `5013` http://localhost:5013
+A porta adotada será a `5014` http://localhost:5014 (definida no arquivo "app.py")
 
 Obs: Os itens estão listados em ['lista_exigencias.csv'](https://github.com/MPMG-DCC-UFMG/F01/blob/main/service/src/checklist/lista_exigencias.csv)
 
