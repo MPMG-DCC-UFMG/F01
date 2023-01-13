@@ -99,7 +99,7 @@ def informacao_dois_pontos_para_df(soup):
 def convert_html(soup):
     """
     Converte todas as tabelas de um hmtl em um Dataframe, 
-    Além das tags 'table' também transforma as informaçõs separadas 
+    Além das tags 'table' também transforma as informações separadas 
     por dois pontos, exemplo: Em "Número do contrato: 412" uma coluna
     no dataframe será "Número do contrato", e com uma entrada, "412"
          
