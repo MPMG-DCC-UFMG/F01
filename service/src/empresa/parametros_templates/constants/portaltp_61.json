@@ -1,0 +1,46 @@
+{
+    "servidores":{
+        "dados_dos_servidores":{
+            "search_term": "prefeitura",
+            "keywords_to_search": []
+        }
+    },
+    "despesas": {
+        "relatorios":{
+            "plano_plurianual":{
+                "search_term": "Plano Plurianual",
+                "keywords_to_search": ["PPA", "Plano Plurianual"],
+                "types": ["html"],
+                "keyword_check": ["Clique na nuvem para baixar o arquivo."],
+                "filter_paths": ["relatorios"],
+                "tipo_do_validador": "get_df",
+                "threshold_type": "file",
+                "valores_esperados": {"Descrição": ["PPA", "plano plurianual"], "Documentos": ".pdf", "Tamanho": "MB"}
+            },
+            "lei_diretrizes_orcamentarias":{
+                "search_term": "Diretrizes orçamentárias LDO",
+                "keywords_to_search": ["Diretrizes orçamentárias", "metas fiscais", "lei diretrizes orçamentárias", "LDO"],
+                "types": ["html"],
+                "keyword_check": ["Visualizar Documento","Baixar Documento"]
+            },
+            "lei_orcamentaria_anual":{
+                "search_term": "anual L.O.A.",
+                "keywords_to_search": ["LOA", "LOA Lei", "Lei orçamentária anual", "orçamentária anual"],
+                "types": ["html"],
+                "keyword_check": ["Visualizar Documento","Baixar Documento"]
+            },
+            "balanco_demonstracoes":{
+                "search_term": "Balanço anual Demonstrações Contábeis",
+                "keywords_to_search": ["Balanço anual", "Demonstrações Contábeis", "Balancete da Despesa", "Balanço Orçamentário de Despesas", " Balanço Patrimonial"],
+                "types": ["html"],
+                "keyword_check": ["Visualizar Documento","Baixar Documento"]
+            },
+            "execucao_orcamentaria_gestao_fiscal":{
+                "search_term": "Relatórios execução orçamentária gestão fiscal",
+                "keywords_to_search": ["execução orçamentária", "gestão fiscal", "execução orçamentaria", "prestacao_de_contas", "relatorios de gestao fiscal"],
+                "types": ["html"],
+                "keyword_check": ["Visualizar Documento","Baixar Documento"]
+            }
+        }
+    }
+}

@@ -3,6 +3,8 @@ from src.validadores.utils import check_df
 from ..base import Validador
 from src.validadores.utils import path_functions
 from src.validadores.utils.search_html import analyze_html
+from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils.check_df import check_columns
 
 class ValidadorRelatorios(Validador):
 
@@ -14,19 +16,34 @@ class ValidadorRelatorios(Validador):
     def predict_plano_plurianual(self,keywords):
         
         files = indexing.get_files(keywords['search_term'], self.job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['leis_orcamentarias'])
+        files = path_functions.filter_paths(files, words=keywords['filter_paths'])
         files = path_functions.agg_paths_by_type(files)
-        files = files['html']
 
-        # Analyze 
-        result = analyze_html(files, keyword_to_search=keywords['keyword_check'])
-        #Check result 
-        isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
-        return isvalid, result
+        if (keywords['tipo_do_validador'] == 'get_df'):
+            df = get_df(files, keywords['types'])
+            print(keywords['valores_esperados'])
+            check_columns(df, keywords['valores_esperados'])
 
-    def explain_plano_plurianual(self, result):
+        # if (keywords['tipo_do_validador'] == 'line_search'):
+            # result = line_search(files)
 
-        result_explain = ("Opção de visualizar ou baixar Plano Plurianual do município foi encontrado em {} arquivos".format((len(result.query('matches > 1')))))
+        else:
+            result = analyze_html(files['html'], keyword_to_search=keywords['keyword_check'])
+
+        # #Check result 
+        # threshold = keywords['threshold_type']
+        # if (keywords['threshold_type'] == "file"):
+        #     threshold = keywords['threshold'] * len(files)
+        # isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=threshold)
+        # return isvalid, result
+        return False, []
+
+    def explain_plano_plurianual(self, result, keywords):
+
+        result_explain = (
+            "Opção de visualizar ou baixar Plano Plurianual do município foi encontrado em {} arquivos".format(
+                (len(result.query(f"matches > {keywords['threshold']}"))))
+        )
         return result_explain
 
     # Link de acesso à Lei de Diretrizes Orçamentarias do município
@@ -112,14 +129,14 @@ class ValidadorRelatorios(Validador):
               }
 
         isvalid, result = self.predict_plano_plurianual(keywords=self.keywords['plano_plurianual'])
-        result_explain = self.explain_plano_plurianual(result)
+        # result_explain = self.explain_plano_plurianual(result, self.keywords['plano_plurianual'])
         resultados_relatorios['plano_plurianual']['predict'] = isvalid
-        resultados_relatorios['plano_plurianual']['explain'] = result_explain
+        # resultados_relatorios['plano_plurianual']['explain'] = result_explain
 
-        isvalid, result = self.predict_lei_diretrizes_orcamentarias(keywords=self.keywords['lei_diretrizes_orcamentarias'])
-        result_explain = self.explain_lei_diretrizes_orcamentarias(result)
-        resultados_relatorios['lei_diretrizes_orcamentarias']['predict'] = isvalid
-        resultados_relatorios['lei_diretrizes_orcamentarias']['explain'] = result_explain
+        # isvalid, result = self.predict_lei_diretrizes_orcamentarias(keywords=self.keywords['lei_diretrizes_orcamentarias'])
+        # result_explain = self.explain_lei_diretrizes_orcamentarias(result)
+        # resultados_relatorios['lei_diretrizes_orcamentarias']['predict'] = isvalid
+        # resultados_relatorios['lei_diretrizes_orcamentarias']['explain'] = result_explain
 
         # isvalid, result = self.predict_lei_orcamentaria_anual(keywords=self.keywords['lei_orcamentaria_anual'])
         # result_explain = self.explain_lei_orcamentaria_anual(result)

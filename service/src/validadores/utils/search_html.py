@@ -2,6 +2,7 @@ import re
 import itertools
 import pandas as pd
 from src.validadores.utils import read
+from src.validadores.utils.file_to_dataframe import convert_html
 
 def search_links(markup, term):
     """
@@ -227,3 +228,13 @@ def analyze_html(html_files, keyword_to_search):
 
     return result
 
+
+
+# def line_search(html_files):
+#     """
+#     Recebe arquivos html e verifica se uma mesma linha de uma tabela contêm palavras chaves esperadas
+#     """
+#     for path in html_files:
+#         soup = read.read_html(path)
+#         df = convert_html(soup)
+#         print(df['Arquivo'])

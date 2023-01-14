@@ -93,7 +93,6 @@ def check_all_values_of_column(df, keyword_check, typee='valor'):
 
     return df, isvalid
 
-import re
 def search_in_column(df, column_name, keywords):
     """
     Checa se uma coluna de um dataframe contém os valores procurados.
@@ -127,3 +126,13 @@ def search_in_column(df, column_name, keywords):
             df['isvalid'] =  isvalid
 
     return df
+
+def check_columns(df, valores_esperados):
+    df['isvalid'] = 0
+    # "valores_esperados": {"Descrição": ["PPA", "plano plurianual"], "Documentos": ".pdf", "Tamanho": "MB"}
+    for column in valores_esperados.keys():
+        df_aux = search_in_column(df, column, valores_esperados[column])
+        df['isvalid'] += df_aux['isvalid']
+    df.to_csv("/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/F01/service/teste321.csv")
+    # return df
+

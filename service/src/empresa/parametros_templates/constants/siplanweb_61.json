@@ -115,7 +115,10 @@
                 "search_term": "Plurianual PPA",
                 "keywords_to_search": ["PPA", "Plano Plurianual", "PPA Lei"],
                 "types": ["html"],
-                "keyword_check": ["Visualizar Documento","Baixar Documento"]
+                
+                "keyword_check": ["Visualizar Documento","Baixar Documento"],
+                "filter_paths": ["leis_orcamentarias"],
+                "threshold": 0
             },
             "lei_diretrizes_orcamentarias":{
                 "search_term": "Diretrizes orçamentárias LDO",

@@ -16,8 +16,6 @@ def index():
     return jsonify('Validadores.')
 
 
-# templates = ['abo_21', 'sintese', 'betha', 'siplanweb', 'pt_45', 'memory_66']
-
 @validadores.route('/<string:nome_do_template>', methods=['POST', 'GET'])
 def rodar_template(nome_do_template):
 
@@ -26,15 +24,53 @@ def rodar_template(nome_do_template):
     
     for municipio in municipios:
 
-        # if municipio == "congonhas": #em testes
+        print(municipio)
+        resultado = pipeline_validadores.todas_tags(parametros, municipio)
+
+        municipio = get_municipio(municipio)
+        print("resultado final")
+        print(resultado)
+
+        # print("Salvando resultado")
+        salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+
+    return jsonify(f"Template {nome_do_template} validado") 
+
+@validadores.route('/<string:nome_do_template>/servidores', methods=['POST', 'GET'])
+def rodar_servidores(nome_do_template):
+
+    parametros = get_keywords_do_template(nome_do_template)
+    municipios = get_nome_dos_municipios_do_template(nome_do_template)
+    
+    for municipio in municipios:
+        if municipio == 'manhuacu':
             print(municipio)
-            resultado = pipeline_validadores.todas_tags(parametros, municipio)
+            resultado = pipeline_validadores.pipeline_servidores(parametros, municipio)
 
             municipio = get_municipio(municipio)
             print("resultado final")
             print(resultado)
 
-            print("Salvando resultado")
-            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+        # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 
+
+@validadores.route('/<string:nome_do_template>/despesas', methods=['POST', 'GET'])
+def rodar_despesas(nome_do_template):
+
+    parametros = get_keywords_do_template(nome_do_template)
+    municipios = get_nome_dos_municipios_do_template(nome_do_template)
+    
+    for municipio in municipios:
+        if municipio == 'manhuacu':
+            print(municipio)
+            resultado = pipeline_validadores.pipeline_despesas(parametros, municipio)
+
+            municipio = get_municipio(municipio)
+            print("resultado final")
+            print(resultado)
+
+        # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+
+    return jsonify(f"Template {nome_do_template} validado") 
+
