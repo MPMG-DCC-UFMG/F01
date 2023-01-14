@@ -12,11 +12,15 @@ A primeira etapa para poder instalar o sistema é realizar o donwload de seu có
 Dentro de /service rode o comando:
 
 <!-- export FLASK_ENV=development -->
-```
+<!-- ```
 FLASK_APP=main.py flask run
+``` -->
+```
+python app.py <numero_de_porta>
 ```
 
-A porta adotada será a `5014` http://localhost:5014 (definida no arquivo "app.py")
+
+A porta adotada será <numero_de_porta> http://localhost:<numero_de_porta> (definida como argumento da linha de comando).
 
 Obs: Os itens estão listados em ['lista_exigencias.csv'](https://github.com/MPMG-DCC-UFMG/F01/blob/main/service/src/checklist/lista_exigencias.csv)
 
