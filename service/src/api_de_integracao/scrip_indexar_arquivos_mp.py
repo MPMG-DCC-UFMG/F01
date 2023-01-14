@@ -14,7 +14,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
     MUNICIPIOS = [municipio.nome_formatado for municipio in get_municipios_do_template(nome_do_template)]
     # TODO trocar o usuário
 
-    HOME = Path("/home/ufmg.amedeiros")
+    HOME = Path.home()
 
     for municipio in MUNICIPIOS:
 
@@ -86,7 +86,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
 
 
         print('Run crawler')
-        process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/ufmg.amedeiros/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1'])
+        process = subprocess.Popen(["/dados01/workspace/ufmg_2021_f01/f01/search_engine/fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1'])
 
         try:
             outs, errs = process.communicate(timeout=TIME_OUT)
