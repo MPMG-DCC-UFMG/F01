@@ -22,5 +22,21 @@
             "link_de_acesso": "Nome"
         },
         "conselhos_municipais":{}
+    },
+    "servidores_publicos": {
+        "dados_dos_servidores": {
+            "search_term": "Folha Salarial",
+            "keywords_to_search": ["Nome", "Servidor", "Matrícula", "Cargo", "Função" ],
+            "filter_paths": ["servidores"],
+            "types": ["html"],
+            "max_files": 1,
+            "nome": "Servidor",
+            "cargo_funcao": "Cargo/Funçao",
+            "remuneracao":"Valor Bruto"
+         },
+        "auxilios": {
+            "search_term": "servidor folha",
+            "keywords_to_search": ["Nome", "Servidor", "Matrícula", "Cargo", "Função"]
+        }
     }
 }

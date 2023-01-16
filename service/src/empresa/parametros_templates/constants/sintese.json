@@ -31,10 +31,11 @@
        }
    },
 
-    "servidores": {
+    "servidores_publicos": {
       "dados_dos_servidores": {
          "search_term": "servidor folha",
          "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo", "Dpto" ],
+         "filter_paths": ["servidores_publicos"],
          "types": ["html"],
          "nome": "Servidor",
          "cargo_funcao": "Cargo/Funçao",

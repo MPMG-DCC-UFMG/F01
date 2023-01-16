@@ -7,7 +7,7 @@ from src.validadores.informacoes_institucionais.pipeline_informacoes_institucion
 from src.validadores.terceiro_setor.pipeline_terceiro_setor import pipeline_terceiro_setor
 from src.validadores.concursos_publicos.pipeline_concursos_publicos import pipeline_concursos_publicos
 from src.validadores.obras_publicas.pipeline_obras_publicas import pipeline_obras_publicas
-from src.validadores.servidores.pipeline_servidores import pipeline_servidores
+from src.validadores.servidores_publicos.pipeline_servidores_publicos import pipeline_servidores_publicos
 from src.validadores.despesas_com_diarias.pipeline_despesas_com_diarias import pipeline_despesas_com_diarias
 from src.validadores.orcamento.pipeline_orcamento import pipeline_orcamento
 
@@ -29,10 +29,10 @@ def todas_tags(parametros, job_name):
 
     return resultado
 
-def servidores(parametros, job_name):
+def servidores_publicos(parametros, job_name):
 
     resultado = {
-        'servidores': pipeline_servidores(parametros, job_name)
+        'servidores_publicos': pipeline_servidores_publicos(parametros, job_name)
     }
 
     return resultado

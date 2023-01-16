@@ -1,37 +1,33 @@
 from src.validadores.utils import handle_files
-from src.validadores.servidores.dados_dos_servidores import ValidadorDadosDosServidores
-from src.validadores.servidores.registro_da_remuneracao import ValidadorRegistroDaRemuneracao
-from src.validadores.servidores.registro_por_lotacao import ValidadorRegistroPorLotacao
-from src.validadores.servidores.auxilios import ValidadorAuxilios
-from src.validadores.servidores.proventos_de_aposentadoria import ValidadorProventosDeAposentadoria
-from src.validadores.servidores.proventos_de_pensao import ValidadorProventosDePensao
-from src.validadores.servidores.relatorio_mensal import ValidadorRelatorioMensal
-from src.validadores.servidores.dados_de_remuneracao import ValidadorDadosDeRemuneracao
+from src.validadores.servidores_publicos.dados_dos_servidores import ValidadorDadosDosServidores
+from src.validadores.servidores_publicos.registro_da_remuneracao import ValidadorRegistroDaRemuneracao
+from src.validadores.servidores_publicos.registro_por_lotacao import ValidadorRegistroPorLotacao
+from src.validadores.servidores_publicos.auxilios import ValidadorAuxilios
+from src.validadores.servidores_publicos.proventos_de_aposentadoria import ValidadorProventosDeAposentadoria
+from src.validadores.servidores_publicos.proventos_de_pensao import ValidadorProventosDePensao
+from src.validadores.servidores_publicos.relatorio_mensal import ValidadorRelatorioMensal
+from src.validadores.servidores_publicos.dados_de_remuneracao import ValidadorDadosDeRemuneracao
 
-def pipeline_servidores(keywords, job_name):
+def pipeline_servidores_publicos(keywords, job_name):
 
     try:
-        keywords = keywords['servidores']
+        keywords = keywords['servidores_publicos']
     except KeyError:
         return None
 
-    servidores = {
-        'empenhos': {},
-        'pagamentos': {},
-        'consulta_favorecido': {},
-        'gerar_relatorios': {},
-        'relatorios': {}
+    servidores_publicos = {
+        'dados_dos_servidores': {},
     }
     
 
-    # Subtag - Dados dos Servidores
+    # Subtag - Dados dos ServidoresPublicos
     validador_dados_dos_servidores = ValidadorDadosDosServidores(job_name, keywords['dados_dos_servidores'])
-    # output_dados_dos_servidores = validador_dados_dos_servidores.predict()
-    # print(output_dados_dos_servidores)
+    servidores_publicos['dados_dos_servidores'] = validador_dados_dos_servidores.predict()
+    # print(output_dados_dos_servidores_publicos)
 
     # Registro da remuneração
     # validador_registro_da_remuneracao = ValidadorRegistroDaRemuneracao(job_name, keywords['registro_da_remuneracao'])
-    # output_registro_da_remuneracao = validador_registro_da_remuneracao.predict()
+    # servidores_publicos['dados_dos_servidores'] = validador_registro_da_remuneracao.predict()
     # print(output_registro_da_remuneracao)
     
     # Registro por lotação

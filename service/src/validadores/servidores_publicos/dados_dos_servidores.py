@@ -10,10 +10,13 @@ class ValidadorDadosDosServidores:
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['servidores_publicos'])
+        files = path_functions.filter_paths(files, words=keywords['filter_paths'])
         self.files = path_functions.agg_paths_by_type(files)
-        self.df = get_df(self.files, keywords['types'])
-        # print(self.df)
+        try:
+            max_files = keywords['max_files']
+        except KeyError:
+            max_files = None
+        self.df = get_df(self.files, keywords['types'], max_files)
 
     def predict_nome(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
@@ -36,7 +39,7 @@ class ValidadorDadosDosServidores:
             'remuneracao': {},
         }
 
-        # # Nome
+        # Nome
         # isvalid, result = self.predict_nome()
         # result_explain = self.explain(result, 'nome')
         # resultados['nome']['predict'] = isvalid

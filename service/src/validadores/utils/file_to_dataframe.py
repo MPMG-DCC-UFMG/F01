@@ -178,8 +178,11 @@ def load_and_convert_files(paths, format_type):
         list_to_concat = []
         df = pd.DataFrame()
         for file_name in paths:
+            print(file_name)
+            # print(file_name)
             soup = read.read_html(file_name)
             new_df = convert_html(soup)
+            print(new_df)
             list_to_concat.append(new_df)
         
         if len(list_to_concat) != 0:
@@ -268,10 +271,12 @@ def load_and_convert_files(paths, format_type):
     df = df.drop_duplicates()
     return df
 
-def get_df(files, ttype):
+def get_df(files, ttype, max_files=None):
     df_final = pd.DataFrame()
     for key, values in files.items():
         if key in ttype:
+            if max_files:
+                values = values[:max_files]
             df = load_and_convert_files(paths=values, format_type=key)
             df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
             df_final = df_final.drop_duplicates()

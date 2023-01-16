@@ -36,41 +36,25 @@ def rodar_template(nome_do_template):
 
     return jsonify(f"Template {nome_do_template} validado") 
 
-@validadores.route('/<string:nome_do_template>/servidores', methods=['POST', 'GET'])
-def rodar_servidores(nome_do_template):
+@validadores.route('/<string:nome_do_template>/<string:nome_da_tag>', methods=['GET'])
+def rodar_tag(nome_do_template, nome_da_tag):
+    print(nome_do_template, nome_da_tag)
 
     parametros = get_keywords_do_template(nome_do_template)
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        if municipio == 'manhuacu':
-            print(municipio)
-            resultado = pipeline_validadores.pipeline_servidores(parametros, municipio)
+        if municipio == 'sao_joao_del_rei':
+            print('-rodando município:', municipio)
+
+            if nome_da_tag == 'servidores_publicos':
+                resultado = pipeline_validadores.pipeline_servidores_publicos(parametros, municipio)
+            if nome_da_tag == 'despesas':
+                resultado = pipeline_validadores.pipeline_despesas(parametros, municipio)
 
             municipio = get_municipio(municipio)
-            print("resultado final")
-            print(resultado)
+            print("resultado final", resultado)
 
         # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 
-
-@validadores.route('/<string:nome_do_template>/despesas', methods=['POST', 'GET'])
-def rodar_despesas(nome_do_template):
-
-    parametros = get_keywords_do_template(nome_do_template)
-    municipios = get_nome_dos_municipios_do_template(nome_do_template)
-    
-    for municipio in municipios:
-        if municipio == 'manhuacu':
-            print(municipio)
-            resultado = pipeline_validadores.pipeline_despesas(parametros, municipio)
-
-            municipio = get_municipio(municipio)
-            print("resultado final")
-            print(resultado)
-
-        # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
-
-    return jsonify(f"Template {nome_do_template} validado") 
-
