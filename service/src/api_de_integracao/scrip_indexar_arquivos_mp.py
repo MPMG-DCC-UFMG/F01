@@ -61,6 +61,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
         }
 
         municipio_directory = HOME / ".fscrawler" / municipio
+        print(municipio_directory)
 
         if os.path.exists(municipio_directory):
 
@@ -75,6 +76,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
 
                 print("Creating configuration file:", municipio_directory / "_settings.yaml")
                 with open(municipio_directory / "_settings.yaml", 'w') as yaml_file:
+                    print("Criando o _settings", municipio)
                     yaml.dump(config, yaml_file, default_flow_style=False)
 
         else:
