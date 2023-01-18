@@ -1,5 +1,5 @@
 import os
-import json 
+import json
 from src import db
 import pandas as pd
 from flask import jsonify
@@ -7,19 +7,14 @@ from flask import Blueprint
 from src.empresa.models import Empresa
 from src.municipio.models import Municipio
 from src.api_de_integracao.manage import formatar_nome
-from src.empresa.manage import get_nome_dos_municipios_do_template_sem_formatar
+from src.empresa.manage import get_nome_dos_municipios_do_template_sem_formatar, get_nome_dos_templates
 
-empresa = Blueprint('empresa', __name__, template_folder="templates")
+empresa = Blueprint('empresa', __name__)
 
 
 @empresa.route('/')
 def index():
-    templates = Empresa.query.all()
-    if len(templates):
-        templates = [template.nome for template in templates]
-    # municipios = Municipio.query.all()
-
-    print(templates)
+    templates = get_nome_dos_templates()
     return jsonify(templates)
 
 
@@ -75,10 +70,10 @@ def gerar_jsons():
     if len(templates):
         templates = [template.nome for template in templates]
     for nome_do_template in templates:
-        with open(os.getcwd() + f"/src/empresa/municipios/{nome_do_template}.json", "w", encoding = "utf-8") as outfile: 
+        with open(os.getcwd() + f"/src/empresa/municipios/{nome_do_template}.json", "w", encoding="utf-8") as outfile:
             print(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template))
-            json_object = json.dumps(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template), indent = 4, ensure_ascii = False) 
-            outfile.write(json_object) 
+            json_object = json.dumps(get_nome_dos_municipios_do_template_sem_formatar(
+                nome_do_template), indent=4, ensure_ascii=False)
+            outfile.write(json_object)
 
-    return jsonify('ok') 
-
+    return jsonify('ok')

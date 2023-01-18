@@ -32,8 +32,8 @@ class ValidadorRelatorioEstatistico:
         isvalid = check_df.files_isvalid(result, column_name='matches', threshold=0)
         return isvalid, result
 
-    def explai(isvalid, result, descricao):
-        if isvalid:  
+    def explain(self, result, descricao):
+        if result.size:  
             result_explain = f"Referências a {descricao} de pedidos de atendimentos foram encontrados."
         else:     
             result_explain = f"Referências a {descricao} de pedidos de atendimentos não foram encontrados."
@@ -42,19 +42,19 @@ class ValidadorRelatorioEstatistico:
     def predict(self):
 
         resultados = {
-            # 'quantidade': {},
+            'quantidade': {},
             'atendidos': {},
             'indeferidos': {},
         }
 
-        # resultados['quantidade']['predict'], result = self.predict_quantidade()
-        # resultados['quantidade']['explain'] = self.explai(result, "quantidade")
+        resultados['quantidade']['predict'], result = self.predict_quantidade()
+        resultados['quantidade']['explain'] = self.explain(result, "quantidade")
 
         resultados['atendidos']['predict'], result = self.predict_atendidos()
-        resultados['atendidos']['explain'] = self.explai(result, "quantidade atendida")
+        resultados['atendidos']['explain'] = self.explain(result, "quantidade atendida")
 
         resultados['indeferidos']['predict'], result = self.predict_indeferidos()
-        resultados['indeferidos']['explain'] = self.explai(result, "quantidade indeferida")
+        resultados['indeferidos']['explain'] = self.explain(result, "quantidade indeferida")
 
         return resultados
         

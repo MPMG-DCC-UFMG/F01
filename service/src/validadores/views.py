@@ -44,9 +44,11 @@ def rodar_tag(nome_do_template, nome_da_tag):
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        if municipio == 'sao_joao_del_rei':
+        if municipio == 'muriae':
             print('-rodando município:', municipio)
 
+            if nome_da_tag == 'acesso_a_informacao':
+                resultado = pipeline_validadores.acesso_a_informacao(parametros, municipio)
             if nome_da_tag == 'servidores_publicos':
                 resultado = pipeline_validadores.pipeline_servidores_publicos(parametros, municipio)
             if nome_da_tag == 'despesas':

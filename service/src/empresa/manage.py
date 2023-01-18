@@ -5,6 +5,12 @@ def get_template(nome_do_template):
     template = Empresa.query.filter_by(nome=nome_do_template).first()
     return template
 
+def get_nome_dos_templates():
+    templates = Empresa.query.all()
+    if len(templates):
+        templates = [template.nome for template in templates]
+    return templates
+
 def get_municipios_do_template(nome_do_template):
     template = Empresa.query.filter_by(nome=nome_do_template).first()
     return template.municipios

@@ -29,6 +29,12 @@ def todas_tags(parametros, job_name):
 
     return resultado
 
+def acesso_a_informacao(parametros, job_name):
+    resultado = {
+        'acesso_a_informacao': pipeline_acesso_a_informacao(parametros, job_name)
+    }
+    return resultado
+
 def servidores_publicos(parametros, job_name):
 
     resultado = {

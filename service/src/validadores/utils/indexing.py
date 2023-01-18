@@ -7,7 +7,7 @@ es = Elasticsearch('127.0.0.1', port=8055)
 def remove_index (job_name):
    es.indices.delete(index=job_name, ignore=[400, 404])
 
-def request_search(search_term, keywords_search=[], job_name='index_gv', verbose=False):
+def request_search(search_term, keywords_search, job_name):
    num_matches = 10000
    response = es.search(
    index=job_name, 

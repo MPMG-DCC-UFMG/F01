@@ -64,9 +64,11 @@ class ValidadorInformacoes(Validador):
 
     def predict_link_portal(self, keywords):
 
-        html_files = indexing.get_files_html(obter_url_portal(self.job_name), self.job_name,
+        html_files = indexing.get_files_html("Perguntas", self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
+
+        print('eita:',indexing.get_files("a", self.job_name, keywords_search=['a']))
 
         result = analyze_html(
             html_files, keyword_to_search=obter_url_portal(self.job_name))

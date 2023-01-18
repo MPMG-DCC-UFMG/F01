@@ -88,7 +88,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
 
 
         print('Run crawler')
-        process = subprocess.Popen([HOME / "search_engine" / "fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1'])
+        process = subprocess.Popen([HOME / "search_engine" / "fscrawler-es7-2.9/bin/fscrawler", municipio, '--loop', '1', '--restart'])
 
         try:
             outs, errs = process.communicate(timeout=TIME_OUT)

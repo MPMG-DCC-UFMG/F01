@@ -22,7 +22,7 @@ elasticsearch-dsl==7.4.0
 email-validator==1.1.1
 etelemetry==0.3.0
 filelock==3.8.0
-Flask==1.1.2
+Flask==2.2.2
 Flask-Bcrypt==0.7.1
 Flask-Login==0.5.0
 Flask-Migrate==2.5.3

@@ -1,9 +1,15 @@
 import os
 import json
+from src.empresa.manage import get_nome_dos_templates
 
 class ErroAoAbrirArquivo(Exception):
     def __init__(self, message, cause):
         super(ErroAoAbrirArquivo, self).__init__(message + u', causado por ' + str(cause))
+        self.cause = cause
+
+class ErroTemplate(Exception):
+    def __init__(self, message, cause):
+        super(ErroTemplate, self).__init__(message + u'')
         self.cause = cause
 
 class Parametros():
@@ -11,7 +17,6 @@ class Parametros():
         pass
 
 def get_keywords_do_template(template):
-
 
     """
     Obtem os parâmetro de um template.
@@ -26,6 +31,10 @@ def get_keywords_do_template(template):
     keywords: JSON
         JSON com os parâmetro do template.
     """
+    templates = get_nome_dos_templates()
+    if template not in templates:
+        raise ErroTemplate(f"Template '{template}' não existe", Exception)
+
     try:
         with open(os.getcwd() + f"/src/empresa/parametros_templates/constants/{template}.json") as fp:
             parametros = json.load(fp)
