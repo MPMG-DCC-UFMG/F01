@@ -11,7 +11,7 @@ class ValidadorDadosDosContratos:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['contratos'])
         self.files = path_functions.agg_paths_by_type(files)
-        self.df = get_df(self.files, keywords['types'])
+        self.df = get_df(self.files, keywords['types'], max_files=keywords['max_files'])
 
     def predict_objeto(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['objeto'], typee='text')

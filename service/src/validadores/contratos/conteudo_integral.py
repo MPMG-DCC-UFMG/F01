@@ -5,7 +5,7 @@ from ..base import Validador
 from src.validadores.utils import path_functions
 from src.validadores.utils.search_html import analyze_html
 
-# Permite gerar relatório da consulta de empenhos ou de pagamentos em formato aberto	
+# Disponibiliza o conteúdo integral dos contratos	
 class ValidadorConteudoIntegral(Validador):
 
     def __init__(self, job_name, keywords):
@@ -20,6 +20,8 @@ class ValidadorConteudoIntegral(Validador):
 
         # Analyze 
         files = self.files['html']
+        if self.keywords['max_files']: # Pode limitar  a quantidade
+            files = files[:self.keywords['max_files']]
         result = analyze_html(files, keyword_to_search=keyword_check)
         #Check result 
         isvalid = check_df.infos_isvalid(result, column_name='matches', threshold=0)
@@ -43,10 +45,10 @@ class ValidadorConteudoIntegral(Validador):
     def explain(self, result, keywords):
 
         if len(keywords) > 1:
-            result = "Os palavras chaves {} estão presentes {} vezes em páginas de empenhos ou pagamentos ".format(
+            result = "Os palavras chaves {} estão presentes {} vezes em páginas de contratos ".format(
                 keywords, sum(result['matches']))
         else:
-            result = "A palavra chave '{}' está presente {} vezes em páginas de empenhos ou pagamentos ".format(
+            result = "A palavra chave '{}' está presente {} vezes em páginas de contratos ".format(
                 keywords[0], sum(result['matches']))
 
         return result

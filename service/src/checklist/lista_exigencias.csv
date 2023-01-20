@@ -49,14 +49,14 @@ id,tag,sub-tag,info,abreviacao
 48,Licitações,Inexigibilidade e Dispensa,Registro dos procedimentos de inexigibilidade e de dispensa de licitação realizados pela Prefeitura ou pela Câmara Municipal: organizado conforme ordem cronológica e numérica (número do procedimento),
 49,Licitações,Editais,Disponibiliza o conteúdo integral dos editais,
 50,Licitações,Resultados de Licitações,Possibilita a consulta aos resultados das licitações ocorridas,
-51,Contratos,Dados dos contratos,Objeto,
-52,Contratos,Dados dos contratos,Valor,
-53,Contratos,Dados dos contratos,Favorecido,
-54,Contratos,Dados dos contratos,Número/Ano do contrato,
-55,Contratos,Dados dos contratos,Vigência,
-56,Contratos,Dados dos contratos,Licitação de origem,
-57,Contratos,Conteúdo integral,Disponibiliza o conteúdo integral dos contratos,
-58,Contratos,Gerar relatório,Permite gerar relatório da consulta de licitações ou de contratos em formato aberto,
+51,Contratos,Dados dos contratos,Objeto,objeto
+52,Contratos,Dados dos contratos,Valor,valor
+53,Contratos,Dados dos contratos,Favorecido,favorecido
+54,Contratos,Dados dos contratos,Número/Ano do contrato,numero_ano_do_contrato
+55,Contratos,Dados dos contratos,Vigência,vigencia
+56,Contratos,Dados dos contratos,Licitação de origem,licitacao_de_origem
+57,Contratos,Conteúdo integral,Disponibiliza o conteúdo integral dos contratos,conteudo_integral
+58,Contratos,Gerar relatório,Permite gerar relatório da consulta de licitações ou de contratos em formato aberto,gerar_relatorio
 59,Terceiro Setor,Dados de Parcerias,Data de celebração,
 60,Terceiro Setor,Dados de Parcerias,Objeto,
 61,Terceiro Setor,Dados de Parcerias,Conveniados,

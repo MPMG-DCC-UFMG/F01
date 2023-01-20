@@ -46,20 +46,22 @@ def rodar_tag(nome_do_template, nome_da_tag):
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        # if municipio == 'muriae':
+        # if municipio == 'alagoa':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
                 resultado = pipeline_validadores.acesso_a_informacao(parametros, municipio)
+            if nome_da_tag == 'contratos':
+                resultado = pipeline_validadores.contratos(parametros, municipio)
             if nome_da_tag == 'servidores_publicos':
                 resultado = pipeline_validadores.pipeline_servidores_publicos(parametros, municipio)
             if nome_da_tag == 'despesas':
                 resultado = pipeline_validadores.pipeline_despesas(parametros, municipio)
-                
-
+            
             municipio = get_municipio(municipio)
             print("resultado final: municipio")
-            pprint.pprint(resultado['acesso_a_informacao']['informacoes'], indent=2)
+            print(resultado)
+            # pprint.pprint(resultado, indent=2)
             print("**********************")
 
             salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)

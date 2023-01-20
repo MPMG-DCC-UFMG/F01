@@ -8,7 +8,6 @@ class Validador(ABC):
     Validador base de todos validadores do projeto.
     """
 
-    @abstractmethod
     def explain(self, df, column_name):         
         """
         Responsável por resumir em uma string o resultado da validação.

@@ -4,6 +4,7 @@ import pandas as pd
 import codecs
 import tabula
 from src.validadores.utils import read
+from src.validadores.utils.detect_delimiter import detect_delimiter
 
 def read_content(path, folder, file):
     try:
@@ -39,7 +40,8 @@ def list_to_text(soup):
 def informacao_dois_pontos_para_df(soup):
     """
     Converte as informações separadas por dois pontos de um html em um Dataframe.
-         
+    Não faz isso para o que já está dentro de uma tag table
+    
     Parameters
     ----------
     soup: bs4.BeautifulSoup
@@ -51,16 +53,24 @@ def informacao_dois_pontos_para_df(soup):
         Um df.
     """
 
-    body = soup.body
-    body.script.clear()
+    body = soup.body #Ele começa acessando o elemento <body> do documento usando soup.body.
+    body.script.clear() #Removendo as tags <scrip>
+    try:
+        body.table.clear()  #Pular elementos que estão dentro de uma tabela
+    except AttributeError:
+        pass
 
     df_= {}
 
     for element in body.next_elements:
+        #O atributo next_elements retorna um iterador que retorna recursivamente 
+        # todos os descendentes do elemento e seus próximos irmãos, na ordem do documento.
         textos_da_tag = [text for text in element.stripped_strings]   
         for texto in textos_da_tag:
             if ":" in repr(texto):
-                key_value = element.getText().strip()
+                key_value = element.getText().strip() #Extrair o texto limpo de cada elemento chamando o atributo 
+                # stripped_strings. Isso retorna um iterador sobre todas as strings de texto no elemento,
+                # sem espaços em branco no início e no final.
                 key_value = re.split(';|:|\n', key_value)
                 if (len(key_value) == 2):
                     key = key_value[0]
@@ -178,13 +188,11 @@ def load_and_convert_files(paths, format_type):
         list_to_concat = []
         df = pd.DataFrame()
         for file_name in paths:
-            print(file_name)
             # print(file_name)
             soup = read.read_html(file_name)
             new_df = convert_html(soup)
-            print(new_df)
+            new_df['FileName'] = file_name
             list_to_concat.append(new_df)
-        
         if len(list_to_concat) != 0:
             df = pd.concat(list_to_concat)
 
@@ -199,8 +207,13 @@ def load_and_convert_files(paths, format_type):
     elif format_type == 'bat':
 
         list_to_concat = []
-        for i in  paths:
-            tabela = pd.read_csv(i, on_bad_lines='skip')
+        for i in paths:
+
+            delimiter = detect_delimiter(i)
+            if not delimiter:
+                print("WARNING: delimiter not found for", i)
+                continue
+            tabela = pd.read_csv(i, delimiter=delimiter, on_bad_lines='skip')
             
             aux = 0
 
@@ -210,7 +223,6 @@ def load_and_convert_files(paths, format_type):
 
             list_to_concat.append(tabela)
         df = concat_lists(list_to_concat)
-    
     elif format_type == 'doc':
 
         list_to_concat = []
@@ -272,12 +284,16 @@ def load_and_convert_files(paths, format_type):
     return df
 
 def get_df(files, ttype, max_files=None):
+    """
+    Converte uma lista de arquivos de um tipo em uma tabela (dataframe)
+    """
     df_final = pd.DataFrame()
     for key, values in files.items():
-        if key in ttype:
-            if max_files:
-                values = values[:max_files]
-            df = load_and_convert_files(paths=values, format_type=key)
-            df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
-            df_final = df_final.drop_duplicates()
+        if not key in ttype: # Converte apenas o arquivos com um tipo em 'ttype'
+            continue
+        if max_files: # Pode limitar  a quantidade
+            values = values[:max_files]
+        df = load_and_convert_files(paths=values, format_type=key)
+        df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
+        df_final = df_final.drop_duplicates()
     return df_final

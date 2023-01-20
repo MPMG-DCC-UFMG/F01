@@ -66,6 +66,36 @@
             "value": "PARECER"
         }
     },
+    "contratos": {
+        "dados_dos_contratos": {
+             "search_term": "contrato NUM_CONTRATO objeto Contratado Vigência NUM_EXERCICIO",
+             "keywords_to_search": ["vigência", "Valor Item", "Termos Aditivos", "Itens Contratados"],
+             "types": ["bat", "html"],
+             "max_files": 100,
+             "objeto": "Objeto", 
+             "valor": "Valor Contrato",
+             "favorecido": "Contratado",
+             "numero_ano_do_contrato": "Nº / Exercício do Contrato",
+             "vigencia": "Vigência",
+             "licitacao_de_origem": "NUM_EXERC_PROC_LICITATORIO"
+        },
+        "conteudo_integral": {
+                "search_term": "contrato NUM_CONTRATO objeto Contratado Vigência NUM_EXERCICIO",
+                "keywords_to_search": ["vigência", "Valor Item", "Termos Aditivos", "Itens Contratados"],
+                "types": ["html"],
+                "max_files": 100,
+                "keyword_check": ["Detalhamento do Contrato", "Itens Contratados", "Pagamentos", "Termos Aditivos", "Documentos"]
+        },
+        "gerar_relatorio": {
+            "search_term_contratos": "Contrato serviços contratante contratada",
+            "keywords_to_search_contratos": ["Contrato de serviços"],
+            "tipo_validador": "files",
+            "search_term_licitacoes": ".pdf",
+            "keywords_to_search_licitacoes": [".pdf"],
+            "types": ["html"],
+            "keyword_check": ["Gerar PDF","Gerar Excel","Gerar CSV", "Copiar Dados"]
+        }
+    },
     "informacoes_institucionais":{
         "registro_das_competências":{
             "search_term": "Insitucionais",

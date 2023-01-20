@@ -35,6 +35,12 @@ def acesso_a_informacao(parametros, job_name):
     }
     return resultado
 
+def contratos(parametros, job_name):
+    resultado = {
+        'contratos': pipeline_contratos(parametros, job_name)
+    }
+    return resultado
+
 def servidores_publicos(parametros, job_name):
 
     resultado = {

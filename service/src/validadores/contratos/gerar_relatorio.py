@@ -29,7 +29,7 @@ class ValidadorGerarRelatorio(Validador):
             files[k].extend(v)
         self.files = files
 
-    def predict_relatorio(self, keyword_check):
+    def predict_botao_download_relatorio(self, keyword_check):
 
         # Analyze 
         files = self.files['html']
@@ -39,22 +39,38 @@ class ValidadorGerarRelatorio(Validador):
 
         return isvalid, result
 
+    def predict_files_relatorios(self): 
+        """
+        Verifica apenas a quantidade de arquivos coletados
+        """
+        isvalid = len(self.files['pdf']) > 0
+        return isvalid, []
+
     def predict(self):
 
         resultados_gerar_relatorio = {
             'gerar_relatorio': {},
         }
 
-        isvalid, result = self.predict_relatorio(self.keywords['keyword_check'])
-        result_explain = self.explain(result, self.keywords['keyword_check'])
+        if self.keywords['tipo_validador'] == 'files':
+            isvalid, result = self.predict_files_relatorios()
+            result_explain = self.explain_files_relatorios(isvalid)
+        else: 
+            isvalid, result = self.predict_botao_download_relatorio(self.keywords['keyword_check'])
+            result_explain = self.explain_botao_download_relatorio(result, self.keywords['keyword_check'])
+
         resultados_gerar_relatorio['gerar_relatorio']['predict'] = isvalid
         resultados_gerar_relatorio['gerar_relatorio']['explain'] = result_explain
 
         return resultados_gerar_relatorio
 
+    def explain_files_relatorios(self, isvalid):
+        if isvalid:
+            return "Foram encontrados arquivos de contratos em formato aberto."
+        else:
+            return "Não foram encontrados arquivos de contratos em formato aberto."
 
-    def explain(self, result, keywords):
-
+    def explain_botao_download_relatorio(self, result, keywords):
         if len(keywords) > 1:
             result = "Os palavras chaves {} estão presentes {} vezes em páginas de empenhos ou pagamentos ".format(
                 keywords, sum(result['matches']))
