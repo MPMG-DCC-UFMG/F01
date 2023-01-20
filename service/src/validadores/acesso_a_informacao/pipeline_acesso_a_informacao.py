@@ -11,9 +11,9 @@ def pipeline_acesso_a_informacao(keywords, job_name):
 
     acesso_a_informacao = {
         'informacoes': {},
-        'requisitos_exigidos': {},
-        'bases_de_dados_abertos': {},
-        'bases_de_dados_abertos':{},
+        # 'requisitos_exigidos': {},
+        # 'bases_de_dados_abertos': {},
+        # 'bases_de_dados_abertos':{},
     }
 
     # Subtag - Informações

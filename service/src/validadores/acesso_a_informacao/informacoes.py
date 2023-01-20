@@ -4,11 +4,11 @@ from src.validadores.base import Validador
 from src.validadores.utils.search_html import analyze_html
 from src.municipio.manage_municipios import obter_url_portal
 
+
 # Textos que validam o item: Texto padrão explicativo sobre a Lei de Acesso à Informação --
 LEI_ACESSO_INFORMACAO_CONTEUDO = [
     'Cabe aos órgãos e entidades do poder público, observadas as normas e procedimentos específicos aplicáveis, assegurar',
     'conhecida como a Lei de Acesso à Informação',
-    'Lei Federal 12.527',
     'Sistema Eletrônico de Serviço de Informações ao Cidadão',
     'A Lei de Acesso a Informações no',
     'em cumprimento a Lei nº 12.527',
@@ -47,10 +47,10 @@ ACESSO_ILIMITADO = [
     'clique aqui para fazer login',
     'clique aqui para fazer cadastro',
     'para baixar necessrio'
+    'para baixar necessário'
 ]
 
-PERGUNTAS_FREQUENTES = ['FAQ', 'Perguntas Frequentes',
-                        'perguntas frequentes', 'Perguntas', 'perguntas']
+PERGUNTAS_FREQUENTES = ['FAQ', 'Perguntas Frequentes', 'perguntas']
 
 
 class ValidadorInformacoes(Validador):
@@ -67,9 +67,6 @@ class ValidadorInformacoes(Validador):
         html_files = indexing.get_files_html("Perguntas", self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
-
-        print('eita:',indexing.get_files("a", self.job_name, keywords_search=['a']))
-
         result = analyze_html(
             html_files, keyword_to_search=obter_url_portal(self.job_name))
 
@@ -151,7 +148,6 @@ class ValidadorInformacoes(Validador):
         html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
                                              keywords_search=keywords['keywords_to_search'],
                                              filter_in_path=['acesso_a_informacao'])
-
         predict, result = self.predict_link_em_pagina_html(
             html_files, URL_TRANSPARENCIA_MG)
         return predict, result
@@ -170,8 +166,7 @@ class ValidadorInformacoes(Validador):
     def predict_acesso_ilimitado(self, keywords):
 
         html_files = indexing.get_files_html(keywords['search_term'], self.job_name,
-                                             keywords_search=keywords['keywords_to_search'],
-                                             filter_in_path=['acesso_a_informacao'])
+                                             keywords_search=keywords['keywords_to_search'])
 
         result = analyze_html(
             html_files, keyword_to_search=ACESSO_ILIMITADO)

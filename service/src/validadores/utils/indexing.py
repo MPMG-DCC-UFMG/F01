@@ -17,7 +17,7 @@ def request_search(search_term, keywords_search, job_name):
          {
             "bool":{
                "should":[
-                  { "terms": { "array": keywords_search }},
+                  { "terms": { "content": keywords_search }},
                   { "match" : { "content": search_term }},
                ]
             },
@@ -40,7 +40,7 @@ def get_files(search_term,
    return files
 
 def get_files_html(search_term, 
-      job_name, keywords_search, filter_in_path): 
+      job_name, keywords_search, filter_in_path=None): 
    
    """
     Busca arquivos através da função "get_files", opcionalmente filtra os que contém alguma palavra especificada

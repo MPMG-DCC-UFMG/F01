@@ -1,5 +1,7 @@
 from flask import jsonify
 from flask import Blueprint
+import pprint
+
 
 from src.municipio.manage_municipios import get_municipio
 from src.api_de_integracao.manage import salvar_resultado_de_json
@@ -44,7 +46,7 @@ def rodar_tag(nome_do_template, nome_da_tag):
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        if municipio == 'muriae':
+        # if municipio == 'muriae':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
@@ -55,8 +57,10 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.pipeline_despesas(parametros, municipio)
 
             municipio = get_municipio(municipio)
-            print("resultado final", resultado)
+            print("resultado final: municipio")
+            pprint.pprint(resultado['acesso_a_informacao']['informacoes'], indent=2)
+            print("**********************")
 
-        # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 
