@@ -88,13 +88,13 @@ id,tag,sub-tag,info,abreviacao
 87,Servidores Públicos,Relatórios Despesas com Pessoal,Relatório mensal da despesa com pessoal,
 88,Servidores Públicos,Proventos de Aposentadoria,"Registro dos proventos de aposentadoria realizado por nome, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",
 89,Servidores Públicos,Proventos de Pensão,"Registro dos proventos de pensão realizado por pensionista, nome do servidor, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",
-90,Despesas com diárias,Despesas com diárias,Nome do beneficiário,
-91,Despesas com diárias,Despesas com diárias,Cargo/Função,
-92,Despesas com diárias,Despesas com diárias,Valores recebidos,
-93,Despesas com diárias,Despesas com diárias,Período da viagem,
-94,Despesas com diárias,Despesas com diárias,Destino da viagem,
-95,Despesas com diárias,Despesas com diárias,Motivo da viagem,
-96,Despesas com diárias,Despesas com diárias,Número de diárias fornecidas,
+90,Despesas com diárias,Despesas com diárias,Nome do beneficiário,nome
+91,Despesas com diárias,Despesas com diárias,Cargo/Função,cargo_funcao
+92,Despesas com diárias,Despesas com diárias,Valores recebidos,valores_recebidos
+93,Despesas com diárias,Despesas com diárias,Período da viagem,periodo_da_viagem
+94,Despesas com diárias,Despesas com diárias,Destino da viagem,destino_da_viagem
+95,Despesas com diárias,Despesas com diárias,Motivo da viagem,motivo_da_viagem
+96,Despesas com diárias,Despesas com diárias,Número de diárias fornecidas,numero_de_diarias
 97,Orçamento,Legislação,Lei Orçamentária Anual,lei_orcamentaria_anual
 98,Orçamento,Legislação,Lei de Diretrizes Orçamentárias,lei_diretrizes_orcamentarias
 99,Orçamento,Legislação,Plano Plurianual,plano_plurianual

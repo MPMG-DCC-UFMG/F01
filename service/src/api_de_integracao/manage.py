@@ -110,8 +110,6 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
     # if (nome_da_tag in nome_da_tag_no_git_hub):
     #     nome_da_tag = nome_da_tag_no_git_hub[nome_da_tag]
 
-    print(resultado_json)
-
     for tag, resultado_por_tag in resultado_json.items():
 
         if resultado_por_tag is None:

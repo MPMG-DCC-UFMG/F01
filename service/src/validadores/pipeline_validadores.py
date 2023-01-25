@@ -42,18 +42,19 @@ def contratos(parametros, job_name):
     return resultado
 
 def servidores_publicos(parametros, job_name):
-
     resultado = {
         'servidores_publicos': pipeline_servidores_publicos(parametros, job_name)
     }
-
     return resultado
 
 def despesas(parametros, job_name):
-
     resultado = {
         'despesas': pipeline_despesas(parametros, job_name)
     }
-
     return resultado
 
+def despesas_com_diarias(parametros, job_name):
+    resultado = {
+        'despesas': pipeline_despesas_com_diarias(parametros, job_name)
+    }
+    return resultado

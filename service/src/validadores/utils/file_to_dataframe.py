@@ -55,10 +55,10 @@ def informacao_dois_pontos_para_df(soup):
 
     body = soup.body #Ele começa acessando o elemento <body> do documento usando soup.body.
     body.script.clear() #Removendo as tags <scrip>
-    try:
-        body.table.clear()  #Pular elementos que estão dentro de uma tabela
-    except AttributeError:
-        pass
+    # try:
+    #     body.table.clear()  #Pular elementos que estão dentro de uma tabela
+    # except AttributeError:
+    #     pass
 
     df_= {}
 

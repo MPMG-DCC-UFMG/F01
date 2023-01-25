@@ -13,7 +13,7 @@ class ValidadorDespesasComDiarias:
         files = path_functions.filter_paths(files, words=['despesas_com_diarias'])
         files = path_functions.agg_paths_by_type(files)
         self.files = files
-        self.df = get_df(self.files, keywords['types'])
+        self.df = get_df(self.files, keywords['types'], max_files=keywords['max_files'])
 
     # Número
     def predict_nome(self):

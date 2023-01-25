@@ -102,5 +102,22 @@
             "keywords_to_search": ["teste"],
             "types": ["pdf"]
         }
+    },
+    "despesas_com_diarias":{
+        "despesas_com_diarias":{
+            "search_term": "Diárias Viagens",
+            "keywords_to_search": ["Liquidação", "Cargo/Função", "Valor Pago",
+                                    "Período de Afastamento", "Natureza", "Finalidade da Ação"],
+            "max_files": 100,
+            "types": ["html", "bat"],
+            "nome": "Credor", 
+            "cargo_funcao": "Cargo",
+            "valores_recebidos": "Valor Pago",
+            "periodo_da_viagem": "RETORNO",
+            "destino_da_viagem": "ITINERARIO",
+            "motivo_da_viagem": "Finalidade da Ação",
+            "numero_de_diarias": null
+            
+        }
     }
 }
