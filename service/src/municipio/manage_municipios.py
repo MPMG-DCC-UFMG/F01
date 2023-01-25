@@ -23,9 +23,12 @@ def obter_url_portal(nome_do_municipio):
 
 
 def obter_codigo_ibge_pelo_nome(nome_do_municipio):
-    id_ibge = Municipio.query.filter_by(
-        nome_formatado=nome_do_municipio).first().id_ibge
-    return id_ibge
+    codigo_ibge = None
+    municipio = Municipio.query.filter_by(
+        nome_formatado=nome_do_municipio).first()
+    if municipio is not None:
+        codigo_ibge = municipio.id_ibge
+    return codigo_ibge
 
 
 def get_municipio(nome_do_municipio):
