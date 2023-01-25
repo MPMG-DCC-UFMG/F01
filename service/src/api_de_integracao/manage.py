@@ -1,10 +1,9 @@
-from glob import escape
 import json
 from src import db
-from src.checklist.manage import get_item, get_sub_tag, get_tag_itens
+from datetime import datetime, timedelta
 from src.api_de_integracao.models import Resultado
 from src.api_de_integracao.resposta import Resposta
-from enum import Enum
+from src.checklist.manage import get_item, get_sub_tag, get_tag_itens
 
 
 def is_issue_erro(nome_da_label):
@@ -51,6 +50,7 @@ def procurar_resultado(municipio_id, item_id=None):
         resultado = [
             {resultado.item_id: {
                 'codigo_resposta': resultado.codigo_resposta,
+                'validated_at': resultado.data_validacao,
                 'justificativa': resultado.justificativa}
              }
             for resultado in Resultado.query.filter_by(municipio_id=municipio_id).all()
@@ -65,6 +65,7 @@ def procurar_resultado(municipio_id, item_id=None):
 
         resultado = {resultado.item_id: {
             'codigo_resposta': resultado.codigo_resposta,
+            'validated_at': resultado.data_validacao,
             'justificativa': resultado.justificativa}
         }
 
@@ -82,6 +83,8 @@ def salvar_resultado(municipio_id, item_id, resposta):
     if resultado_atual is not None:
         resultado_atual.codigo_resposta = codigo_resposta
         resultado_atual.justificativa = justificativa
+        resultado_atual.data_validacao = (
+            datetime.utcnow() - timedelta(hours=3))
         resultado_atualizado = resultado_atual
         db.session.commit()
         return resultado_atualizado
@@ -90,6 +93,7 @@ def salvar_resultado(municipio_id, item_id, resposta):
         novo_resultado = Resultado(item_id=item_id,
                                    municipio_id=municipio_id,
                                    codigo_resposta=codigo_resposta,
+                                   data_validacao = datetime.utcnow() - timedelta(hours=3),
                                    justificativa=justificativa)
         db.session.add(novo_resultado)
         db.session.commit()

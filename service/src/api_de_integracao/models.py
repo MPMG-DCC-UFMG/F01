@@ -1,5 +1,5 @@
 from src import db
-from datetime import datetime
+from datetime import datetime, timedelta
 from src.checklist.models import Tag, Subtag, Item
 
 class Resultado(db.Model):
@@ -19,4 +19,4 @@ class Resultado(db.Model):
     # "Validacao informou que o item coletado nao atende aos requisitos"
 
     #Salvando a data e hora atuais 
-    data_validacao= db.Column(db.DateTime, default=datetime.utcnow)
+    data_validacao = db.Column(db.DateTime, default=(datetime.utcnow() - timedelta(hours=3)), nullable=True)
