@@ -1,4 +1,5 @@
 from src import db
+from datetime import datetime
 from src.checklist.models import Tag, Subtag, Item
 
 class Resultado(db.Model):
@@ -16,3 +17,6 @@ class Resultado(db.Model):
     justificativa = db.Column(db.String(300), nullable=True)
     # "Item ainda não validado"
     # "Validacao informou que o item coletado nao atende aos requisitos"
+
+    #Salvando a data e hora atuais 
+    data_validacao= db.Column(db.DateTime, default=datetime.utcnow)
