@@ -14,11 +14,11 @@
             "horario_de_atendimento": "Horário de Funcionamento"
         },
         "registro_das_competências":{},
-        "link_de_acesso":{
+        "leis_municipais":{
             "search_term": "lei leis",
             "keywords_to_search": ["leis", "LEIS E PORTARIAS", "Publicação - Documentos", "portarias"],
             "types": ["html"],
-            "link_de_acesso": "Nome"
+            "leis_municipais": "Nome"
         },
         "conselhos_municipais":{}
     },

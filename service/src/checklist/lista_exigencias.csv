@@ -20,7 +20,7 @@ id,tag,sub-tag,info,abreviacao
 19,Informações institucionais,Unidades administrativas,Telefone,telefone
 20,Informações institucionais,Unidades administrativas,Horário de atendimento,horario_de_atendimento
 21,Informações institucionais,Registro das competências,Registro das competências de cada órgão municipal,registro_das_competencias
-22,Informações institucionais,Link de acesso,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",
+22,Informações institucionais,Leis Municipais,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",leis_municipais
 23,Informações institucionais,Conselhos Municipais,"Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc)",conselhos_municipais
 24,Receitas,Dados das receitas,Previsão,
 25,Receitas,Dados das receitas,Arrecadação,

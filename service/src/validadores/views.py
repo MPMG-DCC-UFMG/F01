@@ -40,13 +40,12 @@ def rodar_template(nome_do_template):
 
 @validadores.route('/<string:nome_do_template>/<string:nome_da_tag>', methods=['GET'])
 def rodar_tag(nome_do_template, nome_da_tag):
-    print(nome_do_template, nome_da_tag)
 
     parametros = get_keywords_do_template(nome_do_template)
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        # if municipio == 'muriae':
+        # if municipio == 'brumadinho':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
@@ -59,6 +58,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.despesas(parametros, municipio)
             if nome_da_tag == 'despesas_com_diarias':
                 resultado = pipeline_validadores.despesas_com_diarias(parametros, municipio)
+            if nome_da_tag == 'informacoes_institucionais':
+                resultado = pipeline_validadores.informacoes_institucionais(parametros, municipio)
             
             municipio = get_municipio(municipio)
             print("resultado final: municipio")

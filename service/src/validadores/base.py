@@ -1,7 +1,10 @@
+from pathlib import Path
 from src.validadores.utils import read
 from abc import ABC, abstractmethod
 from src.validadores.utils.path_functions import get_url
 from src.validadores.utils.search_html import search_links
+
+
 
 class Validador(ABC):
     """
@@ -70,3 +73,25 @@ class Validador(ABC):
         # Se não encontrou em nenhum html_file
         return False, result
 
+    def predict_by_number_of_files(self, job_name, diretory):
+
+        """
+        Pelo data_path do coletor, conta quantos arquivos existem em /data/files
+        """
+
+        job_diretory = Path("/datalake","ufmg","crawler","webcrawlerc01","realizacaof01", job_name)
+        full_path = job_diretory / diretory[0] / diretory[1] / "data" / "files"
+
+        if not full_path.exists():
+            print("Directory does not exist.")
+
+        files = full_path.glob('*')
+        number_of_files = len(list(files))
+        isvalid = number_of_files > 0
+        return isvalid, number_of_files
+
+    def explain_by_number_of_files(self, isvalid, result):
+        if isvalid:
+            return f"No acesso a toda a legislação municipal foram encontrados {result} arquivos."
+        else:
+            return "Não foram encontrados arquivos ao acessar toda a legislação municipal."

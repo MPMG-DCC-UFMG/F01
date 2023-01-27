@@ -58,3 +58,9 @@ def despesas_com_diarias(parametros, job_name):
         'despesas': pipeline_despesas_com_diarias(parametros, job_name)
     }
     return resultado
+
+def informacoes_institucionais(parametros, job_name):
+    resultado = {
+        'informacoes_institucionais': pipeline_informacoes_institucionais(parametros, job_name)
+    }
+    return resultado
