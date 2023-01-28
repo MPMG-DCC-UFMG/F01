@@ -57,3 +57,10 @@ def despesas(parametros, job_name):
 
     return resultado
 
+def obras_publicas(parametros, job_name):
+
+    resultado = {
+        'obras_publicas': pipeline_obras_publicas(parametros, job_name)
+    }
+
+    return resultado

@@ -57,9 +57,11 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.pipeline_servidores_publicos(parametros, municipio)
             if nome_da_tag == 'despesas':
                 resultado = pipeline_validadores.pipeline_despesas(parametros, municipio)
+            if nome_da_tag == 'obras_publicas':
+                resultado = pipeline_validadores.obras_publicas(parametros, municipio)
             
+            print(f"resultado final: {municipio}")
             municipio = get_municipio(municipio)
-            print("resultado final: municipio")
             print(resultado)
             # pprint.pprint(resultado, indent=2)
             print("**********************")
