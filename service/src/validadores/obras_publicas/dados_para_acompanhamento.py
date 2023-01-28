@@ -9,7 +9,9 @@ class ValidadorDadosParaAcompanhamento:
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
+        print(len(files))
         files = path_functions.filter_paths(files, words=['obras_publicas'])
+        print(len(files))
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
 
