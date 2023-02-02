@@ -124,7 +124,6 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
         for subtag, resultado_por_subtag in resultado_por_tag.items():
 
             for item_apelido, resultado_do_item in resultado_por_subtag.items():
-                print(subtag, item_apelido)
                 item = get_item(get_sub_tag(subtag).id, item_apelido)
 
                 if resultado_do_item['predict']:
