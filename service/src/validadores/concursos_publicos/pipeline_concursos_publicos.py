@@ -11,7 +11,7 @@ def pipeline_concursos_publicos(keywords, job_name):
     concursos_publicos = {
         'dados_do_concurso': {},
         'copia_do_edital_do_concurso': {},
-        'divulgacao': {},
+        'divulgacao_dos_recursos_e_respectivas_decisoes': {},
     }
 
     # Subtag - Dados dos Concursos
@@ -24,6 +24,6 @@ def pipeline_concursos_publicos(keywords, job_name):
 
     # # Subtag - Divulgação dos recursos e respectivas decisões		
     validador_divulgacao = ValidadorDivulgacaoRecursosDecisoes(job_name, keywords['divulgacao_dos_recursos_e_respectivas_decisoes'])
-    concursos_publicos['divulgacao'] = validador_divulgacao.predict()
+    concursos_publicos['divulgacao_dos_recursos_e_respectivas_decisoes'] = validador_divulgacao.predict()
 
     return concursos_publicos

@@ -1,16 +1,19 @@
+from ..base import Validador
 from src.validadores.utils import indexing
 from src.validadores.utils import check_df
 from src.validadores.utils import path_functions
 from src.validadores.utils.search_html import analyze_html
 
-class ValidadorRegistroDasCompetencias:
+class ValidadorRegistroDasCompetencias(Validador):
 
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
-        files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['competencias'])
-        self.files = path_functions.agg_paths_by_type(files)
+        self.job_name = job_name
+        if self.keywords['type'] != 'predict_by_number_of_files':
+            files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
+            files = path_functions.filter_paths(files, words=['competencias'])
+            self.files = path_functions.agg_paths_by_type(files)
 
     def predict_registro_das_competencias(self):
         # Analyze 
@@ -33,8 +36,15 @@ class ValidadorRegistroDasCompetencias:
             'registro_das_competencias': {},
         }
 
-        isvalid, result = self.predict_registro_das_competencias()
-        result_explain = self.explain(result)
+        if self.keywords['type'] == 'predict_by_number_of_files':
+            # Prever pela quantida de arquivos
+            isvalid, result = self.predict_by_number_of_files(self.job_name, self.keywords['directory'])
+            result_explain = self.explain_by_number_of_files(isvalid, result)
+
+        else:
+            isvalid, result = self.predict_registro_das_competencias()
+            result_explain = self.explain(result)
+
         resultados['registro_das_competencias']['predict'] = isvalid
         resultados['registro_das_competencias']['explain'] = result_explain
 

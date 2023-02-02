@@ -61,11 +61,15 @@ def rodar_tag(nome_do_template, nome_da_tag):
             if nome_da_tag == 'informacoes_institucionais':
                 resultado = pipeline_validadores.informacoes_institucionais(parametros, municipio)
             
+            else:
+                return jsonify(f"Tag {nome_da_tag} não existe")
+            
             municipio = get_municipio(municipio)
             print("resultado final: municipio")
             print(resultado)
             # pprint.pprint(resultado, indent=2)
             print("**********************")
+            
 
             salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 

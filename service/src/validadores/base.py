@@ -86,12 +86,12 @@ class Validador(ABC):
             print("Directory does not exist.")
 
         files = full_path.glob('*')
-        number_of_files = len(list(files))
+        number_of_files = len(list(files)) - 1 # Descartando o file_description.jsonl
         isvalid = number_of_files > 0
         return isvalid, number_of_files
 
     def explain_by_number_of_files(self, isvalid, result):
         if isvalid:
-            return f"No acesso a toda a legislação municipal foram encontrados {result} arquivos."
+            return f"Foram encontrados {result} arquivos que validam o item."
         else:
-            return "Não foram encontrados arquivos ao acessar toda a legislação municipal."
+            return "Não foram encontrados arquivos coletados que validassem o item."

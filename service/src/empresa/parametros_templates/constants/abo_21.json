@@ -101,10 +101,9 @@
             "type": "predict_by_number_of_files",
             "directory": ["informacoes_institucionais","leis_municipais"]
         },
-        "registro_das_competências":{
-            "search_term": "Insitucionais",
-            "keywords_to_search": ["teste"],
-            "types": ["pdf"]
+        "registro_das_competencias":{
+            "type": "predict_by_number_of_files",
+            "directory": ["informacoes_institucionais","registro_de_competencias"]
         }
     },
     "despesas_com_diarias":{
