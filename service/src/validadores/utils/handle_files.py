@@ -45,7 +45,7 @@ def get_keywords_do_template(template):
 
 def abrir_existente(job_name):
     try:
-        with open('results/' + job_name + '.json') as fp:
+        with open('../results/' + job_name + '.json') as fp:
             result = json.load(fp)
     except:
         result = {}
