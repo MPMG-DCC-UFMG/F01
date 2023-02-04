@@ -15,6 +15,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
     # TODO trocar o usuário
 
     HOME = Path.home()
+    home_jobs = Path("/home/ufmg.amedeiros/")
 
     for municipio in MUNICIPIOS:
 
@@ -60,7 +61,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
                     'ssl_verification': True},
         }
 
-        municipio_directory = HOME / ".fscrawler" / municipio
+        municipio_directory = home_jobs / ".fscrawler" / municipio
         print(municipio_directory)
 
         if os.path.exists(municipio_directory):

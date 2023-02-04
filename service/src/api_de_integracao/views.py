@@ -114,7 +114,10 @@ def indexarArquivosTemplate(nome_do_template):
 
 @api_de_integracao.route('/indexar_arquivos', methods=['GET'])
 def indexarArquivos():
-    TEMPLATES = ["portaltp_61", "pt_45", "abo_21", "grp_27"]
+    # TEMPLATES = ["portaltp_61", "pt_45", "abo_21", "grp_27"]
+    TEMPLATES = ["adpm_22", "betha_26", "memory_66", "municipal_net_11", "portal_facil_60",
+    "portal_facil_46", "siplanweb_61", "sintese_tecnologia_e_informatica_88", "template1_22",
+    "adpm_7", "template2_28"]
     for template in TEMPLATES:
         scrip_indexar_arquivos_mp(template)
     return jsonify('templates indexados')
