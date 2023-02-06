@@ -68,14 +68,14 @@ id,tag,sub-tag,info,abreviacao
 67,Concursos Públicos,Dados do Concurso,Resultado,resultado
 68,Concursos Públicos,Dados do Concurso,Atos de nomeação,atos_de_nomeacao
 69,Concursos Públicos,Cópia do edital do concurso,Cópia do edital do concurso,copia_do_edital_do_concurso
-70,Concursos Públicos,Divulgação dos recursos e respectivas decisões,Divulgação dos recursos e respectivas decisões,divulgacao_dos_recursos_e_respectivas_decisoes
-71,Obras públicas,Dados para acompanhamento,Objeto,
-72,Obras públicas,Dados para acompanhamento,Valor total,
-73,Obras públicas,Dados para acompanhamento,Empresa contratada,
-74,Obras públicas,Dados para acompanhamento,Data de início,
-75,Obras públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,
-76,Obras públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,
-77,Obras públicas,Dados para acompanhamento,Situação atual da obra,
+70,Concursos Públicos,Divulgação de Recursos e Decisões,Divulgação dos recursos e respectivas decisões,divulgacao_dos_recursos_e_respectivas_decisoes
+71,Obras públicas,Dados para acompanhamento,Objeto,objeto
+72,Obras públicas,Dados para acompanhamento,Valor total,valor_total
+73,Obras públicas,Dados para acompanhamento,Empresa contratada,empresa_contratada
+74,Obras públicas,Dados para acompanhamento,Data de início,data_de_inicio
+75,Obras públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,data_prevista_ou_prazo_de_execucao
+76,Obras públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,valor_total_pago_ou_percentual
+77,Obras públicas,Dados para acompanhamento,Situação atual da obra,situacao_atual
 78,Servidores Públicos,Dados dos Servidores,Nome,
 79,Servidores Públicos,Dados dos Servidores,Cargo/Função,
 80,Servidores Públicos,Dados dos Servidores,Remuneração,

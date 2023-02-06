@@ -12,3 +12,5 @@ github_token.json
 
 bkp/
 *.bkp
+
+results/*

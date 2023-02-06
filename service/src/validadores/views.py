@@ -56,6 +56,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.servidores_publicos(parametros, municipio)
             if nome_da_tag == 'despesas':
                 resultado = pipeline_validadores.despesas(parametros, municipio)
+            if nome_da_tag == 'obras_publicas':
+                resultado = pipeline_validadores.obras_publicas(parametros, municipio)
             if nome_da_tag == 'despesas_com_diarias':
                 resultado = pipeline_validadores.despesas_com_diarias(parametros, municipio)
             if nome_da_tag == 'informacoes_institucionais':
@@ -64,8 +66,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
             else:
                 return jsonify(f"Tag {nome_da_tag} não existe")
             
+            print(f"resultado final: {municipio}")
             municipio = get_municipio(municipio)
-            print("resultado final: municipio")
             print(resultado)
             # pprint.pprint(resultado, indent=2)
             print("**********************")
