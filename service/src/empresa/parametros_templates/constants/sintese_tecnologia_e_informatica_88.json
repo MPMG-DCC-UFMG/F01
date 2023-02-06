@@ -104,5 +104,11 @@
          "types": ["html"],
          "ITEM": "xxx"
       }
-    }
+   },
+   "informacoes_institucionais":{
+      "leis_municipais": { 
+          "type": "predict_by_number_of_files",
+          "directory": ["informacoes_institucionais","leis_municipais"]
+      }
+  }
 }

@@ -5,8 +5,7 @@
         }
     },
     "informacoes_institucionais":{
-        "estrutura_organizacional":{},
-        "unidades_administrativas":{
+        "unidades_administrativas_":{
             "search_term": "teste",
             "keywords_to_search": ["teste"],
             "types": ["html"],
@@ -14,14 +13,10 @@
             "telefone": "telefone",
             "horario_de_atendimento": "horario de atendimento"
         },
-        "registro_das_competências":{},
-        "leis_municipais":{
-            "search_term": "lei leis",
-            "keywords_to_search": ["leis", "LEIS E PORTARIAS", "Publicação - Documentos", "portarias"],
-            "types": ["html"],
-            "leis_municipais": "Nome"
-        },
-        "conselhos_municipais":{}
+        "leis_municipais": { 
+            "type": "predict_by_number_of_files",
+            "directory": ["informacoes_institucionais","leis_municipais"]
+        }
     },
     "servidores_publicos": {
         "dados_dos_servidores": {

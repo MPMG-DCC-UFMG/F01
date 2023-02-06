@@ -1,0 +1,19 @@
+{
+    "informacoes_institucionais":{
+        "leis_municipais": { 
+            "type": "predict_by_number_of_files",
+            "directory": ["informacoes_institucionais","leis_municipais"]
+        },
+        "registro_das_competencias":{
+            "type": "predict_by_number_of_files",
+            "directory": ["informacoes_institucionais","registro_de_competencias"]
+        }
+    },
+    "licitacoes": {
+       "search_term": "Modalidade Objeto Item Quantidade Licitações",
+       "keywords": ["objeto"],
+       "proc_lic_itens": ["n° do processo", "modalidade", "objeto", "situação", "empresa vencedor"],
+       "editais": "Editais de Licitação e Demais Arquivos",
+        "types": ["bat","pdf"]
+    }
+}

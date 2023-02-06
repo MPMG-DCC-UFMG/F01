@@ -7,10 +7,14 @@
        "types": ["bat"]
     },
     "informacoes_institucionais":{
-        "conselhos_municipais":{
+        "conselhos_municipais_":{
             "search_term": "Conselho",
             "keywords_to_search": ["CODEMA", "CMDCA", "Saúde"],
             "keyword_check": "Conselho municipal"
+        }
+,        "leis_municipais": { 
+            "type": "predict_by_number_of_files",
+            "directory": ["informacoes_institucionais","leis_municipais"]
         }
     }
     
