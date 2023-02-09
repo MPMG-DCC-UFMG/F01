@@ -20,11 +20,11 @@ def pipeline_contratos(keywords, job_name):
     contratos['dados_dos_contratos'] = validador_dados_dos_contratos.predict()
 
     # Subtag - Disponibiliza o conteúdo integral dos contratos
-    validador_conteudo_integral = ValidadorConteudoIntegral(job_name, keywords['conteudo_integral'])
-    contratos['conteudo_integral'] = validador_conteudo_integral.predict()
+    #validador_conteudo_integral = ValidadorConteudoIntegral(job_name, keywords['conteudo_integral'])
+    #contratos['conteudo_integral'] = validador_conteudo_integral.predict()
 
     # Permite gerar relatório da consulta de licitações ou de contratos em formato aberto	
-    validador_gerar_relatorio = ValidadorGerarRelatorio(job_name, keywords['gerar_relatorio'])
-    contratos['gerar_relatorio'] = validador_gerar_relatorio.predict()
+    #validador_gerar_relatorio = ValidadorGerarRelatorio(job_name, keywords['gerar_relatorio'])
+    #contratos['gerar_relatorio'] = validador_gerar_relatorio.predict()
 
     return contratos

@@ -1,4 +1,5 @@
 import numpy as np
+import re
 from src.validadores.utils import checker
 
 def contains_keyword(df, word):
@@ -103,7 +104,7 @@ def search_in_column(df, column_name, keywords):
         Dataframe a ser verificado
     column_name : string 
         Coluna a ser verificada
-    keywords  : string ou lista de string
+    keywords  : string ou lista de string ou expressão regular
         Palavras que se estiverem presentes validam uma entrada
         
     Returns
@@ -124,6 +125,12 @@ def search_in_column(df, column_name, keywords):
                 match = checker.check_any_keyword(value, keywords)
                 isvalid.append(match)
             df['isvalid'] =  isvalid
+
+        elif type(keywords) is re.Pattern:
+            # verifica se a quatidade de vezes que uma determinada expressão regular foi encontrada
+            # em uma entrada da coluna é maior ou igual a um
+            isvalid = df[column_name].map(lambda x: len(re.findall(keywords, str(x))) > 0)
+            df['isvalid'] = isvalid
 
     return df
 

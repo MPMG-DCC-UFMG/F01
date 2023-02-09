@@ -47,5 +47,32 @@
             "valor_total_pago_ou_percentual": "Valor total das medições",
             "situacao_atual": "Situação atual"
         }
+    },
+    "contratos": {
+        "dados_dos_contratos": {
+            "search_term": "Contas Públicas :: Contratos, Atas de Registro de Preços e Aditivos",
+            "keywords_to_search": ["Secretaria", "Fundamento Legal", "CNPJ", "Modalidade", "Objeto"],
+            "types": ["html"],
+            "max_files": 5,
+            "objeto": "Objeto",
+            "valor": "Valor global do contrato original",
+            "favorecido": "Contratado",
+            "numero_ano_do_contrato": "Numero do Contrato",
+            "vigencia": "Data da Vigência",
+            "licitacao_de_origem": "Número do Processo Licitatório",
+            "regex" : true,
+            "objeto_pattern": "Objeto:([a-zA-z].+| .+)",
+            "objeto_column": "Unnamed: 0",
+            "valor_pattern": "((Valor Global)|(Valor global do contrato original)): ?R\\$ ?.+",
+            "valor_column": "Unnamed: 0",
+            "favorecido_pattern": "Contratado: ?[a-zA-Z ]+",
+            "favorecido_column": "Unnamed: 0",
+            "numero_ano_do_contrato_pattern": "Número do Contrato Original: ?[0-9]{4}/[0-9]{4}",
+            "numero_ano_do_contrato_column": "Unnamed: 0",
+            "vigencia_pattern": "Data da Vigência: ?[0-9]{1,2}/[0-9]{1,2}/(([0-9]{2})|([0-9]{4}))",
+            "vigencia_column": "Unnamed: 0",
+            "licitacao_de_origem_pattern": "Número do Processo Licitatório: ?[0-9]+",
+            "licitacao_de_origem_column": "Unnamed: 0"
+        }
     }
 }
