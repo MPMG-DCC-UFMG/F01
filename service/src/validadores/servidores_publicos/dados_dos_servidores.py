@@ -40,22 +40,22 @@ class ValidadorDadosDosServidores:
         }
 
         # Nome
-        # isvalid, result = self.predict_nome()
-        # result_explain = self.explain(result, 'nome')
-        # resultados['nome']['predict'] = isvalid
-        # resultados['nome']['explain'] = result_explain
+        isvalid, result = self.predict_nome()
+        result_explain = self.explain(result, 'nome')
+        resultados['nome']['predict'] = isvalid
+        resultados['nome']['explain'] = result_explain
 
-        # # Cargo/Função
-        # isvalid, result = self.predict_cargo_funcao()
-        # result_explain = self.explain(result, 'cargo / função')
-        # resultados['cargo_funcao']['predict'] = isvalid
-        # resultados['cargo_funcao']['explain'] = result_explain
+        # Cargo/Função
+        isvalid, result = self.predict_cargo_funcao()
+        result_explain = self.explain(result, 'cargo / função')
+        resultados['cargo_funcao']['predict'] = isvalid
+        resultados['cargo_funcao']['explain'] = result_explain
 
-        # # Remuneração
-        # isvalid, result = self.predict_remuneracao()
-        # result_explain = self.explain(result, 'remuneracao')
-        # resultados['remuneracao']['predict'] = isvalid
-        # resultados['remuneracao']['explain'] = result_explain
+        # Remuneração
+        isvalid, result = self.predict_remuneracao()
+        result_explain = self.explain(result, 'remuneracao')
+        resultados['remuneracao']['predict'] = isvalid
+        resultados['remuneracao']['explain'] = result_explain
 
         return resultados
         

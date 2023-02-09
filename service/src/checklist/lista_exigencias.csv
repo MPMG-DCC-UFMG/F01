@@ -76,9 +76,9 @@ id,tag,sub-tag,info,abreviacao
 75,Obras públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,data_prevista_ou_prazo_de_execucao
 76,Obras públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,valor_total_pago_ou_percentual
 77,Obras públicas,Dados para acompanhamento,Situação atual da obra,situacao_atual
-78,Servidores Públicos,Dados dos Servidores,Nome,
-79,Servidores Públicos,Dados dos Servidores,Cargo/Função,
-80,Servidores Públicos,Dados dos Servidores,Remuneração,
+78,Servidores Públicos,Dados dos Servidores,Nome,nome
+79,Servidores Públicos,Dados dos Servidores,Cargo/Função,cargo_funcao
+80,Servidores Públicos,Dados dos Servidores,Remuneração,remuneracao
 81,Servidores Públicos,Registro da remuneração,"Registro da remuneração ou subsídio contendo: Agentes políticos, servidores efetivos e/ou empregados públicos",
 82,Servidores Públicos,Registro da remuneração,Registro da remuneração dos contratados temporariamente,
 83,Servidores Públicos,Registro por lotação,"Registro realizado por lotação contendo os seguintes dados: Matricula, Nome, Cargo/Função, Remuneração, Abate teto, Tipo de vínculo",
