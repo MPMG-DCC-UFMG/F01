@@ -47,6 +47,12 @@ def servidores_publicos(parametros, job_name):
     }
     return resultado
 
+def receitas(parametros, job_name):
+    resultado = {
+        'receitas': pipeline_receitas(parametros, job_name)
+    }
+    return resultado
+
 def despesas(parametros, job_name):
     resultado = {
         'despesas': pipeline_despesas(parametros, job_name)

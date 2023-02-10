@@ -45,7 +45,7 @@ def rodar_tag(nome_do_template, nome_da_tag):
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        # if municipio == 'brumadinho':
+        # if municipio == 'itabirito':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
@@ -54,6 +54,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.contratos(parametros, municipio)
             elif nome_da_tag == 'servidores_publicos':
                 resultado = pipeline_validadores.servidores_publicos(parametros, municipio)
+            elif nome_da_tag == 'receitas':
+                resultado = pipeline_validadores.receitas(parametros, municipio)
             elif nome_da_tag == 'despesas':
                 resultado = pipeline_validadores.despesas(parametros, municipio)
             elif nome_da_tag == 'obras_publicas':

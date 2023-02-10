@@ -106,6 +106,16 @@
             "directory": ["informacoes_institucionais","registro_de_competencias"]
         }
     },
+    "receitas":{
+        "dados_das_receitas":{
+            "search_term": "Receita receitas",
+            "keywords_to_search": ["Contas Receita", "Valor Previsto", "Valor Realizado", "Natureza da Receita"],
+            "types": ["html"],
+            "previsao": "Valor Previsto", 
+            "arrecadacao": "Valor Realizado",
+            "classificacao": "Natureza da Receita"
+        }
+    },
     "despesas_com_diarias":{
         "despesas_com_diarias":{
             "search_term": "Diárias Viagens",
