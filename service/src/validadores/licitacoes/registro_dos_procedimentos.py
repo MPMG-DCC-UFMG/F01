@@ -35,7 +35,11 @@ class ValidadorRegistroDosProcedimentos:
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['licitacao'])
+        try:
+            filter_paths_key = keywords['filter_paths']
+        except:
+            filter_paths_key = "licitacao"
+        files = path_functions.filter_paths(files, words=filter_paths_key)
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
     
@@ -48,7 +52,6 @@ class ValidadorRegistroDosProcedimentos:
             result['inexigibilidade'].append(analyze_inexibilidade (value, self.keywords['coluna_modalidade']))
 
         isvalid = infos_isvalid(result, column_name='inexigibilidade', threshold=0)
-            
         return isvalid, result
 
     def predict_dispensa(self):
@@ -97,7 +100,7 @@ class ValidadorRegistroDosProcedimentos:
     def explain(self, result, predict_ordem):
         numero_de_entradas = len(result)
 
-        result = f"""Quantidade de entradas encontradas e analizadas: {numero_de_entradas}.
+        result = f"""Quantidade de entradas encontradas e com a modalidade analizadas: {numero_de_entradas}.
         Quantidade de entradas que possuem a modalidade dispensa ou inexigibilidade : {sum(result)}. """
 
         if predict_ordem:

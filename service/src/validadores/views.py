@@ -52,6 +52,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.acesso_a_informacao(parametros, municipio)
             elif nome_da_tag == 'contratos':
                 resultado = pipeline_validadores.contratos(parametros, municipio)
+            elif nome_da_tag == 'concursos_publicos':
+                resultado = pipeline_validadores.concursos_publicos(parametros, municipio)
             elif nome_da_tag == 'servidores_publicos':
                 resultado = pipeline_validadores.servidores_publicos(parametros, municipio)
             elif nome_da_tag == 'receitas':
@@ -64,6 +66,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.despesas_com_diarias(parametros, municipio)
             elif nome_da_tag == 'informacoes_institucionais':
                 resultado = pipeline_validadores.informacoes_institucionais(parametros, municipio)
+            elif nome_da_tag == 'licitacoes':
+                resultado = pipeline_validadores.licitacoes(parametros, municipio)
             else:
                 return jsonify(f"Tag {nome_da_tag} não existe")
             
@@ -74,6 +78,6 @@ def rodar_tag(nome_do_template, nome_da_tag):
             print("**********************")
             
 
-            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+            # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 
