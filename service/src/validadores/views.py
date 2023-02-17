@@ -45,7 +45,7 @@ def rodar_tag(nome_do_template, nome_da_tag):
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        # if municipio == 'barroso':
+        if municipio == 'tiradentes':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
@@ -72,6 +72,6 @@ def rodar_tag(nome_do_template, nome_da_tag):
             print("**********************")
         
 
-        salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+        #salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 

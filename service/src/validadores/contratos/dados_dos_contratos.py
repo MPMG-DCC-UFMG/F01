@@ -1,6 +1,6 @@
 from src.validadores.utils import indexing
 from src.validadores.utils import path_functions
-from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils.file_to_dataframe import get_df, html_to_df
 from src.validadores.utils.check_df import check_all_values_of_column, search_in_column
 import re
 
@@ -12,7 +12,8 @@ class ValidadorDadosDosContratos:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['contratos'])
         self.files = path_functions.agg_paths_by_type(files)
-        self.df = get_df(self.files, keywords['types'], max_files=keywords['max_files'])
+        #self.df = get_df(self.files, keywords['types'], max_files=keywords['max_files'])
+        html_to_df(self.files['html'])
 
     def predict_objeto(self):
         try:

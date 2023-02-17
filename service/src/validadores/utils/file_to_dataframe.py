@@ -4,6 +4,7 @@ import pandas as pd
 import codecs
 import tabula
 import random
+from functools import reduce
 from src.validadores.utils import read
 from src.validadores.utils.detect_delimiter import detect_delimiter
 
@@ -301,3 +302,36 @@ def get_df(files, ttype, max_files=None):
         df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
         df_final = df_final.drop_duplicates()
     return df_final
+
+def html_to_df(files, max_files=None):
+    if max_files:
+        files = files[:max_files]
+
+    # abre os arquivos e transforma-os em um objeto Beatifulsoup
+    files = list(map(lambda x: BeautifulSoup(open(x, 'r'), 'html.parser'), files))
+    # encontra todas as tabelas de cada arquivo com uma determinada classe
+    files = list(map(lambda x: x.find_all('table', class_="ContasPublicas"), files))
+    # transforma as listas de tabelas de cada arquivo em uma única lista
+    tables = reduce(lambda x,y: x+y, files)
+    # função que encontra elementos html com o texto exigido
+    find_objetos = lambda x: x.find(lambda tag: tag.name == 'td' and 'Objeto:' in tag.text)
+    # executa a função de encontrar os elementos em todas as tablelas
+    objetos = list(map(lambda x: find_objetos(x), tables))
+    # extrai o texto das tabelas
+    objetos = list(map(lambda x: x.text if x else None, objetos))
+    # remove informações não relevantes do texto extraído
+    objetos = list(map(lambda x: x.replace('Objeto: ', '') if x else None, objetos))
+    print(len(objetos))
+    # retorna quantas entradas válidas existem depois da remoção
+    isvalid = list(map(lambda x: x is not None and x is not '', objetos))
+    print(sum(isvalid))
+
+    test_html = """<td align="Left">Número do Processo Licitatório: <a href="javascript:exibirDadosLicitacao(&quot;00032017&quot;, &quot;B&quot;, &quot;1&quot;)">00032017</a></td>"""
+
+    html = BeautifulSoup(test_html, 'html.parser')
+
+    print(html.text)
+
+    return None
+
+    
