@@ -53,7 +53,7 @@
             "search_term": "Contas Públicas :: Contratos, Atas de Registro de Preços e Aditivos",
             "keywords_to_search": ["Secretaria", "Fundamento Legal", "CNPJ", "Modalidade", "Objeto"],
             "types": ["html"],
-            "max_files": 5,
+            "max_files": 3,
             "objeto": "Objeto",
             "valor": "Valor global do contrato original",
             "favorecido": "Contratado",

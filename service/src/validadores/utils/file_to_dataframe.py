@@ -3,6 +3,7 @@ import re
 import pandas as pd
 import codecs
 import tabula
+import random
 from src.validadores.utils import read
 from src.validadores.utils.detect_delimiter import detect_delimiter
 
@@ -292,7 +293,10 @@ def get_df(files, ttype, max_files=None):
         if not key in ttype: # Converte apenas o arquivos com um tipo em 'ttype'
             continue
         if max_files: # Pode limitar  a quantidade
+            # random;seed(0) # ativar quando estiver depurando o problema
+            # values = random.sample(values, max_files)
             values = values[:max_files]
+        print(values)
         df = load_and_convert_files(paths=values, format_type=key)
         df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
         df_final = df_final.drop_duplicates()
