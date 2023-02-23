@@ -304,6 +304,40 @@ def get_df(files, ttype, max_files=None):
     return df_final
 
 def html_to_df(files, keywords, max_files=None):
+    """
+    Converte elementos específicos de uma lista de arquivos html em um Data Frame.
+         
+    Parameters
+    ----------
+    files : list of strings
+        Lista de arquivos a serem convertidos em uma tabela.
+    
+    keywords: dictionary
+        Dicionário contendo 3 chaves:
+            tag_name: Nome da estrutura html que armazena os valores que devem estar dispostos na mesma linha do data frame.
+            
+            class: Nome da classe que armazena os valores que devem estar dispostos na mesma linha.
+            
+            elements_parameters: Dicionário que contém chaves diversas, e cada chave deste irá gerar uma coluna de mesmo nome no Data Frame.
+                Cada chave deste dicionário aponta para outro dicionário, o qual contém 4 chaves:
+                    tag_name: Nome da estrutura html que armazena o dado a ser extraído. Inserir "" se não desejar especificar.
+                    
+                    tag_class: Nome da classe que armazena o dado a ser extraído. Inserir "" se não desejar especificar.
+                    
+                    text: Expressão regular que deve ser aceita para o conteúdo da tag ser considerado uma entrada válida.
+                    
+                    sub: Expressão regular que será usada para remover informações irrelevantes do conteúdo extraído.
+    
+    max_files: integer or None
+        Quantidade de arquivos que devem ser analisados para formar o Data Frame.
+        
+    Returns
+    -------
+    Dataframe
+        Data Frame com todas as entradas encontradas das colunas especificadas.
+    """
+
+
     # restringe a quantidade de arquivos analisados
     if max_files:
         files = files[:max_files]
