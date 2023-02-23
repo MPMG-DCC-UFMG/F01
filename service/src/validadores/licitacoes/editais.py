@@ -10,9 +10,14 @@ class ValidadorEditais:
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['licitacao'])
+        try:
+            filter_paths_key = keywords['filter_paths']
+        except:
+            filter_paths_key = "licitacao"
+        files = path_functions.filter_paths(files, words=filter_paths_key)
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
+        print("self.columns:***", self.df.columns)
 
     def predict_editais(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['edital'], typee='text')

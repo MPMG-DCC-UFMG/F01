@@ -3,6 +3,8 @@ import re
 import pandas as pd
 import codecs
 import tabula
+import random
+from functools import reduce
 from src.validadores.utils import read
 from src.validadores.utils.detect_delimiter import detect_delimiter
 
@@ -292,8 +294,100 @@ def get_df(files, ttype, max_files=None):
         if not key in ttype: # Converte apenas o arquivos com um tipo em 'ttype'
             continue
         if max_files: # Pode limitar  a quantidade
+            # random;seed(0) # ativar quando estiver depurando o problema
+            # values = random.sample(values, max_files)
             values = values[:max_files]
+        print(values)
         df = load_and_convert_files(paths=values, format_type=key)
         df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
         df_final = df_final.drop_duplicates()
     return df_final
+
+def html_to_df(files, keywords, max_files=None):
+    """
+    Converte elementos específicos de uma lista de arquivos html em um Data Frame.
+         
+    Parameters
+    ----------
+    files : list of strings
+        Lista de arquivos a serem convertidos em uma tabela.
+    
+    keywords: dictionary
+        Dicionário contendo 3 chaves:
+            tag_name: Nome da estrutura html que armazena os valores que devem estar dispostos na mesma linha do data frame.
+            
+            class: Nome da classe que armazena os valores que devem estar dispostos na mesma linha.
+            
+            elements_parameters: Dicionário que contém chaves diversas, e cada chave deste irá gerar uma coluna de mesmo nome no Data Frame.
+                Cada chave deste dicionário aponta para outro dicionário, o qual contém 4 chaves:
+                    tag_name: Nome da estrutura html que armazena o dado a ser extraído. Inserir "" se não desejar especificar.
+                    
+                    tag_class: Nome da classe que armazena o dado a ser extraído. Inserir "" se não desejar especificar.
+                    
+                    text: Expressão regular que deve ser aceita para o conteúdo da tag ser considerado uma entrada válida.
+                    
+                    sub: Expressão regular que será usada para remover informações irrelevantes do conteúdo extraído.
+    
+    max_files: integer or None
+        Quantidade de arquivos que devem ser analisados para formar o Data Frame.
+        
+    Returns
+    -------
+    Dataframe
+        Data Frame com todas as entradas encontradas das colunas especificadas.
+    """
+
+
+    # restringe a quantidade de arquivos analisados
+    if max_files:
+        files = files[:max_files]
+
+    # abre os arquivos e transforma-os em um objeto Beatifulsoup
+    files = map(lambda x: BeautifulSoup(open(x, 'r'), 'html.parser'), files)
+    # encontra todas as tabelas de cada arquivo com uma determinada classe
+    files = list(map(lambda x: x.find_all(keywords['tag_name'], class_=keywords['class']), files))
+    # transforma as listas de tabelas de cada arquivo em uma única lista
+    tables = reduce(lambda x,y: x+y, files, [])
+
+    # inicializa variável para onde os dados serão transformados
+    results = dict()
+    
+    for item, parameters in keywords['elements_parameters'].items():
+        
+        # define qual o nome da tag a ser buscado, caso exista
+        if parameters['tag_name'] != "":
+            tag_name = lambda tag: tag.name == parameters['tag_name']
+        else:
+            tag_name = lambda tag: True
+
+        # define qual o nome da classe a ser buscada, caso exista
+        if parameters['tag_class'] != "":
+            tag_class = lambda tag: tag.class_ == parameters['tag_class']
+        else:
+            tag_class = lambda tag: True
+
+        # define se existe algum conteúdo obrigatório a ser encontrado no texto da tag
+        if parameters['text'] != "":
+            filter_text = lambda tag: re.match(parameters['text'], tag.text) is not None
+        else:
+            filter_text = lambda tag: True 
+
+        # junta os três requisitos anteriores em uma única expressão lógica
+        tag_properties = lambda tag: tag_name(tag) and tag_class(tag) and filter_text(tag)
+        
+        #find_values = lambda x: x.find(tag_properties)
+        #find_objetos = lambda tag: tag.name == 'td' and 'Objeto:' in tag.text
+
+        # executa a função de encontrar os elementos em todas as tablelas
+        tags = map(lambda x: x.find(tag_properties), tables)
+        # extrai o texto das tabelas
+        texts = map(lambda x: x.text if x else None, tags)
+        # remove informações não relevantes do texto extraído
+        texts = list(map(lambda x: re.sub(parameters['sub'], '', x) if x else None, texts))
+
+        results[item] = texts
+
+    df = pd.DataFrame(results)
+    # df.to_csv("/dados01/workspace/ufmg_2021_f01/ufmg.jlsilva/F01/aux.csv", index=False)
+
+    return df

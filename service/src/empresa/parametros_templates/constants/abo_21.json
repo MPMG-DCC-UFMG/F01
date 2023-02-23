@@ -106,6 +106,50 @@
             "directory": ["informacoes_institucionais","registro_de_competencias"]
         }
     },
+    "licitacoes": {
+        "processos_licitatorios": {
+            "search_term": "Licitações licitação Modalidade Objeto",
+            "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Data Abertura Edital", "Modalidade"],
+            "types": ["html"],
+            "filter_paths": ["licitacoes"],
+            "numero": "Número / Ano", 
+            "modalidade": "Modalide",
+            "objeto": "Objeto",
+            "status": "",
+            "resultado": "Valor Homologado"
+        },
+        "registro_dos_procedimentos": {
+            "search_term": "Licitações licitação Modalidade Objeto",
+            "keywords_to_search": ["Licitações", "Pregão", "Inexigibilidade", "Homologada", "Data Abertura Edital", "Modalidade"],
+            "types": ["html"],
+            "filter_paths": ["licitacoes"],
+            "coluna_modalidade": "Modalide",
+            "ordem":""
+        },
+        "editais": {
+            "search_term": "Tipo Documento EDITAL",
+            "keywords_to_search": ["Tipo do Documento"],
+            "types": ["html"],
+            "filter_paths": ["licitacoes"],
+            "edital": "Tipo do Documento"
+        },
+        "resultado_das_licitacoes": {
+            "search_term": "Vencedor(es) Nome Detalhamento Licitação",
+            "keywords_to_search": ["Licitações", "Detalhamento", "Nome"],
+            "filter_paths": ["licitacoes"],
+            "resultados": "Visualizar processo"
+        }
+     },
+    "receitas":{
+        "dados_das_receitas":{
+            "search_term": "Receita receitas",
+            "keywords_to_search": ["Contas Receita", "Valor Previsto", "Valor Realizado", "Natureza da Receita"],
+            "types": ["html"],
+            "previsao": "Valor Previsto", 
+            "arrecadacao": "Valor Realizado",
+            "classificacao": "Natureza da Receita"
+        }
+    },
     "despesas_com_diarias":{
         "despesas_com_diarias":{
             "search_term": "Diárias Viagens",

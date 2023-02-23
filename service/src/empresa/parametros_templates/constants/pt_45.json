@@ -47,5 +47,30 @@
             "valor_total_pago_ou_percentual": "Valor total das medições",
             "situacao_atual": "Situação atual"
         }
+    },
+    "contratos": {
+        "dados_dos_contratos": {
+            "search_term": "Contas Públicas :: Contratos, Atas de Registro de Preços e Aditivos",
+            "keywords_to_search": ["Secretaria", "Fundamento Legal", "CNPJ", "Modalidade", "Objeto"],
+            "types": ["html"],
+            "objeto": "objeto",
+            "valor": "valor",
+            "favorecido": "favorecido",
+            "numero_ano_do_contrato": "numero_ano_do_contrato",
+            "vigencia": "vigencia",
+            "licitacao_de_origem": "licitacao_de_origem",
+            "html_to_df": {
+                "tag_name": "table",
+                "class": "ContasPublicas",
+                "elements_parameters": {
+                    "objeto": {"tag_name": "td", "tag_class": "", "text": "Objeto: ", "sub":"Objeto: "},
+                    "valor": {"tag_name": "td", "tag_class": "", "text": "(Valor Global)|(Valor global do contrato original): ", "sub":"(Valor Global)|(Valor global do contrato original): "},
+                    "favorecido": {"tag_name": "td", "tag_class": "", "text": "Contratado: ", "sub": "Contratado: "},
+                    "numero_ano_do_contrato": {"tag_name": "td", "tag_class": "", "text": ".*Número do Contrato Original: ", "sub": ".*Número do Contrato Original: "},
+                    "vigencia": {"tag_name": "td", "tag_class": "", "text": "Data da Vigência:", "sub": "Data da Vigência:"},
+                    "licitacao_de_origem": {"tag_name": "td", "tag_class": "", "text": "Número do Processo Licitatório: ", "sub": "Número do Processo Licitatório: "}
+                }
+            }                   
+        }
     }
 }

@@ -41,11 +41,11 @@ id,tag,sub-tag,info,abreviacao
 40,Despesas,Relatórios,Link de acesso à Lei Orçamentária Anual do município,
 41,Despesas,Relatórios,"Apresentação do balanço anual, com as respectivas demonstrações contábeis",
 42,Despesas,Relatórios,Relatórios da execução orçamentária e gestão fiscal,
-43,Licitações,Processos Licitatórios,Número/Ano do Edital,
-44,Licitações,Processos Licitatórios,Modalidade,
-45,Licitações,Processos Licitatórios,Objeto,
-46,Licitações,Processos Licitatórios,Situação/Status,
-47,Licitações,Processos Licitatórios,Divulgação do resultado da licitação,
+43,Licitações,Processos Licitatórios,Número/Ano do Edital,numero
+44,Licitações,Processos Licitatórios,Modalidade,modalidade
+45,Licitações,Processos Licitatórios,Objeto,objeto
+46,Licitações,Processos Licitatórios,Situação/Status,status
+47,Licitações,Processos Licitatórios,Divulgação do resultado da licitação,resultado
 48,Licitações,Inexigibilidade e Dispensa,Registro dos procedimentos de inexigibilidade e de dispensa de licitação realizados pela Prefeitura ou pela Câmara Municipal: organizado conforme ordem cronológica e numérica (número do procedimento),
 49,Licitações,Editais,Disponibiliza o conteúdo integral dos editais,
 50,Licitações,Resultados de Licitações,Possibilita a consulta aos resultados das licitações ocorridas,
@@ -76,9 +76,9 @@ id,tag,sub-tag,info,abreviacao
 75,Obras públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,data_prevista_ou_prazo_de_execucao
 76,Obras públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,valor_total_pago_ou_percentual
 77,Obras públicas,Dados para acompanhamento,Situação atual da obra,situacao_atual
-78,Servidores Públicos,Dados dos Servidores,Nome,nome
-79,Servidores Públicos,Dados dos Servidores,Cargo/Função,cargo_funcao
-80,Servidores Públicos,Dados dos Servidores,Remuneração,remuneracao
+78,Servidores Públicos,Dados dos Servidores,Nome,
+79,Servidores Públicos,Dados dos Servidores,Cargo/Função,
+80,Servidores Públicos,Dados dos Servidores,Remuneração,
 81,Servidores Públicos,Registro da remuneração,"Registro da remuneração ou subsídio contendo: Agentes políticos, servidores efetivos e/ou empregados públicos",
 82,Servidores Públicos,Registro da remuneração,Registro da remuneração dos contratados temporariamente,
 83,Servidores Públicos,Registro por lotação,"Registro realizado por lotação contendo os seguintes dados: Matricula, Nome, Cargo/Função, Remuneração, Abate teto, Tipo de vínculo",

@@ -45,15 +45,19 @@ def rodar_tag(nome_do_template, nome_da_tag):
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        if municipio == 'queluzito':
+        # if municipio == 'brumadinho':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
                 resultado = pipeline_validadores.acesso_a_informacao(parametros, municipio)
             elif nome_da_tag == 'contratos':
                 resultado = pipeline_validadores.contratos(parametros, municipio)
+            elif nome_da_tag == 'concursos_publicos':
+                resultado = pipeline_validadores.concursos_publicos(parametros, municipio)
             elif nome_da_tag == 'servidores_publicos':
                 resultado = pipeline_validadores.servidores_publicos(parametros, municipio)
+            elif nome_da_tag == 'receitas':
+                resultado = pipeline_validadores.receitas(parametros, municipio)
             elif nome_da_tag == 'despesas':
                 resultado = pipeline_validadores.despesas(parametros, municipio)
             elif nome_da_tag == 'obras_publicas':
@@ -62,6 +66,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.despesas_com_diarias(parametros, municipio)
             elif nome_da_tag == 'informacoes_institucionais':
                 resultado = pipeline_validadores.informacoes_institucionais(parametros, municipio)
+            elif nome_da_tag == 'licitacoes':
+                resultado = pipeline_validadores.licitacoes(parametros, municipio)
             else:
                 return jsonify(f"Tag {nome_da_tag} não existe")
             
@@ -70,8 +76,12 @@ def rodar_tag(nome_do_template, nome_da_tag):
             print(resultado)
             # pprint.pprint(resultado, indent=2)
             print("**********************")
-            
+        
 
-            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+<<<<<<< HEAD
+            # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+=======
+        #salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+>>>>>>> pt_contratos_dados_dos_contratos
 
     return jsonify(f"Template {nome_do_template} validado") 
