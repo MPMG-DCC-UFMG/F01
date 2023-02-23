@@ -1,7 +1,7 @@
 
 from src.validadores.utils import indexing
 from src.validadores.utils import path_functions
-from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils.file_to_dataframe import get_df, html_to_df
 from src.validadores.utils.check_df import check_all_values_of_column
 
 class ValidadorDadosDosServidores:
@@ -12,11 +12,7 @@ class ValidadorDadosDosServidores:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=keywords['filter_paths'])
         self.files = path_functions.agg_paths_by_type(files)
-        try:
-            max_files = keywords['max_files']
-        except KeyError:
-            max_files = None
-        self.df = get_df(self.files, keywords['types'], max_files)
+        self.df = html_to_df(self.files['html'], keywords['html_to_df'],5)
 
     def predict_nome(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
@@ -40,22 +36,22 @@ class ValidadorDadosDosServidores:
         }
 
         # Nome
-        # isvalid, result = self.predict_nome()
-        # result_explain = self.explain(result, 'nome')
-        # resultados['nome']['predict'] = isvalid
-        # resultados['nome']['explain'] = result_explain
+        isvalid, result = self.predict_nome()
+        result_explain = self.explain(result, 'nome')
+        resultados['nome']['predict'] = isvalid
+        resultados['nome']['explain'] = result_explain
 
-        # # Cargo/Função
-        # isvalid, result = self.predict_cargo_funcao()
-        # result_explain = self.explain(result, 'cargo / função')
-        # resultados['cargo_funcao']['predict'] = isvalid
-        # resultados['cargo_funcao']['explain'] = result_explain
+        # Cargo/Função
+        isvalid, result = self.predict_cargo_funcao()
+        result_explain = self.explain(result, 'cargo / função')
+        resultados['cargo_funcao']['predict'] = isvalid
+        resultados['cargo_funcao']['explain'] = result_explain
 
-        # # Remuneração
-        # isvalid, result = self.predict_remuneracao()
-        # result_explain = self.explain(result, 'remuneracao')
-        # resultados['remuneracao']['predict'] = isvalid
-        # resultados['remuneracao']['explain'] = result_explain
+        # Remuneração
+        isvalid, result = self.predict_remuneracao()
+        result_explain = self.explain(result, 'remuneracao')
+        resultados['remuneracao']['predict'] = isvalid
+        resultados['remuneracao']['explain'] = result_explain
 
         return resultados
         

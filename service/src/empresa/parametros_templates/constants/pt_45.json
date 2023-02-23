@@ -21,13 +21,22 @@
     "servidores_publicos": {
         "dados_dos_servidores": {
             "search_term": "Folha Salarial",
-            "keywords_to_search": ["Nome", "Servidor", "Matrícula", "Cargo", "Função" ],
+            "keywords_to_search": ["Contas Públicas :: Folha Salarial", "Nome", "Servidor", "Matrícula", "Cargo", "Função" ],
             "filter_paths": ["servidores"],
             "types": ["html"],
-            "max_files": 1,
-            "nome": "Servidor",
-            "cargo_funcao": "Cargo/Funçao",
-            "remuneracao":"Valor Bruto"
+            "nome": "nome",
+            "cargo_funcao": "cargo",
+            "remuneracao":"remuneracao",
+            "html_to_df":{
+                "tag_name": "table",
+                "class": "ContasPublicas",
+                "elements_parameters": {
+                    "nome": {"tag_name": "td", "tag_class": "", "text": "Nome: ", "sub": "Nome: "},
+                    "cargo": {"tag_name": "td", "tag_class": "", "text": "Cargo: ", "sub": "Cargo: "},
+                    "funcao": {"tag_name": "td", "tag_class": "", "text": "Função: ", "sub": "Função: "},
+                    "remuneracao": {"tag_name": "td", "tag_class": "", "text": ".*Remuneração Bruta: ", "sub": "(.*Remuneração Bruta: )|(Total da Remuneração Após Deduções:.*)"}
+                }
+            }
          },
         "auxilios": {
             "search_term": "servidor folha",
@@ -38,7 +47,7 @@
         "dados_para_acompanhamento":{
             "search_term": "Obras",
             "keywords_to_search": ["Contas Públicas :: Obras", "Obras Públicas"],
-            "types": ["html", "bat"],
+            "types": ["html"],
             "objeto": "Objeto da Obra",
             "valor_total": "Valor total",
             "empresa_contratada": "Empresa contratada",
