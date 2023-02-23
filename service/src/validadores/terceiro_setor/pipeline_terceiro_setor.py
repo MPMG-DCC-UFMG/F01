@@ -8,19 +8,24 @@ def pipeline_terceiro_setor(keywords, job_name):
     except KeyError:
         return None
 
-    terceiro_setor = {
-        'dados_de_parcerias': {},
-        'repasses': {}
-    }
+    terceiro_setor = {}
 
     # Subtag - Dados de Parcerias
-    # validador_dados_de_parceria = dados_de_parcerias.ValidadorDadosDeParcerias(job_name, keywords['dados_de_parcerias'])
-    # output_dados_de_parceria = validador_dados_de_parceria.predict()
-    # print(output_dados_de_parceria)
-
-
-    # Subtag - Repasses
-    validador_repasses = repasses.ValidadorRepasses(job_name, keywords['repasses'])
-    terceiro_setor['repasses'] = validador_repasses.predict()
-
+    try:
+        keywords_dados_de_parcerias = keywords['dados_de_parcerias']
+        validador_dados_de_parceria = dados_de_parcerias.ValidadorDadosDeParcerias(job_name, keywords_dados_de_parcerias)
+        terceiro_setor['dados_de_parcerias'] = validador_dados_de_parceria.predict()
+    except KeyError:
+        print("Erro - Terceiro Setor")
+    
     return terceiro_setor
+    
+    # # Subtag - Repasses
+    # try:
+    #     keywords_repasses = keywords['repasses']
+    #     validador_repasses = repasses.ValidadorRepasses(job_name, keywords_repasses)
+    #     terceiro_setor['repasses'] = validador_repasses.predict()
+    # except KeyError:
+    #     return terceiro_setor
+
+    # return terceiro_setor

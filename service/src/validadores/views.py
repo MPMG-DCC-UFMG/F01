@@ -46,12 +46,15 @@ def rodar_tag(nome_do_template, nome_da_tag):
     
     for municipio in municipios:
         # if municipio == 'resende_costa':
+        # if municipio == 'brumadinho':
             print('-rodando município:', municipio)
 
             if nome_da_tag == 'acesso_a_informacao':
                 resultado = pipeline_validadores.acesso_a_informacao(parametros, municipio)
             elif nome_da_tag == 'contratos':
                 resultado = pipeline_validadores.contratos(parametros, municipio)
+            elif nome_da_tag == 'terceiro_setor':
+                resultado = pipeline_validadores.terceiro_setor(parametros, municipio)
             elif nome_da_tag == 'concursos_publicos':
                 resultado = pipeline_validadores.concursos_publicos(parametros, municipio)
             elif nome_da_tag == 'servidores_publicos':
@@ -78,10 +81,6 @@ def rodar_tag(nome_do_template, nome_da_tag):
             print("**********************")
         
 
-<<<<<<< HEAD
-            # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
-=======
-        #salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
->>>>>>> pt_contratos_dados_dos_contratos
+            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 

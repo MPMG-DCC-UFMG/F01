@@ -166,5 +166,16 @@
             "numero_de_diarias": null
             
         }
+    },
+    "terceiro_setor": {
+        "dados_de_parcerias": {
+            "search_term": "Convênio Aditivos",
+            "keywords_to_search": ["Data Assinatura", "Objeto", "Esfera"],
+            "types": ["html"],
+            "data_de_celebracao": "Data Assinatura", 
+            "objeto": "Objeto",
+            "conveniados": "Concedente",
+            "aditivos": "Valor Aditivo"
+        }
     }
 }

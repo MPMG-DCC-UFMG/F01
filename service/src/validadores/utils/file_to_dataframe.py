@@ -297,7 +297,7 @@ def get_df(files, ttype, max_files=None):
             # random;seed(0) # ativar quando estiver depurando o problema
             # values = random.sample(values, max_files)
             values = values[:max_files]
-        print(values)
+        # print(values)
         df = load_and_convert_files(paths=values, format_type=key)
         df_final = pd.concat([df, df_final], axis=0, ignore_index=True)
         df_final = df_final.drop_duplicates()

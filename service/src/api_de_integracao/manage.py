@@ -112,7 +112,7 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
 
     for tag, resultado_por_tag in resultado_json.items():
 
-        if resultado_por_tag is None:
+        if resultado_por_tag is None: # ainda não validado
             itens = get_tag_itens(tag)
             resposta = get_resposta_por_erro_de_validacao("ainda não validado")
             for item in itens:

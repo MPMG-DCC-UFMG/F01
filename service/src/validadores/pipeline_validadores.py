@@ -88,3 +88,9 @@ def concursos_publicos(parametros, job_name):
         'concursos_publicos': pipeline_concursos_publicos(parametros, job_name)
     }
     return resultado
+
+def terceiro_setor(parametros, job_name):
+    resultado = {
+        'terceiro_setor': pipeline_terceiro_setor(parametros, job_name)
+    }
+    return resultado

@@ -57,10 +57,10 @@ id,tag,sub-tag,info,abreviacao
 56,Contratos,Dados dos contratos,Licitação de origem,licitacao_de_origem
 57,Contratos,Conteúdo integral,Disponibiliza o conteúdo integral dos contratos,conteudo_integral
 58,Contratos,Gerar relatório,Permite gerar relatório da consulta de licitações ou de contratos em formato aberto,gerar_relatorio
-59,Terceiro Setor,Dados de Parcerias,Data de celebração,
-60,Terceiro Setor,Dados de Parcerias,Objeto,
-61,Terceiro Setor,Dados de Parcerias,Conveniados,
-62,Terceiro Setor,Dados de Parcerias,Aditivos,
+59,Terceiro Setor,Dados de Parcerias,Data de celebração,data_de_celebracao
+60,Terceiro Setor,Dados de Parcerias,Objeto,objeto
+61,Terceiro Setor,Dados de Parcerias,Conveniados,conveniados
+62,Terceiro Setor,Dados de Parcerias,Aditivos,aditivos
 63,Terceiro Setor,Repasses,Origem,origem
 64,Terceiro Setor,Repasses,Valor,valor
 65,Terceiro Setor,Repasses,Data,data
