@@ -24,10 +24,19 @@
             "keywords_to_search": ["Contas Públicas :: Folha Salarial", "Nome", "Servidor", "Matrícula", "Cargo", "Função" ],
             "filter_paths": ["servidores"],
             "types": ["html"],
-            "max_files": 1,
-            "nome": "Nome",
-            "cargo_funcao": "Função",
-            "remuneracao":"Remuneração Bruta"
+            "nome": "nome",
+            "cargo_funcao": "cargo",
+            "remuneracao":"remuneracao",
+            "html_to_df":{
+                "tag_name": "table",
+                "class": "ContasPublicas",
+                "elements_parameters": {
+                    "nome": {"tag_name": "td", "tag_class": "", "text": "Nome: ", "sub": "Nome: "},
+                    "cargo": {"tag_name": "td", "tag_class": "", "text": "Cargo: ", "sub": "Cargo: "},
+                    "funcao": {"tag_name": "td", "tag_class": "", "text": "Função: ", "sub": "Função: "},
+                    "remuneracao": {"tag_name": "td", "tag_class": "", "text": ".*Remuneração Bruta: ", "sub": "(.*Remuneração Bruta: )|(Total da Remuneração Após Deduções:.*)"}
+                }
+            }
          },
         "auxilios": {
             "search_term": "servidor folha",
