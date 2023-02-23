@@ -303,35 +303,57 @@ def get_df(files, ttype, max_files=None):
         df_final = df_final.drop_duplicates()
     return df_final
 
-def html_to_df(files, max_files=None):
+def html_to_df(files, keywords, max_files=None):
+    # restringe a quantidade de arquivos analisados
     if max_files:
         files = files[:max_files]
 
     # abre os arquivos e transforma-os em um objeto Beatifulsoup
-    files = list(map(lambda x: BeautifulSoup(open(x, 'r'), 'html.parser'), files))
+    files = map(lambda x: BeautifulSoup(open(x, 'r'), 'html.parser'), files)
     # encontra todas as tabelas de cada arquivo com uma determinada classe
-    files = list(map(lambda x: x.find_all('table', class_="ContasPublicas"), files))
+    files = list(map(lambda x: x.find_all(keywords['tag_name'], class_=keywords['class']), files))
     # transforma as listas de tabelas de cada arquivo em uma única lista
-    tables = reduce(lambda x,y: x+y, files)
-    # função que encontra elementos html com o texto exigido
-    find_objetos = lambda x: x.find(lambda tag: tag.name == 'td' and 'Objeto:' in tag.text)
-    # executa a função de encontrar os elementos em todas as tablelas
-    objetos = list(map(lambda x: find_objetos(x), tables))
-    # extrai o texto das tabelas
-    objetos = list(map(lambda x: x.text if x else None, objetos))
-    # remove informações não relevantes do texto extraído
-    objetos = list(map(lambda x: x.replace('Objeto: ', '') if x else None, objetos))
-    print(len(objetos))
-    # retorna quantas entradas válidas existem depois da remoção
-    isvalid = list(map(lambda x: x is not None and x is not '', objetos))
-    print(sum(isvalid))
+    tables = reduce(lambda x,y: x+y, files, [])
 
-    test_html = """<td align="Left">Número do Processo Licitatório: <a href="javascript:exibirDadosLicitacao(&quot;00032017&quot;, &quot;B&quot;, &quot;1&quot;)">00032017</a></td>"""
-
-    html = BeautifulSoup(test_html, 'html.parser')
-
-    print(html.text)
-
-    return None
-
+    # inicializa variável para onde os dados serão transformados
+    results = dict()
     
+    for item, parameters in keywords['elements_parameters'].items():
+        
+        # define qual o nome da tag a ser buscado, caso exista
+        if parameters['tag_name'] != "":
+            tag_name = lambda tag: tag.name == parameters['tag_name']
+        else:
+            tag_name = lambda tag: True
+
+        # define qual o nome da classe a ser buscada, caso exista
+        if parameters['tag_class'] != "":
+            tag_class = lambda tag: tag.class_ == parameters['tag_class']
+        else:
+            tag_class = lambda tag: True
+
+        # define se existe algum conteúdo obrigatório a ser encontrado no texto da tag
+        if parameters['text'] != "":
+            filter_text = lambda tag: re.match(parameters['text'], tag.text) is not None
+        else:
+            filter_text = lambda tag: True 
+
+        # junta os três requisitos anteriores em uma única expressão lógica
+        tag_properties = lambda tag: tag_name(tag) and tag_class(tag) and filter_text(tag)
+        
+        #find_values = lambda x: x.find(tag_properties)
+        #find_objetos = lambda tag: tag.name == 'td' and 'Objeto:' in tag.text
+
+        # executa a função de encontrar os elementos em todas as tablelas
+        tags = map(lambda x: x.find(tag_properties), tables)
+        # extrai o texto das tabelas
+        texts = map(lambda x: x.text if x else None, tags)
+        # remove informações não relevantes do texto extraído
+        texts = list(map(lambda x: re.sub(parameters['sub'], '', x) if x else None, texts))
+
+        results[item] = texts
+
+    df = pd.DataFrame(results)
+    # df.to_csv("/dados01/workspace/ufmg_2021_f01/ufmg.jlsilva/F01/aux.csv", index=False)
+
+    return df

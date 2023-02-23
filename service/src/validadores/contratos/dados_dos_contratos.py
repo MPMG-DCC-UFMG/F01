@@ -12,108 +12,32 @@ class ValidadorDadosDosContratos:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['contratos'])
         self.files = path_functions.agg_paths_by_type(files)
-        #self.df = get_df(self.files, keywords['types'], max_files=keywords['max_files'])
-        html_to_df(self.files['html'])
+        try:
+            self.df = html_to_df(self.files['html'], keywords['html_to_df'])
+        except KeyError:
+            self.df = get_df(self.files, keywords['types'], max_files=keywords['max_files'])
 
     def predict_objeto(self):
-        try:
-            regex = self.keywords['regex']
-        except KeyError:
-            regex = False
-
-        if regex is True:
-            pattern = re.compile(self.keywords['objeto_pattern'])
-            result = search_in_column(self.df, self.keywords['objeto_column'], pattern)
-            isvalid = False
-            if result['isvalid'].sum() > 0:
-                isvalid = True
-            return isvalid, result
-
         result, isvalid = check_all_values_of_column(self.df, self.keywords['objeto'], typee='text')
         return isvalid, result
 
     def predict_valor(self):
-        try:
-            regex = self.keywords['regex']
-        except KeyError:
-            regex = False
-
-        if regex is True:
-            pattern = re.compile(self.keywords['valor_pattern'])
-            result = search_in_column(self.df, self.keywords['valor_column'], pattern)
-            isvalid = False
-            if result['isvalid'].sum() > 0:
-                isvalid = True
-            return isvalid, result
-        
         result, isvalid = check_all_values_of_column(self.df, self.keywords['valor'], typee='valor')
         return isvalid, result
     
     def predict_favorecido(self):
-        try:
-            regex = self.keywords['regex']
-        except KeyError:
-            regex = False
-
-        if regex is True:
-            pattern = re.compile(self.keywords['favorecido_pattern'])
-            result = search_in_column(self.df, self.keywords['favorecido_column'], pattern)
-            isvalid = False
-            if result['isvalid'].sum() > 0:
-                isvalid = True
-            return isvalid, result
-        
         result, isvalid = check_all_values_of_column(self.df, self.keywords['favorecido'], typee='text')
         return isvalid, result
     
     def predict_numero_ano_do_contrato(self):
-        try:
-            regex = self.keywords['regex']
-        except KeyError:
-            regex = False
-
-        if regex is True:
-            pattern = re.compile(self.keywords['numero_ano_do_contrato_pattern'])
-            result = search_in_column(self.df, self.keywords['numero_ano_do_contrato_column'], pattern)
-            isvalid = False
-            if result['isvalid'].sum() > 0:
-                isvalid = True
-            return isvalid, result
-
         result, isvalid = check_all_values_of_column(self.df, self.keywords['numero_ano_do_contrato'], typee='text')
         return isvalid, result
     
     def predict_vigencia(self):
-        try:
-            regex = self.keywords['regex']
-        except KeyError:
-            regex = False
-
-        if regex is True:
-            pattern = re.compile(self.keywords['vigencia_pattern'])
-            result = search_in_column(self.df, self.keywords['vigencia_column'], pattern)
-            isvalid = False
-            if result['isvalid'].sum() > 0:
-                isvalid = True
-            return isvalid, result
-
         result, isvalid = check_all_values_of_column(self.df, self.keywords['vigencia'], typee='text')
         return isvalid, result
     
     def predict_licitacao_de_origem(self):
-        try:
-            regex = self.keywords['regex']
-        except KeyError:
-            regex = False
-
-        if regex is True:
-            pattern = re.compile(self.keywords['licitacao_de_origem_pattern'])
-            result = search_in_column(self.df, self.keywords['licitacao_de_origem_column'], pattern)
-            isvalid = False
-            if result['isvalid'].sum() > 0:
-                isvalid = True
-            return isvalid, result
-
         result, isvalid = check_all_values_of_column(self.df, self.keywords['licitacao_de_origem'], typee='text')
         return isvalid, result
     

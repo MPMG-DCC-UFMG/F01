@@ -17,7 +17,7 @@ def pipeline_contratos(keywords, job_name):
 
     # Subtag - Dados dos contratos
     validador_dados_dos_contratos = ValidadorDadosDosContratos(job_name, keywords['dados_dos_contratos'])
-    #contratos['dados_dos_contratos'] = validador_dados_dos_contratos.predict()
+    contratos['dados_dos_contratos'] = validador_dados_dos_contratos.predict()
 
     # Subtag - Disponibiliza o conteúdo integral dos contratos
     #validador_conteudo_integral = ValidadorConteudoIntegral(job_name, keywords['conteudo_integral'])
@@ -27,4 +27,4 @@ def pipeline_contratos(keywords, job_name):
     #validador_gerar_relatorio = ValidadorGerarRelatorio(job_name, keywords['gerar_relatorio'])
     #contratos['gerar_relatorio'] = validador_gerar_relatorio.predict()
 
-    return None
+    return contratos

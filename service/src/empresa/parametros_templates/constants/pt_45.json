@@ -53,26 +53,24 @@
             "search_term": "Contas Públicas :: Contratos, Atas de Registro de Preços e Aditivos",
             "keywords_to_search": ["Secretaria", "Fundamento Legal", "CNPJ", "Modalidade", "Objeto"],
             "types": ["html"],
-            "max_files": 3,
-            "objeto": "Objeto",
-            "valor": "Valor global do contrato original",
-            "favorecido": "Contratado",
-            "numero_ano_do_contrato": "Numero do Contrato",
-            "vigencia": "Data da Vigência",
-            "licitacao_de_origem": "Número do Processo Licitatório",
-            "regex" : true,
-            "objeto_pattern": "Objeto:([a-zA-z].+| .+)",
-            "objeto_column": "Unnamed: 0",
-            "valor_pattern": "((Valor Global)|(Valor global do contrato original)): ?R\\$ ?.+",
-            "valor_column": "Unnamed: 0",
-            "favorecido_pattern": "Contratado: ?[a-zA-Z ]+",
-            "favorecido_column": "Unnamed: 0",
-            "numero_ano_do_contrato_pattern": "Número do Contrato Original: ?[0-9]{4}/[0-9]{4}",
-            "numero_ano_do_contrato_column": "Unnamed: 0",
-            "vigencia_pattern": "Data da Vigência: ?[0-9]{1,2}/[0-9]{1,2}/(([0-9]{2})|([0-9]{4}))",
-            "vigencia_column": "Unnamed: 0",
-            "licitacao_de_origem_pattern": "Número do Processo Licitatório: ?[0-9]+",
-            "licitacao_de_origem_column": "Unnamed: 0"
+            "objeto": "objeto",
+            "valor": "valor",
+            "favorecido": "favorecido",
+            "numero_ano_do_contrato": "numero_ano_do_contrato",
+            "vigencia": "vigencia",
+            "licitacao_de_origem": "licitacao_de_origem",
+            "html_to_df": {
+                "tag_name": "table",
+                "class": "ContasPublicas",
+                "elements_parameters": {
+                    "objeto": {"tag_name": "td", "tag_class": "", "text": "Objeto: ", "sub":"Objeto: "},
+                    "valor": {"tag_name": "td", "tag_class": "", "text": "(Valor Global)|(Valor global do contrato original): ", "sub":"(Valor Global)|(Valor global do contrato original): "},
+                    "favorecido": {"tag_name": "td", "tag_class": "", "text": "Contratado: ", "sub": "Contratado: "},
+                    "numero_ano_do_contrato": {"tag_name": "td", "tag_class": "", "text": ".*Número do Contrato Original: ", "sub": ".*Número do Contrato Original: "},
+                    "vigencia": {"tag_name": "td", "tag_class": "", "text": "Data da Vigência:", "sub": "Data da Vigência:"},
+                    "licitacao_de_origem": {"tag_name": "td", "tag_class": "", "text": "Número do Processo Licitatório: ", "sub": "Número do Processo Licitatório: "}
+                }
+            }                   
         }
     }
 }
