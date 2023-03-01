@@ -81,5 +81,16 @@
                 }
             }                   
         }
+    },
+    "receitas":{
+        "dados_das_receitas":{
+            "search_term": "Página inicial :: Tempo Real :: Receita receitas",
+            "keywords_to_search": ["Data", "Tipo de Minuta", "Receita", "Fonte de Recursos", "Valor"],
+            "types": ["html"],
+            "max_files": 10,
+            "previsao": "", 
+            "arrecadacao": "Valor",
+            "classificacao": "Fonte de Recursos"
+        }
     }
 }
