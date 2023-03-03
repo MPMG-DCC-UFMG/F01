@@ -12,10 +12,19 @@ class ValidadorPagamentos(Validador):
 
         self.keywords = keywords
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['pagamentos'])
+        try:
+            filter_path = keywords["path"]
+        except KeyError:
+            filter_path = ['pagamentos']
+        files = path_functions.filter_paths(files, words=filter_path)
         files = path_functions.agg_paths_by_type(files)
         self.files = files
-        self.df = get_df(self.files, keywords['types'])
+        try:
+            max_files = keywords['max_files']
+        except KeyError:
+            max_files = 10000
+        self.df = get_df(self.files, keywords['types'], max_files=max_files)
+        # print(self.df.columns)
 
     # Valor
     def predict_valor(self):

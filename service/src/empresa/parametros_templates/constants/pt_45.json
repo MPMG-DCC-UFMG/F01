@@ -1,53 +1,100 @@
 {
-    "acesso_a_informacoes":{
-        "dados_abertos":{
-            
-        }
+    "acesso_a_informacoes": {
+        "dados_abertos": {}
     },
-    "informacoes_institucionais":{
-        "unidades_administrativas_":{
+    "informacoes_institucionais": {
+        "unidades_administrativas_": {
             "search_term": "teste",
-            "keywords_to_search": ["teste"],
-            "types": ["html"],
+            "keywords_to_search": [
+                "teste"
+            ],
+            "types": [
+                "html"
+            ],
             "endereco": "endereco",
             "telefone": "telefone",
             "horario_de_atendimento": "horario de atendimento"
         },
-        "leis_municipais": { 
+        "leis_municipais": {
             "type": "predict_by_number_of_files",
-            "directory": ["informacoes_institucionais","leis_municipais"]
+            "directory": [
+                "informacoes_institucionais",
+                "leis_municipais"
+            ]
         }
     },
     "servidores_publicos": {
         "dados_dos_servidores": {
             "search_term": "Folha Salarial",
-            "keywords_to_search": ["Contas Públicas :: Folha Salarial", "Nome", "Servidor", "Matrícula", "Cargo", "Função" ],
-            "filter_paths": ["servidores"],
-            "types": ["html"],
+            "keywords_to_search": [
+                "Contas Públicas :: Folha Salarial",
+                "Nome",
+                "Servidor",
+                "Matrícula",
+                "Cargo",
+                "Função"
+            ],
+            "filter_paths": [
+                "servidores"
+            ],
+            "types": [
+                "html"
+            ],
             "nome": "nome",
             "cargo_funcao": "cargo",
-            "remuneracao":"remuneracao",
-            "html_to_df":{
+            "remuneracao": "remuneracao",
+            "html_to_df": {
                 "tag_name": "table",
                 "class": "ContasPublicas",
                 "elements_parameters": {
-                    "nome": {"tag_name": "td", "tag_class": "", "text": "Nome: ", "sub": "Nome: "},
-                    "cargo": {"tag_name": "td", "tag_class": "", "text": "Cargo: ", "sub": "Cargo: "},
-                    "funcao": {"tag_name": "td", "tag_class": "", "text": "Função: ", "sub": "Função: "},
-                    "remuneracao": {"tag_name": "td", "tag_class": "", "text": ".*Remuneração Bruta: ", "sub": "(.*Remuneração Bruta: )|(Total da Remuneração Após Deduções:.*)"}
+                    "nome": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Nome: ",
+                        "sub": "Nome: "
+                    },
+                    "cargo": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Cargo: ",
+                        "sub": "Cargo: "
+                    },
+                    "funcao": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Função: ",
+                        "sub": "Função: "
+                    },
+                    "remuneracao": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": ".*Remuneração Bruta: ",
+                        "sub": "(.*Remuneração Bruta: )|(Total da Remuneração Após Deduções:.*)"
+                    }
                 }
             }
-         },
+        },
         "auxilios": {
             "search_term": "servidor folha",
-            "keywords_to_search": ["Nome", "Servidor", "Matrícula", "Cargo", "Função"]
+            "keywords_to_search": [
+                "Nome",
+                "Servidor",
+                "Matrícula",
+                "Cargo",
+                "Função"
+            ]
         }
     },
-    "obras_publicas":{
-        "dados_para_acompanhamento":{
+    "obras_publicas": {
+        "dados_para_acompanhamento": {
             "search_term": "Obras",
-            "keywords_to_search": ["Contas Públicas :: Obras", "Obras Públicas"],
-            "types": ["html"],
+            "keywords_to_search": [
+                "Contas Públicas :: Obras",
+                "Obras Públicas"
+            ],
+            "types": [
+                "html"
+            ],
             "objeto": "Objeto da Obra",
             "valor_total": "Valor total",
             "empresa_contratada": "Empresa contratada",
@@ -60,8 +107,16 @@
     "contratos": {
         "dados_dos_contratos": {
             "search_term": "Contas Públicas :: Contratos, Atas de Registro de Preços e Aditivos",
-            "keywords_to_search": ["Secretaria", "Fundamento Legal", "CNPJ", "Modalidade", "Objeto"],
-            "types": ["html"],
+            "keywords_to_search": [
+                "Secretaria",
+                "Fundamento Legal",
+                "CNPJ",
+                "Modalidade",
+                "Objeto"
+            ],
+            "types": [
+                "html"
+            ],
             "objeto": "objeto",
             "valor": "valor",
             "favorecido": "favorecido",
@@ -72,25 +127,88 @@
                 "tag_name": "table",
                 "class": "ContasPublicas",
                 "elements_parameters": {
-                    "objeto": {"tag_name": "td", "tag_class": "", "text": "Objeto: ", "sub":"Objeto: "},
-                    "valor": {"tag_name": "td", "tag_class": "", "text": "(Valor Global)|(Valor global do contrato original): ", "sub":"(Valor Global)|(Valor global do contrato original): "},
-                    "favorecido": {"tag_name": "td", "tag_class": "", "text": "Contratado: ", "sub": "Contratado: "},
-                    "numero_ano_do_contrato": {"tag_name": "td", "tag_class": "", "text": ".*Número do Contrato Original: ", "sub": ".*Número do Contrato Original: "},
-                    "vigencia": {"tag_name": "td", "tag_class": "", "text": "Data da Vigência:", "sub": "Data da Vigência:"},
-                    "licitacao_de_origem": {"tag_name": "td", "tag_class": "", "text": "Número do Processo Licitatório: ", "sub": "Número do Processo Licitatório: "}
+                    "objeto": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Objeto: ",
+                        "sub": "Objeto: "
+                    },
+                    "valor": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "(Valor Global)|(Valor global do contrato original): ",
+                        "sub": "(Valor Global)|(Valor global do contrato original): "
+                    },
+                    "favorecido": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Contratado: ",
+                        "sub": "Contratado: "
+                    },
+                    "numero_ano_do_contrato": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": ".*Número do Contrato Original: ",
+                        "sub": ".*Número do Contrato Original: "
+                    },
+                    "vigencia": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Data da Vigência:",
+                        "sub": "Data da Vigência:"
+                    },
+                    "licitacao_de_origem": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Número do Processo Licitatório: ",
+                        "sub": "Número do Processo Licitatório: "
+                    }
                 }
-            }                   
+            }
         }
     },
-    "receitas":{
-        "dados_das_receitas":{
+    "receitas": {
+        "dados_das_receitas": {
             "search_term": "Página inicial :: Tempo Real :: Receita receitas",
-            "keywords_to_search": ["Data", "Tipo de Minuta", "Receita", "Fonte de Recursos", "Valor"],
-            "types": ["html"],
+            "keywords_to_search": [
+                "Data",
+                "Tipo de Minuta",
+                "Receita",
+                "Fonte de Recursos",
+                "Valor"
+            ],
+            "types": [
+                "html"
+            ],
             "max_files": 10,
-            "previsao": "", 
+            "previsao": "",
             "arrecadacao": "Valor",
             "classificacao": "Fonte de Recursos"
+        }
+    },
+    "despesas": {
+        "pagamentos": {
+            "path": [
+                "despesas"
+            ],
+            "max_files": 20,
+            "search_term": "Página inicial :: Tempo Real :: Despesa",
+            "keywords_to_search": [
+                "Página inicial :: Tempo Real :: Despesa",
+                "Credor",
+                "Empenho",
+                "Tipo",
+                "Processo Licitatório",
+                "Data Empenho",
+                "Data Liquidação"
+            ],
+            "types": [
+                "html"
+            ],
+            "valor": "Valor Pago",
+            "data": "Data Pagamento",
+            "favorecido": "Credor",
+            "empenho_de_referencia": "Empenho"
         }
     }
 }
