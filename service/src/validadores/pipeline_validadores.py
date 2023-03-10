@@ -94,3 +94,9 @@ def terceiro_setor(parametros, job_name):
         'terceiro_setor': pipeline_terceiro_setor(parametros, job_name)
     }
     return resultado
+
+def orcamento(parametros, job_name):
+    resultado = {
+        'orcamento': pipeline_orcamento(parametros, job_name)
+    }
+    return resultado

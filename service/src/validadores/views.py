@@ -72,6 +72,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
                 resultado = pipeline_validadores.informacoes_institucionais(parametros, municipio)
             elif nome_da_tag == 'licitacoes':
                 resultado = pipeline_validadores.licitacoes(parametros, municipio)
+            elif nome_da_tag == 'orcamento':
+                resultado = pipeline_validadores.orcamento(parametros, municipio)
             else:
                 return jsonify(f"Tag {nome_da_tag} não existe")
             
@@ -82,6 +84,6 @@ def rodar_tag(nome_do_template, nome_da_tag):
             print("**********************")
         
 
-            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+            # salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 

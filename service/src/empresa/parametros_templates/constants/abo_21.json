@@ -177,5 +177,119 @@
             "conveniados": "Concedente",
             "aditivos": "Valor Aditivo"
         }
+    },
+
+    "orcamento":{
+        "legislacao":{
+            "lei_orcamentaria_anual":{
+                "search_term": "Lei orcamentária anual",
+                "keywords_to_search": ["LOA", "Lei orcamentaria anual"],
+                "keyword_check": ["LOA", "Lei Orçamentária Anual"]
+            },
+            "lei_diretrizes_orcamentarias":{
+                "search_term": "Lei Diretrizes Orçamentárias",
+                "keywords_to_search": ["LDO", "Lei", "diretrizes", "orcamentarias"],
+                "keyword_check": ["LDO", "Lei de Diretrizes Orçamentárias"]
+            },
+            "plano_plurianual":{
+                "search_term": "Plano plurianual",
+                "keywords_to_search": ["Plano plurianual"],
+                "keyword_check": ["Plano plurianual"]
+            },
+            "informacoes_audiencias_publicas":{
+                "search_term": "Audiências",
+                "keywords_to_search": ["Publicas", "Audiências", "Ata"],
+                "keyword_check": ["Audiências Publicas"]
+            }
+        },
+        "execucao":{
+            "relatorios_quadrimestras_gestao_fiscal":{
+                "search_term": "gestão fiscal",
+                "keywords_to_search": ["Relatórios", "gestão fiscal"],
+                "keyword_check": ["quadrimestrais"]
+            },
+            "relatorio_bimestral_da_execucao_orcamentaria":{
+                "search_term": "Execução Orçamentária",
+                "keywords_to_search": ["relatório", "bimestral", "execução", "rrçamentária"],
+                "keyword_check": ["bimestral", "execução orçamentária"]
+            },
+            "prestacao_anual_de_contas":{
+                "search_term": "Prestação anual de contas",
+                "keywords_to_search": ["TCE", "Câmara de Vereadores", "Prestação"],
+                "keyword_check": ["prestação anual", "balanço anual"]
+            }
+        }
+    },
+
+    "despesas": {
+        "empenhos": {
+            "search_term": "Empenho",
+            "keywords_to_search": ["Pagamentos","Empenhos", "despesa", "empenhado", "favorecido", "valor", "credor"],
+            "types": ["html"],
+            "numero": "Número do Empenho", 
+            "valor": "Valor Pago",
+            "data": "Data Empenho",
+            "favorecido": "Favorecido",
+            "descricao": "Descrição do Empenho"
+        },
+        "pagamentos": {
+            "search_term": "Pago",
+            "keywords_to_search": ["Número","Despesa","Empenhado","Liquidado","Pago"],
+            "types": ["html", "bat"],
+            "valor": "Valor Pago",
+            "data": "Data Empenho",
+            "favorecido": "Favorecido",
+            "empenho_de_referencia": "Empenho"
+        },
+        "consulta_favorecido":{
+            "search_term": "Despesas    ",
+            "keywords_to_search": ["Relação de Despesas","Filtros"],
+            "types": ["html"],
+            "keyword_check": ["Favorecido:"]
+        },
+        "gerar_relatorios":{
+            "search_term": "despesa",
+            "keywords_to_search": ["Empenho","Pagamentos","transparencia","filtrar"],
+            "types": ["html"],
+            "keyword_check": [".pdf", ".xls", ".txt", ".csv"]
+        },
+         "relatorios":{
+             "plano_plurianual":{
+                "search_term": "Plurianual PPA",
+                "keywords_to_search": ["PPA", "Plano Plurianual", "PPA Lei"],
+                "types": ["html"],
+                "filter_paths": ["relatorios_contaspublicas"],
+                "keyword_check": ["Plano Plurianual"]
+            },
+            "lei_diretrizes_orcamentarias":{
+                "search_term": "Diretrizes orçamentárias LDO",
+                "keywords_to_search": ["Diretrizes orçamentárias", "metas fiscais", "lei diretrizes orçamentárias", "LDO"],
+                "types": ["html"],
+                "filter_paths": ["leis_orcamentarias"],
+                "keyword_check": ["Lei de Diretrizes Orçamentárias (LDO)", "LEI DE DIRETRIZES ORÇAMENTÁRIAS", "Plano Plurianual (PPA)"]
+            },
+            "lei_orcamentaria_anual":{
+                "search_term": "anual L.O.A.",
+                "keywords_to_search": ["LOA", "LOA Lei", "Lei orçamentária anual", "orçamentária anual"],
+                "types": ["html"],
+                "filter_paths": ["leis_orcamentarias"],
+                "keyword_check": ["LEI ORÇAMENTÁRIA ANUAL", "Lei Orçamentária Anual (LOA)"]
+            },
+             "balanco_demonstracoes":{
+                "search_term": "Prestação Contas",
+                "keywords_to_search": ["Balanço anual", "Demonstrações Contábeis", "Balancete da Despesa", "Balanço Orçamentário de Despesas", " Balanço Patrimonial"],
+                "types": ["html"],
+                "filter_paths": ["relatorios_contaspublicas"],
+                "keyword_check": ["Balanço Anual"]
+            },
+            "execucao_orcamentaria_gestao_fiscal":{
+                "search_term": "Relatórios execução orçamentária gestão fiscal",
+                "keywords_to_search": ["execução orçamentária", "gestão fiscal", "execução orçamentaria", "prestacao_de_contas", "relatorios de gestao fiscal"],
+                "types": ["html"],
+                "filter_paths": ["relatorios_contaspublicas"],
+                "keyword_check": ["Relatório de Gestão Fiscal"]
+            }
+        }
     }
+
 }

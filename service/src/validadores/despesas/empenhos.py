@@ -52,7 +52,7 @@ class ValidadorEmpenhos:
 
         # Número
         isvalid, result = self.predict_numero()
-        result_explain = self.explain(result, self.keywords['numero'], 'o numero')
+        result_explain = self.explain(result, self.keywords['numero'], 'o número')
         resultados_empenhos['numero']['predict'] = isvalid
         resultados_empenhos['valor']['explain'] = result_explain
 
@@ -76,15 +76,21 @@ class ValidadorEmpenhos:
 
         # Descricao
         isvalid, result = self.predict_descricao()
-        result_explain = self.explain(result, self.keywords['descricao'], 'a descricao')
+        result_explain = self.explain(result, self.keywords['descricao'], 'a descrição')
         resultados_empenhos['descricao']['predict'] = isvalid
         resultados_empenhos['descricao']['explain'] = result_explain
 
         return resultados_empenhos
         
     def explain(self, result, column_name, description):
-        result = f"""
-        Quantidade de entradas encontradas e analizadas: {len(result[column_name])} 
-        Quantidade de entradas que possuem {description} do empenho válido: {sum(result['isvalid'])}
-        """
+
+        try:
+            result = f"""
+            Quantidade de entradas encontradas e analizadas: {len(result[column_name])} 
+            Quantidade de entradas que possuem {description} do empenho válido: {sum(result['isvalid'])}
+            """
+            
+        except KeyError:
+            result = f" Não foi encontrado {description} do empenho"
+
         return result

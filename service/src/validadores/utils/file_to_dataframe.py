@@ -192,6 +192,8 @@ def load_and_convert_files(paths, format_type):
         for file_name in paths:
             # print(file_name)
             soup = read.read_html(file_name)
+            if soup == None:
+                continue
             new_df = convert_html(soup)
             new_df['FileName'] = file_name
             list_to_concat.append(new_df)
@@ -210,8 +212,10 @@ def load_and_convert_files(paths, format_type):
 
         list_to_concat = []
         for i in paths:
-
-            delimiter = detect_delimiter(i)
+            try:
+                delimiter = detect_delimiter(i)
+            except UnicodeDecodeError:
+                delimiter = None
             if not delimiter:
                 print("WARNING: delimiter not found for", i)
                 continue

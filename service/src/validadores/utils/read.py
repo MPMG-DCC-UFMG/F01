@@ -7,13 +7,19 @@ def read_html(path):
         file = codecs.open(path, 'r', 'utf-8', errors='ignore')
         soup = BeautifulSoup(file, features="lxml",from_encoding="utf-8")
         return soup
-    except:
+    
+    except FileNotFoundError:
+        print("Warning: arquivo", path, "não encontrado")
+    
+    try:
         file = codecs.open(path, 'r', 'latin-1', errors='ignore')
         soup = BeautifulSoup(file, features="lxml",from_encoding="latin-1")
         return soup
-    # text = codecs.open(path, encoding='latin-1', errors='ignore').read()
-    # soup = BeautifulSoup(text, features="lxml",from_encoding="latin-1")
 
+    except FileNotFoundError:
+        print("Warning: arquivo", path, "não encontrado")
+    
+    return None
 
 def read_file(path):
 

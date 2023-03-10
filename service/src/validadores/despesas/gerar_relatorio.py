@@ -43,10 +43,10 @@ class ValidadorGerarRelatorios(Validador):
     def explain(self, result, keywords):
 
         if len(keywords) > 1:
-            result = "Os palavras chaves {} estão presentes {} vezes em páginas de empenhos ou pagamentos ".format(
+            result = "As palavras-chave {} estão presentes {} vezes em páginas de empenhos ou pagamentos ".format(
                 keywords, sum(result['matches']))
         else:
-            result = "A palavra chave '{}' está presente {} vezes em páginas de empenhos ou pagamentos ".format(
+            result = "A palavra-chave '{}' está presente {} vezes em páginas de empenhos ou pagamentos ".format(
                 keywords[0], sum(result['matches']))
 
         return result

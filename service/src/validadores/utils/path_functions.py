@@ -68,7 +68,7 @@ def filter_paths(paths, words):
 def preprocess_paths(sorted_result, word):
 
     paths = (sorted(set(sorted_result)))
-    print('preprocess_paths', paths)
+    # print('preprocess_paths', paths)
     # paths = filter_paths(paths, word)
 
     return paths

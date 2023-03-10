@@ -44,7 +44,7 @@ def get_tags_class (soup):
     #Get all tags class and return a list with all class
 
     tags_class =  [tag.get('class') for tag in soup.find_all() if tag.get('class') != None]
-    print(tags_class)
+    # print(tags_class)
     tags_class = list(itertools.chain(*tags_class))
     
     return tags_class
@@ -137,7 +137,7 @@ def analyze_aria_label(soup, keyword_to_search):
         num_matches += count_matches (title, keyword_to_search)
     return num_matches
 
-def analyze_placeholders(soup, keyword_to_search):
+def analyze_input(soup, keyword_to_search):
     """
     Retorna a quantidade de vezes que uma determinada palavra está presente em algum placeholder html.
 
@@ -157,9 +157,13 @@ def analyze_placeholders(soup, keyword_to_search):
     inputs = soup.find_all('input')
     for input in inputs:
         try:
-            num_matches += count_matches (input['placeholder'], keyword_to_search)
+            num_matches += (count_matches (input['placeholder'], keyword_to_search))
         except KeyError:
-            continue
+            pass
+        try:
+            num_matches += (count_matches (input['value'], keyword_to_search))
+        except KeyError:
+            pass
     return num_matches
 
 def analyze_html(html_files, keyword_to_search):
@@ -199,6 +203,10 @@ def analyze_html(html_files, keyword_to_search):
         num_matches = 0
         words = []
         soup = read.read_html(path)
+        if soup == None:
+            matches.append(0)
+            words_matches.append(None)
+            continue
 
         for keyword in keyword_to_search:
 
@@ -210,8 +218,8 @@ def analyze_html(html_files, keyword_to_search):
             # No título de um botão
             num_matches_keyword += analyze_botoes (soup, keyword)
 
-            # Em algum placeholder
-            num_matches_keyword += analyze_placeholders (soup, keyword)
+            # Em algum placeholder ou valu de um input
+            num_matches_keyword += analyze_input (soup, keyword)
 
             # Em algum aria-label
             num_matches_keyword += analyze_aria_label (soup, keyword)

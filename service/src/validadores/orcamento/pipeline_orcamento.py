@@ -8,17 +8,14 @@ def pipeline_orcamento(keywords, job_name):
     except KeyError:
         return None
 
-    orcamento = {
-        'execucao': {},
-        'legislacao': {},
-    }
+    orcamento = {}
 
-    # # Subtag - Legislação
+    # Subtag - Legislação
     validador_legislacao = legislacao.ValidadorLegislacao(job_name, keywords['legislacao'])
     orcamento['legislacao'] = validador_legislacao.predict()
 
 
-    # # Subtag - Execução
+    # Subtag - Execução
     validador_execucao = execucao.ValidadorExecucao(job_name, keywords['execucao'])
     orcamento['execucao'] = validador_execucao.predict()
     
