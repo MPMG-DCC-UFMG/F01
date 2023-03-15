@@ -30,10 +30,10 @@ id,tag,sub-tag,info,abreviacao
 29,Despesas,Empenhos,Data,
 30,Despesas,Empenhos,Favorecido,
 31,Despesas,Empenhos,Descrição,
-32,Despesas,Pagamentos,Valor,
-33,Despesas,Pagamentos,Data,
-34,Despesas,Pagamentos,Favorecido,
-35,Despesas,Pagamentos,Empenho de referência,
+32,Despesas,Pagamentos,Valor,valor
+33,Despesas,Pagamentos,Data,data
+34,Despesas,Pagamentos,Favorecido,favorecido
+35,Despesas,Pagamentos,Empenho de referência,empenho_de_referencia
 36,Despesas,Consulta,Possibilita a consulta de empenhos ou pagamentos por favorecido,
 37,Despesas,Gerar relatório,Permite gerar relatório da consulta de empenhos ou de pagamentos em formato aberto,
 38,Despesas,Relatórios,Link de acesso ao Plano Plurianual do município,

@@ -21,7 +21,7 @@ def pipeline_despesas(keywords, job_name):
     validador_empenhos = empenhos.ValidadorEmpenhos(job_name, keywords['empenhos'])
     despesas['empenhos'] = validador_empenhos.predict()
     
-    # Subtag - Pagamentos
+    # # Subtag - Pagamentos
     validador_pagamentos = pagamentos.ValidadorPagamentos(job_name, keywords['pagamentos'])
     despesas['pagamentos'] = validador_pagamentos.predict()
 
@@ -33,7 +33,7 @@ def pipeline_despesas(keywords, job_name):
     validador_gerar_relatorios = gerar_relatorio.ValidadorGerarRelatorios(job_name, keywords['gerar_relatorios'])
     despesas['gerar_relatorios'] = validador_gerar_relatorios.predict()
 
-    # Subtag - Relatórios
+    # # Subtag - Relatórios
     validador_relatorios = relatorios.ValidadorRelatorios(job_name, keywords['relatorios'])
     despesas['relatorios'] = validador_relatorios.predict()
 
