@@ -110,8 +110,10 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
     # if (nome_da_tag in nome_da_tag_no_git_hub):
     #     nome_da_tag = nome_da_tag_no_git_hub[nome_da_tag]
 
+    # print("Resultado json: ", resultado_json)
     for tag, resultado_por_tag in resultado_json.items():
-
+        # print("\n\n\n\n\n")
+        # print(tag, "-> Resultado tag: ", resultado_por_tag)
         if resultado_por_tag is None: # ainda não validado
             itens = get_tag_itens(tag)
             resposta = get_resposta_por_erro_de_validacao("ainda não validado")
@@ -122,8 +124,11 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
             continue
 
         for subtag, resultado_por_subtag in resultado_por_tag.items():
-
+            # print("\n\n\n\n\n")
+            # print(subtag, "-> Resultado subtag: ", resultado_por_subtag)
             for item_apelido, resultado_do_item in resultado_por_subtag.items():
+                # print("\n\n\n\n\n")
+                # print(item_apelido, "-> Resultado item: ", resultado_do_item)
                 item = get_item(get_sub_tag(subtag).id, item_apelido)
 
                 if resultado_do_item['predict']:
@@ -131,7 +136,7 @@ def salvar_resultado_de_json(municipio_id, resultado_json):
                 else:
                     resposta = Resposta.ERRO_VALIDADO
                 resposta.set_justificativa(resultado_do_item['explain'])
-
+                # print("Item id: ", item.id)
                 salvar_resultado(municipio_id=municipio_id,
                                  item_id=item.id, resposta=resposta)
 
