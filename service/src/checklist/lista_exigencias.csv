@@ -12,16 +12,16 @@ id,tag,sub-tag,info,abreviacao
 11,Acesso à Informação,Requisitos Exigidos,"Possui local e instruções para fácil acesso do interessado à comunicação com o município, por via eletrônica ou telefônica",
 12,Acesso à Informação,Requisitos Exigidos,Contém medidas que garantem a acessibilidade de conteúdo para pessoas com deficiência,
 13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
-14,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,quantidade
-15,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,atendidos
-16,Acesso à Informação,Relatório estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,indeferidos
-17,Informações institucionais,Estrutura organizacional,Estrutura organizacional,estrutura_organizacional
-18,Informações institucionais,Unidades administrativas,Endereço,endereco
-19,Informações institucionais,Unidades administrativas,Telefone,telefone
-20,Informações institucionais,Unidades administrativas,Horário de atendimento,horario_de_atendimento
-21,Informações institucionais,Registro das competências,Registro das competências de cada órgão municipal,registro_das_competencias
-22,Informações institucionais,Leis Municipais,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",leis_municipais
-23,Informações institucionais,Conselhos Municipais,"Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc)",conselhos_municipais
+14,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,quantidade
+15,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,atendidos
+16,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,indeferidos
+17,Informações institucionais,Estrutura organizacional,Estrutura Organizacional,estrutura_organizacional
+18,Informações Institucionais,Unidades Administrativas,Endereço,endereco
+19,Informações Institucionais,Unidades Administrativas,Telefone,telefone
+20,Informações Institucionais,Unidades Administrativas,Horário de atendimento,horario_de_atendimento
+21,Informações Institucionais,Registro das Competências,Registro das competências de cada órgão municipal,registro_das_competencias
+22,Informações Institucionais,Leis Municipais,"Link de acesso a toda a legislação municipal: contendo o texto original, as eventuais alterações supervenientes e a redação atualizada (incluindo leis municipais, decretos, portarias, resoluções e demais instrumentos normativos)",leis_municipais
+23,Informações Institucionais,Conselhos Municipais,"Informações sobre os Conselhos Municipais (CODEMA - CMDCA - Saúde etc)",conselhos_municipais
 24,Receitas,Dados das receitas,Previsão,previsao
 25,Receitas,Dados das receitas,Arrecadação,arrecadacao
 26,Receitas,Dados das receitas,Classificação,classificacao
@@ -55,7 +55,7 @@ id,tag,sub-tag,info,abreviacao
 54,Contratos,Dados dos contratos,Número/Ano do contrato,numero_ano_do_contrato
 55,Contratos,Dados dos contratos,Vigência,vigencia
 56,Contratos,Dados dos contratos,Licitação de origem,licitacao_de_origem
-57,Contratos,Conteúdo integral,Disponibiliza o conteúdo integral dos contratos,conteudo_integral
+57,Contratos,Conteúdo Integral,Disponibiliza o conteúdo integral dos contratos,conteudo_integral
 58,Contratos,Gerar relatório,Permite gerar relatório da consulta de licitações ou de contratos em formato aberto,gerar_relatorio
 59,Terceiro Setor,Dados de Parcerias,Data de celebração,data_de_celebracao
 60,Terceiro Setor,Dados de Parcerias,Objeto,objeto
@@ -69,13 +69,13 @@ id,tag,sub-tag,info,abreviacao
 68,Concursos Públicos,Dados do Concurso,Atos de nomeação,atos_de_nomeacao
 69,Concursos Públicos,Cópia do edital do concurso,Cópia do edital do concurso,copia_do_edital_do_concurso
 70,Concursos Públicos,Divulgação de Recursos e Decisões,Divulgação dos recursos e respectivas decisões,divulgacao_dos_recursos_e_respectivas_decisoes
-71,Obras públicas,Dados para acompanhamento,Objeto,objeto
-72,Obras públicas,Dados para acompanhamento,Valor total,valor_total
-73,Obras públicas,Dados para acompanhamento,Empresa contratada,empresa_contratada
-74,Obras públicas,Dados para acompanhamento,Data de início,data_de_inicio
-75,Obras públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,data_prevista_ou_prazo_de_execucao
-76,Obras públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,valor_total_pago_ou_percentual
-77,Obras públicas,Dados para acompanhamento,Situação atual da obra,situacao_atual
+71,Obras Públicas,Dados para acompanhamento,Objeto,objeto
+72,Obras Públicas,Dados para acompanhamento,Valor total,valor_total
+73,Obras Públicas,Dados para acompanhamento,Empresa contratada,empresa_contratada
+74,Obras Públicas,Dados para acompanhamento,Data de início,data_de_inicio
+75,Obras Públicas,Dados para acompanhamento,Data prevista para término ou prazo de execução,data_prevista_ou_prazo_de_execucao
+76,Obras Públicas,Dados para acompanhamento,Valor total já pago ou percentual de execução financeira,valor_total_pago_ou_percentual
+77,Obras Públicas,Dados para acompanhamento,Situação atual da obra,situacao_atual
 78,Servidores Públicos,Dados dos Servidores,Nome,nome
 79,Servidores Públicos,Dados dos Servidores,Cargo/Função,cargo_funcao
 80,Servidores Públicos,Dados dos Servidores,Remuneração,remuneracao
