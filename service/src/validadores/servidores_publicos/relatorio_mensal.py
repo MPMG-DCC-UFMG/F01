@@ -3,10 +3,7 @@ import re
 from src.validadores.utils import check_df
 from src.validadores.utils import indexing
 from src.validadores.utils import path_functions
-from src.validadores.utils.file_to_dataframe import get_df
 from src.validadores.utils.search_html import analyze_html
-from src.validadores.utils.check_df import search_in_column
-from src.validadores.utils.check_df import check_all_values_of_column
 
 class ValidadorRelatorioMensal:
 
@@ -16,8 +13,6 @@ class ValidadorRelatorioMensal:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['servidores_publicos','servidores'])
         self.files = path_functions.agg_paths_by_type(files)
-        self.df = get_df(self.files, keywords['types'])
-        # print(self.df)
 
     def predict_relatorio_mensal(self):
         
@@ -31,14 +26,14 @@ class ValidadorRelatorioMensal:
     def predict(self):
 
         resultados = {
-            'relatorio_mensal': {},
+            'relatorios_despesas_com_pessoal': {},
         }
 
         # Relatório mensal da despesa com pessoal
-        isvalid, result = self.predict_relatorio_mensal()
+        isvalid, _ = self.predict_relatorio_mensal()
         result_explain = self.explain(isvalid, self.keywords['explain'])
-        resultados['relatorio_mensal']['predict'] = isvalid
-        resultados['relatorio_mensal']['explain'] = result_explain
+        resultados['relatorios_despesas_com_pessoal']['predict'] = isvalid
+        resultados['relatorios_despesas_com_pessoal']['explain'] = result_explain
 
         return resultados
         

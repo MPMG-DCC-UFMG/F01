@@ -12,7 +12,12 @@ class ValidadorDadosDosServidores:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=keywords['filter_paths'])
         self.files = path_functions.agg_paths_by_type(files)
-        self.df = html_to_df(self.files['html'], keywords['html_to_df'],5)
+        try: 
+            html_to_df = keywords['html_to_df']
+            self.df = html_to_df(self.files['html'], keywords['html_to_df'],5)
+        except KeyError:
+            self.df = get_df(self.files, keywords['types'])
+        # print(self.df.columns)
 
     def predict_nome(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
