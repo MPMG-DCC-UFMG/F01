@@ -11,7 +11,7 @@ id,tag,sub-tag,info,abreviacao
 10,Acesso à Informação,Requisitos Exigidos,Mantém as informações disponíveis para acesso atualizadas,
 11,Acesso à Informação,Requisitos Exigidos,"Possui local e instruções para fácil acesso do interessado à comunicação com o município, por via eletrônica ou telefônica",
 12,Acesso à Informação,Requisitos Exigidos,Contém medidas que garantem a acessibilidade de conteúdo para pessoas com deficiência,
-13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
+13,Acesso à Informação,Dados Abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
 14,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,quantidade
 15,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,atendidos
 16,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,indeferidos

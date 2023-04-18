@@ -46,7 +46,7 @@ def rodar_tag(nome_do_template, nome_da_tag):
     control = True
     print(municipios)
     for municipio in municipios:
-            print('-rodando município:', municipio)
+        print('-rodando município:', municipio)
         # if municipio == 'resende_costa':
         # if municipio == 'brumadinho':
             # if municipio == 'confins':
@@ -55,7 +55,7 @@ def rodar_tag(nome_do_template, nome_da_tag):
             # if control:
             #     continue
 
-        # if municipio == 'resplendor':
+        if municipio == 'resplendor':
         # if municipio == 'tiradentes':
 
             if nome_da_tag == 'acesso_a_informacao':
