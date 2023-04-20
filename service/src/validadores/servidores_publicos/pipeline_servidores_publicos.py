@@ -19,57 +19,42 @@ def pipeline_servidores_publicos(keywords, job_name):
         'dados_dos_servidores': {},
     }
 
-    result = handle_files.abrir_existente(job_name)
-
     # Subtag - Dados dos Servidores
     # validador_dados_dos_servidores = ValidadorDadosDosServidores(job_name, keywords['dados_dos_servidores'])
     # servidores_publicos['dados_dos_servidores'] = validador_dados_dos_servidores.predict()
-    
-    # result['78'] = servidores_publicos['dados_dos_servidores']['nome']['predict']
-    # result['79'] = servidores_publicos['dados_dos_servidores']['cargo_funcao']['predict']
-    # result['80'] = servidores_publicos['dados_dos_servidores']['remuneracao']['predict']
 
     # Registro da remuneração
     # validador_registro_da_remuneracao = ValidadorRegistroDaRemuneracao(job_name, keywords['registro_da_remuneracao'])
-    # servidores_publicos['dados_dos_servidores'] = validador_registro_da_remuneracao.predict()
-    # print(output_registro_da_remuneracao)
+    # servidores_publicos['registro_da_remuneracao'] = validador_registro_da_remuneracao.predict()
     
     # Registro por lotação
     # validador_registro_por_lotacao = ValidadorRegistroPorLotacao(job_name, keywords['registro_por_lotacao'])
-    # output_registro_por_lotacao = validador_registro_por_lotacao.predict()
+    # servidores_publicos['registro_por_lotacao'] = validador_registro_por_lotacao.predict()
     # print("output_registro_por_lotacao:")
     # print(output_registro_por_lotacao)
 
+
     # Auxilios
     # validador_auxilios = ValidadorAuxilios(job_name, keywords['auxilios'])
-    # output_auxilios = validador_auxilios.predict()
-    # print("output_auxilios:")
-    # print(output_auxilios)
+    # servidores_publicos['auxilios'] = validador_auxilios.predict()
+
+    # Rodar
 
     # Proventos de aposentadoria
-    # validador_proventos_de_aposentadoria = ValidadorProventosDeAposentadoria(job_name, keywords['proventos_de_aposentadoria'])
-    # output_proventos_de_aposentadoria = validador_proventos_de_aposentadoria.predict()
-    # print("output_proventos_de_aposentadoria:")
-    # print(output_proventos_de_aposentadoria)
+    validador_proventos_de_aposentadoria = ValidadorProventosDeAposentadoria(job_name, keywords['proventos_de_aposentadoria'])
+    servidores_publicos['proventos_de_aposentadoria'] = validador_proventos_de_aposentadoria.predict()
 
     # Proventos de pensão
-    # validador_proventos_de_pensao = ValidadorProventosDePensao(job_name, keywords['proventos_de_pensao'])
-    # output_proventos_de_pensao = validador_proventos_de_pensao.predict()
-    # print("output_proventos_de_pensao:")
-    # print(output_proventos_de_pensao)
+    validador_proventos_de_pensao = ValidadorProventosDePensao(job_name, keywords['proventos_de_pensao'])
+    servidores_publicos['proventos_de_pensao'] = validador_proventos_de_pensao.predict()
     
     # Relatório mensal
-    # validador_relatorio_mensal = ValidadorRelatorioMensal(job_name, keywords['relatorio_mensal'])
-    # output_relatorio_mensal = validador_relatorio_mensal.predict()
-    # print("output_relatorio_mensal:")
-    # print(output_relatorio_mensal)
+    validador_relatorio_mensal = ValidadorRelatorioMensal(job_name, keywords['relatorio_mensal'])
+    servidores_publicos['relatorios_despesas_com_pessoal'] = validador_relatorio_mensal.predict()
     
     # Dados de remuneração
     validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords['dados_de_remuneracao'])
-    servidores_publicos['dados_dos_servidores'] = validador_dados_de_remuneracao.predict()
-    
-    result['84'] = servidores_publicos['dados_dos_servidores']['agentes_politicos']['predict']
+    servidores_publicos["dados_de_remuneracao"] = validador_dados_de_remuneracao.predict()
 
-    handle_files.save_dict_in_json(job_name, result)
 
     return servidores_publicos

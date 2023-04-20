@@ -1,8 +1,9 @@
 
+from src.validadores.utils import check_df
 from src.validadores.utils import indexing
 from src.validadores.utils import path_functions
+from src.validadores.utils.search_html import analyze_html
 from src.validadores.utils.file_to_dataframe import get_df, html_to_df
-from src.validadores.utils.check_df import check_all_values_of_column
 from src.validadores.utils.check_df import search_in_column
 
 class ValidadorDadosDeRemuneracao:
@@ -20,28 +21,63 @@ class ValidadorDadosDeRemuneracao:
         # self.df.to_csv('aux.csv')
 
     def predict_agentes_politicos(self):
-        result1, isvalid1 = check_all_values_of_column(self.df, self.keywords['agentes_politicos_cargo'], typee='text')
-        result2, isvalid2 = check_all_values_of_column(self.df, self.keywords['agentes_politicos_forma_de_admissao'], typee='text')
-        return (isvalid1 or isvalid2), result2
+
+        keywords = ["prefeito", "vereador", "secretário"]
+        result = search_in_column(self.df, self.keywords['agentes_politicos'], keywords)
+
+        isvalid = any(result['isvalid'])
+
+        return isvalid, result
+
+    def predict_servidores_efetivos(self):
+
+        keywords = ["EFETIVO"]
+        result = search_in_column(self.df, self.keywords['servidores_efetivos'], keywords)
+
+        isvalid = any(result['isvalid'])
+
+        return isvalid, result
+    
+    def predict_permite_pesquisa(self):
+
+        files = self.files['html']
+
+        result = analyze_html(files, keyword_to_search=self.keywords['permite_pesquisa'])
+        isvalid = check_df.files_isvalid(result, column_name='matches', threshold=1)
+
+        return isvalid, result
 
     
     def predict(self):
 
         resultados = {
-            'agentes_politicos': {},
+            'dados_de_remuneracao': { 'predict': False, 'explain': "Planilha consolidada: "},
         }
 
         # Agentes políticos
-        isvalid, result = self.predict_agentes_politicos()
-        result_explain = self.explain(result, 'agentes políticos')
-        resultados['agentes_politicos']['predict'] = isvalid
-        resultados['agentes_politicos']['explain'] = result_explain
+        isvalid_agentes_politicos, _ = self.predict_agentes_politicos()
+        resultados['dados_de_remuneracao']['explain'] += self.explain(isvalid_agentes_politicos, 'agentes políticos')
+
+        # Servidores efetivos
+        isvalid_servidores_efetivos, _ = self.predict_servidores_efetivos()
+        resultados['dados_de_remuneracao']['explain'] += self.explain(isvalid_servidores_efetivos, 'servidores efetivos')
+
+        # Permite pesquisa
+        isvalid_permite_pesquisa, _ = self.predict_permite_pesquisa()
+        resultados['dados_de_remuneracao']['explain'] += self.explain(isvalid_permite_pesquisa, 'compo para pesquisa')
+
+
+        if all([isvalid_agentes_politicos, 
+            isvalid_servidores_efetivos, 
+            isvalid_permite_pesquisa]):
+            # Valida se todos são encontrados
+            resultados['dados_de_remuneracao']['predict'] = True
 
         return resultados
         
-    def explain(self, result, description):
-        try:
-            result = f"""Quantidade de registros de {description} encontrados: {sum(result['isvalid'])}"""
-            return result
-        except KeyError:
-            return "Não encontrado"
+    def explain(self, is_valid, description):
+        if is_valid:
+            result = f"""Encontrado {description}. """
+        else:  
+            result = f"""Não encontrado {description}. """
+        return result

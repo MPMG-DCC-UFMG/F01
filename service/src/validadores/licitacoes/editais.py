@@ -17,7 +17,7 @@ class ValidadorEditais:
         files = path_functions.filter_paths(files, words=filter_paths_key)
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
-        print("self.columns:***", self.df.columns)
+        # print("self.columns:***", self.df.columns)
 
     def predict_editais(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['edital'], typee='text')

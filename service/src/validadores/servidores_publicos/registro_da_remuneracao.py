@@ -14,24 +14,25 @@ class ValidadorRegistroDaRemuneracao:
         files = path_functions.filter_paths(files, words=['servidores_publicos','servidores'])
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
-        # print(self.df)
+        
 
     def predict_agentes_politicos(self):
-        keywords = ["prefeito", "secretário municipal"]
+        print(self.df.to_csv("teste.csv"))
+        keywords = ["prefeito", "secretário municipal", "agentes políticos", "Agente político"]
         result = search_in_column(self.df, self.keywords['agentes_politicos'], keywords)
 
         isvalid = any(result['isvalid'])
         return isvalid, result
 
     def predict_contratados_temporariamente(self):
-        keywords = ["temporário", "temporariamente"]
+        keywords = ["temporário", "temporariamente", "servidor temporário"]
         result = search_in_column(self.df, self.keywords['contratados_temporariamente'], keywords)
 
         isvalid = any(result['isvalid'])
         return isvalid, result
     
     def predict_servidores_efetivos_ou_empregados_publicos(self):
-        keywords = ["efetivo", "empregado público"]
+        keywords = ["efetivo", "empregado público", "emprego público"]
         result = search_in_column(self.df, self.keywords['servidores_efetivos_ou_empregados_publicos'], keywords)
 
         isvalid = any(result['isvalid'])

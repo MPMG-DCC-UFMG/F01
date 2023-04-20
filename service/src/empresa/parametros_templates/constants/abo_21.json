@@ -290,6 +290,85 @@
                 "keyword_check": ["Relatório de Gestão Fiscal"]
             }
         }
+    },
+    "servidores_publicos": {
+        "dados_dos_servidores": {
+           "search_term": "servidor folha Servidores",
+           "keywords_to_search": ["Tipo de Cargo / Função / Emprego", "Favorecido", "Matricula", "Cargo", "Situação Servidor"],
+           "filter_paths": ["servidores"],
+           "types": ["html"],
+           "nome": "Favorecido",
+           "cargo_funcao": "Tipo de Cargo / Função / Emprego",
+           "remuneracao":"Valor Líquido"
+        },
+        "registro_da_remuneracao": {
+           "search_term": "servidor folha",
+           "keywords_to_search": ["Cargo/Funçao", "Favorecido", "Matricula", "Cargo"],
+           "types": ["html"],
+           "agentes_politicos": "Situação do Servidor Público ou Pensionista",
+           "contratados_temporariamente": "Tipo de Cargo / Função / Emprego",
+           "servidores_efetivos_ou_empregados_publicos":"Tipo de Cargo / Função / Emprego"
+        },
+        "registro_por_lotacao": {
+           "search_term": "LOTAÇÃO Servidores",
+           "keywords_to_search": ["Tipo de Cargo", "Cargo/Funçao", "Favorecido", "Matricula", "Cargo", "SITUAÇÃO", "VENCIMENTOS"],
+           "types": ["html"],
+           "lotacao": "LOTAÇÃO",
+           "matricula": "Matrícula",
+           "nome": "NOME DO SERVIDOR",
+           "cargo_funcao": "CARGO",
+           "remuneracao": "TOTAL DE VENCIMENTOS",
+           "abate_teto": "LÍQUIDO A RECEBER",
+           "tipo_de_vinculo": "Tipo de Cargo / Função / Emprego"
+        },
+        "auxilios": {
+           "search_term": "SUBSÍDIO EXTRAORDINÁRIAS SERVIDOR",
+           "keywords_to_search": ["Cargo/Funçao", "Favorecido", "Matricula", "Cargo", "auxílios"],
+           "types": ["html"],
+           "verbas_indenizatorias": "Verbas indenizatorias",
+           "ajuda_de_custos": "Ajuda de custos",
+           "jetons": ["Jetons", "Jetom"],
+           "vantagens_pecuniarias": ["indenizações", "gratificações", "adicionais", "EXTRAORDINÁRIAS", "ADICIONAL DE INSALUBRIDADE"]
+        },
+        "proventos_de_aposentadoria": {
+           "search_term": "servidor folha Servidores",
+           "keywords_to_search": ["Cargo/Funçao", "Favorecido", "Matricula", "Cargo", "aposentadoria"],
+           "types": ["html"],
+           "max_files": 1000,
+           "aposentadoria": "LOTAÇÃO",
+           "nome": "NOME DO SERVIDOR",
+           "cargo": "CARGO",
+           "remuneracao": "TOTAL DE VENCIMENTOS",
+           "abate_teto": "TOTAL DE VENCIMENTOS",
+           "remuneracao_sem_abate_teto": "LÍQUIDO A RECEBER",
+           "tipo_de_vinculo": "Tipo de Cargo / Função / Emprego"
+        },
+        "proventos_de_pensao": {
+           "search_term": "pensão pensionista",
+           "keywords_to_search": ["CargoFunçao", "Servidor", "Matricula", "Cargo", "pensão"],
+           "types": ["html"],
+           "pensao": "DESCRIÇÃO",
+           "nome": "NOME DO SERVIDOR",
+           "cargo": "CARGO",
+           "remuneracao": "TOTAL DE VENCIMENTOS",
+           "abate_teto": "TOTAL DE VENCIMENTOS",
+           "remuneracao_sem_abate_teto": "LÍQUIDO A RECEBER",
+           "tipo_de_vinculo": "Tipo de Cargo / Função / Emprego"
+        },
+        "relatorio_mensal": {
+           "search_term": "servidor folha",
+           "keywords_to_search": ["Matrícula", "Servidor", "Matricula", "Cargo"],
+           "types": ["html"],
+           "necessary_term": [".pdf", ".csv"],
+           "explain": "possível pesquisar por mês e gerar um relatório csv, pdf ou txt dos resultados da consulta."
+        },
+        "dados_de_remuneracao": {
+           "search_term": "servidor folha",
+           "keywords_to_search": ["Cargo/Funçao", "Servidor", "Matricula", "Cargo"],
+           "agentes_politicos" : "Cargo",
+           "servidores_efetivos": "Tipo de Cargo / Função / Emprego",
+           "permite_pesquisa": "Pesquisar",
+           "types": ["html"]
+        }
     }
-
 }

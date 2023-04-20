@@ -11,7 +11,7 @@ id,tag,sub-tag,info,abreviacao
 10,Acesso à Informação,Requisitos Exigidos,Mantém as informações disponíveis para acesso atualizadas,
 11,Acesso à Informação,Requisitos Exigidos,"Possui local e instruções para fácil acesso do interessado à comunicação com o município, por via eletrônica ou telefônica",
 12,Acesso à Informação,Requisitos Exigidos,Contém medidas que garantem a acessibilidade de conteúdo para pessoas com deficiência,
-13,Acesso à Informação,Bases de dados abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
+13,Acesso à Informação,Dados Abertos,Publica na internete relação das bases de dados abertos do município ou do estado,dados_abertos
 14,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade de pedidos recebidos,quantidade
 15,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos atendidos,atendidos
 16,Acesso à Informação,Relatório Estatístico,Divulgação de relatório de atendimentos: Quantidade e/ou percentual de pedidos indeferidos,indeferidos
@@ -81,13 +81,13 @@ id,tag,sub-tag,info,abreviacao
 80,Servidores Públicos,Dados dos Servidores,Remuneração,remuneracao
 81,Servidores Públicos,Registro da remuneração,"Registro da remuneração ou subsídio contendo: Agentes políticos, servidores efetivos e/ou empregados públicos",
 82,Servidores Públicos,Registro da remuneração,Registro da remuneração dos contratados temporariamente,
-83,Servidores Públicos,Registro por lotação,"Registro realizado por lotação contendo os seguintes dados: Matricula, Nome, Cargo/Função, Remuneração, Abate teto, Tipo de vínculo",
-84,Servidores Públicos,Dados de Remuneração,"Registro mediante planilha consolidada contendo a remuneração de todos os agentes políticos, servidores efetivos e/ou empregados públicos, bem como a possibilidade de promover pesquisas neste documento",
-85,Servidores Públicos,Auxílios,"Registro detalhado dos auxílios, verbas indenizatórias, ajudas de custos, jetons e quaisquer vantagens pecuniárias",
+83,Servidores Públicos,Registro por lotação,"Registro realizado por lotação contendo os seguintes dados: Matricula, Nome, Cargo/Função, Remuneração, Abate teto, Tipo de vínculo",registro_por_lotacao
+84,Servidores Públicos,Dados de Remuneração,"Registro mediante planilha consolidada contendo a remuneração de todos os agentes políticos, servidores efetivos e/ou empregados públicos, bem como a possibilidade de promover pesquisas neste documento",dados_de_remuneracao
+85,Servidores Públicos,Auxílios,"Registro detalhado dos auxílios, verbas indenizatórias, ajudas de custos, jetons e quaisquer vantagens pecuniárias",auxilios
 86,Servidores Públicos,Dispêndios,Exigência direcionada à Câmara Municipal: Registro detalhado dos dispêndios realizados com o recurso “verba de gabinete”,
-87,Servidores Públicos,Relatórios Despesas com Pessoal,Relatório mensal da despesa com pessoal,
-88,Servidores Públicos,Proventos de Aposentadoria,"Registro dos proventos de aposentadoria realizado por nome, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",
-89,Servidores Públicos,Proventos de Pensão,"Registro dos proventos de pensão realizado por pensionista, nome do servidor, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",
+87,Servidores Públicos,Relatórios Despesas com Pessoal,Relatório mensal da despesa com pessoal,relatorios_despesas_com_pessoal
+88,Servidores Públicos,Proventos de Aposentadoria,"Registro dos proventos de aposentadoria realizado por nome, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",proventos_de_aposentadoria
+89,Servidores Públicos,Proventos de Pensão,"Registro dos proventos de pensão realizado por pensionista, nome do servidor, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo",proventos_de_pensao
 90,Despesas com diárias,Despesas com diárias,Nome do beneficiário,nome
 91,Despesas com diárias,Despesas com diárias,Cargo/Função,cargo_funcao
 92,Despesas com diárias,Despesas com diárias,Valores recebidos,valores_recebidos

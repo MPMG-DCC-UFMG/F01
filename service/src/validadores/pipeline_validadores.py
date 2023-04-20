@@ -25,6 +25,7 @@ def todas_tags(parametros, job_name):
         'obras_publicas': pipeline_obras_publicas(parametros, job_name),
         'despesas_com_diarias': pipeline_despesas_com_diarias(parametros, job_name),
         'orcamento': pipeline_orcamento(parametros, job_name),
+        'servidores_publicos': pipeline_servidores_publicos(parametros, job_name)
     }
 
     return resultado

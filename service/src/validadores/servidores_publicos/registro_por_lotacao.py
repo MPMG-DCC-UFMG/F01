@@ -14,6 +14,7 @@ class ValidadorRegistroPorLotacao:
         files = path_functions.filter_paths(files, words=['servidores_publicos','servidores'])
         self.files = path_functions.agg_paths_by_type(files)
         self.df = get_df(self.files, keywords['types'])
+        # print(len(self.files), self.df.columns)
 
     def predict_matricula(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['matricula'], typee='text')
@@ -41,64 +42,62 @@ class ValidadorRegistroPorLotacao:
 
     
     def predict(self):
+        # Registro realizado por 
+        # lotação, matrícula, nome, cargo, remuneração, abate teto, remuneração retirando o abate teto e o tipo de vínculo 
+        # (detalhar se faltou alguma destas informações)
 
         resultados = {
-            'matricula': {'predict': False, 'explain': 'Não possui lotação'},
-            'nome': {'predict': False, 'explain': 'Não possui lotação'},
-            'cargo_funcao': {'predict': False, 'explain': 'Não possui lotação'},
-            'remuneracao': {'predict': False, 'explain': 'Não possui lotação'},
-            'abate_teto': {'predict': False, 'explain': 'Não possui lotação'},
-            'tipo_de_vinculo': {'predict': False, 'explain': 'Não possui lotação'},
+            'registro_por_lotacao': { 'predict': False, 'explain': "Registro por lotação não encontrado."},
         }
 
         # - validar se existe uma coluna "lotação"
 
-        _, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
+        _, isvalid_column = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')
 
-        if isvalid:
+        if isvalid_column:
         # - validar os itens
-
+            isvalid = {}
             # Matrícula
-            isvalid, result = self.predict_matricula()
-            result_explain = self.explain(result, 'matrícula')
-            resultados['matricula']['predict'] = isvalid
-            resultados['matricula']['explain'] = result_explain
+            isvalid['matricula'], _ = self.predict_matricula()
+            result_explain = self.explain('matrícula')
+            if not isvalid['matricula']:
+                resultados['registro_por_lotacao']['explain'] += result_explain
 
             # Nome
-            isvalid, result = self.predict_nome()
-            result_explain = self.explain(result, 'nome')
-            resultados['nome']['predict'] = isvalid
-            resultados['nome']['explain'] = result_explain
+            isvalid['nome'], _ = self.predict_nome()
+            result_explain = self.explain('nome')
+            if not isvalid['nome']:
+                resultados['registro_por_lotacao']['explain'] += result_explain
 
             # Cargo/Função
-            isvalid, result = self.predict_cargo_funcao()
-            result_explain = self.explain(result, 'cargo/função')
-            resultados['cargo_funcao']['predict'] = isvalid
-            resultados['cargo_funcao']['explain'] = result_explain
+            isvalid['cargo_funcao'], _ = self.predict_cargo_funcao()
+            result_explain = self.explain('cargo/função')
+            if not isvalid['cargo_funcao']:
+                resultados['registro_por_lotacao']['explain'] += result_explain
 
             # Remuneração
-            isvalid, result = self.predict_remuneracao()
-            result_explain = self.explain(result, 'remuneração')
-            resultados['remuneracao']['predict'] = isvalid
-            resultados['remuneracao']['explain'] = result_explain
+            isvalid['remuneracao'], _ = self.predict_remuneracao()
+            result_explain = self.explain('remuneração')
+            if not isvalid['remuneracao']:
+                resultados['registro_por_lotacao']['explain'] += result_explain
 
             # Abate teto
-            isvalid, result = self.predict_abate_teto()
-            result_explain = self.explain(result, 'abate teto')
-            resultados['abate_teto']['predict'] = isvalid
-            resultados['abate_teto']['explain'] = result_explain
+            isvalid['abate_teto'], _ = self.predict_abate_teto()
+            result_explain = self.explain('abate teto')
+            if not isvalid['abate_teto']:
+                resultados['registro_por_lotacao']['explain'] += result_explain
 
             # Tipo de vínculo
-            isvalid, result = self.predict_tipo_de_vinculo()
-            result_explain = self.explain(result, 'tipo de vínculo')
-            resultados['tipo_de_vinculo']['predict'] = isvalid
-            resultados['tipo_de_vinculo']['explain'] = result_explain
-
+            isvalid['tipo_de_vinculo'], _ = self.predict_tipo_de_vinculo()
+            result_explain = self.explain('tipo de vínculo')
+            if not isvalid['tipo_de_vinculo']:
+                resultados['registro_por_lotacao']['explain'] += result_explain
+        
+        if isvalid_column:
+            resultados['registro_por_lotacao']['predict'] = True
+    
         return resultados
         
-    def explain(self, result, description):
-        try:
-            result = f"""Quantidade de registros de {description} encontrados: {sum(result['isvalid'])}"""
-            return result
-        except KeyError:
-            return "Não encontrado"
+    def explain(self, description):
+        result = f"""Não possui {description}. """
+        return result
