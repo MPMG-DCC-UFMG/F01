@@ -90,8 +90,10 @@
             "types": [
                 "html"
             ],
-            "agentes_politicos_cargo" : "cargo",
-            "agentes_politicos_forma_de_admissao" : "forma_de_admissao",
+            "max_files" : 5,
+            "agentes_politicos" : "cargo",
+            "servidores_efetivos" : "forma_de_admissao",
+            "permite_pesquisa" : "Realizar uma nova busca",
             "html_to_df": {
                 "tag_name": "table",
                 "class": "ContasPublicas",
@@ -99,13 +101,13 @@
                     "cargo": {
                         "tag_name": "td",
                         "tag_class": "",
-                        "text": "Cargo:.*((prefeito)|(secretari(o|a))|(vereador(a?))|(vice( |-)prefeit(o|a))|(assessor(a?))).*",
+                        "text": "Cargo: ",
                         "sub": "Cargo: "
                     },
                     "forma_de_admissao": {
                         "tag_name": "td",
                         "tag_class": "",
-                        "text": "Forma de Admissão: Comissionado",
+                        "text": "Forma de Admissão: ",
                         "sub": "Forma de Admissão: "
                     }
                 }

@@ -41,16 +41,16 @@ def pipeline_servidores_publicos(keywords, job_name):
     # Rodar
 
     # Proventos de aposentadoria
-    validador_proventos_de_aposentadoria = ValidadorProventosDeAposentadoria(job_name, keywords['proventos_de_aposentadoria'])
-    servidores_publicos['proventos_de_aposentadoria'] = validador_proventos_de_aposentadoria.predict()
+    # validador_proventos_de_aposentadoria = ValidadorProventosDeAposentadoria(job_name, keywords['proventos_de_aposentadoria'])
+    # servidores_publicos['proventos_de_aposentadoria'] = validador_proventos_de_aposentadoria.predict()
 
     # Proventos de pensão
-    validador_proventos_de_pensao = ValidadorProventosDePensao(job_name, keywords['proventos_de_pensao'])
-    servidores_publicos['proventos_de_pensao'] = validador_proventos_de_pensao.predict()
+    # validador_proventos_de_pensao = ValidadorProventosDePensao(job_name, keywords['proventos_de_pensao'])
+    # servidores_publicos['proventos_de_pensao'] = validador_proventos_de_pensao.predict()
     
     # Relatório mensal
-    validador_relatorio_mensal = ValidadorRelatorioMensal(job_name, keywords['relatorio_mensal'])
-    servidores_publicos['relatorios_despesas_com_pessoal'] = validador_relatorio_mensal.predict()
+    # validador_relatorio_mensal = ValidadorRelatorioMensal(job_name, keywords['relatorio_mensal'])
+    # servidores_publicos['relatorios_despesas_com_pessoal'] = validador_relatorio_mensal.predict()
     
     # Dados de remuneração
     validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords['dados_de_remuneracao'])

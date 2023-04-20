@@ -15,8 +15,8 @@ class ValidadorDadosDeRemuneracao:
         files = path_functions.filter_paths(files, words=['servidores_publicos','servidores'])
         self.files = path_functions.agg_paths_by_type(files)
         try:
-            self.df = html_to_df(self.files['html'], keywords['html_to_df'],10)
-        except:
+            self.df = html_to_df(self.files['html'], keywords['html_to_df'],keywords['max_files'])
+        except KeyError:
             self.df = get_df(self.files, keywords['types'])
         # self.df.to_csv('aux.csv')
 
@@ -31,7 +31,7 @@ class ValidadorDadosDeRemuneracao:
 
     def predict_servidores_efetivos(self):
 
-        keywords = ["EFETIVO"]
+        keywords = ["EFETIVO","Efetivo"]
         result = search_in_column(self.df, self.keywords['servidores_efetivos'], keywords)
 
         isvalid = any(result['isvalid'])
@@ -40,7 +40,7 @@ class ValidadorDadosDeRemuneracao:
     
     def predict_permite_pesquisa(self):
 
-        files = self.files['html']
+        files = self.files['html'][:self.keywords['max_files']]
 
         result = analyze_html(files, keyword_to_search=self.keywords['permite_pesquisa'])
         isvalid = check_df.files_isvalid(result, column_name='matches', threshold=1)
@@ -64,7 +64,7 @@ class ValidadorDadosDeRemuneracao:
 
         # Permite pesquisa
         isvalid_permite_pesquisa, _ = self.predict_permite_pesquisa()
-        resultados['dados_de_remuneracao']['explain'] += self.explain(isvalid_permite_pesquisa, 'compo para pesquisa')
+        resultados['dados_de_remuneracao']['explain'] += self.explain(isvalid_permite_pesquisa, 'campo para pesquisa')
 
 
         if all([isvalid_agentes_politicos, 
