@@ -1,7 +1,7 @@
 
 from src.validadores.utils import indexing
 from src.validadores.utils import path_functions
-from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils.file_to_dataframe import get_df, html_to_df
 from src.validadores.utils.check_df import check_all_values_of_column
 from src.validadores.utils.check_df import search_in_column
 
@@ -13,13 +13,16 @@ class ValidadorDadosDeRemuneracao:
         files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
         files = path_functions.filter_paths(files, words=['servidores_publicos','servidores'])
         self.files = path_functions.agg_paths_by_type(files)
-        self.df = get_df(self.files, keywords['types'])
-        # print(self.df)
+        try:
+            self.df = html_to_df(self.files['html'], keywords['html_to_df'],10)
+        except:
+            self.df = get_df(self.files, keywords['types'])
+        # self.df.to_csv('aux.csv')
 
     def predict_agentes_politicos(self):
-        result = self.df
-        result['isvalid'] = False
-        return False, result
+        result1, isvalid1 = check_all_values_of_column(self.df, self.keywords['agentes_politicos_cargo'], typee='text')
+        result2, isvalid2 = check_all_values_of_column(self.df, self.keywords['agentes_politicos_forma_de_admissao'], typee='text')
+        return (isvalid1 or isvalid2), result2
 
     
     def predict(self):

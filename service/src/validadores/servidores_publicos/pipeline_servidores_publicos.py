@@ -22,12 +22,12 @@ def pipeline_servidores_publicos(keywords, job_name):
     result = handle_files.abrir_existente(job_name)
 
     # Subtag - Dados dos Servidores
-    validador_dados_dos_servidores = ValidadorDadosDosServidores(job_name, keywords['dados_dos_servidores'])
-    servidores_publicos['dados_dos_servidores'] = validador_dados_dos_servidores.predict()
+    # validador_dados_dos_servidores = ValidadorDadosDosServidores(job_name, keywords['dados_dos_servidores'])
+    # servidores_publicos['dados_dos_servidores'] = validador_dados_dos_servidores.predict()
     
-    result['78'] = servidores_publicos['dados_dos_servidores']['nome']['predict']
-    result['79'] = servidores_publicos['dados_dos_servidores']['cargo_funcao']['predict']
-    result['80'] = servidores_publicos['dados_dos_servidores']['remuneracao']['predict']
+    # result['78'] = servidores_publicos['dados_dos_servidores']['nome']['predict']
+    # result['79'] = servidores_publicos['dados_dos_servidores']['cargo_funcao']['predict']
+    # result['80'] = servidores_publicos['dados_dos_servidores']['remuneracao']['predict']
 
     # Registro da remuneração
     # validador_registro_da_remuneracao = ValidadorRegistroDaRemuneracao(job_name, keywords['registro_da_remuneracao'])
@@ -65,14 +65,10 @@ def pipeline_servidores_publicos(keywords, job_name):
     # print(output_relatorio_mensal)
     
     # Dados de remuneração
-    # validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords['dados_de_remuneracao'])
-    # output_dados_de_remuneracao = validador_dados_de_remuneracao.predict()
-    # print("output_dados_de_remuneracao:")
-    # print(output_dados_de_remuneracao)
-
-     # Dados de remuneração
-#     validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords[''])
-#     output_dados_de_remuneracao = validador_dados_de_remuneracao.predict()
+    validador_dados_de_remuneracao = ValidadorDadosDeRemuneracao(job_name, keywords['dados_de_remuneracao'])
+    servidores_publicos['dados_dos_servidores'] = validador_dados_de_remuneracao.predict()
+    
+    result['84'] = servidores_publicos['dados_dos_servidores']['agentes_politicos']['predict']
 
     handle_files.save_dict_in_json(job_name, result)
 

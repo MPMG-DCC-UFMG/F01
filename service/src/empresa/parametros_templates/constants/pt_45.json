@@ -74,6 +74,43 @@
                 }
             }
         },
+        "dados_de_remuneracao" : {
+            "search_term": "Folha Salarial",
+            "keywords_to_search": [
+                "Contas Públicas :: Folha Salarial",
+                "Nome",
+                "Servidor",
+                "Matrícula",
+                "Cargo",
+                "Função"
+            ],
+            "filter_paths": [
+                "servidores"
+            ],
+            "types": [
+                "html"
+            ],
+            "agentes_politicos_cargo" : "cargo",
+            "agentes_politicos_forma_de_admissao" : "forma_de_admissao",
+            "html_to_df": {
+                "tag_name": "table",
+                "class": "ContasPublicas",
+                "elements_parameters": {
+                    "cargo": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Cargo:.*((prefeito)|(secretari(o|a))|(vereador(a?))|(vice( |-)prefeit(o|a))|(assessor(a?))).*",
+                        "sub": "Cargo: "
+                    },
+                    "forma_de_admissao": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Forma de Admissão: Comissionado",
+                        "sub": "Forma de Admissão: "
+                    }
+                }
+            }
+        },
         "auxilios": {
             "search_term": "servidor folha",
             "keywords_to_search": [

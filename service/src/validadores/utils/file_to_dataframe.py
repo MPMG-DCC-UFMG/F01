@@ -372,7 +372,8 @@ def html_to_df(files, keywords, max_files=None):
 
         # define se existe algum conteúdo obrigatório a ser encontrado no texto da tag
         if parameters['text'] != "":
-            filter_text = lambda tag: re.match(parameters['text'], tag.text) is not None
+            pattern = re.compile(parameters['text'],re.IGNORECASE)
+            filter_text = lambda tag: re.match(pattern, tag.text) is not None
         else:
             filter_text = lambda tag: True 
 
