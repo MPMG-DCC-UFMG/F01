@@ -105,11 +105,19 @@ def carregarResultadosGithub():
 
     return jsonify('ok')
 
-# Indexar os arquivos no elasticsearch usando o fscrawler
+# Indexar todos os arquivos de um template no elasticsearch usando o fscrawler
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivosTemplate(nome_do_template):
     # TEMPLATES = ["siplanweb", "sintese", "abo", "betha_26", "pt_45", "memory_66", "template1_22"]
     scrip_indexar_arquivos_mp(nome_do_template)
+    return jsonify('ok')
+
+
+# Indexar todos os arquivos de uma tag no elasticsearch usando o fscrawler
+@api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>/<string:nome_da_tag>', methods=['GET'])
+def indexarArquivosTagTemplate(nome_do_template, nome_da_tag):
+    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha_26", "pt_45", "memory_66", "template1_22"]
+    scrip_indexar_arquivos_mp(nome_do_template, nome_da_tag)
     return jsonify('ok')
 
 @api_de_integracao.route('/indexar_arquivos', methods=['GET'])

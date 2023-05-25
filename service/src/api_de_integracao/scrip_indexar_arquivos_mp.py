@@ -7,7 +7,7 @@ from src.empresa.manage import get_municipios_do_template
 
 TIME_OUT = 600
 
-def scrip_indexar_arquivos_mp(nome_do_template):
+def scrip_indexar_arquivos_mp(nome_do_template, nome_da_tag=None):
 
     print("Indexando para o template:", nome_do_template)
 
@@ -20,18 +20,27 @@ def scrip_indexar_arquivos_mp(nome_do_template):
     for municipio in MUNICIPIOS:
 
         # Não abilitado:
-
         # Descompacta os arquivos .rar (colocar no mesmo diretório, e mantem o .rar original)
-        data_lake = Path("/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/")
-        diretorio_municipio = data_lake / municipio
+        # data_lake = Path("/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/")
+        # diretorio_municipio = data_lake / municipio
         # extrair_arquivos(diretorio_municipio)
+
+        if nome_da_tag:        
+            url = '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio + '/' + nome_da_tag
+            municipio_tag = municipio + "_" + nome_da_tag
+            name = municipio_tag
+            municipio_directory = home_jobs / ".fscrawler" / municipio_tag
+        else:
+            url = '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio
+            name = municipio
+            municipio_directory = home_jobs / ".fscrawler" / municipio
 
         #  -------------
 
         config = {
-            'name': municipio,
+            'name': name,
             'fs': 
-                {'url': '/datalake/ufmg/crawler/webcrawlerc01/realizacaof01/' + municipio, 
+                {'url': url, 
                 'update_rate': '15m', 
                 'excludes': ['*/screenshots*', '*/log*'], 
                 'json_support': False, 
@@ -61,8 +70,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
                     'ssl_verification': True},
         }
 
-        municipio_directory = home_jobs / ".fscrawler" / municipio
-        print(municipio_directory)
+
 
         if os.path.exists(municipio_directory):
 
@@ -81,7 +89,7 @@ def scrip_indexar_arquivos_mp(nome_do_template):
                     yaml.dump(config, yaml_file, default_flow_style=False)
 
         else:
-            print("Creating configuration folter:", municipio_directory)
+            print("Creating configuration folder:", municipio_directory)
             os.makedirs(municipio_directory)
             print("\tCreating configuration file:", municipio_directory / "_settings.yaml")
             with open(municipio_directory / "_settings.yaml", 'w') as yaml_file:

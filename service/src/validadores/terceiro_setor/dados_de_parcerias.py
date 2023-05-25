@@ -1,18 +1,21 @@
 from src.validadores.utils import indexing
+from src.validadores.base import Validador
 from src.validadores.utils import path_functions
 from src.validadores.utils import path_functions
 from src.validadores.utils.file_to_dataframe import get_df
 from src.validadores.utils.check_df import check_all_values_of_column
 
-class ValidadorDadosDeParcerias:
+class ValidadorDadosDeParcerias(Validador):
 
     def __init__(self, job_name, keywords):
 
         self.keywords = keywords
-        files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
-        files = path_functions.filter_paths(files, words=['terceiro_setor'])
-        self.files = path_functions.agg_paths_by_type(files)
-        self.df = get_df(self.files, keywords['types'])
+        self.job_name = job_name
+        if self.keywords['type'] != 'predict_by_number_of_files_and_raw_pages':
+            files = indexing.get_files(keywords['search_term'], job_name, keywords_search=keywords['keywords_to_search'])
+            files = path_functions.filter_paths(files, words=['terceiro_setor'])
+            self.files = path_functions.agg_paths_by_type(files)
+            self.df = get_df(self.files, keywords['types'])
 
     # Data de celebração
     def predict_data_de_celebracao(self):
@@ -37,11 +40,21 @@ class ValidadorDadosDeParcerias:
     def predict(self):
 
         resultados = {
-            'data_de_celebracao': {},
-            'objeto': {},
-            'conveniados': {},
-            'aditivos': {}
+            'data_de_celebracao': {"predict": False , "explain": ""},
+            'objeto': {"predict": False , "explain": ""},
+            'conveniados': {"predict": False , "explain": ""},
+            'aditivos': {"predict": False , "explain": ""},
         }
+
+        if self.keywords['type'] == 'predict_by_number_of_files_and_raw_pages':
+            # Prever pela quantida de arquivos
+            isvalid, result = self.predict_by_number_of_files_and_raw_pages(self.job_name, self.keywords['directory'])
+            result_explain = self.explain_by_number_of_files(isvalid, result)
+            resultados['data_de_celebracao']['explain'] = result_explain
+            resultados['objeto']['explain'] = result_explain
+            resultados['conveniados']['explain'] = result_explain
+            resultados['aditivos']['explain'] = result_explain
+            return resultados
 
         # Data de celebração
         isvalid, result = self.predict_data_de_celebracao()

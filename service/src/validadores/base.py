@@ -90,6 +90,36 @@ class Validador(ABC):
         isvalid = number_of_files > 0
         return isvalid, number_of_files
 
+
+    def predict_by_number_of_files_and_raw_pages(self, job_name, diretory):
+
+        """
+        Pelo data_path do coletor, conta quantos arquivos existem em /data/files e em /data/raw_pages
+        """
+
+        job_diretory = Path("/datalake","ufmg","crawler","webcrawlerc01","realizacaof01", job_name)
+
+        # raw_pages
+        full_path = job_diretory / diretory[0] / diretory[1] / "data" / "raw_pages"
+
+        if not full_path.exists():
+            print("Directory does not exist.")
+
+        raw_pages = full_path.glob('*')
+        number_of_raw_pages = len(list(raw_pages)) - 1 # Descartando o file_description.jsonl
+
+        # files
+        full_path = job_diretory / diretory[0] / diretory[1] / "data" / "files"
+
+        if not full_path.exists():
+            print("Directory does not exist.")
+
+        files = full_path.glob('*')
+        number_of_files = len(list(files)) - 1 # Descartando o file_description.jsonl
+        isvalid = number_of_files > 0
+
+        return isvalid, number_of_files
+
     def explain_by_number_of_files(self, isvalid, result):
         if isvalid:
             return f"Foram encontrados {result} arquivos que validam o item."

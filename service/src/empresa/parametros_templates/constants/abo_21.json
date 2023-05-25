@@ -242,7 +242,7 @@
             "empenho_de_referencia": "Empenho"
         },
         "consulta_favorecido":{
-            "search_term": "Despesas    ",
+            "search_term": "Despesas",
             "keywords_to_search": ["Relação de Despesas","Filtros"],
             "types": ["html"],
             "keyword_check": ["Favorecido:"]
