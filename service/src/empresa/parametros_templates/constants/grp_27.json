@@ -11,11 +11,35 @@
             "search_term": "Conselho",
             "keywords_to_search": ["CODEMA", "CMDCA", "Saúde"],
             "keyword_check": "Conselho municipal"
-        }
-,        "leis_municipais": { 
+        },
+        "leis_municipais": { 
             "type": "predict_by_number_of_files",
             "directory": ["informacoes_institucionais","leis_municipais"]
         }
+    },
+    "obras_publicas": {
+        "dados_para_acompanhamento": {
+            "search_term": "Obras",
+            "keywords_to_search": [
+                "Listagem de Obras Públicas",
+                "Obras Públicas"
+            ],
+            "types": [
+                "html"
+            ],
+            "objeto": "Objeto da Obra",
+            "valor_total": "Valor Total",
+            "empresa_contratada": "Contratado",
+            "data_de_inicio": "Inicio",
+            "data_prevista_ou_prazo_de_execucao": "Previsão",
+            "valor_total_pago_ou_percentual": "Valor",
+            "situacao_atual": "Situação"
+        }
+    },
+    "terceiro_setor": {
+        "dados_de_parcerias": {
+            "type": "predict_by_number_of_files_and_raw_pages",
+            "directory": ["terceiro_setor","dados_de_parcerias"]
+        }
     }
-    
 }

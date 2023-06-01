@@ -13,10 +13,12 @@ def pipeline_terceiro_setor(keywords, job_name):
     # Subtag - Dados de Parcerias
     try:
         keywords_dados_de_parcerias = keywords['dados_de_parcerias']
-        validador_dados_de_parceria = dados_de_parcerias.ValidadorDadosDeParcerias(job_name, keywords_dados_de_parcerias)
-        terceiro_setor['dados_de_parcerias'] = validador_dados_de_parceria.predict()
+        
     except KeyError:
-        print("Erro - Terceiro Setor")
+        print(" KeyError - Terceiro Setor - Dados de Parcerias")
+    
+    validador_dados_de_parceria = dados_de_parcerias.ValidadorDadosDeParcerias(job_name, keywords_dados_de_parcerias)
+    terceiro_setor['dados_de_parcerias'] = validador_dados_de_parceria.predict()
     
     return terceiro_setor
     
