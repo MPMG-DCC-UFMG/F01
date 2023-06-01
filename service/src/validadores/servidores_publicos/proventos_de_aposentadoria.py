@@ -1,7 +1,7 @@
 
 from src.validadores.utils import indexing
 from src.validadores.utils import path_functions
-from src.validadores.utils.file_to_dataframe import get_df
+from src.validadores.utils.file_to_dataframe import get_df, html_to_df
 from src.validadores.utils.check_df import check_all_values_of_column
 
 class ValidadorProventosDeAposentadoria:
@@ -17,9 +17,14 @@ class ValidadorProventosDeAposentadoria:
             self.keywords['max_files']
         except KeyError:
             self.keywords['max_files'] = None
-        print("inicio get")
-        self.df = get_df(self.files, keywords['types'], max_files=self.keywords['max_files'])
-        print("fim get")
+        try:
+            self.df = html_to_df(self.files['html'], self.keywords['html_to_df'], self.keywords['max_files'])
+            self.df = self.df[(self.df['situacao'] == 'Aposentado') | (self.df['remuneracao_retirando_abate_teto'])]
+            # self.df.to_csv('aux.csv')
+        except KeyError:
+            print("inicio get")
+            self.df = get_df(self.files, keywords['types'], max_files=self.keywords['max_files'])
+            print("fim get")
 
     def predict_nome(self):
         result, isvalid = check_all_values_of_column(self.df, self.keywords['nome'], typee='text')

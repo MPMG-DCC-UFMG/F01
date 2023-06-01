@@ -122,6 +122,66 @@
                 "Cargo",
                 "Função"
             ]
+        },
+        "proventos_de_aposentadoria": {
+            "search_term": "Folha Salarial",
+            "keywords_to_search": [
+                "Contas Públicas :: Folha Salarial",
+                "Nome",
+                "Servidor",
+                "Matrícula",
+                "Cargo",
+                "Função"
+            ],
+            "filter_paths": [
+                "servidores"
+            ],
+            "types": [
+                "html"
+            ],
+            "max_files" : 5,
+            "nome": "nome",
+            "cargo": "cargo",
+            "remuneracao": "remuneracao",
+            "abate_teto": "abate_teto",
+            "remuneracao_retirando_abate_teto": "remuneracao_retirando_abate_teto",
+            "tipo_de_vinculo": "tipo_de_vinculo",
+            "html_to_df": {
+                "tag_name": "table",
+                "class": "ContasPublicas",
+                "elements_parameters": {
+                    "nome": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Nome: ",
+                        "sub": "Nome: "
+                    },
+                    "cargo": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Cargo: ",
+                        "sub": "Cargo: "
+                    },
+                    "remuneracao": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": ".*Remuneração Bruta: ",
+                        "sub": "(.*Remuneração Bruta: )|(Total da Remuneração Após Deduções:.*)"
+                    },
+                    "situacao": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": "Situação: ",
+                        "sub": "Situação: "
+                    },
+                    "remuneracao_retirando_abate_teto": {
+                        "tag_name": "td",
+                        "tag_class": "",
+                        "text": ".*Total da Remuneração Após Deduções:",
+                        "sub": ".*Total da Remuneração Após Deduções:"
+                    }
+                }
+            }
         }
     },
     "obras_publicas": {
