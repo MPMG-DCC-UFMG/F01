@@ -15,6 +15,11 @@
         "leis_municipais": { 
             "type": "predict_by_number_of_files",
             "directory": ["informacoes_institucionais","leis_municipais"]
+        },
+        "estrutura_organizacional":{
+            "search_term": "Estrutura organizacional",
+            "keywords_to_search": ["Estrutura organizacional"],
+            "types": ["pdf"]
         }
     },
     "obras_publicas": {

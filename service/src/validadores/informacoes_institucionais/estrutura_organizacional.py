@@ -20,7 +20,7 @@ class ValidadorEstruturaOrganizacional:
         if num_arquivos > 0:
             isvalid = True
         else: isvalid = False
-         
+        
         result = num_arquivos
         return isvalid, result
     

@@ -1,7 +1,7 @@
 from flask import jsonify
 from flask import Blueprint
 import pprint
-
+from pathlib import Path
 
 from src.municipio.manage_municipios import get_municipio
 from src.api_de_integracao.manage import salvar_resultado_de_json
@@ -96,3 +96,40 @@ def rodar_tag(nome_do_template, nome_da_tag):
             
 
     return jsonify(f"Template {nome_do_template} validado") 
+
+
+# Para testes
+@validadores.route('/find/<string:nome_do_template>/<string:nome_da_tag>/<string:nome_da_subtag>', methods=['GET'])
+def encontar_arquivos_sug_tag(nome_do_template, nome_da_tag, nome_da_subtag):
+
+    nome_da_subtag
+    nome_do_template
+    municipios = get_nome_dos_municipios_do_template(nome_do_template)
+    for municipio in municipios:
+
+        job_diretory = Path("/datalake","ufmg","crawler","webcrawlerc01","realizacaof01", municipio)
+
+        # raw_pages
+        full_path = job_diretory / nome_da_tag / nome_da_subtag / "data" / "raw_pages"
+
+        if not full_path.exists():
+            print("Directory does not exist.")
+
+        raw_pages = full_path.glob('*')
+        number_of_raw_pages = len(list(raw_pages)) - 1 # Descartando o file_description.jsonl
+
+        # files html
+        full_path = job_diretory / nome_da_tag / nome_da_subtag / "data" / "files"
+
+        if not full_path.exists():
+            print("Directory does not exist.")
+
+        files = full_path.glob('*')
+        number_of_files = len(list(files)) - 1  # Descartando o file_description.jsonl
+        isvalid = (number_of_files > 0) or (number_of_raw_pages > 0)
+        print(municipio)
+        print("number_of_files:", number_of_files, "number_of_raw_pages", number_of_raw_pages )
+        print()
+
+    print(isvalid)
+    return jsonify(f"{nome_do_template, nome_da_tag, nome_da_subtag}") 
