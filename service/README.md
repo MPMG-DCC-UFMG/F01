@@ -41,3 +41,10 @@ Criar banco:
 ```
 /indexar_arquivos/<string:nome_do_template>
 ```
+
+
+* Gerar csv com os resultados
+
+```
+/api/gerar_csv
+```

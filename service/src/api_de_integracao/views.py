@@ -1,5 +1,8 @@
 import json
+<<<<<<< HEAD
 # from github import Github
+=======
+>>>>>>> 2aa6fdb3568ada6779394a4e68092f9a5a0f098b
 from flask import jsonify
 from flask import Blueprint
 from src.empresa.manage import get_template
@@ -46,6 +49,7 @@ def carregarResultados():
 
     return jsonify([count])
 
+<<<<<<< HEAD
 
 # @api_de_integracao.route('/carregar_resultados_github', methods=['GET'])
 # def carregarResultadosGithub():
@@ -105,6 +109,8 @@ def carregarResultados():
 
 #     return jsonify('ok')
 
+=======
+>>>>>>> 2aa6fdb3568ada6779394a4e68092f9a5a0f098b
 # Indexar todos os arquivos de um template no elasticsearch usando o fscrawler
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivosTemplate(nome_do_template):

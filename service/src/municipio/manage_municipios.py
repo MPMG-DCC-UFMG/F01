@@ -50,3 +50,7 @@ def is_valid_ibge_code(cod_ibge):
         return True
     else:
         return False
+
+def get_all_municipios():
+    municipios = Municipio.query.all()
+    return municipios
