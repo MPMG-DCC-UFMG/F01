@@ -10,12 +10,7 @@ municipio = Blueprint('municipio', __name__, template_folder="templates")
 
 @municipio.route('/')
 def index():
-    municipios = Municipio.query.all()
-
-    return render_template('municipio.html',
-                           municipios=municipios,
-                           segment='municipio')
-
+    return jsonify('ok')
 
 @municipio.route('/carregar_municipios', methods=['GET'])
 def carregar():

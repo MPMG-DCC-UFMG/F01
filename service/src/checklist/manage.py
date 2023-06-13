@@ -1,6 +1,8 @@
 from src.checklist.models import Tag, Subtag, Item
 
-
+def get_all_itens():
+    itens = Item.query.all()
+    return itens
 
 def get_tag_by_name_in_github(nome_da_tag):
     # Adaptação para os nomes de tag que estão diferentes no githubm eles são:
