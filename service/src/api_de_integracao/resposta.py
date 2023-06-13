@@ -5,20 +5,22 @@ class Resposta(Enum):
 
     # Github
     ISSUE_BLOQUEADA = "Issue bloqueada por algum motivo"
-    NAO_COLETAVEL_REDIRECIONADO = "Dados são encontrados somente fora do padrão do template"
-    NAO_COLETAVEL_TIMEOUT = "Dados não coletados devido a erro de Timeout"
-    NAO_LOCALIZADO = "Dados não foram localizados no template"
-    NAO_LOCALIZADO_LINK_INCORRETO = "Dados inacessíveis pelos portais do template"
+    NAO_COLETAVEL_REDIRECIONADO = "Dados sao encontrados somente fora do padrão do template"
+    NAO_COLETAVEL_TIMEOUT = "Dados nao coletados devido a erro de Timeout"
+    NAO_LOCALIZADO = "Dados nao foram localizados no template"
+    NAO_LOCALIZADO_LINK_INCORRETO = "Dados inacessiveis pelos portais do template"
 
     # Validação
-    ITEM_NAO_DISPONIVEL = "Item ainda não validado"
+    ITEM_NAO_DISPONIVEL = "Item ainda nao validado"
 
-    ERRO_VALIDADO = "Validação informou que o item coletado nao atende aos requisitos"
+    ERRO_VALIDADO = "Validacao informou que o item coletado nao atende aos requisitos"
     OK_VALIDADO = "Item validado com sucesso"
+
+    MUNICIPIO_NAO_VALIDADO = "Municipio ainda nao validado"
 
 
     # Outros erros
-    MUNICIPIO_NAO_DISPONIVEL = "Municipio inválido ou não abordado"
+    MUNICIPIO_NAO_DISPONIVEL = "Municipio invalido ou nao abordado"
 
     def to_dict(self):
         try:

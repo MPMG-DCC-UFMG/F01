@@ -9,7 +9,8 @@ class Resultado(db.Model):
     tag = db.Column(db.Integer, db.ForeignKey('tag.id'))
     subtag_id = db.Column(db.Integer, db.ForeignKey('subtag.id'))
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
-    municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id_ibge'))
+    municipio_id = db.Column(db.Integer, db.ForeignKey('municipio.id'))
+    municipio_id_ibge = db.Column(db.Integer, nullable=True)
 
     codigo_resposta = db.Column(db.String(30), nullable=True)
     #exemplo: OK, BLOQUEADA, NAO_COLETAVEL_TIMEOUT, TRUE, FALSE

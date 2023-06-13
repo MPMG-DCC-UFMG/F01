@@ -26,6 +26,7 @@ def obter_codigo_ibge_pelo_nome(nome_do_municipio):
     codigo_ibge = None
     municipio = Municipio.query.filter_by(
         nome_formatado=nome_do_municipio).first()
+    print("municipio", municipio)
     if municipio is not None:
         codigo_ibge = municipio.id_ibge
     return codigo_ibge

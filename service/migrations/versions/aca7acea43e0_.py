@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ba9622a2b443
+Revision ID: aca7acea43e0
 Revises: 
-Create Date: 2022-09-22 18:27:26.486091
+Create Date: 2023-06-13 11:36:07.780882
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ba9622a2b443'
+revision = 'aca7acea43e0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,10 +38,12 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('municipioxempresa',
-    sa.Column('id_municipio', sa.Integer(), nullable=True),
+    sa.Column('id_municipio', sa.Integer(), nullable=False),
     sa.Column('id_empresa', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['id_empresa'], ['empresa.id'], ),
-    sa.ForeignKeyConstraint(['id_municipio'], ['municipio.id'], )
+    sa.ForeignKeyConstraint(['id_municipio'], ['municipio.id'], ),
+    sa.PrimaryKeyConstraint('id_municipio'),
+    primary_key=True
     )
     op.create_table('subtag',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -66,10 +68,12 @@ def upgrade():
     sa.Column('subtag_id', sa.Integer(), nullable=True),
     sa.Column('item_id', sa.Integer(), nullable=True),
     sa.Column('municipio_id', sa.Integer(), nullable=True),
+    sa.Column('municipio_id_ibge', sa.Integer(), nullable=True),
     sa.Column('codigo_resposta', sa.String(length=30), nullable=True),
     sa.Column('justificativa', sa.String(length=300), nullable=True),
+    sa.Column('data_validacao', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['item_id'], ['item.id'], ),
-    sa.ForeignKeyConstraint(['municipio_id'], ['municipio.id_ibge'], ),
+    sa.ForeignKeyConstraint(['municipio_id'], ['municipio.id'], ),
     sa.ForeignKeyConstraint(['subtag_id'], ['subtag.id'], ),
     sa.ForeignKeyConstraint(['tag'], ['tag.id'], ),
     sa.PrimaryKeyConstraint('id')
