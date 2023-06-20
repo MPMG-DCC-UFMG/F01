@@ -16,50 +16,43 @@ api_de_integracao = Blueprint('api_de_integracao', __name__)
 
 
 # Indexar todos os arquivos de um template no elasticsearch usando o fscrawler
+#  Executa o script para indexar arquivos de um template específico no Elasticsearch usando o fscrawler.
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivosTemplate(nome_do_template):
-    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha_26", "pt_45", "memory_66", "template1_22"]
+    """Indexar arquivos pelo nome do template
+    Este endpoint permite indexar arquivos com base no nome do template.
+    ---
+    tags:
+      - Indexação de Arquivos
+    parameters:
+      - name: nome_do_template
+        in: path
+        type: string
+        required: true
+        description: Nome do template para indexação dos arquivos
+    responses:
+      200:
+        description: Sucesso na indexação dos arquivos
+        schema:
+          type: string
+          example: 'ok'
+    """
     scrip_indexar_arquivos_mp(nome_do_template)
     return jsonify('ok')
 
 
-# Indexar todos os arquivos de uma tag no elasticsearch usando o fscrawler
-@api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>/<string:nome_da_tag>', methods=['GET'])
-def indexarArquivosTagTemplate(nome_do_template, nome_da_tag):
-    # TEMPLATES = ["siplanweb", "sintese", "abo", "betha_26", "pt_45", "memory_66", "template1_22"]
-    scrip_indexar_arquivos_mp(nome_do_template, nome_da_tag)
-    return jsonify('ok')
+# # Indexar todos os arquivos de uma tag no elasticsearch usando o fscrawler
+# @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>/<string:nome_da_tag>', methods=['GET'])
+# def indexarArquivosTagTemplate(nome_do_template, nome_da_tag):
+#     scrip_indexar_arquivos_mp(nome_do_template, nome_da_tag)
+#     return jsonify('ok')
 
-@api_de_integracao.route('/indexar_arquivos', methods=['GET'])
-def indexarArquivos():
-    # TEMPLATES = ["portaltp_61", "pt_45", "abo_21", "grp_27"]
-    TEMPLATES = ["adpm_22", "betha_26", "memory_66", "municipal_net_11", "portal_facil_60",
-    "portal_facil_46", "siplanweb_61", "sintese_tecnologia_e_informatica_88", "template1_22",
-    "adpm_7", "template2_28"]
-    for template in TEMPLATES:
-        scrip_indexar_arquivos_mp(template)
-    return jsonify('templates indexados')
-
-
-# Mudar de TRUE e FALSE para OK_VALIDADO e ERRO_VALIDADO
-
-@api_de_integracao.route('/ajuste_resultados', methods=['GET'])
-def ajustarResultados():
-
-    todos_true = Resultado.query.filter_by(
-        codigo_resposta="OK_VALIDADO").all()
-
-    for resultado in todos_true:
-        resposta = Resposta.OK_VALIDADO
-        salvar_resultado(municipio_id=resultado.municipio_id,
-                                 item_id=resultado.item_id, resposta=resposta)
-
-    todos_false = Resultado.query.filter_by(
-        codigo_resposta="ERRO_VALIDADO").all()
-
-    for resultado in todos_false:
-        resposta = Resposta.ERRO_VALIDADO
-        salvar_resultado(municipio_id=resultado.municipio_id,
-                                 item_id=resultado.item_id, resposta=resposta)
-
-    return jsonify('ok')    
+# @api_de_integracao.route('/indexar_arquivos', methods=['GET'])
+# def indexarArquivos():
+#     # TEMPLATES = ["portaltp_61", "pt_45", "abo_21", "grp_27"]
+#     TEMPLATES = ["adpm_22", "betha_26", "memory_66", "municipal_net_11", "portal_facil_60",
+#     "portal_facil_46", "siplanweb_61", "sintese_tecnologia_e_informatica_88", "template1_22",
+#     "adpm_7", "template2_28"]
+#     for template in TEMPLATES:
+#         scrip_indexar_arquivos_mp(template)
+#     return jsonify('templates indexados')
