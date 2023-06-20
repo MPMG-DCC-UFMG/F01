@@ -1,9 +1,11 @@
 from flask import jsonify
 from flask import Blueprint
 from src.api_de_integracao.manage import procurar_resultado, Resposta
+from src.api_de_integracao.models import Resultado
 from src.municipio.manage_municipios import get_municipio_pelo_codigo_ibge, is_valid_ibge_code, obter_codigo_ibge_pelo_nome, get_all_municipios
 from src.checklist.manage import get_all_itens
 import pandas as pd
+from src import db
 
 
 api_de_resultados = Blueprint(
@@ -60,9 +62,6 @@ def getItem(municipio, item_id):
     if resultado is None:
         return jsonify(Resposta.ITEM_NAO_DISPONIVEL.to_dict())
     else:
-<<<<<<< HEAD
-        return jsonify(resultado)
-=======
         return jsonify(resultado)
     
 
@@ -113,4 +112,38 @@ def gerar_csv():
     # Exibir o DataFrame final
     df.to_csv("resultados.csv")
     return jsonify("ok")
->>>>>>> 2aa6fdb3568ada6779394a4e68092f9a5a0f098b
+
+
+@api_de_resultados.route('/teste', methods=['GET'])
+def teste():
+    municipios = get_all_municipios()
+    for municipio in municipios:
+        print(municipio.id)
+    return jsonify("ok")
+
+@api_de_resultados.route('/popular_banco', methods=['GET'])
+def popular_banco():
+    
+
+    # columns=['id_municipio', 'id_item', 'codigo_resposta', 'validated_at', 'justificativa']
+    df = pd.read_csv("resultados.csv")
+
+    # Loop pelas entradas
+    for index, row in df.iterrows():
+        id_municipio = row['id_municipio']
+        id_item = row['id_item']
+        codigo_resposta = row['codigo_resposta']
+        validated_at = row['validated_at']
+        justificativa = row['justificativa']
+        print(id_municipio)
+
+        # resultado = Resultado(item_id=id_item,
+        #                            municipio_id=id_municipio,
+        #                            codigo_resposta=codigo_resposta,
+        #                            data_validacao = validated_at,
+        #                            justificativa=justificativa)
+        
+        # db.session.add(resultado)
+        # db.session.commit()
+    # Exibir o DataFrame final
+    return jsonify("ok")
