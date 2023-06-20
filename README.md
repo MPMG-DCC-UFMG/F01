@@ -55,11 +55,11 @@ A resposta JSON de um item possui dois campos: 'codigo' e 'justificativa', confo
 
 | codigo | justificativa | contexto |
 | - | - | - |
-| `ISSUE_BLOQUEADA` | "Issue bloqueada por algum motivo" | Coleta |
+<!-- | `ISSUE_BLOQUEADA` | "Issue bloqueada por algum motivo" | Coleta |
 | `NAO_COLETAVEL_REDIRECIONADO` | "Dados são encontrados somente fora do padrão do template" | Coleta |
 | `NAO_COLETAVEL_TIMEOUT` | "Dados não coletados devido a erro de Timeout" | Coleta |
 | `NAO_LOCALIZADO` | "Dados não foram localizados no template" | Coleta |
-| `NAO_LOCALIZADO_LINK_INCORRETO` | "Dados inacessíveis pelos portais do template" | Coleta |
+| `NAO_LOCALIZADO_LINK_INCORRETO` | "Dados inacessíveis pelos portais do template" | Coleta | -->
 | `MUNICIPIO_NAO_DISPONIVEL` | "Municipio inválido ou não abordado" | API | 
 | `ITEM_NAO_DISPONIVEL` | "Item ainda não validado" | Validação | 
 | `ERRO_VALIDADO` | "Validação informou que o item coletado nao atende aos requisitos" | Validação | 
@@ -68,7 +68,7 @@ A resposta JSON de um item possui dois campos: 'codigo' e 'justificativa', confo
  
 É importante destacar que, no caso da resposta ser `OK_VALIDADO` ou `ERRO_VALIDADO` (respostas da fase de validação) a justificativa poderá variar, apresentando uma explicação específica sobre a validação do item solicitado. 
 
-Para facilitar o entendimento dos respectivos códigos de resposta, adicionamos a coluna "contexto" à tabela anterior, já que cada resposta é associada à uma fase específica da verificação automática de normativas. Em geral, ou o contexto da resposta refere-se a fase de coleta (não se chegou a fase de validação) ou à fase de validação. Não há campo "contexto" na resposta devolvida.
+<!-- Para facilitar o entendimento dos respectivos códigos de resposta, adicionamos a coluna "contexto" à tabela anterior, já que cada resposta é associada à uma fase específica da verificação automática de normativas. Em geral, ou o contexto da resposta refere-se a fase de coleta (não se chegou a fase de validação) ou à fase de validação. Não há campo "contexto" na resposta devolvida. -->
 
 ## Exemplo
 
@@ -87,4 +87,12 @@ http://localhost:5013/api/3143906/7
     "justificativa": "Item validado com sucesso. Explain - Quantidade de arquivos analizados: 5. Quantidade de aquivos que possuem referência a Perguntas Frequentes: 5"
   }
 }
+```
+
+## Documentação 
+
+Com a biblioteca Flask-Swagger, o endpoint padrão para acessar a documentação gerada pelo Swagger é /apidocs. Portanto, para visualizar a documentação, você deve acessar o seguinte URL:
+
+```
+http://.../apidocs/
 ```
