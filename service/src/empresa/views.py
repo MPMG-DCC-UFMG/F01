@@ -11,15 +11,30 @@ from src.empresa.manage import get_nome_dos_municipios_do_template_sem_formatar,
 
 empresa = Blueprint('empresa', __name__)
 
-
 @empresa.route('/')
 def index():
     templates = get_nome_dos_templates()
     return jsonify(templates)
 
 
-@empresa.route('/cadastrar_templates', methods=['POST', 'GET'])
+@empresa.route('/cadastrar_templates', methods=['GET'])
 def cadastrar():
+    """Cadastrar Templates
+    Este endpoint cadastra os templates únicos do arquivo CSV 'municipios_clusters.csv' na tabela de templates.
+    
+    O arquivo 'municipios_clusters.csv' deve conter as seguintes colunas:
+    
+    | municipio    | template_name_size |
+    | Belo Horizonte | template_1        |
+    | Uberlândia    | template_2        |
+    
+    ---
+    tags:
+      - Gerênciamento do banco de dados
+    responses:
+      200:
+        description: OK
+    """
 
     Empresa.query.delete()
 
@@ -58,8 +73,55 @@ def cadastrar():
     return jsonify('ok')
 
 
-@empresa.route('/<string:nome_do_template>', methods=['POST', 'GET'])
+@empresa.route('/<string:nome_do_template>', methods=['GET'])
 def municipios_do_template(nome_do_template):
+    """Municípios do Template
+    Este endpoint retorna os nomes dos municípios associados a um determinado template.    
+    ---
+    tags:
+      - Consultas no banco de dados
+    parameters:
+      - name: nome_do_template
+        in: path
+        type: string
+        required: true
+        description: O nome do template a ser consultado.
+        enum:
+          - sintese_tecnologia_e_informatica_88
+          - memory_66
+          - portaltp_61
+          - siplanweb_61
+          - portal_facil_60
+          - portal_facil_46
+          - pt_45
+          - template2_28
+          - grp_27
+          - betha_26
+          - adpm_22
+          - template1_22
+          - abo_21
+          - municipal_net_11
+          - template1_9
+          - adpm_7
+          - betha_7
+          - e-cidade_7
+          - fiorilli_sociedade_civil_7
+          - habeas_data_7
+          - horusdm_7
+          - memory_6
+          - portaltransp_6
+          - ipm_sistemas_5
+          - municipio_web_5
+          - portal_facil_5
+          - tecnologia_global_sistemas_5
+          - template3_5
+          - dardani_sistemas_4
+          - govbr_4
+          - sem_template
+    responses:
+      200:
+        description: OK
+    """
     return jsonify(get_nome_dos_municipios_do_template_sem_formatar(nome_do_template))
 
 

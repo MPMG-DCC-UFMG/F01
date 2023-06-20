@@ -12,6 +12,56 @@ api_de_resultados = Blueprint(
 
 @api_de_resultados.route('/<municipio>', methods=['GET'])
 def getAllItens(municipio):
+    """Consulta de todos os itens de um municipio.
+    Este endpoint permite consulta o resultado da validação de um município com base no seu código IBGE.
+
+    1. Se o código IBGE for inválido ou não for encontrado, retorna uma resposta JSON informando que o município não está disponível.
+    2. Caso contrário, obtém o objeto do município correspondente ao código IBGE.
+    3. Realiza uma busca por um resultado relacionado ao município.
+    4. Retorna uma resposta JSON contendo o resultado encontrado.
+    
+    O código lida com a entrada do usuário, verifica se é um código IBGE válido ou um nome de município. Em seguida, busca o resultado correspondente ao município e retorna como resposta JSON.
+    
+    ---
+    tags:
+      - Resultados
+    parameters:
+      - name: municipio
+        in: path
+        type: string
+        required: true
+        description: ID do municipio (código IBGE).
+    definitions:
+      <numero_do_item>:
+        type: object
+        properties:
+          codigo_resposta:
+            type: string
+          validated_at:
+            type: string
+            format: date-time
+          justificativa:
+            type: string
+
+      OuterObject:
+        type: object
+        properties:
+          <numero_do_item>:
+            $ref: '#/definitions/<numero_do_item>'
+
+      ListOfOuterObjects:
+        type: array
+        items:
+          $ref: '#/definitions/OuterObject'
+
+    responses:
+      200:
+        description: Lista no formato `JSON` em que cada item contém um objeto com a resposta para o item. A lista tem a resposta de todos os itens (possívelmente de 1 até 103).
+        schema:
+          $ref: '#/definitions/ListOfOuterObjects'
+        examples:
+          rgb: ['red', 'green', 'blue']
+    """
 
     if municipio != "favicon.ico":
 
@@ -30,6 +80,40 @@ def getAllItens(municipio):
 
 @api_de_resultados.route('/<municipio>/<item_id>', methods=['GET'])
 def getItem(municipio, item_id):
+    """Consulta de um item específico de um municipio.
+    Este endpoint permite consulta o resultado da validação de um município com base no seu código IBGE.
+
+    1. Se o código IBGE for inválido ou não for encontrado, retorna uma resposta JSON informando que o município não está disponível.
+    2. Caso contrário, obtém o objeto do município correspondente ao código IBGE.
+    3. Realiza uma busca por um resultado relacionado ao município.
+    4. Retorna uma resposta JSON contendo o resultado encontrado para o item específico.
+    
+    O código lida com a entrada do usuário, verifica se é um código IBGE válido ou um nome de município. Em seguida, busca o resultado correspondente ao município/item e retorna como resposta JSON.
+    
+    ---
+    tags:
+      - Resultados
+    parameters:
+      - name: municipio
+        in: path
+        type: string
+        required: true
+        description: ID do municipio (código IBGE).
+        parameters:
+      - name: item_id
+        in: path
+        type: string
+        required: true
+        description: ID do item (1 até 103).
+
+    responses:
+      200:
+        description: Obejto no formato `JSON` que contém um objeto com a resposta para o item.
+        schema:
+          $ref: '#/definitions/OuterObject'
+        examples:
+          rgb: ['red', 'green', 'blue']
+    """
 
     try:
         codigo_ibge = int(municipio)
@@ -45,16 +129,10 @@ def getItem(municipio, item_id):
         return jsonify(Resposta.ITEM_NAO_DISPONIVEL.to_dict())
     else:
         return jsonify(resultado)
-    
 
+
+#  Usado durante o processo de migração do banco integrado SQlite par PostgreSQL
 @api_de_resultados.route('/gerar_csv', methods=['GET'])
-
-# novo_resultado = Resultado(item_id=item_id,
-#                                    municipio_id=municipio_id,
-#                                    codigo_resposta=codigo_resposta,
-#                                    data_validacao = datetime.utcnow() - timedelta(hours=3),
-#                                    justificativa=justificativa)
-
 def gerar_csv():
     municipios = get_all_municipios()
 
