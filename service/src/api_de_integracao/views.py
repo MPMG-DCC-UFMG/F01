@@ -15,36 +15,6 @@ from src.api_de_integracao.resposta import Resposta
 api_de_integracao = Blueprint('api_de_integracao', __name__)
 
 
-@api_de_integracao.route('/')
-def index():
-    return jsonify('ok')
-
-
-# Carregar os resultado da pasta results - Não será mais utilizado!!
-@api_de_integracao.route('/carregar_resultados', methods=['GET'])
-def carregarResultados():
-
-    municipios = Municipio.query.all()
-    count = 0
-    for municipio in municipios:
-
-        nome_formatado = formatar_nome(municipio.nome)
-        codigo_ibge = obter_codigo_ibge_pelo_nome(nome_formatado)
-
-        try:
-            with open('../results/' + nome_formatado + '.json', 'r') as myfile:
-                data = myfile.read()
-                resultados_do_municipio = json.loads(data)
-                for item_id in resultados_do_municipio:
-                    count += 1
-                    salvar_resultado(
-                        resultado=resultados_do_municipio[item_id], municipio_id=codigo_ibge, item_id=item_id)
-
-        except FileNotFoundError:
-            pass
-
-    return jsonify([count])
-
 # Indexar todos os arquivos de um template no elasticsearch usando o fscrawler
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivosTemplate(nome_do_template):
