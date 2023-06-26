@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from elasticsearch import Elasticsearch
 from src.validadores.utils import path_functions
+from src.config import Config
+import os
 
 # VARIAVEL DE AMBIENTE
-es = Elasticsearch('http://127.0.0.1:8055')
+es = Elasticsearch(os.getenv("ELASTICSEARCHF01_URI"))
 
 def remove_index (job_name):
    es.indices.delete(index=job_name, ignore=[400, 404])

@@ -1,18 +1,16 @@
 import json
+
 from flask import jsonify
 from flask import Blueprint
-from src.empresa.manage import get_template
-from src.municipio.models import Municipio
-from src.checklist.manage import get_sub_tag_itens, get_tag_itens, get_tag_by_name_in_github
-from src.api_de_integracao.manage import get_github_token, get_resposta_por_erro_de_coleta, is_issue_erro, salvar_resultado, formatar_nome
-from src.municipio.manage_municipios import obter_codigo_ibge_pelo_nome
+from flask import redirect, url_for
 
 from src.api_de_integracao.scrip_indexar_arquivos_mp import scrip_indexar_arquivos_mp
 
-from src.api_de_integracao.models import Resultado
-from src.api_de_integracao.resposta import Resposta
-
 api_de_integracao = Blueprint('api_de_integracao', __name__)
+
+@api_de_integracao.route("/")
+def hello_world():
+    return redirect('/apidocs')
 
 @api_de_integracao.route('/indexar_arquivos/<string:nome_do_template>', methods=['GET'])
 def indexarArquivosTemplate(nome_do_template):

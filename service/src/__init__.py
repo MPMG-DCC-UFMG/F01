@@ -7,17 +7,31 @@ app = Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = "jvkbsiuehrq7h"
 app.config['JSON_AS_ASCII'] = False
 
-################## BANCO DE DADOS ##########################
+# ################## BANCO DE DADOS ##########################
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-    os.path.join(basedir, 'data.sqlite')
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+# #     os.path.join(basedir, 'data.sqlite')
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://asafe:123@localhost:5432/flask_db_f01'
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# db = SQLAlchemy(app)
+# Migrate(app, db)
+
+
+app.config.from_object("src.config.Config")
 db = SQLAlchemy(app)
-Migrate(app, db)
+
+class User(db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(128), unique=True, nullable=False)
+    active = db.Column(db.Boolean(), default=True, nullable=False)
+
+    def __init__(self, email):
+        self.email = email
 
 #######################  BLUEPRINTS ##########################
 
