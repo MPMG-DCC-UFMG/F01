@@ -1,7 +1,7 @@
 # F01
 Um sistema em Flask para gerenciamento dos resultados da trilha F01 em um banco de dados
 
-Criar banco:
+<!-- Criar banco:
 
 1) set FLASK_APP=app.py
 
@@ -9,7 +9,7 @@ Criar banco:
 
 3) flask db migrate
 
-4) flask db upgrade
+4) flask db upgrade -->
 
 
 ## URLs utilizadas para configuração:

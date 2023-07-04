@@ -9,7 +9,18 @@ services:
     ports:
       - 5001:5000
     env_file:
-      - ./.env.dev
+      - ./service/.env.dev
+    depends_on:
+      - db
+  api_aguas_limpas:
+    build: ./api_aguas_limpas
+    command: python manage.py run -h 0.0.0.0
+    volumes:
+      - ./api_aguas_limpas/:/usr/src/app/
+    ports:
+      - 5014:5014
+    env_file:
+      - ./api_aguas_limpas/.env.dev
     depends_on:
       - db
   db:
