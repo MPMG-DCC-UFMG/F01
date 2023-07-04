@@ -1,6 +1,5 @@
 from flask import jsonify
 from flask import Blueprint
-import pprint
 from pathlib import Path
 
 from src.municipio.manage_municipios import get_municipio
@@ -18,45 +17,75 @@ def index():
     return jsonify('Validadores.')
 
 
-@validadores.route('/<string:nome_do_template>', methods=['POST', 'GET'])
+@validadores.route('/<string:nome_do_template>', methods=['GET'])
 def rodar_template(nome_do_template):
+    """Executar validadores - (Em desenvolvimento)
+    Este endpoint executa os todos validadores desenvolvidos para todos os municípios de um template, 
+    salvando o resultado no banco de dados.
+    ---
+    tags:
+      - Execução dos validadores
+    parameters:
+      - name: nome_do_template
+        in: path
+        type: string
+        required: true
+        description: Nome do template para validação
+      - name: nome_da_tag
+        in: path
+        type: string
+        required: true
+        description: Nome do tag para validação
+    responses:
+      200:
+        description: Sucesso na va dos arquivos
+        schema:
+          type: string
+          example: 'ok'
+    """
 
     parametros = get_keywords_do_template(nome_do_template)
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
     
     for municipio in municipios:
-        if municipio == 'brumadinho':
-            print(municipio)
-            resultado = pipeline_validadores.todas_tags(parametros, municipio)
+        print(municipio)
+        resultado = pipeline_validadores.todas_tags(parametros, municipio)
 
-            municipio = get_municipio(municipio)
-            print("resultado final")
-            print(resultado)
+        municipio = get_municipio(municipio)
+        print("resultado final")
+        print(resultado)
 
         # print("Salvando resultado")
-            salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
+        salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
 
     return jsonify(f"Template {nome_do_template} validado") 
 
 @validadores.route('/<string:nome_do_template>/<string:nome_da_tag>', methods=['GET'])
 def rodar_tag(nome_do_template, nome_da_tag):
+    """Executar validadores - (Em desenvolvimento)
+    Este endpoint executa os validadores de uma tag específica para todos os municípios de um template, 
+    salvando o resultado no banco de dados.
+    ---
+    tags:
+      - Execução dos validadores
+    parameters:
+      - name: nome_do_template
+        in: path
+        type: string
+        required: true
+        description: Nome do template para validação
+    responses:
+      200:
+        description: Sucesso na va dos arquivos
+        schema:
+          type: string
+          example: 'ok'
+    """
 
     parametros = get_keywords_do_template(nome_do_template)
     municipios = get_nome_dos_municipios_do_template(nome_do_template)
-    control = True
     print(municipios)
     for municipio in municipios:
-        # print('-rodando município:', municipio)
-        # if municipio == 'araguari':
-        # if municipio == 'brumadinho':
-            # if municipio == 'confins':
-            #     control = False
-
-            # if control:
-            #     continue
-
-        # if municipio == 'resplendor':
-        # if municipio == 'tiradentes':
             print('-rodando município:', municipio)
             if nome_da_tag == 'acesso_a_informacao':
                 resultado = pipeline_validadores.acesso_a_informacao(parametros, municipio)
@@ -88,10 +117,8 @@ def rodar_tag(nome_do_template, nome_da_tag):
             print(f"resultado final: {municipio}")
             municipio = get_municipio(municipio)
             print(resultado)
-            # pprint.pprint(resultado, indent=2)
             print("**********************")
         
-
             salvar_resultado_de_json(municipio_id=municipio.id, resultado_json=resultado)
             
 
