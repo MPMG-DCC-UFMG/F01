@@ -1,50 +1,29 @@
-# F01
-Um sistema em Flask para gerenciamento dos resultados da trilha F01 em um banco de dados
+## Documentação | Painel Águas Limpas API
 
-<!-- Criar banco:
+Uma API para execução de validadores e gerenciamento dos resultados para fornecer relatório de cumprimento da lei de Acesso à Informação pelos Portais Transparência dos 853 municípios do Estado de Minas Gerais.
 
-1) set FLASK_APP=app.py
+> #### Clonando o projeto
+> No terminal, acesse o diretório e execute o comando:
+> ~~~
+> git clone http://gitlab-gsi-prod01.gsi.mpmg.mp.br/apps/painel-aguas-limpas/painel-aguas-limpas-back.git
+> ~~~
 
-2) flask db init
+> Para alterar a porta de execução, edite a linha correpondente no arquivo ".env.dev".
 
-3) flask db migrate
+> #### Executando o projeto (com docker)
+> No terminal, acesse o diretório e execute o comando:
+> ~~~
+> sudo docker-compose up -d --build
+> ~~~
+> Requer ter iniciado o container docker com o banco de dados
+> ()
+> 
+> Acesse: http://localhost:n_porta_definida
 
-4) flask db upgrade -->
+## Documentação 
 
-
-## URLs utilizadas para configuração:
-
-
-* Cadastra os muncipios no banco pela planilha de "lista_municipios.csv" e coloca a url do portal e da prefeitura conforma a planilha "links_validados.csv"
-```
-/municipio/carregar_municipios -> 
-```
-    
-* Associa os templates aos municipios, conforme o csv "municipios_clusters.csv"
-```
-/empresa/cadastrar_templates -> 
-```
-
-* Cadastra a checklist no banco pela planilha "lista_exigencias.csv"
-```
-/checklist/cadastrar_checklist
-```
-
-* Pegar todas as issues de erro de coleta do github e coloca no banco.
+Com a biblioteca Flask-Swagger, o endpoint padrão para acessar a documentação gerada pelo Swagger é /apidocs. Portanto, para visualizar a documentação, você deve acessar o seguinte URL:
 
 ```
-/carregar_resultados_github ->
-```
-
-* Indexar arquivos no ElasticSearch.
-
-```
-/indexar_arquivos/<string:nome_do_template>
-```
-
-
-* Gerar csv com os resultados
-
-```
-/api/gerar_csv
+http://.../apidocs/
 ```
