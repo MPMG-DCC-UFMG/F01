@@ -2,7 +2,7 @@ from src.validadores.utils import indexing
 from src.validadores.utils import check_df
 from src.validadores.base import Validador
 from src.validadores.utils.search_html import analyze_html
-from src.municipio.manage_municipios import obter_url_portal
+from src.municipio.manage import obter_url_portal
 
 
 # Textos que validam o item: Texto padrão explicativo sobre a Lei de Acesso à Informação --

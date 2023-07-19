@@ -1,4 +1,3 @@
-import json
 from src import db
 from datetime import datetime, timedelta
 from src.api_de_integracao.models import Resultado
@@ -152,9 +151,3 @@ def formatar_nome(nome):
     nome_formatado = nome_formatado.replace("(", "").replace(")", "")
     return nome_formatado
 
-
-def get_github_token():
-    with open('../service/github_token.json', 'r') as myfile:
-        data = myfile.read()
-        token = json.loads(data)
-        return token['github_token']

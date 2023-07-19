@@ -11,4 +11,4 @@ db = SQLAlchemy(app)
 
 from src.api_de_resultados.views import api_de_resultados
 
-app.register_blueprint(api_de_resultados, url_prefix="/api")
+app.register_blueprint(api_de_resultados)

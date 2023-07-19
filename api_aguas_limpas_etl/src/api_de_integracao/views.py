@@ -1,8 +1,15 @@
-import json
-
 from flask import jsonify
 from flask import Blueprint
-from flask import redirect, url_for
+from flask import redirect
+import pandas as pd
+from src import db
+import numpy as np
+import os
+from src.checklist.manage import get_all_itens
+from src.api_de_integracao.manage import procurar_resultado
+from src.municipio.manage import get_all_municipios
+from src.empresa.manage import get_all_templates
+from src.api_de_integracao.models import Resultado
 
 from src.api_de_integracao.scrip_indexar_arquivos_mp import scrip_indexar_arquivos_mp
 
@@ -70,3 +77,91 @@ def indexarArquivosTemplate(nome_do_template):
 #     for template in TEMPLATES:
 #         scrip_indexar_arquivos_mp(template)
 #     return jsonify('templates indexados')
+
+
+@api_de_integracao.route('/gerar_csv', methods=['GET'])
+
+def gerar_csv():
+    municipios = get_all_municipios()
+
+    df = pd.DataFrame(columns=['id_municipio', 'id_item', 'codigo_resposta', 'validated_at', 'justificativa'])
+
+    # Loop pelos municípios
+    for municipio in municipios:
+
+        itens = get_all_itens()
+        for item in itens:
+            resultado = procurar_resultado(municipio.id, item.id)
+
+            # Criar um dicionário com os valores
+            data = {
+                'id_municipio': municipio.id,
+                'id_item': item.id,
+            }
+
+            if resultado:
+
+                try:
+                    data['codigo_resposta'] = resultado[item.id]['codigo_resposta']
+                except AttributeError:
+                    pass
+                try:
+                    data['validated_at'] = resultado[item.id]['validated_at']
+                except AttributeError:
+                    pass
+                try:
+                    data['justificativa'] = resultado[item.id]['justificativa']
+                except AttributeError:
+                    pass
+
+                 # Adicionar uma linha ao DataFrame
+                df = pd.concat([df, pd.DataFrame([data])], ignore_index=True)
+
+    # Exibir o DataFrame final
+    df.to_csv("resultados.csv")
+    return jsonify("ok")
+
+def escrever_lista_em_arquivo(arquivo_nome, lista):
+    # Abre o arquivo em modo de escrita ('w')
+    with open(arquivo_nome, 'w') as arquivo:
+        # Converte cada elemento da lista em uma string e, em seguida, junta-os usando '\n'
+        lista_formatada = '\n'.join(str(item) for item in lista)
+        # Escreve a string formatada no arquivo
+        arquivo.write(lista_formatada)
+
+def subir_resultados():
+    if len(Resultado.query.all()):
+        return
+    print("Subindo resultados")
+
+    diretorio_atual = os.path.dirname(os.path.abspath(__file__))
+    # Navegue dois níveis acima para chegar à pasta onde resultados.csv está localizado
+    caminho_csv = os.path.join(diretorio_atual, '..', '..', 'resultados.csv')
+    df = pd.read_csv(caminho_csv)
+    for row in df.itertuples():
+        data_validacao = row.validated_at
+        if type(row.validated_at) != str:
+            data_validacao = None
+        novo_resultado = Resultado(item_id= row.id_item,
+                                   municipio_id= row.id_municipio,
+                                   codigo_resposta= row.codigo_resposta,
+                                   data_validacao = data_validacao,
+                                   justificativa= row.justificativa)
+        db.session.add(novo_resultado)
+        db.session.commit()
+
+@api_de_integracao.route('/teste', methods=['GET'])
+# Carregar banco
+def teste():
+  itens = get_all_itens()
+  for item in itens:
+      print(item.id)
+  templates = get_all_templates()
+  municipios = get_all_municipios()
+  results = Resultado.query.all()
+  print(len(itens))
+  print(len(templates))
+  print(len(municipios))
+  print(len(results))
+  return jsonify("opa")
+

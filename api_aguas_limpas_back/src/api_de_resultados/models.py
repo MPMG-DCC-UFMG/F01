@@ -69,7 +69,7 @@ class Resultado(db.Model):
     codigo_resposta = db.Column(db.String(30), nullable=True)
     #exemplo: OK, BLOQUEADA, NAO_COLETAVEL_TIMEOUT, TRUE, FALSE
 
-    justificativa = db.Column(db.String(300), nullable=True)
+    justificativa = db.Column(db.String(1000), nullable=True)
     # "Item ainda não validado"
     # "Validacao informou que o item coletado nao atende aos requisitos"
 

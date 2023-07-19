@@ -1,26 +1,26 @@
 version: '3.8'
 
 services:
-  service:
-    build: ./service
+  api_aguas_limpas_etl:
+    build: ./api_aguas_limpas_etl
     command: python manage.py run -h 0.0.0.0
     volumes:
-      - ./service/:/usr/src/app/
+      - ./api_aguas_limpas_etl/:/usr/src/app/
     ports:
       - 5001:5000
     env_file:
-      - ./service/.env.dev
+      - ./api_aguas_limpas_etl/.env.dev
     depends_on:
       - db
-  api_aguas_limpas:
-    build: ./api_aguas_limpas
+  api_aguas_limpas_back:
+    build: ./api_aguas_limpas_back
     command: python manage.py run -h 0.0.0.0
     volumes:
-      - ./api_aguas_limpas/:/usr/src/app/
+      - ./api_aguas_limpas_back/:/usr/src/app/
     ports:
       - 5014:5014
     env_file:
-      - ./api_aguas_limpas/.env.dev
+      - ./api_aguas_limpas_back/.env.dev
     depends_on:
       - db
   db:

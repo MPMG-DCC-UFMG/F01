@@ -201,7 +201,5 @@ def getItem(municipio, item_id):
 
 @api_de_resultados.route('/', methods=['GET'])
 def index():
-    mun = Empresa.query.all()
-    # print(mun)
     return jsonify('Api de resultados ok')
   

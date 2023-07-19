@@ -2,7 +2,7 @@ from flask import jsonify
 from flask import Blueprint
 from pathlib import Path
 
-from src.municipio.manage_municipios import get_municipio
+from src.municipio.manage import get_municipio
 from src.api_de_integracao.manage import salvar_resultado_de_json
 from src.empresa.manage import get_nome_dos_municipios_do_template
 from src.validadores.utils.handle_files import get_keywords_do_template

@@ -1,44 +1,73 @@
 import os
 from src import db
 import pandas as pd
-from flask import jsonify
-from flask import Blueprint
-from flask import Blueprint
-from src.checklist.manage import get_tag_itens
 from src.checklist.models import Tag, Subtag, Item
-from src.api_de_integracao.manage import formatar_nome
 
-checklist = Blueprint('checklist', __name__)
+def get_all_itens():
+    itens = Item.query.all()
+    return itens
 
-@checklist.route('/cadastrar_checklist', methods=['GET'])
-def cadastrar_checklist():
-    """ Cadastrar Checklist
-    Este endpoint é usado para registrar a checklist no banco de dados.
+def get_tag_by_name_in_github(nome_da_tag):
+    # Adaptação para os nomes de tag que estão diferentes no githubm eles são:
+    nome_da_tag_no_git_hub = {
+        'licitacao': "licitacoes",
+        'servidores': "servidores_publicos",
+    }
 
-    Este código realiza o seguinte:
+    if (nome_da_tag in nome_da_tag_no_git_hub):
+        nome_da_tag = nome_da_tag_no_git_hub[nome_da_tag]
 
-    1. Remove todos os registros existentes nas tabelas *Tag*, *Subtag* e *Item*.
-    2. Lê um arquivo CSV chamado `lista_exigencias.csv`.
-    3. Cadastra as tags presentes no arquivo CSV, verificando se já estão cadastradas.
-    4. Cadastra as subtags presentes no arquivo CSV, vinculando-as às tags correspondentes.
-    5. Cadastra os itens presentes no arquivo CSV, vinculando-os às tags e subtags correspondentes. Verifica se o item já está cadastrado.
-    6. Retorna uma resposta JSON contendo a mensagem 'ok'.
-    
-    O código limpa as tabelas existentes, lê um arquivo CSV  `/lista_exigencias.csv` e realiza o cadastro das informações presentes no arquivo nas tabelas do banco de dados.
+    tag = Tag.query.filter_by(nome=nome_da_tag).first()
+    if tag is None:
+        return None
+    return tag.nome
 
-    ---
-    tags:
-      - Gerênciamento do banco de dados 
-    responses:
-      200:
-        description: Sucesso
-        schema:
-          type: string
-          example: 'ok'
-    """
-    Tag.query.delete()
-    Subtag.query.delete()
-    Item.query.delete()
+
+def get_tag_id_by_name(nome_da_tag):
+    tag = Tag.query.filter_by(nome=nome_da_tag).first()
+    if tag:
+        return tag.id
+    else:
+        return None
+
+def get_tag_itens(nome_da_tag):
+    tag = Tag.query.filter_by(nome=nome_da_tag).first()
+    if tag:
+        return tag.itens
+    else:
+        return None
+
+def get_sub_tag_itens(nome_da_subtag):
+    subtag = Subtag.query.filter_by(nome=nome_da_subtag).first()
+    if subtag:
+        return subtag.itens
+    else:
+        return None
+
+def get_sub_tag(nome_da_subtag):
+    subtag = Subtag.query.filter_by(nome=nome_da_subtag).first()
+    return subtag
+
+def get_item(subtag_id, nome_do_item):
+    itens = Item.query.filter_by(subtag_id=subtag_id, abreviacao=nome_do_item).first()
+    return itens
+
+def formatar_nome(nome):
+    ori = "àãâáíẽéêóôõçú "
+    rep = "aaaaioeeooocu_"
+    nome_formatado = nome.lower().strip()
+    for i in range(len(ori)):
+        if ori[i] in nome_formatado:
+            nome_formatado = nome_formatado.replace(ori[i], rep[i])
+
+    nome_formatado = nome_formatado.replace("(", "").replace(")", "")
+    return nome_formatado
+
+def carregar_checklist():
+
+    # Item.query.delete()
+    # Subtag.query.delete()
+    # Tag.query.delete()
 
     # 1) Cadastra as tags, subtags e itens de acordo com a checklist ('lista_exigencias.csv')
 
@@ -99,5 +128,3 @@ def cadastrar_checklist():
             db.session.add(item)
 
     db.session.commit()
-
-    return jsonify('ok')
