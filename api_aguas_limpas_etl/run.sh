@@ -1,0 +1,3 @@
+docker build -t painel-aguas-limpas-etl .
+docker network create painel-aguas-limpas || true
+docker run --name painel-aguas-limpas-etl -e FLASK_APP=src/__init__.py -e FLASK_DEBUG=1 -e FLASK_RUN_PORT=5000 -e DATABASE_URL=postgresql://f01:f01@localhost:60107/f01_dev -e ELASTICSEARCHF01_URI=http://127.0.0.1:8055 --network painel-aguas-limpas -v painel-aguas-limpas-etl:/usr/src/app/ -p 60106:5000 painel-aguas-limpas-etl /usr/src/app/app_run.sh
